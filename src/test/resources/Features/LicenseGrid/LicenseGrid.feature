@@ -1,0 +1,129 @@
+Feature: LicenseGrid
+
+  Scenario: Step_22_As a user i validate the following sections and tabs and grid records are visible on the License Grid
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		And I see client dropdown company dropdown and facility dropdown are selected All by default
+		And I see reset filter feature should be available for the global filters
+		And I see column search for each columnIn the grid
+		And I see export button
+		And I see advanced filters link
+		And I see global search filters
+		And I see url icon for each license in the grid
+		And I see status help icon and active help icon
+		And I see call the log icon
+		And I see licenses grid underline color is yellow
+		
+		Scenario: Step_24_As a user i mouse over on the i icon for the status and activity column header
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		And I hover mouse on status i icon and i see tool tip
+		And I hover mouse on active i icon and i see tool tip
+		
+		Scenario: Step_25_As a user i click the url icon for the licenses
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I click on the url icon for the license
+		And I see the url opens and loads successfully if the url is valid
+		
+		Scenario: Step_27_As a user i verify add and go to activity
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I click on license go to activity icon
+		And I see activities page title
+		And I see the activity data for the chosen licenses
+		Then I click on licenses grid
+		And I see license Page Title
+		Then I click on add activity icon
+		And I see the activity data on license details page
+		And I add activity and task entry for the chosen license
+		And I see the task details saved successfully popup
+		And I click on task details saved successfully popup ok button
+
+
+Scenario: Step_23_As a user i click on the advanced filters search icon and users can view the pop up which should have the following
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I click on advanced filters
+		And I see the advance filters popup		
+		Then I see column names Of the grid in field dropdown and select value from it
+		And I see data in operator dropdown and select value from it
+		Then I enter advance filters value in input fields
+		And I click on advance filters save button
+		And I see advance filters is closed
+		And I see the license grid is filtered
+		Then I click on advanced filters
+		Then I click on add condition link
+		And I see dropdown have AND OR value and with the delete button
+		And I see field dropdown operator dropdown and value text filed
+		And I click on advance filters close button
+		And I see advance filters is closed
+
+Scenario: Step_28_As a user i validate add license popup
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I click on add new license button
+		Then I select company from dropdown
+		And I select facility from dropdown
+		Then I select states from dropdown
+		Then I select license status from dropdown
+		And I enter license name in input fields
+		And I enter license number in input fields
+		And I click on add license save button
+		And I see license details saved successfully
+		Then I click on success popup ok button
+		And I see the newly added license is listed in the license grid
+		
+		Scenario: Step_26_As a user i verify Add and view pdf icon
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I click on upload license pdf button
+		Then I choose file to upload
+		Then I click on save button
+		And I see pdf file success popup
+		Then I click on pdf file success popup ok button
+		And I click on view icon and see pdf file
+		
+    
