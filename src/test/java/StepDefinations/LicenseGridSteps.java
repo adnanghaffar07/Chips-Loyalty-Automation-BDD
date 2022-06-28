@@ -257,6 +257,45 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.verifyLicenseGridIsFiltered(driver));
 	}
 	
+	@Then("^I double click on licens to edit$")
+	public void doubleClickOnlicensToEdit() {
+		licenseGridPage.doubleClickOnlicensToEdit(driver);
+	}
+	
+	@And("^I see the edit license page titel$")
+	public void verifyEditLicensePageTitel() {
+		Assert.assertTrue(licenseGridPage.verifyEditLicensePageTitel(driver));
+	}
+	
+	@And("^I see the user is allowed to edit all the fields except the company facility state$")
+	public void verifyTheUserIsAllowedToEditAllTheFieldsExceptTheCompanyFacilityState() {
+		Assert.assertTrue(licenseGridPage.verifyTheUserIsAllowedToEditAllTheFieldsExceptTheCompanyFacilityState(driver));
+	}
+	
+	@And("^I see the user is allowed to remove the license pdf file if the file exists$")
+	public void verifyTheUserIsAllowedToRemoveTheLicensePdfFileIfTheFileExists() {
+		Assert.assertTrue(licenseGridPage.verifyTheUserIsAllowedToRemoveTheLicensePdfFileIfTheFileExists(driver));
+	}
+	
+	@And("^I see the user is able to view the delete button if the user has a permission to delete licenses$")
+	public void verifyTheUserIsAbleToViewTheDeleteButtonIfTheUserHasAPermissionToDeleteLicenses() {
+		Assert.assertTrue(licenseGridPage.verifyTheUserIsAbleToViewTheDeleteButtonIfTheUserHasAPermissionToDeleteLicenses(driver));
+	}
+	
+	@And("^I see the user is redirection to the license grid and verify the newly edited license is listed in the license grid with the newly edited values$")
+	public void verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues() {
+		licenseGridPage.verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues(driver);
+	}
+	
+	@And("^I see the editing a license is successful$")
+	public void verifyEditingALicenseIsSuccessful() {
+		Assert.assertTrue(licenseGridPage.verifyEditingALicenseIsSuccessful(driver));
+	}
+	
+	@Then("^I see label showing xx of xx entries$")
+	public void verifyEntriesIsShowingForLicenseslabel() {
+		Assert.assertTrue(licenseGridPage.verifyEntriesIsShowingForLicensesLibel(driver));
+	}
 	
 	
 	

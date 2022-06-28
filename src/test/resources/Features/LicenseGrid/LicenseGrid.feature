@@ -126,4 +126,36 @@ Scenario: Step_28_As a user i validate add license popup
 		Then I click on pdf file success popup ok button
 		And I click on view icon and see pdf file
 		
+		Scenario: Step_29_As a user i validate Edit License popup
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I double click on licens to edit
+		And I see the edit license page titel
+		And I see the user is allowed to edit all the fields except the company facility state
+		And I see the user is allowed to remove the license pdf file if the file exists
+		Then I double click on licens to edit
+		Then I see the user is able to view the delete button if the user has a permission to delete licenses
+		Then I double click on licens to edit
+		And I see the edit license page titel
+		And I see the editing a license is successful
+		And I see the user is redirection to the license grid and verify the newly edited license is listed in the license grid with the newly edited values
+		
+		Scenario: Step_31_As a user i verify the list of entries or entries is showing for Licenses
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I see label showing xx of xx entries
+		
+		
     

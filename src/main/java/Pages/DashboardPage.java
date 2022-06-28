@@ -68,6 +68,8 @@ public class DashboardPage extends BaseClass {
 	String licenseNumberCoun = "(//*[@title='View License']/ancestor::td/../td[7])";
 	
 	
+	
+	
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
 	String clientSelected = "";

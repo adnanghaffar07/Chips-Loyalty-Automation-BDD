@@ -172,6 +172,7 @@ public class Utilities extends Waits {
 
 		System.out.println("click:  ");
 		Waits.wait5s();
+		Waits.waitTime(10000);
 
 	}
 
@@ -196,6 +197,16 @@ public class Utilities extends Waits {
 	}
 
 	public static void scrollToElement(WebElement element, WebDriver driver) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+		((JavascriptExecutor) driver).executeScript("window.scrollTo( 0, -150)");
+		boolean isDisplay = isElementDisplayed(element, driver);
+		if (!isDisplay) {
+			((JavascriptExecutor) driver).executeScript("window.scrollTo( 0, -100)");
+		}
+	}
+	
+	public static void scrollToElement(String xpath, WebDriver driver) {
+		WebElement element = driver.findElement(By.xpath(xpath));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 		((JavascriptExecutor) driver).executeScript("window.scrollTo( 0, -150)");
 		boolean isDisplay = isElementDisplayed(element, driver);
@@ -244,5 +255,21 @@ public class Utilities extends Waits {
 		}
 
 	}
+	
+	public static boolean isDisabeld(String xpath, WebDriver driver) {
+		boolean isDisabeld;
+		WebElement element = driver.findElement(By.xpath(xpath));
+		isDisabeld = element.isEnabled();
+		return isDisabeld;
+	}
+	
+	public static boolean isDisplayed(String xpath, WebDriver driver) {
+		boolean isDisplayed;
+		WebElement element = driver.findElement(By.xpath(xpath));
+		isDisplayed = element.isDisplayed();
+		return isDisplayed;
+	}
+	
+	
 
 }

@@ -283,10 +283,14 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.verifyTheUserIsAbleToViewThePDF(driver);
 	}
 	
+	@And("^I see pdf file deleted success popup$")
+	public void verifyPdfFiledeletedSuccessPopup() {
+		Assert.assertTrue(dashboardPage.verifyPdfFileSuccessPopup(driver));
+	}
 	
-	
-	
-	
-	
+	@Then("^I click on pdf file deleted success popup ok button$")
+	public void clickOnPdfFiledeletedSuccessPopupOkButton() {
+		dashboardPage.clickOnPdfFileSuccessPopupOkButton(driver);
+	}
 	
 }

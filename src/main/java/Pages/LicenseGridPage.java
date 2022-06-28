@@ -84,7 +84,29 @@ public class LicenseGridPage extends BaseClass {
 	String successPopupOk = "//a[@id='successok']";
 	String licenseSerachTxt = "(//input[contains(@id,'myInput')])[5]";
 	String facilityDataInGrid = "(//tr[@class='odd']//td)[3]";
-	String facilityFilterDataInGrid = "//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3]";
+//	String facilityFilterDataInGrid = "//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3]";
+	String facilityFilterDataInGrid = "//tr";	
+	String removeFilePdfBtn = "//label[contains(text(),'Uploaded File Name : ')]";
+	String pdfUploadedFileName = "//label[contains(text(),'Uploaded File Name : ')]";
+	String editLicenseDeleteBtn = "//button[@id='modal-delete'] | //button[text()='Delete']";
+	String editLicenseCompanyDropDown = "//select[@id='CompanyKey']";
+	String editLicenseFacilityDropDown = "//select[@id='FacilityKeyPair']";
+	String editLicenseStatesDropDown = "//select[@id='StatesKey']";
+	String licensData = "(//*[@title='View License']/ancestor::td/../td)[3]";
+	String editLicensePageTitel = "//div[@class='modal-header head-back'] | //p[contains(text(),'License Details - Edit License')]";
+	String pdfFileSuccessPopup = "//div[@id='text_success']";
+	String pdfFileSuccessPopupOkBtn = "//a[@id='successok']";
+	String editLicenseComplianceDropDown = "//select[@id='ComplianceMaster']";
+	String editLicenseLicenseStatusDropDown = "//select[@id='LicenseStatusMasterKey']";
+	String editLicenseLicenseNumberTxt = "//input[@id='LicenseNumber']";
+	String editLicenseLicenseDetailsTxt = "//input[@id='LicenseDetails']";
+	String editLicenseDeleteConfirmBtn = "//a[@id='btn-confirm-ok'] | //a[text()='Confirm']";
+	String editLicenseFileRemoveBtn = "//button[@id='FileRemove'] | //button[text()='Remove File']";
+	String licenseNumberCoun = "(//*[@title='View License']/ancestor::td/../td[7])";
+	String saveBtn = "//button[@id='modal-save']";
+	String successPopup = "//div[@id='text_success']";
+	String successPopupOkBtn = "//a[@id='successok']";
+	String entriesIsShowingForLicensesLbl = "//div[@id='licenses-list-main_info']";
 	
 	
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
@@ -93,8 +115,9 @@ public class LicenseGridPage extends BaseClass {
 	String licenseName = "License" + randomNumberString(5);
 	ArrayList<String> activeLicenseTitelList = new ArrayList<String>();
 	ArrayList<String> operatorDropdownValueList = new ArrayList<String>();
-	 String facilityValueOfGrid ;
-	
+	ArrayList<String> licensDataList = new ArrayList<String>();
+	String facilityValueOfGrid;
+	String licenseNumberValue = "MT" + randomNumberString(5);
 
 	public LicenseGridPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -170,10 +193,10 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(clientDropdownOnLicense, "30", driver);
 			System.out.println("clientDropdownOnLicense: ");
-			
+
 			waitForElementVisibility(companyDropdownOnLicense, "30", driver);
 			System.out.println("companyDropdownOnLicense: ");
-			
+
 			waitForElementVisibility(facilityDropdownOnLicense, "30", driver);
 			System.out.println("facilityDropdownOnLicense: ");
 			return true;
@@ -187,28 +210,28 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(compMgrSearch, "30", driver);
 			System.out.println("compMgrSearch: ");
-			
+
 			waitForElementVisibility(companySearch, "30", driver);
 			System.out.println("companySearch: ");
-			
+
 			waitForElementVisibility(facilitySearch, "30", driver);
 			System.out.println("facilitySearch: ");
-			
+
 			waitForElementVisibility(stateSearch, "30", driver);
 			System.out.println("stateSearch: ");
-			
+
 			waitForElementVisibility(licenseNameSearch, "30", driver);
 			System.out.println("licenseNameSearch: ");
-			
+
 			waitForElementVisibility(licenseDetialsSearch, "30", driver);
 			System.out.println("licenseDetialsSearch: ");
-			
+
 			waitForElementVisibility(licenseSearch, "30", driver);
 			System.out.println("licenseSearch: ");
-			
+
 			waitForElementVisibility(statusSearch, "30", driver);
 			System.out.println("statusSearch: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -233,7 +256,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(statusHelpIcon, "30", driver);
 			System.out.println("statusHelpIcon: ");
-			
+
 			waitForElementVisibility(activeHelpIcon, "30", driver);
 			System.out.println("activeHelpIcon: ");
 			return true;
@@ -246,7 +269,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(callTheLogIcon, "30", driver);
 			System.out.println("callTheLogIcon: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -257,7 +280,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(addActivityLink, "30", driver);
 			System.out.println("addActivityLink: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -281,6 +304,7 @@ public class LicenseGridPage extends BaseClass {
 	}
 
 	public Boolean hoverMouseOnStatusIIconAndVerifyTooltip(WebDriver driver) {
+		waitTime(7000);
 		try {
 			waitForElementVisibility(statusHelpIcon, "30", driver);
 			click(statusHelpIcon, driver);
@@ -293,6 +317,7 @@ public class LicenseGridPage extends BaseClass {
 	}
 
 	public Boolean hoverMouseOnActiveIIconAndVerifyTooltip(WebDriver driver) {
+		waitTime(7000);
 		try {
 			waitForElementVisibility(activeHelpIcon, "30", driver);
 			click(activeHelpIcon, driver);
@@ -325,7 +350,6 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-
 
 	public void clickOnGoToActivityIcon(WebDriver driver) {
 		for (int i = 2; i < 8; i++) {
@@ -448,7 +472,7 @@ public class LicenseGridPage extends BaseClass {
 //			System.out.println(activeLicenseTitelList.get(i));
 
 		}
-		
+
 		waitForElementVisibility(advancedFilters, "30", driver);
 		click(advancedFilters, driver);
 	}
@@ -457,7 +481,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(advanceFiltersSelectField, "30", driver);
 			System.out.println("advanceFiltersSelectField: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -513,7 +537,7 @@ public class LicenseGridPage extends BaseClass {
 			for (int i = 1; i < size; i++) {
 				String options = op.get(i).getText().trim();
 				System.out.println(options);
-				
+
 				Assert.assertTrue(operatorDropdownValueList.contains(options));
 			}
 
@@ -556,13 +580,13 @@ public class LicenseGridPage extends BaseClass {
 
 			waitForElementVisibility(advanceFiltersSelectFieldSecond, "30", driver);
 			System.out.println("advanceFiltersSelectFieldSecond: ");
-		
+
 			waitForElementVisibility(advanceFiltersSelectOperatorSecond, "30", driver);
 			System.out.println("advanceFiltersSelectOperatorSecond: ");
-		
+
 			waitForElementVisibility(advanceOperatorValueSecondTxt, "30", driver);
 			System.out.println("advanceOperatorValueSecondTxt: ");
-		
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -585,7 +609,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(advanceFiltersSelectFieldSecond, "20", driver);
 			System.out.println("advanceFiltersSelectFieldSecond: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -614,7 +638,7 @@ public class LicenseGridPage extends BaseClass {
 		waitForElementVisibility(advanceFiltersSaveBtn, "30", driver);
 		System.out.println("advanceFiltersSaveBtn: ");
 		click(advanceFiltersSaveBtn, driver);
-		
+
 	}
 
 	public void clickOnAddNewLicenseButton(WebDriver driver) {
@@ -627,7 +651,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(addLicensePageTitle, "20", driver);
 			System.out.println("addLicensePageTitle: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -695,7 +719,7 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(licenseDetailsSavedSuccessfully, "20", driver);
 			System.out.println("licenseDetailsSavedSuccessfully: ");
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -728,19 +752,20 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyLicenseGridIsFiltered(WebDriver driver) {
 		try {
 			waitTime(6000);
 			System.out.println(facilityFilterDataInGrid.length());
 			int size = facilityFilterDataInGrid.length();
 			size = (size - 25);
-			for (int i = 1; i < size; i++) {
-				WebElement element = driver.findElement(By.xpath("(//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3])["+i+"]"));
+			for (int i = 1; i < facilityFilterDataInGrid.length(); i++) {
+				WebElement element = driver.findElement(By.xpath(
+						"(//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3])["+i+"]"));
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver);
 				Assert.assertTrue(getData.equals(facilityValueOfGrid));
-				System.out.println("inside : "+facilityFilterDataInGrid.length());
+				System.out.println("inside : " + facilityFilterDataInGrid.length());
 			}
 
 			return true;
@@ -748,6 +773,153 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
 
+	public void doubleClickOnlicensToEdit(WebDriver driver) {
+		waitTime(6000);
+		for (int i = 2; i < 8; i++) {
+			if (i == 4 || i == 6) {
+				i += 1;
+				System.out.println(i);
+			}
+			WebElement data = driver
+					.findElement(By.xpath("(//*[@title='View License']/ancestor::td/../td)[" + i + "]"));
+			scrollIntoViewSmoothly(data, driver);
+			String getData = getValue(data, driver);
+			licensDataList.add(getData);
+		}
+		scrollToElement(licensData, driver);
+		doubleClick(licensData, driver);
+	}
+
+	public Boolean verifyEditLicensePageTitel(WebDriver driver) {
+		try {
+			waitForElementVisibility(editLicensePageTitel, "20", driver);
+			System.out.println("editLicensePageTitel: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyTheUserIsAllowedToEditAllTheFieldsExceptTheCompanyFacilityState(WebDriver driver) {
+		try {
+			Assert.assertFalse("Verify Company DropDown is Disabeld", isDisabeld(editLicenseCompanyDropDown, driver));
+
+			Assert.assertFalse("Verify Facility DropDown is Disabeld", isDisabeld(editLicenseFacilityDropDown, driver));
+
+			Assert.assertFalse("Verify Facility DropDown is Disabeld", isDisabeld(editLicenseStatesDropDown, driver));
+
+			Select complianceDropdown = new Select(driver.findElement(By.xpath(editLicenseComplianceDropDown)));
+			WebElement complianceOption = complianceDropdown.getFirstSelectedOption();
+			String complianceValueBefore = complianceOption.getText();
+			complianceDropdown.selectByIndex(1);
+			complianceOption = complianceDropdown.getFirstSelectedOption();
+			String complianceValueAfter = complianceOption.getText();
+			Assert.assertFalse("Verify Compliance DropDown is Editable",
+					complianceValueAfter.equals(complianceValueBefore));
+
+			Select LicenseStatusDropdown = new Select(driver.findElement(By.xpath(editLicenseLicenseStatusDropDown)));
+			WebElement LicenseStatusOption = LicenseStatusDropdown.getFirstSelectedOption();
+			String LicenseStatusValueBefore = LicenseStatusOption.getText();
+			LicenseStatusDropdown.selectByIndex(1);
+			LicenseStatusOption = LicenseStatusDropdown.getFirstSelectedOption();
+			String LicenseStatusValueAfter = complianceOption.getText();
+			Assert.assertFalse("Verify License Status DropDown is Editable",
+					LicenseStatusValueAfter.equals(LicenseStatusValueBefore));
+
+			String LicenseNumberValueBefore = getValue(editLicenseLicenseNumberTxt, driver);
+			type(editLicenseLicenseNumberTxt, "M1001233", driver);
+			String LicenseNumberValueAfter = getValue(editLicenseLicenseNumberTxt, driver);
+			Assert.assertFalse("Verify License Number Input Field is Editable",
+					LicenseNumberValueAfter.equals(LicenseNumberValueBefore));
+
+			String licenseDetailsValueBefore = getValue(editLicenseLicenseDetailsTxt, driver);
+			type(editLicenseLicenseDetailsTxt, "L942232", driver);
+			String licenseDetailsValueAfter = getValue(editLicenseLicenseDetailsTxt, driver);
+			Assert.assertFalse("Verify License Number Input Field is Editable",
+					licenseDetailsValueAfter.equals(licenseDetailsValueBefore));
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyTheUserIsAllowedToRemoveTheLicensePdfFileIfTheFileExists(WebDriver driver) {
+		waitTime(6000);
+		try {
+			if (isDisplayed(pdfUploadedFileName, driver) == true) {
+
+				click(editLicenseFileRemoveBtn, driver);
+
+				waitForElementVisibility(pdfFileSuccessPopup, "30", driver);
+
+				click(pdfFileSuccessPopupOkBtn, driver);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyTheUserIsAbleToViewTheDeleteButtonIfTheUserHasAPermissionToDeleteLicenses(WebDriver driver) {
+		waitTime(6000);
+		try {
+			if (isDisplayed(editLicenseDeleteBtn, driver) == true) {
+
+				click(editLicenseDeleteBtn, driver);
+
+				click(editLicenseDeleteConfirmBtn, driver);
+
+				waitForElementVisibility(pdfFileSuccessPopup, "30", driver);
+
+				click(pdfFileSuccessPopupOkBtn, driver);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyEditingALicenseIsSuccessful(WebDriver driver) {
+		waitTime(6000);
+		try {
+			type(editLicenseLicenseNumberTxt, licenseNumberValue, driver);
+			click(saveBtn, driver);
+			waitForElementVisibility(successPopup, "30", driver);
+
+			click(successPopupOkBtn, driver);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues(WebDriver driver) {
+		for (int i = 1; i < licenseNumberCoun.length(); i++) {
+
+			WebElement data = driver
+					.findElement(By.xpath("(//*[@title='View License']/ancestor::td/../td[7])[" + i + "]"));
+			String getData = getValue(data, driver).trim();
+
+			if (getData.equals(licenseNumberValue) == true) {
+				Assert.assertTrue(getData.equals(licenseNumberValue));
+				break;
+			}
+			
+		}
+
+	}
+
+	public Boolean verifyEntriesIsShowingForLicensesLibel(WebDriver driver) {
+		try {
+			waitForElementVisibility(entriesIsShowingForLicensesLbl, "20", driver);
+			System.out.println("licenseDetailsSavedSuccessfully: ");
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 }
