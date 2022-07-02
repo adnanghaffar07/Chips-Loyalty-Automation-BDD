@@ -48,11 +48,6 @@ public class ChangePasswordSteps extends BaseClass {
 		Assert.assertTrue(changePasswordPage.verifyEnterConfirmPasswordTextField(driver));
 	}
 	
-//	@And("^I see cancel button$")
-//	public void verifyCancelButton() {
-//		Assert.assertTrue(changePasswordPage.verifyCancelButton(driver));
-//	}
-	
 	@And("^I see help dropdown$")
 	public void verifyHelpDropdown() {
 		Assert.assertTrue(changePasswordPage.verifyHelpDropdown(driver));

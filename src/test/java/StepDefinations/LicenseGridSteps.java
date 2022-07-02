@@ -297,6 +297,122 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.verifyEntriesIsShowingForLicensesLibel(driver));
 	}
 	
+	@Then("^I enter value in license name search filter$")
+	public void enterValueInLicenseNameSearch() {
+		licenseGridPage.enterValueInLicenseNameSearch(driver);
+	}
+	
+	@And("^I click on reset page filters link$")
+	public void clickOnResetPageFiltersLink() {
+		licenseGridPage.clickOnResetPageFiltersLink(driver);
+	}
+	
+	@Then("^I see the reset filter works in the licenses grid$")
+	public void verifyResetFilterWorksInTheLicensesGrid() {
+		Assert.assertTrue(licenseGridPage.verifyResetFilterWorksInTheLicensesGrid(driver));
+	}
+	
+	@Then("^I select value from clint Filter$")
+	public void selectValueFromClintFilter() {
+		licenseGridPage.selectValueFromClintFilter(driver);
+	}
+	
+	@And("^I see the callLog popoup titel$")
+	public void verifyCallLogPopoupTitel() {
+		Assert.assertTrue(licenseGridPage.verifyCallLogPopoupTitel(driver));
+	}
+	
+	@Then("^I see the add call log button$")
+	public void verifyAddCallLogButton() {
+		Assert.assertTrue(licenseGridPage.verifyAddCallLogButton(driver));
+	}
+	
+	@And("^I see the call log popoup close X icon button$")
+	public void verifyCallLogPopoupCloseXIconButton() {
+		Assert.assertTrue(licenseGridPage.verifyCallLogPopoupCloseXIconButton(driver));
+	}
+	
+	@And("^I see the call log popoup entries$")
+	public void verifyCallLogPopoupcallLogListEntries() {
+		Assert.assertTrue(licenseGridPage.verifyCallLogPopoupcallLogListEntries(driver));
+	}
+	
+	@And("^I see the call log popoup global search$")
+	public void verifyCallLogLogPopoupGlobalSearch() {
+		Assert.assertTrue(licenseGridPage.verifyCallLogLogPopoupGlobalSearch(driver));
+	}
+	
+	@Then("^I double click on existing call log entries and user is allowed to view call log entries$")
+	public void doubleClickOnExistingCallLogEntriesAndUserIsAllowedToViewCallLogEntries() {
+		Assert.assertTrue(licenseGridPage.doubleClickOnExistingCallLogEntriesAndUserIsAllowedToViewCallLogEntries(driver));
+	}
+	
+	@Then("^I see the client and facility fields are not editable$")
+	public void verifyClientFacilityAreNotEditable() {
+		Assert.assertTrue(licenseGridPage.verifyClientFacilityAreNotEditable(driver));
+	}
+	
+	@And("^I see the type and date fields are mandatory$")
+	public void verifyTypeAndDateFieldsAreMandatory() {
+		Assert.assertTrue(licenseGridPage.verifyTypeAndDateFieldsAreMandatory(driver));
+	}
+	
+	@Then("^I click on save button and verify the modified values saved successfully$")
+	public void clickOnSaveButtonVerifyTheModifiedValuesSavedSuccessfully() {
+		Assert.assertTrue(licenseGridPage.clickOnSaveButtonVerifyTheModifiedValuesSavedSuccessfully(driver));
+	}
+	
+	@Then("^I click on communication log button$")
+	public void clickOnCommunicationLogButton() {
+		licenseGridPage.clickOnCommunicationLogButton(driver);
+	}
+	
+	
+	@Then("^I click on save button and verify the new entries are listed in the existing communication logs grid$")
+	public void clickOnSaveButtonVerifyTheNewEntriesAreListedInTheExistingCommunicationLogsGrid() {
+		Assert.assertTrue(licenseGridPage.clickOnSaveButtonVerifyTheNewEntriesAreListedInTheExistingCommunicationLogsGrid(driver));
+	}
+	
+	@And("^I click on Add call Log button$")
+	public void clickOnCallLogPopoupAddCallLogButton() {
+		licenseGridPage.clickOnCallLogPopoupAddCallLogButton(driver);
+	}
+	
+	
+	@Then("^I select incomplete only from license progress dropdown$")
+	public void selectIncompleteOnlyFromLicenseProgressDropdown() {
+		licenseGridPage.selectIncompleteOnlyFromLicenseProgressDropdown(driver);
+	}
+	
+	@Then("^I select all from license progress dropdown$")
+	public void selectAllFromLicenseProgressDropdown() {
+		licenseGridPage.selectAllFromLicenseProgressDropdown(driver);
+	}
+	
+	@Then("^I select complete only from license progress dropdown$")
+	public void selectCompleteOnlyFromLicenseProgressDropdown() {
+		licenseGridPage.selectCompleteOnlyFromLicenseProgressDropdown(driver);
+	}
+	
+	@And("^I see the licenses activities are filtered based on the chosen license progress incomplete only$")
+	public void verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressIncompleteOnly() {
+		Assert.assertTrue(licenseGridPage.verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressIncompleteOnly(driver));
+	}
+	
+	@Then("^I see the licenses activities are filtered based on the chosen license progress complete only$")
+	public void verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressCompleteOnly() {
+		Assert.assertTrue(licenseGridPage.verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressCompleteOnly(driver));
+	}
+	
+	@Then("^I see the licenses activities are filtered based on the chosen license progress all$")
+	public void verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressAll() {
+		Assert.assertTrue(licenseGridPage.verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressAll(driver));
+	}
+	
+	@Then("^I get it activities column name and click on advanced filters$")
+	public void getActivitiesTitel() {
+		licenseGridPage.getActivitiesTitel(driver);
+	}
 	
 	
 }

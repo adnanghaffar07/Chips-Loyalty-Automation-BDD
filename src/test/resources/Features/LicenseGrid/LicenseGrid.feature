@@ -146,7 +146,7 @@ Scenario: Step_28_As a user i validate add license popup
 		And I see the editing a license is successful
 		And I see the user is redirection to the license grid and verify the newly edited license is listed in the license grid with the newly edited values
 		
-		Scenario: Step_31_As a user i verify the list of entries or entries is showing for Licenses
+		Scenario: Step_32_As a user i verify the list of entries or entries is showing for Licenses
     Given Visit the app url
     When I see login page title
     And I enter username
@@ -155,7 +155,31 @@ Scenario: Step_28_As a user i validate add license popup
     And I click on session popup cancel button
     Then I click on licenses grid
 		And I see license Page Title
-		Then I see label showing xx of xx entries
+		Then I enter value in license name search filter
+		And I click on reset page filters link
+		Then I see the reset filter works in the licenses grid
+		
+		Scenario: Step_32_As a user i verify call log popup
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I select value from clint Filter
+		Then I click on communication log button
+		And I see the callLog popoup titel
+		Then I see the add call log button
+		And I see the call log popoup close X icon button
+		And I see the call log popoup entries
+		And I see the call log popoup global search
+		Then I double click on existing call log entries and user is allowed to view call log entries
+		And I see the type and date fields are mandatory
+		Then I click on save button and verify the modified values saved successfully
+		And I click on Add call Log button
+		Then I click on save button and verify the new entries are listed in the existing communication logs grid
 		
 		
     

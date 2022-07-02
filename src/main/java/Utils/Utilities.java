@@ -1,5 +1,6 @@
 package Utils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Utilities extends Waits {
@@ -270,6 +272,26 @@ public class Utilities extends Waits {
 		return isDisplayed;
 	}
 	
-	
+	public static void selectValueFromDropdown(String xpath, int selectVal , WebDriver driver) {
+		Select select = new Select(driver.findElement(By.xpath(xpath)));
+		select.selectByIndex(selectVal);
+		waitTime(10000);
 
+	}
+	
+	public static void selectValueFromDropdownThroughText(String xpath, String selectVal , WebDriver driver) {
+		Select select = new Select(driver.findElement(By.xpath(xpath)));
+		List<WebElement> size = select.getOptions();
+		for(int i=1;i<size.size();i++) {
+			WebElement option = select.getFirstSelectedOption();
+			String value = option.getText().trim();
+			if(value.equals(selectVal.trim())) {
+				break;
+			}
+			select.selectByIndex(i);
+		}
+		waitTime(10000);
+	}
+
+	
 }

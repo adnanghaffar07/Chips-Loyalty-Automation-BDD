@@ -161,7 +161,8 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-
+	
+	
 	public Boolean verifyFilterByLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(filterByLbl, "30", driver);
@@ -362,6 +363,7 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnActivitiesGrid(WebDriver driver) {
+		waitTime(10000);
 		waitForElementVisibility(activitiesGrid, "30", driver);
 		click(activitiesGrid, driver);
 	}
@@ -453,6 +455,7 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public Boolean verifyTasksPageTitle(WebDriver driver) {
+		waitTime(7000);
 		try {
 			waitForElementVisibility(tasksPageTitle, "30", driver);
 			System.out.println("tasksPageTitle : ");
