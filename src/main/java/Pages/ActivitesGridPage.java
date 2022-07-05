@@ -164,8 +164,4 @@ public class ActivitesGridPage extends BaseClass {
 		}
 	}
 
-//
-//	loadingPleaseWait
-	
-
 }

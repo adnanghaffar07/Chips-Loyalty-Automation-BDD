@@ -146,7 +146,18 @@ Scenario: Step_28_As a user i validate add license popup
 		And I see the editing a license is successful
 		And I see the user is redirection to the license grid and verify the newly edited license is listed in the license grid with the newly edited values
 		
-		Scenario: Step_32_As a user i verify the list of entries or entries is showing for Licenses
+		Scenario: Step_31_As a user i verify the list of entries or entries is showing for licenses on licenses grid
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I see label showing xx of xx entries
+		
+		Scenario: Step_32_As a user i verify reset filter works in the licenses grid
     Given Visit the app url
     When I see login page title
     And I enter username
@@ -159,7 +170,7 @@ Scenario: Step_28_As a user i validate add license popup
 		And I click on reset page filters link
 		Then I see the reset filter works in the licenses grid
 		
-		Scenario: Step_32_As a user i verify call log popup
+		Scenario: Step_33_As a user i verify call log popup
     Given Visit the app url
     When I see login page title
     And I enter username

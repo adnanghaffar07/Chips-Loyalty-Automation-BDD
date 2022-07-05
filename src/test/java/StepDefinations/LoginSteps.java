@@ -179,8 +179,7 @@ public class LoginSteps extends BaseClass {
 				FileUtils.deleteDirectory(new File("allure-results"));
 				FileUtils.deleteDirectory(new File("allure-report"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
+
 			}
 		}
 	@After

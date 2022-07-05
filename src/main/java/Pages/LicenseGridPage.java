@@ -92,7 +92,7 @@ public class LicenseGridPage extends BaseClass {
 	String editLicenseCompanyDropDown = "//select[@id='CompanyKey']";
 	String editLicenseFacilityDropDown = "//select[@id='FacilityKeyPair']";
 	String editLicenseStatesDropDown = "//select[@id='StatesKey']";
-	String licensData = "(//*[@title='View License']/ancestor::td/../td)[3]";
+	String licensData = "(//*[@title='View License']/ancestor::td/../td)[3]/..";
 	String editLicensePageTitel = "//div[@class='modal-header head-back'] | //p[contains(text(),'License Details - Edit License')]";
 	String pdfFileSuccessPopup = "//div[@id='text_success']";
 	String pdfFileSuccessPopupOkBtn = "//a[@id='successok']";
@@ -106,7 +106,6 @@ public class LicenseGridPage extends BaseClass {
 	String saveBtn = "//button[@id='modal-save']";
 	String successPopup = "//div[@id='text_success']";
 	String successPopupOkBtn = "//a[@id='successok']";
-//	String entriesIsShowingForLicensesLbl = "//div[@id='licenses-list-main_info'] | //div[contains(text(),'Entries')]";
 	String entriesIsShowingForLicensesLbl = "//div[contains(text(),'Entries')]";
 	String firstLicenseName = "(//tr//td[5])[1]";
 	String firstLicenseNameAll = "//tr//td[5]";

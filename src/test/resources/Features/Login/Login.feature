@@ -16,7 +16,7 @@ Feature: Login
     Scenario: Step_6_As a user i enter invalid user name and valid password
     Given Visit the app url
     When I see login page title
-    And I enter user name "ambree"
+    And I enter user name "qaautomation"
     And I enter password "TestQa@#1234"
     Then I click on login button
     And I see invalid username and password please try again Label
@@ -24,7 +24,7 @@ Feature: Login
     Scenario: Step_7_As a user i Enter valid User Name and invalid Password
     Given Visit the app url
     When I see login page title
-    And I enter user name "ambreen.younas@pharma.solutions"
+    And I enter user name "qaautomation@pharma.solutions"
     And I enter password "Tes"
     Then I click on login button
     And I see invalid username and password please try again Label
@@ -42,7 +42,7 @@ Feature: Login
     And I enter password "TestQa@#1234"
     Then I click on login button
     And I see username validation message
-    And I enter user name "ambreen.younas@pharma.solutions"
+    And I enter user name "qaautomation@pharma.solutions"
     Then I click on login button
     And I see password validation message
     And I click on login button without values In both username and password fields

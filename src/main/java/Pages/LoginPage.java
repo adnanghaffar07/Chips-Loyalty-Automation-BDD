@@ -279,8 +279,6 @@ public class LoginPage extends BaseClass {
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
-
-	
 	public Boolean verifyProfileNameDropDown(WebDriver driver) {
 		try {
 			waitForElementVisibility(profileNameDropDown, "30", driver);

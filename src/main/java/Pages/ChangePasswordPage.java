@@ -29,9 +29,6 @@ public class ChangePasswordPage extends BaseClass {
 	String copyrightLbl = "//p[text()[contains(.,'Copyright ©')]]";
 	String logoOnChangePasswordPage = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/new_atlas_psh_logo_converted.png']";
 	
-	
-	
-	
 
 	public ChangePasswordPage(WebDriver driverParam) {
 		this.podriver = driverParam;
