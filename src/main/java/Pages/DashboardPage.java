@@ -66,7 +66,7 @@ public class DashboardPage extends BaseClass {
 	String pdfFileSuccessPopup = "//div[@id='text_success']";
 	String pdfFileSuccessPopupOkBtn = "//a[@id='successok']";
 	String licenseNumberCoun = "(//*[@title='View License']/ancestor::td/../td[7])";
-	
+	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
 	
 	
 	
@@ -356,21 +356,27 @@ public class DashboardPage extends BaseClass {
 
 	}
 
-	public void clickOnLicensesGrid(WebDriver driver) {
+	public void clickOnLicensesGrid(WebDriver driver) throws InterruptedException {
 		waitTime(10000);
 		waitForElementVisibility(licensesGrid, "30", driver);
 		click(licensesGrid, driver);
+		
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
-	public void clickOnActivitiesGrid(WebDriver driver) {
+	public void clickOnActivitiesGrid(WebDriver driver) throws InterruptedException {
 		waitTime(10000);
 		waitForElementVisibility(activitiesGrid, "30", driver);
 		click(activitiesGrid, driver);
+		
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
-	public void clickOnTasksGrid(WebDriver driver) {
+	public void clickOnTasksGrid(WebDriver driver) throws InterruptedException {
 		waitForElementVisibility(tasksGrid, "30", driver);
 		click(tasksGrid, driver);
+		
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
 	public void clickOnDocumentsGrid(WebDriver driver) {

@@ -181,5 +181,18 @@ Scenario: Step_28_As a user i validate add license popup
 		And I click on Add call Log button
 		Then I click on save button and verify the new entries are listed in the existing communication logs grid
 		
+		Scenario: Step_40_As a user i verify license expiration
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I see the license with expiration field populated
+		Then I double click on expiration date
+		And I see the edit license page titel
+		Then I see the expiry date matches the expiration date noted in the license grid
 		
     

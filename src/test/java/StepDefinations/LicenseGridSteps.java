@@ -414,5 +414,21 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.getActivitiesTitel(driver);
 	}
 	
+	@Then("^I see the license with expiration field populated$")
+	public void verifyLicenseWithExpirationFieldPopulated() throws InterruptedException {
+		Assert.assertTrue(licenseGridPage.verifyLicenseWithExpirationFieldPopulated(driver));
+	}
+	
+	@Then("^I double click on expiration date$")
+	public void doubleClickOnExpirationDate() throws InterruptedException {
+		licenseGridPage.doubleClickOnExpirationDate(driver);
+	}
+	
+	@Then("^I see the expiry date matches the expiration date noted in the license grid$")
+	public void verifyTheExpiryDateMatchesTheExpirationDateNotedInTheLicenseGrid() {
+		Assert.assertTrue(licenseGridPage.verifyTheExpiryDateMatchesTheExpirationDateNotedInTheLicenseGrid(driver));
+	}
+	
+	
 	
 }

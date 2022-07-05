@@ -115,7 +115,7 @@ public class LoginSteps extends BaseClass {
 	}
 	
 	@Then("^I click on session popup cancel button$")
-	public void clickOnSessionPopupCancelButton() {
+	public void clickOnSessionPopupCancelButton() throws InterruptedException {
 		loginPage.clickOnSessionPopupCancelButton(driver);
 	}
 	

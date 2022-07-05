@@ -34,6 +34,11 @@ public class LoginPage extends BaseClass {
 	String invalidUsernamePasswordErrorMsg = "//p[text()[contains(.,'Invalid Username or Password . Please try again')]]";
 	String usernameValidationMsg = "//input[@id='username'and//@required]";
 	String passwordValidationMsg = "//input[@id='password'and//@required]";
+	String yourDeviceOrNetworkIsNotRecognizedPopup = "//div[@id='text_error']";
+	String enterValidationCode = "//input[@placeholder='Enter Validation Code'] | //input[@id='verificationCode']";
+	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
+	
+	
 
 	public LoginPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -264,12 +269,14 @@ public class LoginPage extends BaseClass {
 		click(loginBtn, driver);
 	}
 	
-	public void clickOnSessionPopupCancelButton(WebDriver driver) {
+	public void clickOnSessionPopupCancelButton(WebDriver driver) throws InterruptedException {
 		try {
 			driver.switchTo().alert().dismiss();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
 

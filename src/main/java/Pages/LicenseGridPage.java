@@ -85,7 +85,7 @@ public class LicenseGridPage extends BaseClass {
 	String licenseSerachTxt = "(//input[contains(@id,'myInput')])[5]";
 	String facilityDataInGrid = "(//tr[@class='odd']//td)[3]";
 //	String facilityFilterDataInGrid = "//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3]";
-	String facilityFilterDataInGrid = "//tr";	
+	String facilityFilterDataInGrid = "//tr";
 	String removeFilePdfBtn = "//label[contains(text(),'Uploaded File Name : ')]";
 	String pdfUploadedFileName = "//label[contains(text(),'Uploaded File Name : ')]";
 	String editLicenseDeleteBtn = "//button[@id='modal-delete'] | //button[text()='Delete']";
@@ -119,7 +119,7 @@ public class LicenseGridPage extends BaseClass {
 	String callLogPopoupEditSectionTitel = "//label[@id='callLog_form_title']";
 	String callLogEditClientNameTxt = "//input[@id='ClientName']";
 	String callLogEditCompanyDropdown = "//select[@id='CompanyKeyCallLog']";
-	String callLogEditFacilityDropdown = "//select[@id='FacilityKeyPairCallLog']";	
+	String callLogEditFacilityDropdown = "//select[@id='FacilityKeyPairCallLog']";
 	String callLogEditPersonnelDropdown = "//select[@id='PersonnelKey']";
 	String callLogEditTypeDropdown = "//select[@id='CallLogTypeKey']";
 	String callLogEditDateTxt = "//input[@id='callDate']";
@@ -136,8 +136,12 @@ public class LicenseGridPage extends BaseClass {
 	String licenseProgressDropdown = "//select[@id='incomplete'] | //span[@class='pull-right select-header']//select";
 	String advancedFiltersLink = "//a[text()=' Advanced Filters ']";
 	String licenseProgressList = "(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])";
+	String expirationDate = "(//td//span[@class='red'])[1]";
+	String expirationDateOnDetials = "//input[@id='ExpirationDate']";
+	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
 	
 	
+
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
 	ArrayList<String> addActiveLicenseList = new ArrayList<String>();
 	ArrayList<String> addLicenseList = new ArrayList<String>();
@@ -147,13 +151,14 @@ public class LicenseGridPage extends BaseClass {
 	ArrayList<String> licensDataList = new ArrayList<String>();
 	String facilityValueOfGrid;
 	String licenseNumberValue = "MT" + randomNumberString(5);
-	String licenseNumber= "9876"+randomNumberString(5);
-	String clientActionable = "11/9/2021"+randomNumberString(4);
+	String licenseNumber = "9876" + randomNumberString(5);
+	String clientActionable = "11/9/2021" + randomNumberString(4);
 	String showingForLicensesValBefore;
 	String showingForLicensesValAfter;
-	String incompleteOnly =  "Incomplete only";
-	String all =  "All";
-	String completeOnly  =  "Complete only";
+	String incompleteOnly = "Incomplete only";
+	String all = "All";
+	String completeOnly = "Complete only";
+	String getExpirationDate = "";
 
 	public LicenseGridPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -338,7 +343,6 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
 
 	public Boolean hoverMouseOnStatusIIconAndVerifyTooltip(WebDriver driver) {
 		waitTime(7000);
@@ -514,7 +518,7 @@ public class LicenseGridPage extends BaseClass {
 		waitForElementVisibility(advancedFilters, "30", driver);
 		click(advancedFilters, driver);
 	}
-	
+
 	public void getActivitiesTitel(WebDriver driver) {
 		waitTime(7000);
 		facilityValueOfGrid = getValueFromAttribute(facilityDataInGrid, driver).trim();
@@ -536,7 +540,6 @@ public class LicenseGridPage extends BaseClass {
 		click(advancedFilters, driver);
 
 	}
-
 
 	public Boolean verifyAdvanceFiltersPopup(WebDriver driver) {
 		try {
@@ -826,7 +829,8 @@ public class LicenseGridPage extends BaseClass {
 			size = (size - 25);
 			for (int i = 1; i < facilityFilterDataInGrid.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
-					"(//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3])["+i+"]"));
+						"(//th[@aria-label='Facility: activate to sort column descending']/following::tr//td[3])[" + i
+								+ "]"));
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver);
 				Assert.assertTrue(getData.equals(facilityValueOfGrid));
@@ -961,7 +965,8 @@ public class LicenseGridPage extends BaseClass {
 		}
 	}
 
-	public void verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues(WebDriver driver) {
+	public void verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues(
+			WebDriver driver) {
 		for (int i = 1; i < licenseNumberCoun.length(); i++) {
 
 			WebElement data = driver
@@ -985,7 +990,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean enterValueInLicenseNameSearch(WebDriver driver) {
 		try {
 			waitTime(9000);
@@ -1004,21 +1009,21 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public void clickOnResetPageFiltersLink(WebDriver driver) {
 		waitForElementVisibility(resetPageFiltersLink, "30", driver);
 		System.out.println("resetPageFiltersLink: ");
 		click(resetPageFiltersLink, driver);
 		waitTime(13000);
 	}
-	
+
 	public Boolean verifyResetFilterWorksInTheLicensesGrid(WebDriver driver) {
 		waitTime(9000);
 		try {
 			scrollToElement(entriesIsShowingForLicensesLbl, driver);
 			showingForLicensesValAfter = getText(entriesIsShowingForLicensesLbl, driver).trim();
 			System.out.println(showingForLicensesValBefore);
-			if(showingForLicensesValAfter.equals(showingForLicensesValBefore) == false) {
+			if (showingForLicensesValAfter.equals(showingForLicensesValBefore) == false) {
 				Assert.assertFalse(showingForLicensesValAfter.equals(showingForLicensesValBefore));
 			}
 			return true;
@@ -1026,7 +1031,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyAddCallLogButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogPopoupAddCallLogBtn, "20", driver);
@@ -1035,7 +1040,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyCallLogPopoupCloseXIconButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogPopoupCloseXIconBtn, "20", driver);
@@ -1044,7 +1049,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyCallLogPopoupcallLogListEntries(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogPopoupcallLogListEntries, "20", driver);
@@ -1053,7 +1058,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyCallLogLogPopoupGlobalSearch(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogPopoupGlobalSearch, "20", driver);
@@ -1062,13 +1067,12 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyCallLogLogPopoupColumnsSorting(WebDriver driver) {
 		try {
-			for(int i=0 ; i<callLogPopoupColumnsSorting.length() ; i++) {
-				WebElement data = driver
-						.findElement(By.xpath("(//th[@class='sorting'])[" + i + "]"));
-				
+			for (int i = 0; i < callLogPopoupColumnsSorting.length(); i++) {
+				WebElement data = driver.findElement(By.xpath("(//th[@class='sorting'])[" + i + "]"));
+
 				waitForElementVisibility(data, "20", driver);
 			}
 			return true;
@@ -1076,58 +1080,58 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public boolean doubleClickOnExistingCallLogEntriesAndUserIsAllowedToViewCallLogEntries(WebDriver driver) {
-	try {
-		waitForElementVisibility(callLogPopoupcallLogListEntries, "20", driver);
-		doubleClick(callLogPopoupcallLogListEntries, driver);
-		
-		waitForElementVisibility(callLogEditClientNameTxt, "20", driver);
-		
-		waitForElementVisibility(callLogEditCompanyDropdown, "20", driver);
-		
-		waitForElementVisibility(callLogEditPersonnelDropdown, "20", driver);
-		
-		waitForElementVisibility(callLogEditTypeDropdown, "20", driver);
-		
-		waitForElementVisibility(callLogEditDateTxt, "20", driver);
-		
-		waitForElementVisibility(callLogEditNotesTxt, "20", driver);
-		
-		waitForElementVisibility(callLogEditClientTxt, "20", driver);
-		
-		waitForElementVisibility(callLogEditPharmsSolutionsTxt, "20", driver);
-		return true;
-	} catch (Exception e) {
-		return false;
+		try {
+			waitForElementVisibility(callLogPopoupcallLogListEntries, "20", driver);
+			doubleClick(callLogPopoupcallLogListEntries, driver);
+
+			waitForElementVisibility(callLogEditClientNameTxt, "20", driver);
+
+			waitForElementVisibility(callLogEditCompanyDropdown, "20", driver);
+
+			waitForElementVisibility(callLogEditPersonnelDropdown, "20", driver);
+
+			waitForElementVisibility(callLogEditTypeDropdown, "20", driver);
+
+			waitForElementVisibility(callLogEditDateTxt, "20", driver);
+
+			waitForElementVisibility(callLogEditNotesTxt, "20", driver);
+
+			waitForElementVisibility(callLogEditClientTxt, "20", driver);
+
+			waitForElementVisibility(callLogEditPharmsSolutionsTxt, "20", driver);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-}
 
 	public boolean verifyClientFacilityAreNotEditable(WebDriver driver) {
-	try {
+		try {
 
-		Assert.assertFalse("Verify Company DropDown is Disabeld", isDisabeld(callLogEditClientNameTxt, driver));
+			Assert.assertFalse("Verify Company DropDown is Disabeld", isDisabeld(callLogEditClientNameTxt, driver));
 
-		Assert.assertFalse("Verify Facility DropDown is Disabeld", isDisabeld(callLogEditFacilityDropdown, driver));
+			Assert.assertFalse("Verify Facility DropDown is Disabeld", isDisabeld(callLogEditFacilityDropdown, driver));
 
-		return true;
-	} catch (Exception e) {
-		return false;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-}
-	
+
 	public boolean verifyTypeAndDateFieldsAreMandatory(WebDriver driver) {
-	try {
-		scrollToElement(callLogEditTypeMandatory, driver);
-		Assert.assertTrue(isDisplayed(callLogEditTypeMandatory, driver));
-		scrollToElement(callLogEditDateMandatory, driver);
-		Assert.assertTrue(isDisplayed(callLogEditDateMandatory, driver));
+		try {
+			scrollToElement(callLogEditTypeMandatory, driver);
+			Assert.assertTrue(isDisplayed(callLogEditTypeMandatory, driver));
+			scrollToElement(callLogEditDateMandatory, driver);
+			Assert.assertTrue(isDisplayed(callLogEditDateMandatory, driver));
 
-		return true;
-	} catch (Exception e) {
-		return false;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-}
 
 	public boolean clickOnSaveButtonVerifyTheModifiedValuesSavedSuccessfully(WebDriver driver) {
 		try {
@@ -1136,18 +1140,18 @@ public class LicenseGridPage extends BaseClass {
 			type(callLogEditClientTxt, clientActionable, driver);
 			click(callLogEditSaveBtn, driver);
 			clickOnSuccessPopupOkButton(driver);
-			
+
 			selectValueFromDropdown(callLogShowEntiresDropDown, 4, driver);
-			
-			for(int i=1; i<callLogShowClientActionableList.length(); i++) {
-			WebElement data = driver
-					.findElement(By.xpath("(//th[text()='Client Actionable']/following::tr/td[7])[" + i + "]"));
-			scrollIntoViewSmoothly(data, driver);
-			String getData = getValue(data, driver).trim();
-			if(getData.equals(clientActionable)) {
-				Assert.assertTrue(getData.equals(clientActionable));
-				break;
-			}
+
+			for (int i = 1; i < callLogShowClientActionableList.length(); i++) {
+				WebElement data = driver
+						.findElement(By.xpath("(//th[text()='Client Actionable']/following::tr/td[7])[" + i + "]"));
+				scrollIntoViewSmoothly(data, driver);
+				String getData = getValue(data, driver).trim();
+				if (getData.equals(clientActionable)) {
+					Assert.assertTrue(getData.equals(clientActionable));
+					break;
+				}
 			}
 //			callLogShowEntiresDropDown
 
@@ -1156,13 +1160,13 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public void selectValueFromClintFilter(WebDriver driver) {
 		Select select = new Select(driver.findElement(By.xpath(clientDropdownOnLicense)));
 		select.selectByIndex(1);
 		waitTime(9000);
-}
-	
+	}
+
 	public Boolean verifyCallLogPopoupTitel(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogPopoupTitel, "20", driver);
@@ -1171,44 +1175,44 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public void clickOnCommunicationLogButton(WebDriver driver) {
 		waitTime(9000);
 		waitForElementVisibility(communicationLogBtn, "30", driver);
 		click(communicationLogBtn, driver);
 	}
-	
+
 	public void clickOnCallLogPopoupAddCallLogButton(WebDriver driver) {
 		waitTime(9000);
-		waitForElementVisibility(callLogPopoupAddCallLogBtn, "20", driver);;
+		waitForElementVisibility(callLogPopoupAddCallLogBtn, "20", driver);
+		
 		click(callLogPopoupAddCallLogBtn, driver);
 	}
-	
+
 	public boolean clickOnSaveButtonVerifyTheNewEntriesAreListedInTheExistingCommunicationLogsGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogEditClientTxt, "30", driver);
 			System.out.println("callLogEditClientTxt: ");
 			type(callLogEditClientTxt, clientActionable, driver);
-			
+
 			selectValueFromDropdown(callLogEditTypeDropdown, 1, driver);
-			
+
 			click(callLogEditSaveBtn, driver);
-			
+
 			clickOnSuccessPopupOkButton(driver);
-			
+
 			selectValueFromDropdown(callLogShowEntiresDropDown, 4, driver);
-			
-			
-			for(int i=1; i<callLogShowClientActionableList.length(); i++) {
-			WebElement data = driver
-					.findElement(By.xpath("(//th[text()='Client Actionable']/following::tr/td[7])[" + i + "]"));
-			scrollIntoViewSmoothly(data, driver);
-			String getData = getValue(data, driver).trim();
-			if(getData.equals(clientActionable)) {
-				Assert.assertTrue(getData.equals(clientActionable));
-				break;
+
+			for (int i = 1; i < callLogShowClientActionableList.length(); i++) {
+				WebElement data = driver
+						.findElement(By.xpath("(//th[text()='Client Actionable']/following::tr/td[7])[" + i + "]"));
+				scrollIntoViewSmoothly(data, driver);
+				String getData = getValue(data, driver).trim();
+				if (getData.equals(clientActionable)) {
+					Assert.assertTrue(getData.equals(clientActionable));
+					break;
+				}
 			}
-		}
 
 			return true;
 		} catch (Exception e) {
@@ -1217,30 +1221,31 @@ public class LicenseGridPage extends BaseClass {
 	}
 
 	public void selectIncompleteOnlyFromLicenseProgressDropdown(WebDriver driver) {
-		waitTime(9000); 
-		selectValueFromDropdownThroughText(licenseProgressDropdown,incompleteOnly,driver);
+		waitTime(9000);
+		selectValueFromDropdownThroughText(licenseProgressDropdown, incompleteOnly, driver);
 	}
-	
+
 	public void selectAllFromLicenseProgressDropdown(WebDriver driver) {
-		waitTime(9000); 
-		selectValueFromDropdownThroughText(licenseProgressDropdown,all,driver);
+		waitTime(9000);
+		selectValueFromDropdownThroughText(licenseProgressDropdown, all, driver);
 	}
-	
+
 	public void selectCompleteOnlyFromLicenseProgressDropdown(WebDriver driver) {
-		waitTime(9000); 
-		selectValueFromDropdownThroughText(licenseProgressDropdown,completeOnly,driver);
+		waitTime(9000);
+		selectValueFromDropdownThroughText(licenseProgressDropdown, completeOnly, driver);
 	}
-	
+
 	public Boolean verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressIncompleteOnly(WebDriver driver) {
 		try {
 			waitTime(10000);
 			System.out.println(licenseProgressList.length());
 			for (int i = 1; i < licenseProgressList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
-						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])["+i+"]"));
+						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])[" + i
+								+ "]"));
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver).trim();
-				
+
 				Assert.assertTrue(getData.equals("Incomplete"));
 				System.out.println("inside : " + licenseProgressList.length());
 			}
@@ -1251,7 +1256,6 @@ public class LicenseGridPage extends BaseClass {
 		}
 	}
 
-	
 	public Boolean verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressCompleteOnly(WebDriver driver) {
 		try {
 			waitTime(6000);
@@ -1259,12 +1263,13 @@ public class LicenseGridPage extends BaseClass {
 			System.out.println(licenseProgressList.length());
 			for (int i = 1; i < licenseProgressList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
-						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])["+i+"]"));
-				
+						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])[" + i
+								+ "]"));
+
 				scrollToElement(element, driver);
-				String getData = getValue(element, driver).trim();				
-				System.out.println("value  : " + getData);				
-				Assert.assertTrue(getData.equals("Complete"));				
+				String getData = getValue(element, driver).trim();
+				System.out.println("value  : " + getData);
+				Assert.assertTrue(getData.equals("Complete"));
 				System.out.println("inside : " + licenseProgressList.length());
 			}
 
@@ -1273,7 +1278,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressAll(WebDriver driver) {
 		try {
 			waitTime(6000);
@@ -1281,20 +1286,21 @@ public class LicenseGridPage extends BaseClass {
 			System.out.println(licenseProgressList.length());
 			for (int i = 1; i < licenseProgressList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
-						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])["+i+"]"));
-				
+						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])[" + i
+								+ "]"));
+
 				scrollToElement(element, driver);
-				String getData = getValue(element, driver).trim();				
-				System.out.println("value  : " + getData);			
-				
-				if(getData.equals("Complete")){
-					Assert.assertTrue(getData.equals("Complete"));		
-				}else if(getData.equals("Incomplete")) {
-					Assert.assertTrue(getData.equals("Incomplete"));			
-				}else { 
-					Assert.assertTrue(false);				
+				String getData = getValue(element, driver).trim();
+				System.out.println("value  : " + getData);
+
+				if (getData.equals("Complete")) {
+					Assert.assertTrue(getData.equals("Complete"));
+				} else if (getData.equals("Incomplete")) {
+					Assert.assertTrue(getData.equals("Incomplete"));
+				} else {
+					Assert.assertTrue(false);
 				}
-				System.out.println("inside : " + licenseProgressList.length());					
+				System.out.println("inside : " + licenseProgressList.length());
 			}
 
 			return true;
@@ -1303,7 +1309,73 @@ public class LicenseGridPage extends BaseClass {
 		}
 	}
 
+	public Boolean verifyLicenseWithExpirationFieldPopulated(WebDriver driver) throws InterruptedException {
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
+		int i=1;
+		WebElement verifyexpirationDate;
+		try {
+			while(true) {
+				 verifyexpirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]"));
+				scrollToElement(verifyexpirationDate, driver);
+				
+				getExpirationDate = getValue(verifyexpirationDate, driver).trim();
+				System.err.println("Get Expiration Date"+verifyexpirationDate);
+				
+				if(getExpirationDate != null || !getExpirationDate.equals("")) {
+					break;
+				}
+				i++;
+			}
+			waitForElementVisibility(verifyexpirationDate, "20", driver);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void doubleClickOnExpirationDate(WebDriver driver) throws InterruptedException {
+		int i =1;
+		WebElement expirationDate;
+		waitTime(6000);
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
+		
+		while(true) {
+			 expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]"));
+//			 (//td[@class='display-none']/following-sibling::td[1])[2]/..
+//			//td[@class="display-none"]/following-sibling::td[1]
+			scrollToElement(expirationDate, driver);
+			getExpirationDate = getValue(expirationDate, driver).trim();
+//			waitTime(6000);
+			System.err.println("Get Expiration Date"+getExpirationDate);
+			
+			if(getExpirationDate != null || !getExpirationDate.equals("")) {
+				expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]/.."));
+				break;
+			}
+				
+			i++;
+			
+		}
+//		scrollToElement(expirationDate, driver);
+//		expirationDate.click();
+//		expirationDate.click();
+		doubleClick(expirationDate, driver);
+
+	}
 	
+	public Boolean verifyTheExpiryDateMatchesTheExpirationDateNotedInTheLicenseGrid (WebDriver driver) {
+		try {
+			waitForElementVisibility(expirationDateOnDetials, "20", driver);
+			String getExpirationDateOnDetials = getValue(expirationDateOnDetials, driver).trim();
+			getExpirationDateOnDetials = reformatDate(getExpirationDateOnDetials,"MM-dd-yyyy",getExpirationDate);
+//			getExpirationDateOnDetials.replaceAll("/", "-");
+			System.out.println(getExpirationDateOnDetials);
+			Assert.assertTrue(getExpirationDateOnDetials.equals(getExpirationDate));			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
-	
+
 }

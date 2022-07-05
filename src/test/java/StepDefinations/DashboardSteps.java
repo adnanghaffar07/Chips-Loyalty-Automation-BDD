@@ -135,7 +135,7 @@ public class DashboardSteps extends BaseClass {
 	}
 
 	@Then("^I click on licenses grid$")
-	public void clickOnclickOnLicensesGrid() {
+	public void clickOnclickOnLicensesGrid() throws InterruptedException {
 		dashboardPage.clickOnLicensesGrid(driver);
 	}
 	
@@ -145,7 +145,7 @@ public class DashboardSteps extends BaseClass {
 	}
 	
 	@Then("^I click on activities grid$")
-	public void clickOnActivitiesGrid() {
+	public void clickOnActivitiesGrid() throws InterruptedException {
 		dashboardPage.clickOnActivitiesGrid(driver);
 	}
 	
@@ -155,7 +155,7 @@ public class DashboardSteps extends BaseClass {
 	}
 	
 	@Then("^I click on tasks grid$")
-	public void clickOnTasksGrid() {
+	public void clickOnTasksGrid() throws InterruptedException {
 		dashboardPage.clickOnTasksGrid(driver);
 	}
 	

@@ -1,5 +1,9 @@
 package Utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +24,7 @@ public class Utilities extends Waits {
 
 	public static void waitForElementVisibility(String xpath, String timeoutInSeconds, WebDriver driver) {
 		WebElement element = driver.findElement(By.xpath(xpath));
-		scrollToElement(element, driver);
+//		scrollIntoViewSmoothly(element, driver);
 		WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(timeoutInSeconds));
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
@@ -165,7 +169,22 @@ public class Utilities extends Waits {
 	public static void doubleClick(String xpath, WebDriver driver) {
 		Actions actions = new Actions(driver);
 		WebElement element = driver.findElement(By.xpath(xpath));
-		scrollIntoViewSmoothly(element, driver);
+//		scrollIntoViewSmoothly(element, driver);
+		waitForElementVisibility(element, "30", driver);
+		waitForElementClickable(element, "20", driver);
+		System.out.println("click:  ");
+
+		actions.doubleClick(element).perform();
+
+		System.out.println("click:  ");
+		Waits.wait5s();
+		Waits.waitTime(10000);
+
+	}
+	
+	public static void doubleClick(WebElement element, WebDriver driver) {
+		Actions actions = new Actions(driver);
+//		scrollIntoViewSmoothly(element, driver);
 		waitForElementVisibility(element, "30", driver);
 		waitForElementClickable(element, "20", driver);
 		System.out.println("click:  ");
@@ -292,6 +311,42 @@ public class Utilities extends Waits {
 		}
 		waitTime(10000);
 	}
+	
+	public void WaitForElementDisapper(String xpath, WebDriver driver) throws InterruptedException {
+		int count = 0;
+		while(true) {
+			 try {
+				if(driver.findElement(By.xpath(xpath)).isDisplayed()) {
+					Thread.sleep(2000);
+				}
+			} catch (NoSuchElementException e) {
+				break;
+			}
+			 count++;
+			 if(count == 40) {
+				 break;
+			 }
+		 }
+		
+		try {
+		WebElement element=driver.findElement(By.xpath(xpath));
+		waitUntilElementDisplayed(element, driver);
+		}catch (Exception e) {
+		}
+	}
 
+	public static String reformatDate(String DateToFormat, String preFormat, String postFormat) throws ParseException {
+		DateFormat srcDf = new SimpleDateFormat(preFormat);
+
+		// parse the date string into Date object
+		Date date = srcDf.parse(DateToFormat);
+
+		DateFormat destDf = new SimpleDateFormat(postFormat);
+
+		// format the date into another format
+		DateToFormat = destDf.format(date);
+
+		return DateToFormat;
+	}
 	
 }
