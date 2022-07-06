@@ -107,8 +107,8 @@ Feature: ActivitesGrid
     And I enter password
     Then I click on login button
     And I click on session popup cancel button
-    Then I click on licenses grid
-		And I see license Page Title
+    Then I click on activities grid
+		And I see activities page title
 		Then I select value from clint Filter
 		Then I click on communication log button
 		And I see the callLog popoup titel
@@ -121,6 +121,24 @@ Feature: ActivitesGrid
 		Then I click on save button and verify the modified values saved successfully
 		And I click on Add call Log button
 		Then I click on save button and verify the new entries are listed in the existing communication logs grid
+		
+		Scenario: Step_43_As a user i validate Edit License Activity popup
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on activities grid
+		And I see activities page title
+		Then I double click on active licens to edit
+		And I see the edit license Activity page titel
+		And I see In the edit activity section the following fields are mandatory and non editable company facility state license status
+		And I see in the add activity section the following fields are mandatory and editable license activity and activity start date
+		Then I see the user is able to view the delete button if the user has a permission to delete licenses
+		Then I double click on active licens to edit
+		And I see the edit license Activity page titel
+
 		
     
     

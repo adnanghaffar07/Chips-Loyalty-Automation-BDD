@@ -130,7 +130,7 @@ public class LicenseGridPage extends BaseClass {
 	String callLogEditDateMandatory = "//label[text()='Date ']//span[@class='red']";
 	String callLogShowEntiresDropDown = "//select[@name='callLogList_length']";
 	String callLogShowClientActionableList = "//th[text()='Client Actionable']/following::tr/td[7]";
-	String communicationLogBtn = "//a[@title='Communication Log']";
+	String communicationLogBtn = "//a[@title='Communication Log'] | //a[@data-original-title='Communication Log']";
 	String callLogPopoupTitel = "//div[contains(@class,'modal-header')]//div//div//p | //p[contains(text(),'Communication Log For')]";
 	String licenseProgressDropdown = "//select[@id='incomplete'] | //span[@class='pull-right select-header']//select";
 	String advancedFiltersLink = "//a[text()=' Advanced Filters ']";

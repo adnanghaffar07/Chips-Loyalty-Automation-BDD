@@ -66,5 +66,25 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyTheActivitiesUrlOpensAndLoadsSuccessfullyIfTheUrlIsValid(driver));
 	}
 	
+	@Then("^I double click on active licens to edit$")
+	public void doubleClickOnlicensToEdit() {
+		activitesGridPage.doubleClickOnActivelicensToEdit(driver);
+	}
+	
+	@And("^I see the edit license Activity page titel$")
+	public void verifyEditLicensePageTitel() {
+		Assert.assertTrue(activitesGridPage.verifyEditLicenseActivityPageTitel(driver));
+	}
+	
+	@And("^I see In the edit activity section the following fields are mandatory and non editable company facility state license status$")
+	public void verifyInTheEditActivitySectionTheFollowingFieldsAreMandatoryAndNonEditableCompanyFacilityStateLicenseStatus() {
+		Assert.assertTrue(activitesGridPage.verifyInTheEditActivitySectionTheFollowingFieldsAreMandatoryAndNonEditableCompanyFacilityStateLicenseStatus(driver));
+	}
+	
+	@And("^I see in the add activity section the following fields are mandatory and editable license activity and activity start date$")
+	public void verifyInTheAddActivitySectionTheFollowingFieldsAreMandatoryAndEditableLicenseActivityAndActivityStartDate() {
+		Assert.assertTrue(activitesGridPage.verifyInTheAddActivitySectionTheFollowingFieldsAreMandatoryAndEditableLicenseActivityAndActivityStartDate(driver));
+	}
+	
 	
 }

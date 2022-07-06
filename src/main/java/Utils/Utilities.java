@@ -317,7 +317,7 @@ public class Utilities extends Waits {
 		while(true) {
 			 try {
 				if(driver.findElement(By.xpath(xpath)).isDisplayed()) {
-					Thread.sleep(2000);
+					Thread.sleep(10000);
 				}
 			} catch (NoSuchElementException e) {
 				break;
