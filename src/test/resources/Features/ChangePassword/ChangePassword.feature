@@ -6,6 +6,7 @@ Feature: ChangePassword
     And I enter username
     And I enter password
     Then I click on login button
+    And I click on session popup cancel button
     And I see atlas main page
     Then I click on profile name drop down
     Then I click on dropdown change password button
@@ -14,8 +15,6 @@ Feature: ChangePassword
     And I see change password button
     And I see cancel button
     And I see help dropdown
-    And I see bell icon
-    And I see bell Icon unread count
     And I see copyright label
     And I see logo on change password page
     Then I enter values in change password input fields buttons link are clickable

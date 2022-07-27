@@ -216,6 +216,13 @@ public class Utilities extends Waits {
 		je.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'})",
 				Element);
 	}
+	
+	public static void scrollIntoViewSmoothly(String xpath, WebDriver driver) {
+		WebElement element = driver.findElement(By.xpath(xpath));
+		JavascriptExecutor je = (JavascriptExecutor) driver;
+		je.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'})",
+				element);
+	}
 
 	public static void scrollToElement(WebElement element, WebDriver driver) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -283,6 +290,15 @@ public class Utilities extends Waits {
 		isDisabeld = element.isEnabled();
 		return isDisabeld;
 	}
+	
+	public static boolean isDisabeldCheckAttribute(String xpath, WebDriver driver) {
+		String isDisabel="false";
+		WebElement element = driver.findElement(By.xpath(xpath));
+		isDisabel = element.getAttribute("readonly");
+		return Boolean.parseBoolean(isDisabel);
+	}
+	
+	
 	
 	public static boolean isDisplayed(String xpath, WebDriver driver) {
 		boolean isDisplayed;

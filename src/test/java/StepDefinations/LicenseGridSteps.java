@@ -7,6 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 import Constants.Constants;
 import Pages.ChangePasswordPage;
@@ -116,7 +117,7 @@ public class LicenseGridSteps extends BaseClass {
 	}
 	
 	@And("^I add activity and task entry for the chosen license$")
-	public void addActivityAndTaskEntryForTheChosenLicense() {
+	public void addActivityAndTaskEntryForTheChosenLicense() throws ParseException {
 		licenseGridPage.addActivityAndTaskEntryForTheChosenLicense(driver);
 	}
 	

@@ -23,11 +23,17 @@ import org.junit.Assert;
 public class DashboardPage extends BaseClass {
 	private WebDriver podriver = null;
 
-	String dashboardGrid = "//a[@class='nav-link menu-item']//span";
+	String dashboardGrid = "//a[text()[contains(.,'Dashboard')]] | //a[@href='https://stagingatlas.pharma.solutions/Dashboard'] | //img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 907_p.svg']";
 	String licensesGrid = "(//div[@class='mbp'])[2]";
+	String menuCollapseBtn = "//div[@id='menu-toggle-right'] | //div[@class='menuNavRight']";
+	String dataViewsDropDown = "//a[text()[contains(.,'Data Views ')]] | (//a[@href='#'])[4]";
+	String dataViewsLicensesGrid = "//a[@href='https://stagingatlas.pharma.solutions/license'] | //a[text()[contains(.,'Licenses')]]";
+	String dataViewsActivitiesGrid = "//a[@href='https://stagingatlas.pharma.solutions/licenseActivity'] | //a[text()[contains(.,'Activities')]]";
+	String dataViewsTasksGrid = "//a[@href='https://stagingatlas.pharma.solutions/Tasks'] | (//a[text()[contains(.,'Tasks')]])[1]";
 	String activitiesGrid = "(//div[@class='mbp'])[3]";
+	String dataViews = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 920_p.svg']";	
 	String tasksGrid = "(//div[@class='mbp'])[4]";
-	String documentsGrid = "(//div[@class='mbp'])[5]";
+	String documentsGrid = "//a[text()[contains(.,'Documents')]] | //a[@href='https://stagingatlas.pharma.solutions/Document']";
 	String activeGrid = "//li[contains(@class,'active')]";
 	String mapUSA = "//div[@id='map']";
 	String filterByLbl = "//label[text()[contains(.,'Filter By:')]]";
@@ -50,7 +56,7 @@ public class DashboardPage extends BaseClass {
 	String licencecount = "//table[@id='status-table']//tr[4]//td[2]";
 	String licencePageTitle = "//p[text()[contains(.,'Licenses')]]";
 	String activitiesPageTitle = "//p[text()[contains(.,'Activities')]]";
-	String tasksPageTitle = "//p[text()[contains(.,'Tasks')]]";
+	String tasksPageTitle = "//p[text()[contains(.,'Tasks')]] | //span[text()[contains(.,'Tasks')]]";
 	String documentsPageTitle = "//p[text()[contains(.,'Documents')]]";
 	String userDropDown = "(//li/a//i[contains(@class,'down')])[2]";
 	String logoutBtn = "//a[text()[contains(.,'Logout')]]";
@@ -94,6 +100,11 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyDashboardGrid(WebDriver driver) {
 		try {
+			try {
+				waitForElementVisibility(menuCollapseBtn, "30", driver);
+				click(menuCollapseBtn, driver);
+			} catch (Exception e) {
+			}
 			waitForElementVisibility(dashboardGrid, "30", driver);
 			System.out.println("dashboard Grid : ");
 			return true;
@@ -105,7 +116,10 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyLicensesGrid(WebDriver driver) {
 		try {
-			waitForElementVisibility(licensesGrid, "30", driver);
+			waitForElementVisibility(dataViewsDropDown, "30", driver);
+			click(dataViewsDropDown, driver);
+			
+			waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
 			System.out.println("licenses Grid: ");
 			return true;
 		} catch (Exception e) {
@@ -116,7 +130,7 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyActivitiesGrid(WebDriver driver) {
 		try {
-			waitForElementVisibility(activitiesGrid, "30", driver);
+			waitForElementVisibility(dataViewsActivitiesGrid, "30", driver);
 			System.out.println("activities Grid: ");
 			return true;
 		} catch (Exception e) {
@@ -126,7 +140,7 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyTasksGrid(WebDriver driver) {
 		try {
-			waitForElementVisibility(tasksGrid, "30", driver);
+			waitForElementVisibility(dataViewsTasksGrid, "30", driver);
 			System.out.println("tasks Grid: ");
 			return true;
 		} catch (Exception e) {
@@ -343,7 +357,6 @@ public class DashboardPage extends BaseClass {
 
 	public void clickOnresetFilter(WebDriver driver) {
 		WebElement licencecount1 = driver.findElement(By.xpath(licencecount));
-//		WebElement licenseDetails1 = driver.findElement(By.xpath(licenseDetails));
 		licenseDetailsCount = driver.findElements(By.xpath(licenseDetails)).size();
 		licenseCountBefore = Integer.parseInt(licencecount1.getText());
 		waitForElementVisibility(resetFilter, "30", driver);
@@ -356,36 +369,95 @@ public class DashboardPage extends BaseClass {
 
 	}
 
+	public void clickOnMenuCollapseButton(WebDriver driver) throws InterruptedException {
+		waitTime(10000);		
+		waitForElementVisibility(menuCollapseBtn, "30", driver);
+		click(menuCollapseBtn, driver);
+	}
+	
+	public void dataViewsDropDown(WebDriver driver){
+		
+		waitForElementVisibility(dataViewsDropDown, "30", driver);
+		click(dataViewsDropDown, driver);
+	}
+	
 	public void clickOnLicensesGrid(WebDriver driver) throws InterruptedException {
 		waitTime(10000);
-		waitForElementVisibility(licensesGrid, "30", driver);
-		click(licensesGrid, driver);
+		try {
+			waitForElementVisibility(menuCollapseBtn, "30", driver);
+			click(menuCollapseBtn, driver);	
+		} catch (Exception e) {
+		}
+		
+		waitForElementVisibility(dataViewsDropDown, "30", driver);
+		click(dataViewsDropDown, driver);
+		
+		waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
+		click(dataViewsLicensesGrid, driver);
+		
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
+	}
+	
+	public void clickLicensesGrid(WebDriver driver) throws InterruptedException {
+		
+		waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
+		click(dataViewsLicensesGrid, driver);
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
 	public void clickOnActivitiesGrid(WebDriver driver) throws InterruptedException {
 		waitTime(10000);
-		waitForElementVisibility(activitiesGrid, "30", driver);
-		click(activitiesGrid, driver);
+		try {
+			waitForElementVisibility(menuCollapseBtn, "30", driver);
+			click(menuCollapseBtn, driver);	
+		} catch (Exception e) {
+		}
+		
+		waitForElementVisibility(dataViewsDropDown, "30", driver);
+		click(dataViewsDropDown, driver);
+		
+		waitForElementVisibility(dataViewsActivitiesGrid, "30", driver);
+		click(dataViewsActivitiesGrid, driver);
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
 	public void clickOnTasksGrid(WebDriver driver) throws InterruptedException {
-		waitForElementVisibility(tasksGrid, "30", driver);
-		click(tasksGrid, driver);
+		waitTime(10000);
+		try {
+			waitForElementVisibility(menuCollapseBtn, "30", driver);
+			click(menuCollapseBtn, driver);	
+		} catch (Exception e) {
+		}
+		
+		waitForElementVisibility(dataViewsDropDown, "30", driver);
+		click(dataViewsDropDown, driver);
+		
+		waitForElementVisibility(dataViewsTasksGrid, "30", driver);
+		click(dataViewsTasksGrid, driver);
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
 	public void clickOnDocumentsGrid(WebDriver driver) {
+		try {
+			waitForElementVisibility(menuCollapseBtn, "10", driver);
+			click(menuCollapseBtn, driver);	
+		} catch (Exception e) {
+		}
 		waitForElementVisibility(documentsGrid, "30", driver);
 		click(documentsGrid, driver);
 	}
 
 	public void clickOnDashboardGrid(WebDriver driver) {
 		waitTime(10000);
+		try {
+			waitForElementVisibility(menuCollapseBtn, "10", driver);
+			click(menuCollapseBtn, driver);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		waitForElementVisibility(dashboardGrid, "30", driver);
 		click(dashboardGrid, driver);
 	}

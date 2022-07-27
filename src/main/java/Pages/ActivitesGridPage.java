@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
 
 import Utils.BaseClass;
 import org.junit.Assert;
@@ -48,8 +50,22 @@ public class ActivitesGridPage extends BaseClass {
 	String editLicenseStatusDropDown = "//select[@id='LicenseStatusMasterKey']";
 	String editLicenseActivityPageTitel = "//div[@class='modal-header head-back'] | //p[contains(text(),'License Details - Edit Activity')]";
 	String ActivityStartDateTxt = "//input[@id='ActivityStartDate']";
+	String addLicenseActivityPageTitel = "//div[@class='modal-header head-back'] | //p[contains(text(),'License Details - Add Activity')]";
+	String addActivityNextBtn = "//button[@id='modal-task-slider'] | (//button[text()='Next'])[last()]";
+	String addActivityNextSecondBtn = "//button[@id='modal-task-slider-two']";
 	
-	
+	String addActivityAddTaskTitel = "//p[contains(text(),'Add Task')]";
+	String addActivityAddTaskDateTxt = "//input[@id='CreationDate']";
+	String addActivityAddTaskCreatedByTxt = "//input[@id='TaskAuthor']";
+	String addActivityAddTaskTypeDropdown = "//select[@id='TaskTypeKey']";
+	String addActivityAddTaskTaskStatusDropdown = "//select[@id='TaskStandingKey']";
+	String addActivityAddTaskAssignedDropdown = "//select[@id='AssignedUserKey']";
+	String addActivityAddTaskDueDateTxt = "//input[@id='ExpCompletionDate']";
+	String addActivityAddTaskBackBtn = "//button[@id='backToActivity']";
+	String addActivityAddTaskSaveBtn = "//button[@id='task-modal-save']";
+	String activityStartDatePicer = "(//th[text()='Activity Start']/following::input)[11]";
+	String activityStartDateOnGrid = "(//*[text()='Activity Start']/following::td)[11]";	
+	String activityOnGrid = "(//*[text()='Activity']/following::td)[12]";	
 	
 	
 	
@@ -65,6 +81,8 @@ public class ActivitesGridPage extends BaseClass {
 	ArrayList<String> gridDataPDFUploadList = new ArrayList<String>();
 	ArrayList<String> activeLicensDataList = new ArrayList<String>();
 	String filepath = filePath + "TestSample.pdf";
+	String avtivitySartDateSelect;
+	String licenseActivityValue;
 
 	public ActivitesGridPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -160,12 +178,6 @@ public class ActivitesGridPage extends BaseClass {
 		
 		click(urlIconLicense, driver);
 	}
-	
-	public void clickOnAddActivityButton(WebDriver driver) {
-		waitForElementVisibility(addActivityBtn, "30", driver);
-		click(addActivityBtn, driver);
-	}
-	
 
 	public boolean verifyTheActivitiesUrlOpensAndLoadsSuccessfullyIfTheUrlIsValid(WebDriver driver) {
 
@@ -186,6 +198,7 @@ public class ActivitesGridPage extends BaseClass {
 	
 	public void doubleClickOnActivelicensToEdit(WebDriver driver) {
 		waitTime(6000);
+		activeLicensDataList.clear();
 		for (int i = 2; i < 8; i++) {
 			if (i == 4 || i == 6) {
 				i += 1;
@@ -199,6 +212,25 @@ public class ActivitesGridPage extends BaseClass {
 		}
 		scrollToElement(activeLicensData, driver);
 		doubleClick(activeLicensData, driver);
+	}
+	
+	public void clickOnActivelicensToSelect(WebDriver driver) {
+		waitTime(6000);
+		activeLicensDataList.clear();
+		for (int i = 2; i < 8; i++) {
+			if (i == 4 || i == 6) {
+				i += 1;
+				System.out.println(i);
+			}
+			WebElement data = driver
+					.findElement(By.xpath("(//*[@title='Go To Tasks']/ancestor::td/../td)[" + i + "]"));
+			scrollIntoViewSmoothly(data, driver);
+			String getData = getValue(data, driver);
+			activeLicensDataList.add(getData);
+		}
+		scrollIntoViewSmoothly(activeLicensData, driver);
+		waitTime(2000);
+		click(activeLicensData, driver);
 	}
 	
 	public Boolean verifyInTheEditActivitySectionTheFollowingFieldsAreMandatoryAndNonEditableCompanyFacilityStateLicenseStatus(WebDriver driver) {
@@ -227,9 +259,26 @@ public class ActivitesGridPage extends BaseClass {
 			String activityKeyValueAfter = activityKeyOption.getText();
 			Assert.assertFalse("Verify activityKey DropDown is Editable",
 					activityKeyValueAfter.equals(activityKeyValueBefore));
-
 			
 			waitForElementVisibility(ActivityStartDateTxt, "20", driver);
+			
+			waitForElementVisibility(editLicenseActivityKeyDropDown, "30", driver);
+			Select licenseActivityDropdown = new Select(driver.findElement(By.xpath(editLicenseActivityKeyDropDown)));
+			licenseActivityDropdown.selectByIndex(1);
+			WebElement licenseActivityOption = licenseActivityDropdown.getFirstSelectedOption();
+			licenseActivityValue = licenseActivityOption.getText();
+			
+			LocalDate currentDate = java.time.LocalDate.now();
+			System.out.println(currentDate.toString());
+			String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
+			avtivitySartDateSelect = date; 
+			System.out.println("Active Date: " + date);
+			date = date.replace("-", "");
+
+			click(ActivityStartDateTxt, driver);
+			type(ActivityStartDateTxt, date, driver);
+			
+
 
 			return true;
 		} catch (Exception e) {
@@ -247,6 +296,136 @@ public class ActivitesGridPage extends BaseClass {
 			return false;
 		}
 	}
+	
+	public Boolean verifyAddLicenseActivityPageTitel(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(addLicenseActivityPageTitel, "20", driver);
+			System.out.println("editLicensePageTitel: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void clickOnAddActivityNextButton(WebDriver driver) throws ParseException {
+		waitTime(8000);
+		waitForElementVisibility(addLicenseActivityPageTitel, "20", driver);
+		scrollIntoViewSmoothly(addActivityNextBtn, driver);
+		click(addActivityNextBtn, driver);
+	}
 
 
+	public void clickOnNextButton(WebDriver driver) throws ParseException {
+		waitTime(8000);
+		waitForElementVisibility(addLicenseActivityPageTitel, "20", driver);
+		scrollIntoViewSmoothly(addActivityNextSecondBtn, driver);
+		click(addActivityNextSecondBtn, driver);
+	}
+	
+	public Boolean verifyAddTaskTitel(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(addActivityAddTaskTitel, "20", driver);
+			System.out.println("addActivityAddTaskTitel: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyInTheAddTaskSectionTheFollowingFieldsAreMandatoryAndNonEditableActivityCreatedBy(WebDriver driver) {
+		try {
+			Assert.assertTrue(isDisabeldCheckAttribute(addActivityAddTaskDateTxt, driver));
+			Assert.assertTrue(isDisabeldCheckAttribute(addActivityAddTaskCreatedByTxt, driver));
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyInTheAddTaskSectionTheFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeDuedate(WebDriver driver) {
+		try {
+			Select typeDropdown = new Select(driver.findElement(By.xpath(addActivityAddTaskTypeDropdown)));
+			typeDropdown.selectByIndex(1);
+			WebElement typeOption = typeDropdown.getFirstSelectedOption();
+			String typeValueBefore = typeOption.getText();
+			
+			typeDropdown.selectByIndex(2);
+			typeOption = typeDropdown.getFirstSelectedOption();
+			String typeValueAfter = typeOption.getText();			
+			
+			Assert.assertFalse("Verify Type DropDown is Editable",
+					typeValueBefore.equals(typeValueAfter));
+			
+			Select taskStatusDropdown = new Select(driver.findElement(By.xpath(addActivityAddTaskTaskStatusDropdown)));
+			taskStatusDropdown.selectByIndex(1);
+			WebElement taskStatusOption = taskStatusDropdown.getFirstSelectedOption();
+			String taskStatusValueBefore = taskStatusOption.getText();
+			
+			taskStatusDropdown.selectByIndex(2);
+			taskStatusOption = taskStatusDropdown.getFirstSelectedOption();
+			String taskStatusValueAfter = taskStatusOption.getText();	
+			
+			Assert.assertFalse("Verify task status DropDown is Editable",
+					taskStatusValueBefore.equals(taskStatusValueAfter));
+
+			
+			Select assignedDropdown = new Select(driver.findElement(By.xpath(addActivityAddTaskAssignedDropdown)));
+			assignedDropdown.selectByIndex(1);
+			WebElement assignedOption = assignedDropdown.getFirstSelectedOption();
+			String assignedValueBefore = assignedOption.getText();
+			
+			taskStatusDropdown.selectByIndex(5);
+			assignedOption = assignedDropdown.getFirstSelectedOption();
+			String assignedValueAfter = assignedOption.getText();	
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void clickOnAddActivityAddTaskBackButton(WebDriver driver) {
+		waitForElementVisibility(addActivityAddTaskBackBtn, "30", driver);
+		scrollToElement(addActivityAddTaskBackBtn, driver);
+		click(addActivityAddTaskBackBtn, driver);
+	}
+	
+	public void clickOnAddActivityButton(WebDriver driver) {
+		waitForElementVisibility(addActivityBtn, "30", driver);
+		scrollToElement(addActivityBtn, driver);
+		click(addActivityBtn, driver);
+	}
+	
+	public void clickOnAddActivityAddTaskSaveButton(WebDriver driver) {
+		waitForElementVisibility(addActivityAddTaskSaveBtn, "30", driver);
+		scrollToElement(addActivityAddTaskSaveBtn, driver);
+		click(addActivityAddTaskSaveBtn, driver);
+	}
+	
+	public Boolean verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid(WebDriver driver) {
+		waitForElementVisibility(activityStartDatePicer, "30", driver);
+		String waitDateXpath;
+		String replaceVale;
+		try {
+			type(activityStartDatePicer, avtivitySartDateSelect, driver);
+			replaceVale = avtivitySartDateSelect.replace("/", "-").trim();
+			waitTime(10000);
+			waitDateXpath = "(//td[text()='"+replaceVale+"'])[1]";
+			waitForElementVisibility(waitDateXpath, "300", driver);
+			String date = getValueFromAttribute(activityStartDateOnGrid, driver).trim();
+			String activityStartDate = date.replace("-", "/");
+			System.out.println("Active Start Serach Date: " + activityStartDate);
+			Assert.assertTrue(activityStartDate.equals(avtivitySartDateSelect));
+			String activity = getValueFromAttribute(activityOnGrid, driver).trim();
+			System.out.println("Active: " + activity);
+			Assert.assertTrue(activity.equals(licenseActivityValue));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 }

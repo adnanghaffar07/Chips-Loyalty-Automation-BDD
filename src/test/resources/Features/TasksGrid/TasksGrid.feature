@@ -34,7 +34,29 @@ Feature: TasksGrid
 		And I click on Add call Log button
 		Then I click on save button and verify the new entries are listed in the existing communication logs grid
 		
-
+		Scenario: Step_59_As a user i verify reset filter works in the licenses tasks grid
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+   	Then I click on tasks grid
+		And I see tasks page title
+		Then I enter value in license name search filter
+		And I click on reset page filters link
+		Then I see the reset filter works in the licenses grid
+		
+		Scenario: Step_58_As a user i verify the list of entries or entries is showing for Licenses on tasks grid
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+		And I see tasks page title
+		Then I see label showing xx of xx entries
     
     
     

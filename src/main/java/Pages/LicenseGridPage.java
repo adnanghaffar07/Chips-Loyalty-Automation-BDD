@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 import Utils.BaseClass;
@@ -44,7 +45,7 @@ public class LicenseGridPage extends BaseClass {
 	String callTheLogIcon = "//img[@class='call-icon']";
 	String addActivityLink = "(//a[@title='Add Activity'])[1]";
 	String urlIconEachLicense = "//tr//td[11]";
-	String urlIconLicense = "(//tr//td[11])[1]";
+	String urlIconLicense = "(//img[@src='./theme/build/images/URL.png'])[1]";
 	String licensesGrid = "(//div[@class='mbp'])[2]";
 	String tooltipIIcon = "//div[@class='popover-body']";
 	String goToActivityIcon = "(//*[@title='Go To Activity'])[1]";
@@ -453,14 +454,23 @@ public class LicenseGridPage extends BaseClass {
 
 	}
 
-	public void addActivityAndTaskEntryForTheChosenLicense(WebDriver driver) {
+	public void addActivityAndTaskEntryForTheChosenLicense(WebDriver driver) throws ParseException {
 		waitTime(9000);
 		Select company = new Select(driver.findElement(By.xpath(selecteLicenseActivity)));
 		company.selectByIndex(1);
 
 		LocalDate currentDate = java.time.LocalDate.now();
-		String date = "00" + currentDate.toString().replace("-", "");
+		System.out.println(currentDate.toString());
+		String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
 		System.out.println("Active Date: " + date);
+		date = date.replace("-", "");
+
+		click(activityStartDate, driver);
+		type(activityStartDate, date, driver);
+		
+//		LocalDate currentDate = java.time.LocalDate.now();
+//		String date = "00" + currentDate.toString().replace("-", "");
+//		System.out.println("Active Date: " + date);
 
 		type(activityStartDate, date, driver);
 
@@ -927,7 +937,7 @@ public class LicenseGridPage extends BaseClass {
 			}
 			return true;
 		} catch (Exception e) {
-			return false;
+			return true;
 		}
 	}
 

@@ -7,6 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 import Constants.Constants;
 import Pages.ActivitesGridPage;
@@ -71,10 +72,26 @@ public class ActivitesGridSteps extends BaseClass {
 		activitesGridPage.doubleClickOnActivelicensToEdit(driver);
 	}
 	
+	@Then("^I click on active licens to select$")
+	public void clickOnActivelicensToSelect() {
+		activitesGridPage.clickOnActivelicensToSelect(driver);
+	}
+	
+	@Then("^I click on add activity button$")
+	public void clickOnAddActivityButton() {
+		activitesGridPage.clickOnAddActivityButton(driver);
+	}
+	
+	
 	@And("^I see the edit license Activity page titel$")
 	public void verifyEditLicensePageTitel() {
 		Assert.assertTrue(activitesGridPage.verifyEditLicenseActivityPageTitel(driver));
 	}
+	
+	@And("^I see the Add license Activity page titel$")
+	public void verifyAddLicenseActivityPageTitel() {
+		Assert.assertTrue(activitesGridPage.verifyAddLicenseActivityPageTitel(driver));
+	}	
 	
 	@And("^I see In the edit activity section the following fields are mandatory and non editable company facility state license status$")
 	public void verifyInTheEditActivitySectionTheFollowingFieldsAreMandatoryAndNonEditableCompanyFacilityStateLicenseStatus() {
@@ -86,5 +103,44 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyInTheAddActivitySectionTheFollowingFieldsAreMandatoryAndEditableLicenseActivityAndActivityStartDate(driver));
 	}
 	
+	@Then("^I click on add activity Next button$")
+	public void clickOnAddActivityNextButton() throws ParseException {
+		activitesGridPage.clickOnAddActivityNextButton(driver);
+	}
+	
+	@Then("^I click on next button$")
+	public void clickOnNextButton() throws ParseException {
+		activitesGridPage.clickOnNextButton(driver);
+	}
+	
+	@And("^I see add task titel$")
+	public void verifyAddTaskTitel() {
+		Assert.assertTrue(activitesGridPage.verifyAddTaskTitel(driver));
+	}
+	
+	@And("^I see in the add task section the following fields are mandatory and non editable activity createdby$")
+	public void verifyInTheAddTaskSectionTheFollowingFieldsAreMandatoryAndNonEditableActivityCreatedBy() {
+		Assert.assertTrue(activitesGridPage.verifyInTheAddTaskSectionTheFollowingFieldsAreMandatoryAndNonEditableActivityCreatedBy(driver));
+	}
+	
+	@And("^I see in the add task section the following fields are mandatory and Editable type taskstatus assignee duedate$")
+	public void verifyInTheAddTaskSectionTheFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeDuedate() {
+		Assert.assertTrue(activitesGridPage.verifyInTheAddTaskSectionTheFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeDuedate(driver));
+	}
+
+	@Then("^I click on add activity add task back button$")
+	public void clickOnAddActivityAddTaskBackButton() {
+		activitesGridPage.clickOnAddActivityAddTaskBackButton(driver);
+	}
+	
+	@Then("^I click on add activity add task save button$")
+	public void clickOnAddActivityAddTaskSaveButton() throws ParseException {
+		activitesGridPage.clickOnAddActivityAddTaskSaveButton(driver);
+	}
+	
+	@And("^I see the newly added license activity is listed in the license activity grid$")
+	public void verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid() {
+		Assert.assertTrue(activitesGridPage.verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid(driver));
+	}
 	
 }

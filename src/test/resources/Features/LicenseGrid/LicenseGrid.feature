@@ -18,8 +18,7 @@ Feature: LicenseGrid
 		And I see url icon for each license in the grid
 		And I see status help icon and active help icon
 		And I see call the log icon
-		And I see licenses grid underline color is yellow
-		
+
 		Scenario: Step_24_As a user i mouse over on the i icon for the status and activity column header
     Given Visit the app url
     When I see login page title
@@ -56,7 +55,7 @@ Feature: LicenseGrid
 		Then I click on license go to activity icon
 		And I see activities page title
 		And I see the activity data for the chosen licenses
-		Then I click on licenses grid
+		Then click on licenses grid
 		And I see license Page Title
 		Then I click on add activity icon
 		And I see the activity data on license details page

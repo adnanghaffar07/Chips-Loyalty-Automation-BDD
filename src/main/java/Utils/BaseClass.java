@@ -17,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -120,6 +121,21 @@ public class BaseClass extends Utilities {
 		for (int i = 0; i < len; i++)
 			sb.append(AB.charAt(rnd.nextInt(AB.length())));
 		return sb.toString();
+	}
+	
+	public void hoverAndClick(String xpathOfHover,String xpathOfClick) {
+		WebElement elementOfHover = driver.findElement(By.xpath(xpathOfHover));
+		WebElement elementOfClick = driver.findElement(By.xpath(xpathOfClick));
+		Actions builder = new Actions(driver);
+		builder.moveToElement(elementOfHover).perform();
+		try{
+			Thread.sleep(1000);
+		}
+		catch(Exception e) {
+			
+		}
+		builder.moveToElement(elementOfClick).click().perform();
+//		waitTime(3000);
 	}
 
 }

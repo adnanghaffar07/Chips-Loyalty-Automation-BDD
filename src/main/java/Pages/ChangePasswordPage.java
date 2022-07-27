@@ -163,9 +163,6 @@ public class ChangePasswordPage extends BaseClass {
 		Assert.assertTrue(isClickable(cancelBtn, driver));
 
 		Assert.assertTrue(isClickable(helpDropdown, driver));
-		
-		Assert.assertTrue(isClickable(bellIcon, driver));
-
 	}
 	
 	public void browserTabNameShouldDisplayedWithTheTabNamePharmaSolutionAtlas(WebDriver driver) {

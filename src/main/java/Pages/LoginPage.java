@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import Utils.BaseClass;
 import org.junit.Assert;
-//import junit.framework.Assert;
 
 public class LoginPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -273,7 +272,6 @@ public class LoginPage extends BaseClass {
 		try {
 			driver.switchTo().alert().dismiss();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);

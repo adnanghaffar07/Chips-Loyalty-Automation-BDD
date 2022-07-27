@@ -33,9 +33,7 @@ public class TasksPage extends BaseClass {
 	}
 	
 	public void clickOnGoToTasksButton(WebDriver driver) {
-		waitTime(6000);
-//		waitForElementVisibility(goToTasks, "30", driver);
-//		scrollToElement(goToTasks, driver);
+
 		waitTime(6000);
 		click(goToTasks, driver);
 	}

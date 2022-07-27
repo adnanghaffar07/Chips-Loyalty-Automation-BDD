@@ -138,7 +138,7 @@ public class DashboardSteps extends BaseClass {
 	public void clickOnclickOnLicensesGrid() throws InterruptedException {
 		dashboardPage.clickOnLicensesGrid(driver);
 	}
-	
+
 	@And("^I see license Page Title$")
 	public void verifyLicencePageTitle() {
 		Assert.assertTrue(dashboardPage.verifyLicencePageTitle(driver));
@@ -292,5 +292,24 @@ public class DashboardSteps extends BaseClass {
 	public void clickOnPdfFiledeletedSuccessPopupOkButton() {
 		dashboardPage.clickOnPdfFileSuccessPopupOkButton(driver);
 	}
+	
+	@Then("^I click on menu collapse button$")
+	public void clickOnMenuCollapseButton() throws InterruptedException {
+		dashboardPage.clickOnMenuCollapseButton(driver);
+	}
+	
+	@And("^I click on data views dropdown$")
+	public void dataViewsDropDown(){
+		dashboardPage.dataViewsDropDown(driver);
+	}
+	
+	@And("^click on licenses grid$")
+	public void clickLicensesGrid() throws InterruptedException{
+		dashboardPage.clickLicensesGrid(driver);
+	}
+	
+	
+	
+	
 	
 }
