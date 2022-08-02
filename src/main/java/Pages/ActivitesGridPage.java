@@ -26,7 +26,7 @@ public class ActivitesGridPage extends BaseClass {
 	private WebDriver podriver = null;
 
 	String activitiesGrid = "(//div[@class='mbp'])[3]";
-	String companySearch = "(//th[@aria-label='Company: activate to sort column ascending']/following::input)[2]";
+	String companySearch = "(//th[text()='Company']/following::th/input)[2]";
 	String compMgrSearch = "(//th[@aria-label='Comp.Mgr: activate to sort column ascending']/following::input)[1]";
 	String facilitySearch = "(//th[@aria-label='Facility: activate to sort column descending']/following::input)[3]";
 	String licenseNameSearch = "(//th[@aria-label='License Name: activate to sort column ascending']/following::input)[4]";
@@ -52,8 +52,7 @@ public class ActivitesGridPage extends BaseClass {
 	String ActivityStartDateTxt = "//input[@id='ActivityStartDate']";
 	String addLicenseActivityPageTitel = "//div[@class='modal-header head-back'] | //p[contains(text(),'License Details - Add Activity')]";
 	String addActivityNextBtn = "//button[@id='modal-task-slider'] | (//button[text()='Next'])[last()]";
-	String addActivityNextSecondBtn = "//button[@id='modal-task-slider-two']";
-	
+	String addActivityNextSecondBtn = "//button[@id='modal-task-slider-two']";	
 	String addActivityAddTaskTitel = "//p[contains(text(),'Add Task')]";
 	String addActivityAddTaskDateTxt = "//input[@id='CreationDate']";
 	String addActivityAddTaskCreatedByTxt = "//input[@id='TaskAuthor']";
@@ -66,7 +65,8 @@ public class ActivitesGridPage extends BaseClass {
 	String activityStartDatePicer = "(//th[text()='Activity Start']/following::input)[11]";
 	String activityStartDateOnGrid = "(//*[text()='Activity Start']/following::td)[11]";	
 	String activityOnGrid = "(//*[text()='Activity']/following::td)[12]";	
-	
+	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[2]";
+	String companySearchList = "//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2]";
 	
 	
 	int licenseDetailsCount = 0;
@@ -83,6 +83,7 @@ public class ActivitesGridPage extends BaseClass {
 	String filepath = filePath + "TestSample.pdf";
 	String avtivitySartDateSelect;
 	String licenseActivityValue;
+	String twoCharOfValToSearch="";
 
 	public ActivitesGridPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -270,11 +271,10 @@ public class ActivitesGridPage extends BaseClass {
 			
 			LocalDate currentDate = java.time.LocalDate.now();
 			System.out.println(currentDate.toString());
-			String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
+			String date = "00"+reformatDate(currentDate.toString(),"yyyy-MM-dd", "yyyy-MM-dd");
 			avtivitySartDateSelect = date; 
 			System.out.println("Active Date: " + date);
-			date = date.replace("-", "");
-
+//			date = date.replace("-", "");
 			click(ActivityStartDateTxt, driver);
 			type(ActivityStartDateTxt, date, driver);
 			
@@ -410,17 +410,46 @@ public class ActivitesGridPage extends BaseClass {
 		String replaceVale;
 		try {
 			type(activityStartDatePicer, avtivitySartDateSelect, driver);
-			replaceVale = avtivitySartDateSelect.replace("/", "-").trim();
+			replaceVale = avtivitySartDateSelect.replace("00", "").trim();
+			replaceVale = reformatDate(replaceVale,"yyyy-MM-dd", "MM-dd-yyyy");
+			System.out.println(replaceVale);
 			waitTime(10000);
 			waitDateXpath = "(//td[text()='"+replaceVale+"'])[1]";
 			waitForElementVisibility(waitDateXpath, "300", driver);
 			String date = getValueFromAttribute(activityStartDateOnGrid, driver).trim();
-			String activityStartDate = date.replace("-", "/");
-			System.out.println("Active Start Serach Date: " + activityStartDate);
-			Assert.assertTrue(activityStartDate.equals(avtivitySartDateSelect));
+//			String activityStartDate = date.replace("-", "/");
+			System.out.println("Active Start Serach Date: " + date);
+			Assert.assertTrue(date.equals(replaceVale));
 			String activity = getValueFromAttribute(activityOnGrid, driver).trim();
 			System.out.println("Active: " + activity);
 			Assert.assertTrue(activity.equals(licenseActivityValue));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void enterTwoCharactersInColumnSearchField(WebDriver driver) {
+		waitForElementVisibility(addActivityAddTaskSaveBtn, "30", driver);
+		scrollToElement(addActivityAddTaskSaveBtn, driver);
+		click(addActivityAddTaskSaveBtn, driver);
+		twoCharOfValToSearch = getValueFromAttribute(companySearchValue, driver);
+		twoCharOfValToSearch = twoCharOfValToSearch.substring(0,2);
+		type(companySearch, twoCharOfValToSearch, driver);
+	}
+	
+	public Boolean verifyFilteredBasedOnEnteredColumnWiseSearchKeywords(WebDriver driver) {
+		try {
+			for (int i = 1; i < companySearchList.length(); i++) {
+				WebElement element = driver.findElement(By.xpath(
+						"(//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2])[" + i
+								+ "]"));
+				scrollToElement(element, driver);
+				String getData = getValue(element, driver);
+				getData = getData.substring(0,2);
+				Assert.assertTrue(getData.equals(twoCharOfValToSearch));
+				System.out.println("inside : " + companySearchList.length());
+			}
 			return true;
 		} catch (Exception e) {
 			return false;

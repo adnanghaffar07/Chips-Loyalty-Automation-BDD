@@ -205,4 +205,16 @@ Scenario: Step_28_As a user i validate add license popup
 		And I see the edit license page titel
 		Then I see the expiry date matches the expiration date noted in the license grid
 		
+		Scenario: Step_38_As a user i enters the keyword by typing in two characters in the column search text field
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on licenses grid
+		And I see license Page Title
+		Then I enter two characters in column search filter
+		Then I see the licenses activities are filtered based on the entered column wise search keywords
+				
     

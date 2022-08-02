@@ -139,7 +139,9 @@ public class LicenseGridPage extends BaseClass {
 	String expirationDate = "(//td//span[@class='red'])[1]";
 	String expirationDateOnDetials = "//input[@id='ExpirationDate']";
 	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
-	
+	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[2]";
+	String companySearchList = "//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2]";
+		
 	
 
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
@@ -159,6 +161,7 @@ public class LicenseGridPage extends BaseClass {
 	String all = "All";
 	String completeOnly = "Complete only";
 	String getExpirationDate = "";
+	String twoCharOfValToSearch="";
 
 	public LicenseGridPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -1380,6 +1383,31 @@ public class LicenseGridPage extends BaseClass {
 //			getExpirationDateOnDetials.replaceAll("/", "-");
 			System.out.println(getExpirationDateOnDetials);
 			Assert.assertTrue(getExpirationDateOnDetials.equals(getExpirationDate));			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void enterTwoCharactersInColumnSearchField(WebDriver driver) {
+		twoCharOfValToSearch = getValueFromAttribute(companySearchValue, driver);
+		twoCharOfValToSearch = twoCharOfValToSearch.substring(0,2);
+		type(companySearch, twoCharOfValToSearch, driver);
+	}
+	
+	public Boolean verifyFilteredBasedOnEnteredColumnWiseSearchKeywords(WebDriver driver) {
+		try {
+			for (int i = 1; i < companySearchList.length(); i++) {
+				WebElement element = driver.findElement(By.xpath(
+						"(//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2])[" + i
+								+ "]"));
+				scrollToElement(element, driver);
+				String getData = getValue(element, driver);
+				getData = getData.substring(0,2);
+				Assert.assertTrue(getData.equals(twoCharOfValToSearch));
+				System.out.println("inside : " + companySearchList.length());
+				waitTime(500);
+			}
 			return true;
 		} catch (Exception e) {
 			return false;

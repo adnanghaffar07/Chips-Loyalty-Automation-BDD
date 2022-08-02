@@ -34,12 +34,46 @@ public class TasksSteps extends BaseClass {
 	@Then("^I click on go to tasks button$")
 	public void clickOnGoToTasksButton() {
 		tasksPage.clickOnGoToTasksButton(driver);
-	}
-	
+	}	
 	
 	@Then("^I see the tasks page$")
 	public void verifyLicenseWithExpirationFieldPopulated() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyTaskSubpanel(driver));
+	}
+	
+	@And("^I click on go to tasks license activities button$")
+	public void clickOngoToTaskLicenseActivitiesButton() {
+		tasksPage.clickOnGoToTaskLicenseActivitiesButton(driver);
+	}
+	
+	@And("^I click on back to tasks button$")
+	public void clickOnBackToTasksButton() {
+		tasksPage.clickOnBackToTasksButton(driver);
+	}
+	
+	@And("^I click on add task button$")
+	public void clickOnAddTaskButton() {
+		tasksPage.clickOnAddTaskButton(driver);
+	}
+	
+	@Then("^I see add task title$")
+	public void verifyAddTaskTitle() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyAddTaskTitle(driver));
+	}
+	
+	@Then("^I see following fields are mandatory and non editable date and createdBy$")
+	public void verifyFollowingFieldsAreMandatoryAndNonEditableDateAndCreatedBy() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyFollowingFieldsAreMandatoryAndNonEditableDateAndCreatedBy(driver));
+	}
+	
+	@Then("^I see following fields are mandatory and editable type task Status assignee and dueDate$")
+	public void verifyFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeAndDueDate() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeAndDueDate(driver));
+	}
+	
+	@And("^I click on add task save button$")
+	public void clickOnSaveButton() {
+		tasksPage.clickOnSaveButton(driver);
 	}
 	
 }
