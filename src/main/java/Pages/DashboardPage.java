@@ -73,6 +73,21 @@ public class DashboardPage extends BaseClass {
 	String pdfFileSuccessPopupOkBtn = "//a[@id='successok']";
 	String licenseNumberCoun = "(//*[@title='View License']/ancestor::td/../td[7])";
 	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
+	String kpiLicenseActive = "//table[@id='status-table']//td[text()='Active']";
+	String reportGridStatus = "//table[@id='table-report']//tr[1]//td[9]";
+	String licenseMangementNavigation = "//a[contains(text(),'License Management')]";
+	String licenseNavigation = "//ul//a[contains(text(),'Licenses')]";
+	String deleteLicenseBtn = "//button[text()='Delete']";
+	String confirmDeleteLicenseBtn = "//a[text()='Confirm']";
+	String CancelDeleteLicenseBtn = "//a[text()='Cancel']";
+	String deleteConfirmationButton = "//a[text()='OK']";
+
+	String activitiesDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Activities')]";
+	String taskDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Tasks')]";
+	String licenseDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'License Documents')]";
+	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
+	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
+
 	
 	
 	
@@ -245,7 +260,6 @@ public class DashboardPage extends BaseClass {
 	public void selectClient(WebDriver driver) {
 		waitForElementVisibility(clientDropDown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientDropDown)));
-
 		client.selectByIndex(1);
 		WebElement element = driver.findElement(By.xpath(clientDropDownOption));
 		clientSelected = element.getText().trim();
@@ -585,6 +599,7 @@ public class DashboardPage extends BaseClass {
 
 		}
 		doubleClick(licenseDetialsFirstRow, driver);
+		doubleClick(licenseDetialsFirstRow, driver);
 	}
 
 	public Boolean verifyLicenseDetialsDataOnLicensePage(WebDriver driver) {
@@ -599,6 +614,24 @@ public class DashboardPage extends BaseClass {
 				Assert.assertTrue(licenseDetials.containsValue(getval.trim()));
 			}
 			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyLicenseDetialsDataDeletedOnLicensePage(WebDriver driver) {
+		waitTime(9000);
+		try {
+			for (int i = 2; i < 8; i++) {
+
+				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+				String getval = getValue(element, driver);
+				System.out.println(getval);
+				System.out.println("value : " + getval);
+				if(!licenseDetials.containsValue(getval.trim()))
+					return true;
+			}
+			return false;
 		} catch (Exception e) {
 			return false;
 		}
@@ -740,6 +773,168 @@ public class DashboardPage extends BaseClass {
 		waitForElementVisibility(pdfFileSuccessPopupOkBtn, "30", driver);
 		click(pdfFileSuccessPopupOkBtn, driver);
 
+	}
+	
+	public void clickOnClientDropdown(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(clientDropDown, "30", driver);
+		click(clientDropDown, driver);
+
+	}
+	
+	public void clickOnResetFilter(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(resetFilter, "30", driver);
+		click(resetFilter, driver);
+
+	}
+	
+	public void clickOnKpiLicenseActive(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(kpiLicenseActive, "30", driver);
+		click(kpiLicenseActive, driver);
+
+	}
+	
+	public void clickOnLicenseManagementNavigation(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(licenseMangementNavigation, "30", driver);
+		click(licenseMangementNavigation, driver);
+
+	}
+	public void clickOnLicenseNavigation(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(licenseNavigation, "30", driver);
+		click(licenseNavigation, driver);
+
+	}
+	
+	public void clickOnDeleteLicenseBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(deleteLicenseBtn, "30", driver);
+		click(deleteLicenseBtn, driver);
+
+	}
+	
+	public void clickOnConfirmDeleteLicenseBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(confirmDeleteLicenseBtn, "30", driver);
+		click(confirmDeleteLicenseBtn, driver);
+
+	}
+	
+	public void clickOnCancelDeleteLicenseBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(CancelDeleteLicenseBtn, "30", driver);
+		click(CancelDeleteLicenseBtn, driver);
+
+	}
+	
+	public void clickOnDeleteConfirmationBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(deleteConfirmationButton, "30", driver);
+		click(deleteConfirmationButton, driver);
+
+	}
+	
+	public Boolean verifyKpiActiveLicense(WebDriver driver) {
+		waitTime(9000);
+		try {
+			
+			return getText(reportGridStatus, driver).equals("Active");
+		
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyClientDropdownOption(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(clientDropDownOption, "30", driver);
+			System.out.println("clientDropDownOption : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyActivitiesDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(activitiesDeletePopup, "30", driver);
+			System.out.println("activitiesDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTasksDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(taskDeletePopup, "30", driver);
+			System.out.println("taskDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyLicenseDocumentsDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(licenseDocumentsDeletePopup, "30", driver);
+			System.out.println("licenseDocumentsDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTaskDocumentsDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(taskDocumentsDeletePopup, "30", driver);
+			System.out.println("taskDocumentsDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTaskNotificationDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(taskNotificationDeletePopup, "30", driver);
+			System.out.println("taskNotificationDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyClientCompanyFacilityDropDown(WebDriver driver) {
+		waitTime(9000);
+		try {
+			String client = (new Select(driver.findElement(By.xpath(clientDropDown)))).getFirstSelectedOption().getText();
+			String company = (new Select(driver.findElement(By.xpath(companyDropDown)))).getFirstSelectedOption().getText();
+			String facility = (new Select(driver.findElement(By.xpath(facilityDropDown)))).getFirstSelectedOption().getText();
+			
+			if(client.equals("All") && company.equals("All") && facility.equals("All"))
+				return true;
+
+		
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void verifyTheUserIsAbleToViewThePDF(WebDriver driver) {

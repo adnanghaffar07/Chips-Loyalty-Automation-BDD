@@ -283,12 +283,13 @@ public class LicenseGridPage extends BaseClass {
 	}
 
 	public Boolean verifyUrlIconForEachLicenseInTheGrid(WebDriver driver) {
-		waitTime(7000);
+		waitTime(5000);
 		try {
 			for (int i = 1; i < urlIconEachLicense.length(); i++) {
 				WebElement element = driver.findElement(By.xpath("(//tr//td[11])[" + i + "]"));
 				scrollIntoViewSmoothly(element, driver);
 				Assert.assertTrue(isElementDisplayed(element, driver));
+				waitTime(1000);
 			}
 			return true;
 		} catch (Exception e) {

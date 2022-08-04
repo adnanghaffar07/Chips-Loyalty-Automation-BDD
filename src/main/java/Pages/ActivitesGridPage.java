@@ -67,6 +67,35 @@ public class ActivitesGridPage extends BaseClass {
 	String activityOnGrid = "(//*[text()='Activity']/following::td)[12]";	
 	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[2]";
 	String companySearchList = "//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2]";
+	String globalSearchTextbox = "//input[@aria-label='Search']";
+	String advanceFilterIcon = "(//a[contains(text(),'Advanced')])[2]";
+	String oldNotesIcon = "//img[contains(@src,'notes_small.svg')]";
+	String companyName = "(//tr[@class='odd'])[1]/td[2]";
+	String facilityName = "(//tr[@class='odd'])[1]/td[3]";
+	String expiry = "(//tr[@class='odd'])[1]/td[9]";
+	String activity = "(//tr[@class='odd'])[1]/td[12]";
+	String status = "(//tr[@class='odd'])[1]/td[8]";
+	String licenseState = "(//tr[@class='odd'])[1]/td[6]";
+	
+	String companyNameDetailGrid = "(//section[@id='task']//p[contains(text(),'Company')])[1]/following-sibling::p";
+	String facilityNameDetailGrid = "(//section[@id='task']//p[contains(text(),'Facility')])[1]/following-sibling::p";
+	String expiryDetailGrid = "(//section[@id='task']//p[contains(text(),'Expiry')])[1]/following-sibling::p";
+	String activityDetailGrid = "(//section[@id='task']//p[contains(text(),'Activity')])[1]/following-sibling::p";
+	String statusDetailGrid = "(//section[@id='task']//p[contains(text(),'License Status')])[1]/following-sibling::p";
+	String licenseStateDetailGrid = "(//section[@id='task']//p[contains(text(),'State')])[1]/following-sibling::p";
+	String addTaskButton = "(//button[contains(text(),'ADD')])[2]";
+	String taskDetail = "//div[@id='tasks']//div[@class='scroll']";
+	String taskNotes = "//p[contains(text(),'Activity Notes')]";
+	String activityNotesBtn = "(//li//span[contains(text(),'Activity')])[1]";
+	
+	String companyNameFirstRow = "";
+	String faciltyNameFirstRow = "";
+	String expiryDateFirstRow = "";
+	String activityFirstRow = "";
+	String statusFirstRow = "";
+	String stateFirstRow = "";
+
+
 	
 	
 	int licenseDetailsCount = 0;
@@ -179,6 +208,20 @@ public class ActivitesGridPage extends BaseClass {
 		
 		click(urlIconLicense, driver);
 	}
+	
+	public void clickOnGoToTaskButtonActivities(WebDriver driver) {
+		waitTime(7000);
+		waitForElementVisibility(goToTasksButton, "30", driver);
+		
+		click(goToTasksButton, driver);
+	}
+	
+	public void clickOnActivityNotes(WebDriver driver) {
+		waitTime(7000);
+		waitForElementVisibility(activityNotesBtn, "30", driver);
+		
+		click(activityNotesBtn, driver);
+	}
 
 	public boolean verifyTheActivitiesUrlOpensAndLoadsSuccessfullyIfTheUrlIsValid(WebDriver driver) {
 
@@ -255,7 +298,7 @@ public class ActivitesGridPage extends BaseClass {
 			Select activityKeyDropdown = new Select(driver.findElement(By.xpath(editLicenseActivityKeyDropDown)));
 			WebElement activityKeyOption = activityKeyDropdown.getFirstSelectedOption();
 			String activityKeyValueBefore = activityKeyOption.getText();
-			activityKeyDropdown.selectByIndex(1);
+			activityKeyDropdown.selectByIndex(3);
 			activityKeyOption = activityKeyDropdown.getFirstSelectedOption();
 			String activityKeyValueAfter = activityKeyOption.getText();
 			Assert.assertFalse("Verify activityKey DropDown is Editable",
@@ -271,7 +314,7 @@ public class ActivitesGridPage extends BaseClass {
 			
 			LocalDate currentDate = java.time.LocalDate.now();
 			System.out.println(currentDate.toString());
-			String date = "00"+reformatDate(currentDate.toString(),"yyyy-MM-dd", "yyyy-MM-dd");
+			String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
 			avtivitySartDateSelect = date; 
 			System.out.println("Active Date: " + date);
 //			date = date.replace("-", "");
@@ -324,7 +367,6 @@ public class ActivitesGridPage extends BaseClass {
 	}
 	
 	public Boolean verifyAddTaskTitel(WebDriver driver) {
-		waitTime(8000);
 		try {
 			waitForElementVisibility(addActivityAddTaskTitel, "20", driver);
 			System.out.println("addActivityAddTaskTitel: ");
@@ -410,8 +452,8 @@ public class ActivitesGridPage extends BaseClass {
 		String replaceVale;
 		try {
 			type(activityStartDatePicer, avtivitySartDateSelect, driver);
-			replaceVale = avtivitySartDateSelect.replace("00", "").trim();
-			replaceVale = reformatDate(replaceVale,"yyyy-MM-dd", "MM-dd-yyyy");
+//			replaceVale = avtivitySartDateSelect.replace("00", "").trim();
+			replaceVale = reformatDate(avtivitySartDateSelect,"MM/dd/yyyy", "MM-dd-yyyy");
 			System.out.println(replaceVale);
 			waitTime(10000);
 			waitDateXpath = "(//td[text()='"+replaceVale+"'])[1]";
@@ -451,6 +493,118 @@ public class ActivitesGridPage extends BaseClass {
 				System.out.println("inside : " + companySearchList.length());
 			}
 			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean VerifyTheSubPanelHeaderSectionsDisplaysTheChosenActivitiesDetails(WebDriver driver) {
+		try {
+			for (int i = 1; i < companySearchList.length(); i++) {
+				WebElement element = driver.findElement(By.xpath(
+						"(//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2])[" + i
+								+ "]"));
+				scrollToElement(element, driver);
+				String getData = getValue(element, driver);
+				getData = getData.substring(0,2);
+				Assert.assertTrue(getData.equals(twoCharOfValToSearch));
+				System.out.println("inside : " + companySearchList.length());
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyGlobalSearchTextBoxInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(globalSearchTextbox, "20", driver);
+			System.out.println("globalSearchTextbox: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyAdvanceFilterIconInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(advanceFilterIcon, "20", driver);
+			System.out.println("advanceFilterIcon: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyAddTaskButtonInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(addTaskButton, "20", driver);
+			System.out.println("addTaskButton: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTaskDetailInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(taskDetail, "20", driver);
+			System.out.println("taskDetail: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyNotesSectionDetailInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(taskNotes, "20", driver);
+			System.out.println("taskNotes: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyOldNotesIconInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			waitForElementVisibility(oldNotesIcon, "20", driver);
+			System.out.println("oldNotesIcon: ");
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void getDetailsInFirstRow(WebDriver driver) {
+		companyNameFirstRow = getText(companyName, driver).trim();
+		faciltyNameFirstRow = getText(facilityName, driver).trim();
+		statusFirstRow = getText(status, driver).trim();
+		stateFirstRow = getText(licenseState, driver).trim();
+		expiryDateFirstRow = getText(expiry, driver).trim();
+		activityFirstRow = getText(activity, driver).trim();
+
+	}
+	
+	public Boolean verifyDetailAreCorrectInTheLicencseActivityGrid(WebDriver driver) {
+		waitTime(8000);
+		try {
+			if(getText(companyNameDetailGrid, driver).trim().equals(companyNameFirstRow) &&
+			 getText(facilityNameDetailGrid, driver).trim().equals(faciltyNameFirstRow) &&
+			 getText(statusDetailGrid, driver).trim().equals(statusFirstRow) &&
+			 getText(licenseStateDetailGrid, driver).trim().equals(stateFirstRow) &&
+			 getText(expiryDetailGrid, driver).trim().equals(expiryDateFirstRow) &&
+			 getText(activityDetailGrid, driver).trim().equals(activityFirstRow)) {
+				return true;
+			}
+
+			return false;
 		} catch (Exception e) {
 			return false;
 		}

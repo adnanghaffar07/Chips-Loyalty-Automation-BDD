@@ -143,4 +143,50 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid(driver));
 	}
 	
+	@Then("^I click on go to task button$")
+	public void clickOnGoToTaskButton() {
+		activitesGridPage.getDetailsInFirstRow(driver);
+		activitesGridPage.clickOnGoToTaskButtonActivities(driver);
+	}
+	
+	@And("^I see the sub panel header sections displays the chosen activities details$")
+	public void verifyHeaderSectionsDisplaysTheChosenActivitiesDetails() {
+		Assert.assertTrue(activitesGridPage.verifyDetailAreCorrectInTheLicencseActivityGrid(driver));
+	}
+	
+	@And("^I see tasks section lists the related tasks details of the chosen activities$")
+	public void verifyTheTaskDetail() {
+		Assert.assertTrue(activitesGridPage.verifyTaskDetailInTheLicencseActivityGrid(driver));
+	}
+	
+	@And("^I see the add task button in the license activity grid$")
+	public void verifyTheAddTaskButton() {
+		Assert.assertTrue(activitesGridPage.verifyAddTaskButtonInTheLicencseActivityGrid(driver));
+	}
+	
+	@Then("^I click activity notes button$")
+	public void clickActivityNotesButton() {
+		activitesGridPage.clickOnActivityNotes(driver);
+	}
+	
+	@And("^I see the activity notes section lists the related notes details of the chosen activities$")
+	public void verifyTheTaskNotes() {
+		Assert.assertTrue(activitesGridPage.verifyNotesSectionDetailInTheLicencseActivityGrid(driver));
+	}
+	
+	@And("^I see the user is able to view the old notes icon$")
+	public void verifyTheOldNotesIcon() {
+		Assert.assertTrue(activitesGridPage.verifyOldNotesIconInTheLicencseActivityGrid(driver));
+	}
+	
+	@And("^I see the global search text box in the license activity grid$")
+	public void verifyTheGlobalSearchTextBox() {
+		Assert.assertTrue(activitesGridPage.verifyGlobalSearchTextBoxInTheLicencseActivityGrid(driver));
+	}
+	
+	@And("^I see the advance filters icon in the license activity grid$")
+	public void verifyTheAdvanceFilterIcon() {
+		Assert.assertTrue(activitesGridPage.verifyAdvanceFilterIconInTheLicencseActivityGrid(driver));
+	}
+	
 }

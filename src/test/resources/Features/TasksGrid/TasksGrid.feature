@@ -113,3 +113,4 @@ Feature: TasksGrid
 		Then I see following fields are mandatory and editable type task Status assignee and dueDate
 		And I click on add task save button
 		Then I click on success popup ok button
+		Then I see the modified license activity is listed in the license activity grid

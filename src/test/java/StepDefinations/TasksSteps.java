@@ -76,4 +76,10 @@ public class TasksSteps extends BaseClass {
 		tasksPage.clickOnSaveButton(driver);
 	}
 	
+	@Then("^I see the modified license activity is listed in the license activity grid$")
+	public void verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid(driver));
+	}
+	
+	
 }

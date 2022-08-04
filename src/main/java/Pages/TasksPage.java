@@ -44,7 +44,7 @@ public class TasksPage extends BaseClass {
 	String dueDateDropDown = "//input[@id='ExpCompletionDate']";
 	String saveBtn = "//button[@id='task-save']";
 	String assigneeValueTaskAdd = "(//p[contains(text(),'Assignee')])[1]/following-sibling::p";
-	String dateValueTaskAdd = "(//p[contains(text(),'Date')])[1]/following-sibling::p";
+	String dateValueTaskAdd = "(//p[contains(text(),'Due')])[1]/following-sibling::p";
 	
 	
 	
@@ -146,8 +146,28 @@ public class TasksPage extends BaseClass {
 			Assert.assertFalse("Verify type DropDown is Editable",
 					assigneeValueAfter.equals(assigneeValueBefore));
 			
-			waitForElementVisibility(dueDateMandatory, "20", driver);			
+			waitForElementVisibility(dueDateMandatory, "20", driver);		
+
+			taskDateSelect = getValue(dueDateDropDown, driver);
+			System.out.println("taskDateSelect");
 			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid(WebDriver driver) {
+		try {
+			waitForElementVisibility(addTaskBtn, "20", driver);
+			String assigneeValue = getText(assigneeValueTaskAdd, driver);
+			System.out.println("Value assign"+ assigneeValue);
+			Assert.assertTrue("Verify Value of assign are equal",assigneeValue.equals(assigneeValueAfter));
+			
+			String dateValue = getText(dateValueTaskAdd, driver);
+			dateValue = reformatDate(dateValue,"MM-dd-yyyy", "yyyy-MM-dd");
+			System.out.println("Value date"+ dateValue);
+			Assert.assertTrue("Verify Value of date are equal",dateValue.equals(taskDateSelect));
 			return true;
 		} catch (Exception e) {
 			return false;

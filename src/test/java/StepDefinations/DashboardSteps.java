@@ -308,7 +308,112 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.clickLicensesGrid(driver);
 	}
 	
+	@Then("^I click logout on menu under user menu hove$")
+	public void ClickLogoutOnMenuUnderUserMenuHove() throws InterruptedException {
+		dashboardPage.clickOnUserDropDown(driver);
+		dashboardPage.clickOnLogoutButton(driver);
+	}
 	
+	@Then("^I Select Client, Company Facility value in a dropdown$")
+	public void SelectClientValueInADropDown() throws InterruptedException {
+		dashboardPage.clickOnClientDropdown(driver);
+		dashboardPage.verifyClientDropdownOption(driver);
+	}
+	
+	@Then("^I click on reset filters$")
+	public void clickOnResetFilters() throws InterruptedException {
+		dashboardPage.clickOnResetFilter(driver);
+	}
+	
+	@And("^I see filter to revert client, company, facility to all$")
+	public void filterToRevertClientCompanyFacilityToALL() {
+		Assert.assertTrue(dashboardPage.verifyClientCompanyFacilityDropDown(driver));
+		
+	}
+	@Then("^I click active license kpi$")
+	public void clickOnActiveLicenseKPI() throws InterruptedException {
+		dashboardPage.clickOnKpiLicenseActive(driver);
+	}
+	
+	@And("^I see kpi reflects in grid$")
+	public void verifyKPIShouldReflectInGrid() {
+		Assert.assertTrue(dashboardPage.verifyKpiActiveLicense(driver));
+		
+	}
+	
+	@Then("^I click on license navigaiton$")
+	public void clickOnLicenseNavigation() throws InterruptedException {
+		dashboardPage.clickOnLicenseManagementNavigation(driver);
+		dashboardPage.clickOnLicenseNavigation(driver);
+
+	}
+	
+	@And("^I double click on license detail$")
+	public void doubleClickOnLicenseDetail() {
+		dashboardPage.doubleClickLicenseDetials(driver);
+		
+	}
+	
+	@And("^I click on delete button$")
+	public void clickOnDeleteButton() {
+		dashboardPage.clickOnDeleteLicenseBtn(driver);
+		
+	}
+	
+	@And("^I see the activites under selected license$")
+	public void verifyActivitiesUnderThisLicense() {
+		Assert.assertTrue(dashboardPage.verifyActivitiesDeletePopUp(driver));
+		
+	}
+	
+	@And("^I see the task under selected license$")
+	public void verifyTaskUnderThisLicense() {
+		Assert.assertTrue(dashboardPage.verifyTasksDeletePopUp(driver));
+		
+	}
+	
+	@And("^I see the license documents under selected license$")
+	public void verifyLicenseDocumentsUnderThisLicense() {
+		Assert.assertTrue(dashboardPage.verifyLicenseDocumentsDeletePopUp(driver));
+		
+	}
+	
+	@And("^I see the task documents under selected license$")
+	public void verifyTaskDocumentsUnderThisLicense() {
+		Assert.assertTrue(dashboardPage.verifyTaskDocumentsDeletePopUp(driver));
+		
+	}
+	
+	@And("^I see the task notification under selected license$")
+	public void verifyTaskNotificationUnderThisLicense() {
+		Assert.assertTrue(dashboardPage.verifyTaskNotificationDeletePopUp(driver));
+		
+	}
+	
+	@Then("^I click on confirm button on delete popup$")
+	public void clickOnConfirmButtonInDeletePopUp() {
+		dashboardPage.clickOnConfirmDeleteLicenseBtn(driver);
+		dashboardPage.clickOnDeleteConfirmationBtn(driver);
+		
+	}
+	
+	@Then("^I click on cancel button on delete popup$")
+	public void clickOnCancelButtonInDeletePopUp() {
+		dashboardPage.clickOnCancelDeleteLicenseBtn(driver);
+		
+	}
+	
+	@And("^I see the license details records deleted successfully$")
+	public void verifyLicenseDetailRecordsDeletedSuccessfully() {
+		Assert.assertTrue(dashboardPage.verifyLicenseDetialsDataDeletedOnLicensePage(driver));
+		
+	}
+	
+	@And("^I see the license details records not deleted$")
+	public void verifyLicenseDetailRecordsNotDeleted() {
+		Assert.assertTrue(dashboardPage.verifyLicenseDetialsDataOnLicensePage(driver));
+		
+	}
 	
 	
 	

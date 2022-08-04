@@ -164,7 +164,25 @@ Feature: ActivitesGrid
 		Then I click on success popup ok button
 		And I see the newly added license activity is listed in the license activity grid
 
-	
+		Scenario: Step_48_As a user i validate Tasks Subpanel Load conditions in the License Activities grid
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on activities grid
+		And I see activities page title
+		Then I click on go to task button
+		And I see the sub panel header sections displays the chosen activities details
+		And I see tasks section lists the related tasks details of the chosen activities
+		And I see the add task button in the license activity grid
+		Then I click activity notes button
+		And I see the activity notes section lists the related notes details of the chosen activities
+		And I see the user is able to view the old notes icon
+		And I see the global search text box in the license activity grid
+		And I see the advance filters icon in the license activity grid
+		
 
 		
     
