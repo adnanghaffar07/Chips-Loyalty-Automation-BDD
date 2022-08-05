@@ -216,5 +216,8 @@ Scenario: Step_28_As a user i validate add license popup
 		And I see license Page Title
 		Then I enter two characters in column search filter
 		Then I see the licenses activities are filtered based on the entered column wise search keywords
+		
+		
+
 				
     

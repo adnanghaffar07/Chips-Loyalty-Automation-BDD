@@ -114,3 +114,47 @@ Feature: TasksGrid
 		And I click on add task save button
 		Then I click on success popup ok button
 		Then I see the modified license activity is listed in the license activity grid
+		
+		Scenario: Step_51_As a user i validate delete tasks feature
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+    And I double click on license detail
+    And I click on delete button
+    And I see the task documents under selected license
+    And I see the task notification under selected license
+    Then I click on confirm button on delete popup
+    And I see the license details records deleted successfully
+    And I double click on license detail
+    And I click on delete button
+    Then I click on cancel button on delete popup
+    And I see the license details records not deleted
+    
+    Scenario: Step_52_As a user i Validate the following sections and tabs and grid records are visible on the Tasks Grid
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+    Then I see client company facility global filters and reset filter
+    Then I see export button on task grid
+    Then I see export with notes button on task grid
+    Then I see  alltasks mytasks filter assigned tasks dropdown default dropdown value is all tasks
+    Then I see tasks standing filter drop down default dropdown value selected is incomplete only
+    Then I see advance filter icon on task grid
+    Then I see global search on task grid
+    Then I see column search for each column in the grid
+    Then I see show all links on task grid
+    Then I see column wise sort for each column in the grid
+    And I double click on license detail
+    Then I see edit tasks on double click of each task in the grid
+    
+    
+    
+    

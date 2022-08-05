@@ -82,4 +82,61 @@ public class TasksSteps extends BaseClass {
 	}
 	
 	
+	@Then("^I see client company facility global filters and reset filter$")
+	public void verifyClientCompanyFacilityGlobalAndResetFilter() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyGlobalClientCompanyFacilityAndResetFilters(driver));
+	}
+	
+	@Then("^I see export button on task grid$")
+	public void verifyExportButton() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyExportButton(driver));
+	}
+	
+	@Then("^I see export with notes button on task grid$")
+	public void verifyExportWithNotesButton() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyExportWithNotes(driver));
+	}
+	
+	@Then("^I see  alltasks mytasks filter assigned tasks dropdown default dropdown value is all tasks$")
+	public void verifyAllTaskMyTaskAssignedTaskDropDown() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyAllTaskMyTaskAssignedTaskDropDown(driver));
+	}
+	
+	@Then("^I see tasks standing filter drop down default dropdown value selected is incomplete only$")
+	public void verifyTaskStandingDropDown() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTaskStandingDropDown(driver));
+	}
+	
+	@Then("^I see show all links on task grid$")
+	public void verifyShowAllEntriesDropdown() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyShowAllEntriesDropdown(driver));
+	}
+	
+	@Then("^I see advance filter icon on task grid$")
+	public void verifyAdvanceFilterIcon() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyAdvanceFilterIcon(driver));
+	}
+	
+	@Then("^I see global search on task grid$")
+	public void verifyGlobalSearch() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyGlobalSearch(driver));
+	}
+	
+	@Then("^I see column search for each column in the grid$")
+	public void verifyColumnSearch() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyColumnSearch(driver));
+	}
+	
+	@Then("^I see column wise sort for each column in the grid$")
+	public void verifyColumnWiseSort() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyColumnWiseSort(driver));
+	}
+	
+	@Then("^I see edit tasks on double click of each task in the grid$")
+	public void verifyEditTaskTitle() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyEditTaskTitle(driver));
+	}
+	
+	
+	
 }

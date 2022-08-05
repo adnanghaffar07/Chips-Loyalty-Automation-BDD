@@ -189,4 +189,7 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyAdvanceFilterIconInTheLicencseActivityGrid(driver));
 	}
 	
+
+
+	
 }

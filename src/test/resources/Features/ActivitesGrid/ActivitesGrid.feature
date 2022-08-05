@@ -183,7 +183,26 @@ Feature: ActivitesGrid
 		And I see the global search text box in the license activity grid
 		And I see the advance filters icon in the license activity grid
 		
-
+		Scenario: Step_48_As a user i Validate Delete license activity feature
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on activities grid
+		And I see activities page title
+		And I double click on license detail
+    And I click on delete button
+    And I see the task under selected license
+    And I see the task documents under selected license
+    And I see the task notification under selected license
+    Then I click on confirm button on delete popup
+    And I see the license details records deleted successfully
+    And I double click on license detail
+    And I click on delete button
+    Then I click on cancel button on delete popup
+    And I see the license details records not deleted
 		
     
     

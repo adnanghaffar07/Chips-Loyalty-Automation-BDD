@@ -113,6 +113,16 @@ public class ActivitesGridPage extends BaseClass {
 	String avtivitySartDateSelect;
 	String licenseActivityValue;
 	String twoCharOfValToSearch="";
+	
+	String deleteLicenseBtn = "//button[text()='Delete']";
+	String confirmDeleteLicenseBtn = "//a[text()='Confirm']";
+	String CancelDeleteLicenseBtn = "//a[text()='Cancel']";
+	String deleteConfirmationButton = "//a[text()='OK']";
+	
+	String taskDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Tasks')]";
+	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
+	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
+
 
 	public ActivitesGridPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -605,6 +615,119 @@ public class ActivitesGridPage extends BaseClass {
 			}
 
 			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void doubleClickLicenseDetials(WebDriver driver) {
+		for (int i = 2; i < 10; i++) {
+			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+
+			String getData = getValue(data, driver);
+			String getTitel = getValue(titel, driver);
+			licenseDetials.put(getTitel.trim(), getData.trim());
+			System.out.println(licenseDetials.get(getTitel));
+
+		}
+		doubleClick(activeLicensData, driver);
+		//doubleClick(activeLicensData, driver);
+	}
+
+	public Boolean verifyLicenseDetialsDataOnLicensePage(WebDriver driver) {
+		waitTime(9000);
+		try {
+			for (int i = 2; i < 8; i++) {
+
+				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+				String getval = getValue(element, driver);
+				System.out.println(getval);
+				System.out.println("value : " + getval);
+				Assert.assertTrue(licenseDetials.containsValue(getval.trim()));
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyLicenseDetialsDataDeletedOnLicensePage(WebDriver driver) {
+		waitTime(9000);
+		try {
+			for (int i = 2; i < 8; i++) {
+
+				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+				String getval = getValue(element, driver);
+				System.out.println(getval);
+				System.out.println("value : " + getval);
+				if(!licenseDetials.containsValue(getval.trim()))
+					return true;
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void clickOnDeleteLicenseBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(deleteLicenseBtn, "30", driver);
+		click(deleteLicenseBtn, driver);
+
+	}
+	
+	public void clickOnConfirmDeleteLicenseBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(confirmDeleteLicenseBtn, "30", driver);
+		click(confirmDeleteLicenseBtn, driver);
+
+	}
+	
+	public void clickOnCancelDeleteLicenseBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(CancelDeleteLicenseBtn, "30", driver);
+		click(CancelDeleteLicenseBtn, driver);
+
+	}
+	
+	public void clickOnDeleteConfirmationBtn(WebDriver driver) {
+		waitTime(5000);
+		waitForElementVisibility(deleteConfirmationButton, "30", driver);
+		click(deleteConfirmationButton, driver);
+
+	}
+	
+	public Boolean verifyTaskDocumentsDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(taskDocumentsDeletePopup, "30", driver);
+			System.out.println("taskDocumentsDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTaskNotificationDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(taskNotificationDeletePopup, "30", driver);
+			System.out.println("taskNotificationDeletePopup : ");
+		
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	public Boolean verifyTasksDeletePopUp(WebDriver driver) {
+		waitTime(9000);
+		try {
+			waitForElementVisibility(taskDeletePopup, "30", driver);
+			System.out.println("taskDeletePopup : ");
+		
+			return true;
 		} catch (Exception e) {
 			return false;
 		}

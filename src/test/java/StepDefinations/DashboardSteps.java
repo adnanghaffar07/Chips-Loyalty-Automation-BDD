@@ -368,8 +368,7 @@ public class DashboardSteps extends BaseClass {
 	
 	@And("^I see the task under selected license$")
 	public void verifyTaskUnderThisLicense() {
-		Assert.assertTrue(dashboardPage.verifyTasksDeletePopUp(driver));
-		
+		Assert.assertTrue(dashboardPage.verifyTasksDeletePopUp(driver));		
 	}
 	
 	@And("^I see the license documents under selected license$")
