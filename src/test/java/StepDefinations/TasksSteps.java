@@ -137,6 +137,71 @@ public class TasksSteps extends BaseClass {
 		Assert.assertTrue(tasksPage.verifyEditTaskTitle(driver));
 	}
 	
+	@And("^I click on all task drop down$")
+	public void clickOnUserTypeAllTask() {
+		tasksPage.clickOnUserTypeAllTask(driver);
+	}
+	@And("^I click on my task drop down$")
+	public void clickOnUserTypeMyTask() {
+		tasksPage.clickOnUserTypeMyTask(driver);
+	}
+	@And("^I click on assigned task drop down$")
+	public void clickOnUserTypeAssignedTask() {
+		tasksPage.clickOnUserTypeAssignedTask(driver);
+	}
+	@Then("^I see all task in the grid$")
+	public void verifyAllTaskAreShowing() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyAllTaskAreShowing(driver));
+	}
+	@Then("^I see my task in the grid$")
+	public void verifyMyTaskAreShowing() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyMyTaskAreShowing(driver));
+	}
+	@Then("^I see assigned task in the grid$")
+	public void verifyAssignedTaskAreShowing() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyAssignedTaskAreShowing(driver));
+	}
+	@And("^I click on advance filter icon$")
+	public void clickOnAdvanceFilterIcon() {
+		tasksPage.clickOnAdvanceFilterIcon(driver);
+	}
+	
+	@Then("^I see field drop down have all column values$")
+	public void verifyFieldDropDownHaveAllColumnValues() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyFieldDropDownHaveAllColumnValues(driver));
+	}
+	
+	@Then("^I see operator drop down have folowing values$")
+	public void verifyOperatorDropDownHasFollowingValues() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyOperatorDropDownHasFollowingValues(driver));
+	}
+	@Then("^I see text box allowed user to enter text$")
+	public void verifyTextBoxAllowedEnterText() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTextBoxAllowedEnterText(driver));
+	}
+	@And("^I click on add condition link on advance filter pop up$")
+	public void clickOnAddConditionIcon() {
+		tasksPage.clickOnAddConditionIcon(driver);
+	}
+	@Then("^I see user can see and or drop down$")
+	public void verifyUserCanSeeAndOrDropDown() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyUserCanSeeAndOrDropDown(driver));
+	}
+	
+	@Then("^I see user can see one or more field$")
+	public void verifyUserCanSeeOneOrMoreSetOfField() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyUserCanSeeOneOrMoreSetOfField(driver));
+	}
+	
+	@Then("^I see on click of close button pop up closed$")
+	public void verifyOnClickOfCloseButtonPopShouldClosed() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyOnClickOfCloseButtonPopShouldClosed(driver));
+	}
+	
+	@Then("^I see on click of save button grid is filtered$")
+	public void verifyOnClickOfSaveButtonTaskGridIsFiltered() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyOnClickOfSaveButtonTaskGridIsFiltered(driver));
+	}
 	
 	
 }

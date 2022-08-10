@@ -114,25 +114,6 @@ Feature: TasksGrid
 		And I click on add task save button
 		Then I click on success popup ok button
 		Then I see the modified license activity is listed in the license activity grid
-		
-		Scenario: Step_51_As a user i validate delete tasks feature
-    Given Visit the app url
-    When I see login page title
-    And I enter username
-    And I enter password
-    Then I click on login button
-    And I click on session popup cancel button
-    Then I click on tasks grid
-    And I double click on license detail
-    And I click on delete button
-    And I see the task documents under selected license
-    And I see the task notification under selected license
-    Then I click on confirm button on delete popup
-    And I see the license details records deleted successfully
-    And I double click on license detail
-    And I click on delete button
-    Then I click on cancel button on delete popup
-    And I see the license details records not deleted
     
     Scenario: Step_52_As a user i Validate the following sections and tabs and grid records are visible on the Tasks Grid
     Given Visit the app url
@@ -156,5 +137,58 @@ Feature: TasksGrid
     Then I see edit tasks on double click of each task in the grid
     
     
+    Scenario: Step_51_As a user i validate delete tasks feature
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+    And I double click on license detail
+    And I click on delete button
+    And I see the task documents under selected license
+    And I see the task notification under selected license
+    Then I click on confirm button on delete popup
+    And I see the license details records deleted successfully
+    And I double click on license detail
+    And I click on delete button
+    Then I click on cancel button on delete popup
+    And I see the license details records not deleted
     
+    
+
+    Scenario: Step_55_As a user i validate select the below values in the all tasks my tasks:
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+    Then I click on all task drop down
+    And I see all task in the grid
+    Then I click on my task drop down
+    And I see my task in the grid
+    Then I click on assigned task drop down
+    And I see assigned task in the grid
+    
+    
+    Scenario: Step_56_As a user i validate click the advanced filters icon:
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+    Then I click on advance filter icon
+    And I see field drop down have all column values
+    And I see operator drop down have folowing values
+		And I see text box allowed user to enter text
+		And I click on add condition link on advance filter pop up
+		Then I see user can see and or drop down
+		Then I see user can see one or more field
+		Then I see on click of close button pop up closed
+		Then I see on click of save button grid is filtered
     

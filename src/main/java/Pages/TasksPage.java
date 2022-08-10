@@ -55,6 +55,9 @@ public class TasksPage extends BaseClass {
 
 	String incompleteSelect = "(//select[@id='incomplete'])";
 	String UserTypeSelect = "(//select[@id='UserType'])";
+	String allTaskOption = "//option[text()=' All Tasks']";
+	String myTaskOption = "//option[text()=' My Tasks ']";
+	String assignedTaskOption = "//option[text()=' Assigned Tasks']";
 
 	String advanceFilterIcon = "//a[text()=' Advanced Filters ']";
 	String globalSearch = "//input[@type='search']";
@@ -63,6 +66,63 @@ public class TasksPage extends BaseClass {
 
 	String assigneeValueAfter = "";
 	String taskDateSelect = "";
+	
+	String creatdBy = "//tr[@class='odd']//td[10]";
+	
+	String currentUserName = "((//li[contains(@class,'profile-name')])[2]//a)[1]";
+	
+	String noDataTxt = "//td[text()='No data available in table']";
+	String recordsCounter = "//div[contains(text(),'Showing')]";
+
+	
+	
+	String fieldOptionCompany = "//option[text()='Company']";
+	String fieldOptionCompManager = "//option[text()='Compliance Manager']";
+	String fieldOptionClientCode = "//option[text()='Client Code']";
+	String fieldOptionFacility = "//option[text()='Facility']";
+	String fieldOptionLicenseName = "//option[text()='License Name']";
+	String fieldOptionLicenseNumber = "//option[text()='License Number']";
+	String fieldOptionState = "//option[text()='State']";
+	String fieldOptionActivity = "//option[text()='Activity']";
+	String fieldOptionTaskStartDate = "//option[text()='Task StartDate']";
+	String fieldOptionCreatedBy = "//option[text()='Created By']";
+	String fieldOptionTaskType = "//option[text()='Task Type']";
+	String fieldOptionTaskStanding = "//option[text()='Task Standing']";
+	String fieldOptionTaskDueDate = "//option[text()='Task Due Date']";
+	String fieldOptionAssignedTo = "//option[text()='Assigned To']";
+		
+	
+	String operatorOptionEquals = "//option[text()='equals']";
+	String operatorOptionContains = "//option[text()='contains']";
+	String operatorOptionLessThan = "//option[text()='is less than']";
+	String operatorOptionGreaterThan = "//option[text()='is greater than']";
+	String operatorOptionLessThanEqual = "//option[text()='is less than or equals']";
+	String operatorOptionGreaterThanEqual = "//option[text()='is greater than or equals ']";
+	
+	String conditionOptoinAnd = "(//option[contains(text(),'AND')])[2]";
+	String conditionOptoinOR = "(//option[contains(text(),'OR')])[2]";
+
+	
+
+	String advanceFilterField = "//select[contains(@id,'field')]";
+	String advanceFilterOpterator = "//select[contains(@id,'operator0')]";
+	String advanceFilterValue = "//input[contains(@id,'search_value_one0')]";
+	
+	String conditionDropDown = "//select[@id='condition1']";
+	
+	String advanceFilterField1 = "//select[contains(@id,'field1')]";
+	String advanceFilterOpterator1 = "//select[contains(@id,'operator1')]";
+	String advanceFilterValu1 = "//input[contains(@id,'search_value_one1')]";
+	
+	
+	String addConditionButton = "//a[text()='Add Condition']";
+	
+	String conditionDeleteIcon = "//img[contains(@src,'delete')]";
+	
+	
+	String advanceFilterCloseButton = "//button[text()='Close']";
+	String advanceFilterSaveButton = "//button[text()='Save']";
+
 
 	public TasksPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -82,6 +142,10 @@ public class TasksPage extends BaseClass {
 	public void clickOnBackToTasksButton(WebDriver driver) {
 		waitForElementVisibility(backToTasksBtn, "20", driver);
 		click(backToTasksBtn, driver);
+	}
+	
+	public void clickOnUserSelect(WebDriver driver) {
+		click(UserTypeSelect, driver);
 	}
 
 	public Boolean verifyTaskSubpanel(WebDriver driver) {
@@ -110,6 +174,57 @@ public class TasksPage extends BaseClass {
 	public void clickOnSaveButton(WebDriver driver) {
 		waitForElementVisibility(saveBtn, "20", driver);
 		click(saveBtn, driver);
+	}
+	
+
+	public void clickOnUserTypeAllTask(WebDriver driver) {
+		click(UserTypeSelect, driver);
+		click(allTaskOption, driver);
+	}
+	
+	public void clickOnUserTypeMyTask(WebDriver driver) {
+		click(UserTypeSelect, driver);
+		click(myTaskOption, driver);
+	}
+	
+	public void clickOnUserTypeAssignedTask(WebDriver driver) {
+		click(UserTypeSelect, driver);
+		click(assignedTaskOption, driver);
+	}
+	
+	
+	public Boolean verifyAllTaskAreShowing(WebDriver driver) {
+		
+		waitTime(5000);
+		WebElement item = driver.findElement(By.xpath(creatdBy));
+		
+			if(item.getText().isEmpty())
+				return false;
+
+		
+		return true;
+	}
+	
+	public Boolean verifyMyTaskAreShowing(WebDriver driver) {
+		
+		String currentUserNameTxt = getText(currentUserName, driver);
+		
+		WebElement item = driver.findElement(By.xpath(creatdBy));
+		
+			if(!item.getText().equals(currentUserNameTxt))
+				return false;
+		
+		return true;
+	}
+	
+	public Boolean verifyAssignedTaskAreShowing(WebDriver driver) {
+		try {
+			waitForElementVisibility(noDataTxt, "20", driver);
+
+		} catch (Exception e) {
+			
+		}
+		return true;
 	}
 
 	public Boolean verifyFollowingFieldsAreMandatoryAndNonEditableDateAndCreatedBy(WebDriver driver) {
@@ -306,6 +421,139 @@ public class TasksPage extends BaseClass {
 				waitForElementVisibility(element, "20", driver);
 			}
 			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void clickOnAdvanceFilterIcon(WebDriver driver) {
+		click(advanceFilterIcon, driver);
+	}
+	
+	public void clickOnAddConditionIcon(WebDriver driver) {
+		click(addConditionButton, driver);
+	}
+	
+	public Boolean verifyFieldDropDownHaveAllColumnValues(WebDriver driver) {
+		try {
+			click(advanceFilterField, driver);
+			waitForElementVisibility(fieldOptionCompManager, "20", driver);
+			waitForElementVisibility(fieldOptionCompany, "20", driver);
+			waitForElementVisibility(fieldOptionClientCode, "20", driver);
+			waitForElementVisibility(fieldOptionFacility, "20", driver);
+			waitForElementVisibility(fieldOptionLicenseName, "20", driver);
+			waitForElementVisibility(fieldOptionLicenseNumber, "20", driver);
+			waitForElementVisibility(fieldOptionState, "20", driver);
+			waitForElementVisibility(fieldOptionActivity, "20", driver);
+			waitForElementVisibility(fieldOptionTaskStartDate, "20", driver);
+			waitForElementVisibility(fieldOptionCreatedBy, "20", driver);
+			waitForElementVisibility(fieldOptionTaskType, "20", driver);
+			waitForElementVisibility(fieldOptionTaskStanding, "20", driver);
+			waitForElementVisibility(fieldOptionTaskDueDate, "20", driver);
+			waitForElementVisibility(fieldOptionAssignedTo, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyOperatorDropDownHasFollowingValues(WebDriver driver) {
+		try {
+			click(advanceFilterOpterator, driver);
+			waitForElementVisibility(operatorOptionEquals, "20", driver);
+			waitForElementVisibility(operatorOptionContains, "20", driver);
+			waitForElementVisibility(operatorOptionLessThan, "20", driver);
+			waitForElementVisibility(operatorOptionGreaterThan, "20", driver);
+			waitForElementVisibility(operatorOptionLessThanEqual, "20", driver);
+			waitForElementVisibility(operatorOptionGreaterThanEqual, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTextBoxAllowedEnterText(WebDriver driver) {
+		try {
+			type(advanceFilterValue, "pharma", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	public Boolean verifyUserCanSeeAndOrDropDown(WebDriver driver) {
+		try {
+			click(conditionDropDown, driver);
+			waitForElementVisibility(conditionOptoinAnd, "20", driver);
+			waitForElementVisibility(conditionOptoinOR, "20", driver);
+			waitForElementVisibility(conditionDeleteIcon, "20", driver);
+			
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyUserCanSeeOneOrMoreSetOfField(WebDriver driver) {
+		try {
+			waitForElementVisibility(advanceFilterField1, "20", driver);
+			waitForElementVisibility(advanceFilterOpterator1, "20", driver);
+			waitForElementVisibility(advanceFilterValu1, "20", driver);
+
+			click(conditionDeleteIcon, driver);
+
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyOnClickOfCloseButtonPopShouldClosed(WebDriver driver) {
+		try {
+			click(advanceFilterCloseButton, driver);
+			if(isElementDisplayed(advanceFilterField, driver))
+				return false;
+			
+			
+			return true;
+
+		} catch (Exception e) {
+			return true;
+		}
+	}
+	
+	public Boolean verifyOnClickOfSaveButtonTaskGridIsFiltered(WebDriver driver) {
+		try {
+			
+			String str = getText(recordsCounter, driver);
+			String[] fArr = str.split("of ", 2);
+			String[] sArr = fArr[1].split(" Entries",2);
+			int beforeCounter = Integer.parseInt(sArr[0].replace(",",""));
+			
+			click(advanceFilterIcon, driver);
+			
+			click(advanceFilterField, driver);
+			click(fieldOptionCompany, driver);
+
+			click(advanceFilterOpterator, driver);			
+			click(operatorOptionContains, driver);
+
+			type(advanceFilterValue, "pharma", driver);
+
+			click(advanceFilterSaveButton, driver);
+			
+			
+			str = getText(recordsCounter, driver);
+			fArr = str.split("of ", 2);
+			sArr = fArr[1].split(" Entries",2);
+			int afterCounter = Integer.parseInt(sArr[0].replace(",",""));
+
+			return beforeCounter>afterCounter;
+
 		} catch (Exception e) {
 			return false;
 		}

@@ -89,7 +89,7 @@ public class DashboardPage extends BaseClass {
 	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
 
 	
-	
+	String recordsCounter = "//div[contains(text(),'Showing')]";
 	
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
@@ -102,6 +102,8 @@ public class DashboardPage extends BaseClass {
 	ArrayList<String> gridDataList = new ArrayList<String>();
 	ArrayList<String> gridDataPDFUploadList = new ArrayList<String>();
 	String filepath = filePath + "TestSample.pdf";
+	
+	int pageCounter = 0;
 
 	public DashboardPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -589,6 +591,20 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void doubleClickLicenseDetials(WebDriver driver) {
+	
+		
+		try {
+			String str = getText(recordsCounter, driver);
+			String[] fArr = str.split("of ", 2);
+			String[] sArr = fArr[1].split(" Entries",2);
+			pageCounter = Integer.parseInt(sArr[0].replace(",",""));
+		} catch (Exception e) {
+			pageCounter  = 0;
+		}
+		
+		
+		
+		
 		for (int i = 2; i < 10; i++) {
 			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
@@ -621,21 +637,14 @@ public class DashboardPage extends BaseClass {
 	}
 	
 	public Boolean verifyLicenseDetialsDataDeletedOnLicensePage(WebDriver driver) {
-		waitTime(9000);
-		try {
-			for (int i = 2; i < 8; i++) {
-
-				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
-				String getval = getValue(element, driver);
-				System.out.println(getval);
-				System.out.println("value : " + getval);
-				if(!licenseDetials.containsValue(getval.trim()))
-					return true;
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
+		
+		
+		String str = getText(recordsCounter, driver);
+		String[] fArr = str.split("of ", 2);
+		String[] sArr = fArr[1].split(" Entries",2);
+		int currentCounter = Integer.parseInt(sArr[0].replace(",",""));
+		
+		return pageCounter>currentCounter;
 	}
 
 	public void doubleClickOnKpiTaskAllIncompleteOption(WebDriver driver) {
