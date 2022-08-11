@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import Constants.Constants;
+import Pages.EmailVerificationPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
 import io.cucumber.java.After;
@@ -25,6 +26,8 @@ import org.apache.commons.io.FileUtils;
 public class LoginSteps extends BaseClass {
 
 	LoginPage loginPage = new LoginPage(driver);
+	EmailVerificationPage emailVerificationPage = new EmailVerificationPage(driver);
+	
 	public Constants loginconstant;
 
 	@Given("^Visit the app url$")
@@ -92,6 +95,17 @@ public class LoginSteps extends BaseClass {
 	@Then("^I click on login button$")
 	public void clickOnLoginButton() {
 		loginPage.clickOnLoginButton(driver);
+		if(emailVerificationPage.verifyNotRecognizedPopOkButton(driver) == true) {
+			emailVerificationPage.clickOnNotRecognizedPopOkButton(driver);
+			emailVerificationPage.openUrlInNewTab(driver, loginconstant.outlookUrl);
+			emailVerificationPage.clickOnSigninButton(driver);
+			emailVerificationPage.enterUserNameAndPassword(driver,loginconstant.outlookUsername,loginconstant.outlookPassword);
+			emailVerificationPage.clickOnInboxFirstEmail(driver);
+			driver.close();
+			shiftWindowHandle(0);
+			emailVerificationPage.enterValidationCode(driver);
+			emailVerificationPage.clickOnValidationSubmitButton(driver);
+		}
 	}
 
 	@And("^I see atlas main page$")

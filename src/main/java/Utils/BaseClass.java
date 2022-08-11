@@ -137,5 +137,4 @@ public class BaseClass extends Utilities {
 		builder.moveToElement(elementOfClick).click().perform();
 //		waitTime(3000);
 	}
-
 }
