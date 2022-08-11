@@ -96,7 +96,8 @@ public class ActivitesGridPage extends BaseClass {
 	String stateFirstRow = "";
 
 
-	
+	String recordsCounter = "//div[contains(text(),'Showing')]";
+
 	
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
@@ -182,10 +183,13 @@ public class ActivitesGridPage extends BaseClass {
 
 	public Boolean verifyGoToTasksButton(WebDriver driver) {
 		try {
-			waitForElementVisibility(goToTasksButton, "30", driver);
+			WebElement webelement =  driver.findElement(By.xpath(goToTasksButton));
+			scrollIntoViewSmoothly(webelement, driver);
+			Assert.assertTrue(isElementDisplayed(webelement, driver));
 			System.out.println("goTo Tasks Button : ");
 			return true;
 		} catch (Exception e) {
+
 			return false;
 		}
 	}

@@ -56,9 +56,9 @@ Feature: ActivitesGrid
 		And I see export button
 		And I see advanced filters link
 		And I see global search filters
+		And I see Go To tasks button
 		And I see url icon for each license in the grid
 		And I see call the log icon
-		And I see Go To tasks button
 		Then I see add activity button
 		Then I see license progress filter default dropdown value section should be incomplete only
 				

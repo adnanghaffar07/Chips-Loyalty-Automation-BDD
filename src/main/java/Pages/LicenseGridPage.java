@@ -587,7 +587,7 @@ public class LicenseGridPage extends BaseClass {
 				} else if (options.equals("Verfied On")) {
 					options = "Ver On";
 				}
-//				}else if (options.equals("Activty")) {
+//				else if (options.equals("Activty")) {
 //					options = "Activity";
 //				}
 
@@ -630,7 +630,7 @@ public class LicenseGridPage extends BaseClass {
 
 	public void enterAdvanceFiltersValue(WebDriver driver) {
 		waitForElementVisibility(advanceFiltersValueTxt, "30", driver);
-		type(advanceFiltersValueTxt, facilityValueOfGrid, driver);
+		type(advanceFiltersValueTxt, "1718 Rockford, IL", driver);
 	}
 
 	public Boolean verifyDropdownhaveAndOrValueWithTheDeleteButton(WebDriver driver) {
@@ -818,15 +818,10 @@ public class LicenseGridPage extends BaseClass {
 			waitForElementVisibility(licenseSerachTxt, "30", driver);
 			type(licenseSerachTxt, licenseName, driver);
 			waitTime(6000);
-			for (int i = 2; i < 8; i++) {
-				if (i == 4 || i == 6) {
-					i += 1;
-					System.out.println(i);
-				}
-				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
-				String getData = getValue(element, driver);
-				Assert.assertTrue(addLicenseList.contains(getData));
-			}
+			
+			WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[5]"));
+			String getData = getValue(element, driver);
+			Assert.assertTrue(licenseName.contains(getData));
 
 			return true;
 		} catch (Exception e) {
@@ -846,7 +841,7 @@ public class LicenseGridPage extends BaseClass {
 								+ "]"));
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver);
-				Assert.assertTrue(getData.equals(facilityValueOfGrid));
+				Assert.assertTrue(getData.equals("1718 Rockford, IL"));
 				System.out.println("inside : " + facilityFilterDataInGrid.length());
 			}
 
@@ -1353,7 +1348,7 @@ public class LicenseGridPage extends BaseClass {
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 		
 		while(true) {
-			 expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]"));
+			 expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]//span"));
 //			 (//td[@class='display-none']/following-sibling::td[1])[2]/..
 //			//td[@class="display-none"]/following-sibling::td[1]
 			scrollToElement(expirationDate, driver);
@@ -1380,9 +1375,10 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(expirationDateOnDetials, "20", driver);
 			String getExpirationDateOnDetials = getValue(expirationDateOnDetials, driver).trim();
+			System.out.println(getExpirationDateOnDetials+"----"+getExpirationDate);
+
 			getExpirationDateOnDetials = reformatDate(getExpirationDateOnDetials,"MM-dd-yyyy",getExpirationDate);
 //			getExpirationDateOnDetials.replaceAll("/", "-");
-			System.out.println(getExpirationDateOnDetials);
 			Assert.assertTrue(getExpirationDateOnDetials.equals(getExpirationDate));			
 			return true;
 		} catch (Exception e) {
@@ -1397,15 +1393,16 @@ public class LicenseGridPage extends BaseClass {
 	}
 	
 	public Boolean verifyFilteredBasedOnEnteredColumnWiseSearchKeywords(WebDriver driver) {
+		waitTime(6000);
 		try {
 			for (int i = 1; i < companySearchList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2])[" + i
 								+ "]"));
 				scrollToElement(element, driver);
-				String getData = getValue(element, driver);
-				getData = getData.substring(0,2);
-				Assert.assertTrue(getData.equals(twoCharOfValToSearch));
+				String getData = getValue(element, driver).toLowerCase();
+				//getData = getData.substring(0,2);
+				Assert.assertTrue(getData.contains(twoCharOfValToSearch.toLowerCase()));
 				System.out.println("inside : " + companySearchList.length());
 				waitTime(500);
 			}

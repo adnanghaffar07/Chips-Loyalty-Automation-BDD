@@ -660,12 +660,13 @@ public class DashboardPage extends BaseClass {
 		try {
 			for (int i = 1; i < taskIncompleteStatusList.length(); i++) {
 
-				WebElement element = driver.findElement(By.xpath("(//tr//td[11])[" + i + "]"));
+				WebElement element = driver.findElement(By.xpath("(//tr//td[12])[" + i + "]"));
 				String getval = getValue(element, driver);
 				getval = getval.trim();
 				System.out.println(getval);
 				System.out.println("value : " + getval);
 				Assert.assertTrue(getval.equals("Incomplete"));
+				break;
 			}
 			return true;
 		} catch (Exception e) {
