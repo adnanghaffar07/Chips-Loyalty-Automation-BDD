@@ -414,6 +414,12 @@ public class DashboardSteps extends BaseClass {
 		
 	}
 	
+	@And("^I see the right menu items are enabled$")
+	public void verifyRightMenuItemsAreEnabledDisabled() {
+		Assert.assertTrue(dashboardPage.verifyRightMenuItemsAreEnabledDisabled(driver));
+		
+	}
+	
 	
 	
 }

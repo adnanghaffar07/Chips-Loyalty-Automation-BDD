@@ -77,6 +77,33 @@ public class DashboardPage extends BaseClass {
 	String reportGridStatus = "//table[@id='table-report']//tr[1]//td[9]";
 	String licenseMangementNavigation = "//a[contains(text(),'License Management')]";
 	String licenseNavigation = "//ul//a[contains(text(),'Licenses')]";
+	String activitiesNavigation = "//ul//a[contains(text(),'Activities')]";
+	String licenseTaskNavigation = "(//ul//a[contains(text(),'Tasks')])[1]";
+	String documentsNavigation = "(//ul//a[contains(text(),'Documents')])[1]";
+	String notificationNavigation = "(//ul//a[contains(text(),'Notifications')])[1]";
+	String notificationTaskNavigation = "(//ul//a[contains(text(),'Tasks')])[2]";
+	String notificationDocumentsNavigation = "(//ul//a[contains(text(),'Documents')])[2]";
+	String notificationExpirationNavigation = "(//ul//a[contains(text(),'Expiration')])[1]";
+	String adminNavigation = "(//ul//a[contains(text(),'Admin')])[1]";
+	String adminClientMasterNavigation = "(//ul//a[contains(text(),'Client Master')])[1]";
+	String adminCompanyMasterNavigation = "(//ul//a[contains(text(),'Company Master')])[1]";
+	String adminFacilityMasterNavigation = "(//ul//a[contains(text(),'Facility Master')])[1]";
+	String adminLicenseActivityMasterNavigation = "(//ul//a[contains(text(),'License Activity Master')])[1]";
+	String adminLicenseStatusMasterNavigation = "(//ul//a[contains(text(),'License Status Master')])[1]";
+	String adminTaskTypeMasterNavigation = "(//ul//a[contains(text(),'Task Type Master')])[1]";
+	String adminDocCategoryMasterNavigation = "(//ul//a[contains(text(),'Doc Category Master')])[1]";
+	String adminDocTypeMasterNavigation = "(//ul//a[contains(text(),'Doc Type Master')])[1]";
+	String adminDocNameMasterNavigation = "(//ul//a[contains(text(),'Doc Name Master')])[1]";
+	String adminDocStatusMasterNavigation = "(//ul//a[contains(text(),'Doc Status Master')])[1]";
+	String adminUserMasterNavigation = "(//ul//a[contains(text(),'User Master')])[1]";
+	String adminCategoryNameMappingNavigation = "(//ul//a[contains(text(),'Category-Name Mapping')])[1]";
+	String adminPermissionsNavigation = "(//ul//a[contains(text(),'Permissions')])[1]";
+	String adminDocPermissionsNavigation = "(//ul//a[contains(text(),'Doc Permissions')])[1]";
+	String adminHelpTextMasterNavigation = "(//ul//a[contains(text(),'Help Text Master')])[1]";
+	String adminAuditLogReportNavigation = "(//ul//a[contains(text(),'Audit Log Report')])[1]";
+	String adminPauseActivityNavigation = "(//ul//a[contains(text(),'Pause Activity')])[1]";
+	String adminPermissionChangeHistoryNavigation = "(//ul//a[contains(text(),'Permission Change History')])[1]";
+
 	String deleteLicenseBtn = "//button[text()='Delete']";
 	String confirmDeleteLicenseBtn = "//a[text()='Confirm']";
 	String CancelDeleteLicenseBtn = "//a[text()='Cancel']";
@@ -965,5 +992,47 @@ public class DashboardPage extends BaseClass {
 				count++;
 			}
 		
+	}
+	
+	public Boolean verifyRightMenuItemsAreEnabledDisabled(WebDriver driver) {
+		try {
+			waitForElementVisibility(dashboardGrid, "30", driver);
+			click(licenseMangementNavigation, driver);
+			waitForElementVisibility(licenseTaskNavigation, "30", driver);
+			waitForElementVisibility(licenseNavigation, "30", driver);
+			waitForElementVisibility(activitiesNavigation, "30", driver);
+			
+			waitForElementVisibility(documentsNavigation, "30", driver);
+			
+			click(notificationNavigation, driver);
+			waitForElementVisibility(notificationDocumentsNavigation, "30", driver);
+			waitForElementVisibility(notificationTaskNavigation, "30", driver);
+			waitForElementVisibility(notificationExpirationNavigation, "30", driver);
+			
+			click(adminNavigation, driver);
+			waitForElementVisibility(adminClientMasterNavigation, "30", driver);
+			waitForElementVisibility(adminCompanyMasterNavigation, "30", driver);
+			waitForElementVisibility(adminFacilityMasterNavigation, "30", driver);
+			waitForElementVisibility(adminLicenseActivityMasterNavigation, "30", driver);
+			waitForElementVisibility(adminLicenseStatusMasterNavigation, "30", driver);
+			waitForElementVisibility(adminTaskTypeMasterNavigation, "30", driver);
+			waitForElementVisibility(adminDocCategoryMasterNavigation, "30", driver);
+			waitForElementVisibility(adminDocTypeMasterNavigation, "30", driver);
+			waitForElementVisibility(adminDocNameMasterNavigation, "30", driver);
+			waitForElementVisibility(adminDocStatusMasterNavigation, "30", driver);
+			waitForElementVisibility(adminUserMasterNavigation, "30", driver);
+			waitForElementVisibility(adminCategoryNameMappingNavigation, "30", driver);
+			waitForElementVisibility(adminPermissionsNavigation, "30", driver);
+			waitForElementVisibility(adminDocPermissionsNavigation, "30", driver);
+			waitForElementVisibility(adminHelpTextMasterNavigation, "30", driver);
+			waitForElementVisibility(adminAuditLogReportNavigation, "30", driver);
+			waitForElementVisibility(adminPauseActivityNavigation, "30", driver);
+			waitForElementVisibility(adminPermissionChangeHistoryNavigation, "30", driver);
+
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

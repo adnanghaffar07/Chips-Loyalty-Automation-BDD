@@ -10,6 +10,16 @@ Feature: Dashboard
     And I see dashboard grid
     Then I click logout on menu under user menu hove
     
+    Scenario: Step_14_As a user i check the menu items after the successful login
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I see atlas main page
+    And I see dashboard grid
+    And I see the right menu items are enabled
+    
   Scenario: Step_17_As a user i check for tabs that are  visible on the dashboard grid
     Given Visit the app url
     When I see login page title

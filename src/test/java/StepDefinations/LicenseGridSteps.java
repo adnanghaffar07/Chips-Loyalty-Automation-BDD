@@ -434,10 +434,19 @@ public class LicenseGridSteps extends BaseClass {
 	public void enterTwoCharactersInColumnSearchField() {
 		licenseGridPage.enterTwoCharactersInColumnSearchField(driver);
 	}
+	@Then("^I enter two characters in column search filter on task grid page$")
+	public void enterTwoCharactersInColumnSearchFieldOnTaskGridPage() {
+		licenseGridPage.enterTwoCharactersInColumnSearchFieldOnTaskGridPage(driver);
+	}
 	
 	@Then("^I see the licenses activities are filtered based on the entered column wise search keywords$")
 	public void verifyFilteredBasedOnEnteredColumnWiseSearchKeywords() {
 		Assert.assertTrue(licenseGridPage.verifyFilteredBasedOnEnteredColumnWiseSearchKeywords(driver));
+	}
+	
+	@Then("^I see the licenses activities are filtered based on the entered column wise search keywords on task grid page$")
+	public void verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage() {
+		Assert.assertTrue(licenseGridPage.verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage(driver));
 	}
 	
 	

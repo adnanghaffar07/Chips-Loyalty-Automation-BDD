@@ -34,6 +34,7 @@ public class LicenseGridPage extends BaseClass {
 	String advancedFilters = "//a[text()='Advanced Filters'] | //a[text()[contains(.,'Advanced Filters')]]";
 	String compMgrSearch = "(//input[contains(@class,'input-search')])[1]";
 	String companySearch = "(//input[contains(@class,'input-search')])[2]";
+	String companySearch2 = "//input[@id='myInput2']";
 	String facilitySearch = "(//input[contains(@class,'input-search')])[3]";
 	String stateSearch = "(//input[contains(@class,'input-search')])[4]";
 	String licenseNameSearch = "(//input[contains(@class,'input-search')])[5]";
@@ -140,6 +141,7 @@ public class LicenseGridPage extends BaseClass {
 	String expirationDateOnDetials = "//input[@id='ExpirationDate']";
 	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
 	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[2]";
+	String companySearchValue2 = "(//th[@aria-label='Company: activate to sort column descending']/following::td)[3]";
 	String companySearchList = "//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2]";
 		
 	
@@ -1392,12 +1394,37 @@ public class LicenseGridPage extends BaseClass {
 		type(companySearch, twoCharOfValToSearch, driver);
 	}
 	
+	public void enterTwoCharactersInColumnSearchFieldOnTaskGridPage(WebDriver driver) {
+		twoCharOfValToSearch = getValueFromAttribute(companySearchValue2, driver);
+		twoCharOfValToSearch = twoCharOfValToSearch.substring(0,2);
+		type(companySearch2, twoCharOfValToSearch, driver);
+	}
+	
 	public Boolean verifyFilteredBasedOnEnteredColumnWiseSearchKeywords(WebDriver driver) {
 		waitTime(6000);
 		try {
 			for (int i = 1; i < companySearchList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2])[" + i
+								+ "]"));
+				scrollToElement(element, driver);
+				String getData = getValue(element, driver).toLowerCase();
+				//getData = getData.substring(0,2);
+				Assert.assertTrue(getData.contains(twoCharOfValToSearch.toLowerCase()));
+				System.out.println("inside : " + companySearchList.length());
+				waitTime(500);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	public Boolean verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage(WebDriver driver) {
+		waitTime(6000);
+		try {
+			for (int i = 1; i < companySearchList.length(); i++) {
+				WebElement element = driver.findElement(By.xpath(
+						"(//th[@aria-label='Company: activate to sort column descending']/following::tr//td[3])[" + i
 								+ "]"));
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver).toLowerCase();
