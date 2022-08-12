@@ -71,6 +71,7 @@ public class LicenseGridPage extends BaseClass {
 	String advanceOperatorValueSecondTxt = "(//input[contains(@id,'search_value_one')])[last()]";
 	String advanceFiltersSaveBtn = "//button[text()='Save']";
 	String advanceFiltersCloseBtn = "//button[text()='Close']";
+	String editLicensePopupCloseButton = "//button[text()='Delete']//following-sibling::button[text()='Close']";
 	String advanceFiltersAndOrDropdown = "(//select[contains(@id,'condition')])[last()]";
 	String advanceFiltersDeleteIcon = "//img[contains(@onclick,'removeDiv')]";
 	String addNewLicenseBtn = "//button[@title='Add New License']";
@@ -931,11 +932,14 @@ public class LicenseGridPage extends BaseClass {
 			if (isDisplayed(pdfUploadedFileName, driver) == true) {
 
 				click(editLicenseFileRemoveBtn, driver);
+				
+				driver.switchTo().alert().accept();
 
 				waitForElementVisibility(pdfFileSuccessPopup, "30", driver);
 
 				click(pdfFileSuccessPopupOkBtn, driver);
 			}
+
 			return true;
 		} catch (Exception e) {
 			return true;
@@ -1350,7 +1354,7 @@ public class LicenseGridPage extends BaseClass {
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 		
 		while(true) {
-			 expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]//span"));
+			 expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]"));
 //			 (//td[@class='display-none']/following-sibling::td[1])[2]/..
 //			//td[@class="display-none"]/following-sibling::td[1]
 			scrollToElement(expirationDate, driver);
@@ -1358,7 +1362,7 @@ public class LicenseGridPage extends BaseClass {
 //			waitTime(6000);
 			System.err.println("Get Expiration Date"+getExpirationDate);
 			
-			if(getExpirationDate != null || !getExpirationDate.equals("")) {
+			if(getExpirationDate != null && !getExpirationDate.equals("")) {
 				expirationDate = driver.findElement(By.xpath("(//td[@class='display-none']/following-sibling::td[1])[" + i + "]/.."));
 				break;
 			}
@@ -1377,7 +1381,6 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitForElementVisibility(expirationDateOnDetials, "20", driver);
 			String getExpirationDateOnDetials = getValue(expirationDateOnDetials, driver).trim();
-			System.out.println(getExpirationDateOnDetials+"----"+getExpirationDate);
 
 			getExpirationDateOnDetials = reformatDate(getExpirationDateOnDetials,"MM-dd-yyyy",getExpirationDate);
 //			getExpirationDateOnDetials.replaceAll("/", "-");
