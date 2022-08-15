@@ -10,9 +10,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import java.io.File;
 import java.io.IOException;
-
 import Utils.BaseClass;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 
 
 public class ChangePasswordPage extends BaseClass {

@@ -14,6 +14,7 @@ import Pages.ChangePasswordPage;
 import Pages.LicenseGridPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
+import Utils.ExcelReader;
 import io.cucumber.java.After;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.Scenario;
@@ -22,6 +23,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 
@@ -377,8 +379,7 @@ public class LicenseGridSteps extends BaseClass {
 	@And("^I click on Add call Log button$")
 	public void clickOnCallLogPopoupAddCallLogButton() {
 		licenseGridPage.clickOnCallLogPopoupAddCallLogButton(driver);
-	}
-	
+	}	
 	
 	@Then("^I select incomplete only from license progress dropdown$")
 	public void selectIncompleteOnlyFromLicenseProgressDropdown() {
@@ -448,8 +449,4 @@ public class LicenseGridSteps extends BaseClass {
 	public void verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage() {
 		Assert.assertTrue(licenseGridPage.verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage(driver));
 	}
-	
-	
-	
-	
 }

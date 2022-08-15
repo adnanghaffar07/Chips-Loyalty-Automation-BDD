@@ -23,7 +23,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 import io.qameta.allure.Allure;
+//import junit.framework.Assert;
 import org.apache.commons.io.FileUtils;
 
 public class ActivitesGridSteps extends BaseClass {
@@ -36,6 +38,7 @@ public class ActivitesGridSteps extends BaseClass {
 	public void verifyActivitiesGridUnderlineColorYellow() {
 		Assert.assertTrue(activitesGridPage.verifyActivitiesGridUnderlineColorYellow(driver));
 	}
+	
 	
 	@And("^I see column search for each column in the activities grid$")
 	public void verifyColumnSearchForEachColumnInTheActivitiesGrid() {
@@ -188,8 +191,14 @@ public class ActivitesGridSteps extends BaseClass {
 	public void verifyTheAdvanceFilterIcon() {
 		Assert.assertTrue(activitesGridPage.verifyAdvanceFilterIconInTheLicencseActivityGrid(driver));
 	}
-	
 
+	@And("^I click on export button$")
+	public void clickOnExportButton() {
+		activitesGridPage.clickOnExportButton(driver);
+	}
 
-	
+	@And("^I see selected rows in excel sheet$")
+	public void verifyRowsCount() {
+		activitesGridPage.verifyRowsCount(driver);
+	}
 }

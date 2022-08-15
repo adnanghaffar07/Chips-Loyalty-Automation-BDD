@@ -20,6 +20,7 @@ import java.time.LocalDate;
 
 import Utils.BaseClass;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 
 
 public class ActivitesGridPage extends BaseClass {
@@ -75,8 +76,7 @@ public class ActivitesGridPage extends BaseClass {
 	String expiry = "(//tr[@class='odd'])[1]/td[9]";
 	String activity = "(//tr[@class='odd'])[1]/td[12]";
 	String status = "(//tr[@class='odd'])[1]/td[8]";
-	String licenseState = "(//tr[@class='odd'])[1]/td[6]";
-	
+	String licenseState = "(//tr[@class='odd'])[1]/td[6]";	
 	String companyNameDetailGrid = "(//section[@id='task']//p[contains(text(),'Company')])[1]/following-sibling::p";
 	String facilityNameDetailGrid = "(//section[@id='task']//p[contains(text(),'Facility')])[1]/following-sibling::p";
 	String expiryDetailGrid = "(//section[@id='task']//p[contains(text(),'Expiry')])[1]/following-sibling::p";
@@ -87,6 +87,18 @@ public class ActivitesGridPage extends BaseClass {
 	String taskDetail = "//div[@id='tasks']//div[@class='scroll']";
 	String taskNotes = "//p[contains(text(),'Activity Notes')]";
 	String activityNotesBtn = "(//li//span[contains(text(),'Activity')])[1]";
+	String recordsCounter = "//div[contains(text(),'Showing')]";
+	String deleteLicenseBtn = "//button[text()='Delete']";
+	String confirmDeleteLicenseBtn = "//a[text()='Confirm']";
+	String CancelDeleteLicenseBtn = "//a[text()='Cancel']";
+	String deleteConfirmationButton = "//a[text()='OK']";
+	String taskDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Tasks')]";
+	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
+	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
+	String exportBtn = "//span[text()='Export']";
+	String showEntries = "//select[@name='license_activity-list-main_length']";
+	
+
 	
 	String companyNameFirstRow = "";
 	String faciltyNameFirstRow = "";
@@ -94,16 +106,11 @@ public class ActivitesGridPage extends BaseClass {
 	String activityFirstRow = "";
 	String statusFirstRow = "";
 	String stateFirstRow = "";
-
-
-	String recordsCounter = "//div[contains(text(),'Showing')]";
-
-	
-	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
 	String clientSelected = "";
 	String companySelected = "";
 	String facilitySelected = "";
+	int licenseDetailsCount = 0;
 	int licenseCountBefore = 0;
 	int expireKpiValue;
 	HashMap<String, String> licenseDetials = new HashMap<String, String>();
@@ -114,15 +121,6 @@ public class ActivitesGridPage extends BaseClass {
 	String avtivitySartDateSelect;
 	String licenseActivityValue;
 	String twoCharOfValToSearch="";
-	
-	String deleteLicenseBtn = "//button[text()='Delete']";
-	String confirmDeleteLicenseBtn = "//a[text()='Confirm']";
-	String CancelDeleteLicenseBtn = "//a[text()='Cancel']";
-	String deleteConfirmationButton = "//a[text()='OK']";
-	
-	String taskDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Tasks')]";
-	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
-	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
 
 
 	public ActivitesGridPage(WebDriver driverParam) {
@@ -737,5 +735,30 @@ public class ActivitesGridPage extends BaseClass {
 		}
 	}
 	
+	public void clickOnExportButton(WebDriver driver) {
+		waitForElementVisibility(exportBtn, "30", driver);
+		click(exportBtn, driver);
+		waitTime(6000);
+	}
+	
+	public void verifyRowsCount(WebDriver driver) {
+		
+		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
+		selectShowEntries.selectByIndex(1);
+		WebElement option = selectShowEntries.getFirstSelectedOption();
+		int defaultItem = Integer.parseInt(option.getText().trim());
+		System.out.println("showEntries:-"+defaultItem);
+
+		
+		String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+	    File dir = new File(dirPath);
+	    File[] dir_contents = dir.listFiles();
+	    String fileName = dir_contents[0].getName();
+		System.out.println("fileName:-"+fileName);
+		Object[][] data = getData(fileName, "Sheet1");
+		System.out.println("DataCount:-"+data.length);
+		Assert.assertTrue(data.length==(defaultItem+1));
+
+	}
 	
 }

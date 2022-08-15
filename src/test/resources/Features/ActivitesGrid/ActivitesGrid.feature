@@ -138,6 +138,19 @@ Feature: ActivitesGrid
 		Then I double click on active licens to edit
 		And I see the edit license Activity page titel
 
+    Scenario: Step_41_As a user i verify go to tasks icon
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on activities grid
+		And I see activities page title
+		And I see Go To tasks button
+		Then I click on go to task button
+		And I see tasks section lists the related tasks details of the chosen activities
+		
 		Scenario: Step_42_As a user i validate add activity pop up on the license activity grid
     Given Visit the app url
     When I see login page title
@@ -204,6 +217,8 @@ Feature: ActivitesGrid
 		And I see the global search text box in the license activity grid
 		And I see the advance filters icon in the license activity grid
 		
+		
+
 
 		
     

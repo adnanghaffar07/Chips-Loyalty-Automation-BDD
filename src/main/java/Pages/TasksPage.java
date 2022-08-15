@@ -19,6 +19,7 @@ import java.time.LocalDate;
 
 import Utils.BaseClass;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 
 public class TasksPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -74,7 +75,7 @@ public class TasksPage extends BaseClass {
 	String noDataTxt = "//td[text()='No data available in table']";
 	String recordsCounter = "//div[contains(text(),'Showing')]";
 
-	
+	int pageCounter = 0;
 	
 	String fieldOptionCompany = "//option[text()='Company']";
 	String fieldOptionCompManager = "//option[text()='Compliance Manager']";
@@ -122,6 +123,30 @@ public class TasksPage extends BaseClass {
 	
 	String advanceFilterCloseButton = "//button[text()='Close']";
 	String advanceFilterSaveButton = "//button[text()='Save']";
+	
+	String taskDetialsFirstRow = "(//tr[@class='odd']//td)[2]";
+
+	
+	String companyNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Company')]//following-sibling::p";
+	String facilityNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Facility')]//following-sibling::p";
+	String stateNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'State')]//following-sibling::p";
+	String LicenseNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'License Name')]//following-sibling::p";
+	String ActivityEditTask = "//div[@class='modal-content'] //p[contains(text(),'Activity')]//following-sibling::p";
+	String progressEditTask = "//div[@class='modal-content'] //p[contains(text(),'Progress')]//following-sibling::p";
+	
+	
+	String deleteTaskBtn = "//button[text()='Delete']";
+	String taskSection = "//section[@id='task']";
+	
+	
+	
+	String editTaskType = "";
+	String editTaskStatus = "";
+	String editTaskAssignee = "";
+
+ 
+	
+	HashMap<String, String> taskDetails = new HashMap<String, String>();
 
 
 	public TasksPage(WebDriver driverParam) {
@@ -147,6 +172,33 @@ public class TasksPage extends BaseClass {
 	public void clickOnUserSelect(WebDriver driver) {
 		click(UserTypeSelect, driver);
 	}
+	
+public void doubleClickOnTask(WebDriver driver) {
+	
+	try {
+		String str = getText(recordsCounter, driver);
+		String[] fArr = str.split("of ", 2);
+		String[] sArr = fArr[1].split(" Entries",2);
+		pageCounter = Integer.parseInt(sArr[0].replace(",",""));
+	} catch (Exception e) {
+		pageCounter  = 0;
+	}
+	
+	
+	
+	
+	for (int i = 2; i < 15; i++) {
+		WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+		WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+
+		String getData = getValue(data, driver);
+		String getTitel = getValue(titel, driver);
+		taskDetails.put(getTitel.trim(), getData.trim());
+		System.out.println(taskDetails.get(getTitel));
+
+	}
+	doubleClick(taskDetialsFirstRow, driver);
+}
 
 	public Boolean verifyTaskSubpanel(WebDriver driver) {
 		try {
@@ -249,7 +301,18 @@ public class TasksPage extends BaseClass {
 			typeValDropDown.selectByIndex(1);
 			typeOption = typeValDropDown.getFirstSelectedOption();
 			String typeValueAfter = typeOption.getText();
-			Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
+			if(!typeValueAfter.equals(typeValueBefore)) {
+				
+				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
+
+			} else {
+				typeValDropDown.selectByIndex(2);
+				typeOption = typeValDropDown.getFirstSelectedOption();
+				 typeValueAfter = typeOption.getText();
+				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
+
+			}
+			editTaskType = typeValueAfter;
 
 			waitForElementVisibility(taskStatusMandatory, "20", driver);
 			Select taskStatusValDropDown = new Select(driver.findElement(By.xpath(taskStatusDropDown)));
@@ -258,8 +321,21 @@ public class TasksPage extends BaseClass {
 			taskStatusValDropDown.selectByIndex(1);
 			taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
 			String taskStatusValueAfter = taskStatusOption.getText();
-			Assert.assertFalse("Verify Task Status DropDown is Editable",
-					taskStatusValueAfter.equals(taskStatusValueBefore));
+			
+			if(!taskStatusValueAfter.equals(taskStatusValueBefore)) {
+				Assert.assertFalse("Verify Task Status DropDown is Editable",
+						taskStatusValueAfter.equals(taskStatusValueBefore));
+			} else {
+				
+				taskStatusValDropDown.selectByIndex(2);
+				taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
+				taskStatusValueAfter = taskStatusOption.getText();
+				Assert.assertFalse("Verify Task Status DropDown is Editable",
+						taskStatusValueAfter.equals(taskStatusValueBefore));
+			}
+			
+			editTaskStatus = taskStatusValueAfter;
+			
 
 			waitForElementVisibility(assigneeMandatory, "20", driver);
 			Select assigneeValDropDown = new Select(driver.findElement(By.xpath(assigneeDropDown)));
@@ -268,8 +344,20 @@ public class TasksPage extends BaseClass {
 			assigneeValDropDown.selectByIndex(1);
 			assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 			assigneeValueAfter = assigneeOption.getText();
-			Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
+			
+			if(!assigneeValueAfter.equals(assigneeValueBefore)) {
+				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
 
+			} else{
+				assigneeValDropDown.selectByIndex(2);
+				assigneeOption = assigneeValDropDown.getFirstSelectedOption();
+				assigneeValueAfter = assigneeOption.getText();
+				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
+
+			}
+			
+			editTaskAssignee = assigneeValueAfter;
+			
 			waitForElementVisibility(dueDateMandatory, "20", driver);
 
 			taskDateSelect = getValue(dueDateDropDown, driver);
@@ -544,8 +632,7 @@ public class TasksPage extends BaseClass {
 
 			type(advanceFilterValue, "pharma", driver);
 
-			click(advanceFilterSaveButton, driver);
-			
+			click(advanceFilterSaveButton, driver);			
 			
 			str = getText(recordsCounter, driver);
 			fArr = str.split("of ", 2);
@@ -558,5 +645,80 @@ public class TasksPage extends BaseClass {
 			return false;
 		}
 	}
+	
+	public Boolean verifyTaskActivityDetailOnEditPopup(WebDriver driver) {
+		waitTime(9000);
+		try {
+			
+				String getval = getText(companyNameEditTask, driver);
+				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+				
+				getval = getText(facilityNameEditTask, driver);
+				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+				
+				getval = getText(stateNameEditTask, driver);
+				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+				
+				getval = getText(LicenseNameEditTask, driver);
+				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+				
+				getval = getText(ActivityEditTask, driver);
+				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+				
+				getval = getText(progressEditTask, driver).trim();
+				if(!taskDetails.containsValue(getval))
+					Assert.assertTrue(getval.equals("Incomplete"));
+				else
+					Assert.assertTrue(taskDetails.containsValue(getval));
+			
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public Boolean verifyDeleteTaskButton(WebDriver driver) {
+		try {
+			waitForElementVisibility(deleteTaskBtn, "20", driver);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyUserRedirectToTaskSubpanel(WebDriver driver) {
+		try {
+			waitForElementVisibility(taskSection, "20", driver);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTaskEditedSuccessfully(WebDriver driver) {
+		waitTime(5000);
+		try {
+					
+			for (int i = 2; i < 15; i++) {
+				WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+				WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+
+				String getData = getValue(data, driver);
+				String getTitel = getValue(titel, driver);
+				taskDetails.put(getTitel.trim(), getData.trim());
+				System.out.println(taskDetails.get(getTitel));
+
+			}			
+			taskDetails.containsValue(editTaskType);
+			taskDetails.containsValue(editTaskStatus);
+			taskDetails.containsValue(editTaskAssignee);			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 
 }

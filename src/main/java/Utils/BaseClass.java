@@ -54,6 +54,7 @@ public class BaseClass extends Utilities {
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			prefs.put("profile.default_content_setting_values.notifications", 2);
 			prefs.put("credentials_enable_service", false);
+			prefs.put("download.default_directory", System.getProperty("user.dir")+"\\src\\test\\resources\\data\\ExcelFile");
 			prefs.put("profile.password_manager_enabled", false);
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("prefs", prefs);
@@ -136,5 +137,25 @@ public class BaseClass extends Utilities {
 		}
 		builder.moveToElement(elementOfClick).click().perform();
 //		waitTime(3000);
+	}
+	
+	public Object[][] getData(String filename, String SheetName) {
+		ExcelReader excel;
+		if (System.getProperty("os.name").contains("Windows")) {
+			 excel = new ExcelReader(
+						System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile\\" + filename);
+		}else {
+			excel = new ExcelReader(
+				System.getProperty("user.dir") + "/src/test/resources/data/" + filename + ".xlsx");
+		}
+		int rows = excel.getRowCount(SheetName);
+		int columns = excel.getColumnCount(SheetName);
+		Object[][] data = new Object[rows - 1][columns];
+		for (int rowNum = 2; rowNum <= rows; rowNum++) {
+			for (int colNum = 0; colNum < columns; colNum++) {
+				data[rowNum - 2][colNum] = excel.getCellData(SheetName, colNum, rowNum);
+			}
+		}
+		return data;
 	}
 }

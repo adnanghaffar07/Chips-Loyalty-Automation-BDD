@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import Utils.BaseClass;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 
 public class LoginPage extends BaseClass {
 	private WebDriver podriver = null;

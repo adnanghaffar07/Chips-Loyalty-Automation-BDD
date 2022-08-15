@@ -24,6 +24,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 
@@ -202,6 +203,25 @@ public class TasksSteps extends BaseClass {
 	public void verifyOnClickOfSaveButtonTaskGridIsFiltered() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyOnClickOfSaveButtonTaskGridIsFiltered(driver));
 	}
-	
+	@And("^I double click on task detail$")
+	public void doubleClickOnTask() {
+		tasksPage.doubleClickOnTask(driver);
+	}
+	@Then("^I see header section display chosen activity details$")
+	public void verifyTaskActivityDetailOnEditPopup() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTaskActivityDetailOnEditPopup(driver));
+	}
+	@Then("^I see user is able to view delete task button$")
+	public void verifyDeleteTaskButton() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyDeleteTaskButton(driver));
+	}
+	@Then("^I see user is redirect to task subpanel$")
+	public void verifyUserRedirectToTaskSubpanel() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyUserRedirectToTaskSubpanel(driver));
+	}
+	@Then("^I see task is edited successfully$")
+	public void verifyTaskEditedSuccessfully() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTaskEditedSuccessfully(driver));
+	}
 	
 }

@@ -21,6 +21,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 

@@ -12,12 +12,11 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-
 import java.io.File;
 import java.io.IOException;
-
 import Utils.BaseClass;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 
 
 public class DashboardPage extends BaseClass {

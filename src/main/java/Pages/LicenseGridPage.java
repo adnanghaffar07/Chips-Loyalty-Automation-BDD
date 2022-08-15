@@ -1,12 +1,14 @@
 package Pages;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -19,6 +21,7 @@ import java.time.LocalDate;
 
 import Utils.BaseClass;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 //import junit.framework.Assert;
 
 public class LicenseGridPage extends BaseClass {
@@ -144,7 +147,7 @@ public class LicenseGridPage extends BaseClass {
 	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[2]";
 	String companySearchValue2 = "(//th[@aria-label='Company: activate to sort column descending']/following::td)[3]";
 	String companySearchList = "//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2]";
-		
+	
 	
 
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
@@ -1422,6 +1425,7 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
+	
 	public Boolean verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage(WebDriver driver) {
 		waitTime(6000);
 		try {
@@ -1441,6 +1445,5 @@ public class LicenseGridPage extends BaseClass {
 			return false;
 		}
 	}
-	
 
 }

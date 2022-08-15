@@ -92,6 +92,7 @@ Feature: TasksGrid
 		And I click on add task save button
 		Then I click on success popup ok button
 		Then I see the modified license activity is listed in the license activity grid
+		
     
     Scenario: Step_52_As a user i Validate the following sections and tabs and grid records are visible on the Tasks Grid
     Given Visit the app url
@@ -150,8 +151,7 @@ Feature: TasksGrid
     And I see my task in the grid
     Then I click on assigned task drop down
     And I see assigned task in the grid
-    
-    
+      
     Scenario: Step_56_As a user i validate click the advanced filters icon:
     Given Visit the app url
     When I see login page title
@@ -180,5 +180,27 @@ Feature: TasksGrid
     Then I click on tasks grid
 		Then I enter two characters in column search filter on task grid page
 		Then I see the licenses activities are filtered based on the entered column wise search keywords on task grid page
+		
+		
+		
+		Scenario: Step_50_As a user i Validate edit tasks popup
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+    And I double click on task detail
+    Then I see header section display chosen activity details
+    Then I see following fields are mandatory and non editable date and createdBy
+		Then I see following fields are mandatory and editable type task Status assignee and dueDate
+		Then I see user is able to view delete task button
+		And I click on add task save button
+		Then I click on success popup ok button
+		Then I see task is edited successfully
+		
+		
+		
 
     
