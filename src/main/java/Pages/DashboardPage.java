@@ -14,6 +14,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+
 import Utils.BaseClass;
 import org.junit.Assert;
 import static org.junit.Assert.*;
@@ -682,6 +684,8 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyOnlyTheIncompleteLicensesForTheSelectedGlobalFilterValuesShouldBeShownInTheGrid(
 			WebDriver driver) {
+		ArrayList<String> taskStatus = new ArrayList<String>();
+		taskStatus.add("Incomplete");taskStatus.add("Pending Funds");taskStatus.add("Internal Pending");taskStatus.add("External Pending");taskStatus.add("Board Pending");taskStatus.add("On Hold");
 		waitTime(7000);
 		try {
 			for (int i = 1; i < taskIncompleteStatusList.length(); i++) {
@@ -691,7 +695,7 @@ public class DashboardPage extends BaseClass {
 				getval = getval.trim();
 				System.out.println(getval);
 				System.out.println("value : " + getval);
-				Assert.assertTrue(getval.equals("Incomplete"));
+				Assert.assertTrue(taskStatus.contains(getval));
 				break;
 			}
 			return true;
