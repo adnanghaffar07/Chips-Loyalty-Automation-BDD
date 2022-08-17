@@ -144,7 +144,8 @@ public class TasksPage extends BaseClass {
 	String editTaskStatus = "";
 	String editTaskAssignee = "";
 
- 
+	String showEntries = "//select[@name='license_activity-list-main_length']  | //select[@name='tasks-list-main_length']";
+
 	
 	HashMap<String, String> taskDetails = new HashMap<String, String>();
 
@@ -757,6 +758,60 @@ public void doubleClickOnTask(WebDriver driver) {
 	        file.delete();
 	    }
 }
+	
+	public void verifyFieldsInSpreadsheetMatchesOnTheTaskGridNotes(WebDriver driver) throws IOException {
+		int countOfTite=1;
+		int countOfExelSheetTitle=0; 
+		String sheetValue ="";
+		String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+	    File dir = new File(dirPath);
+		File[] dir_contents = dir.listFiles();
+		String fileName = dir_contents[0].getName();
+		System.out.println("fileName:-"+fileName);
+		Object[][] data = getData(fileName, "Sheet1");
+		for (countOfTite = 2; countOfTite < 14; countOfTite++) {
+//			if (countOfTite == 7) {
+//				countOfTite += 1;
+//			}
+			WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + countOfTite + "]"));
+			String getTitle = getValue(title, driver).trim();
+			System.out.println("web page data"+getTitle);
+			System.out.println("sheet data: "+data[0][countOfExelSheetTitle].toString());
+//			if (countOfExelSheetTitle == 6) {
+//			countOfExelSheetTitle++;
+//			}
+			sheetValue = data[0][countOfExelSheetTitle].toString().trim();
+			
+			if (sheetValue.equals("License Number")) {
+				sheetValue ="License #";
+			}
+			Assert.assertTrue(sheetValue.equals(getTitle));
+			countOfExelSheetTitle++;
+		}
+		
+		countOfExelSheetTitle+=2;
+		sheetValue = data[0][countOfExelSheetTitle].toString().trim();
+
+		Assert.assertTrue(sheetValue.equals("Task Notes"));
+
+		
+		//Delete the Excel file from the directory 	
+		File path = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile");
+	    File[] files = path.listFiles();
+	    for (File file : files) {
+	        System.out.println("Deleted filename :"+ file.getName());
+	        file.delete();
+	    }
+}
+
+
+	public void clickOnExportWithNotesButton(WebDriver driver) {
+		waitForElementVisibility(exportNotesButton, "30", driver);
+		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
+		selectShowEntries.selectByIndex(1);
+		waitTime(6000);
+		click(exportNotesButton, driver);
+	}
 
 
 }

@@ -198,8 +198,7 @@ Feature: TasksGrid
 		Then I see user is able to view delete task button
 		And I click on add task save button
 		Then I click on success popup ok button
-		Then I see task is edited successfully
-		
+		Then I see task is edited successfully		
 		
 		Scenario: Step_53_As a user i click the export button on license grid page
     Given Visit the app url
@@ -212,6 +211,18 @@ Feature: TasksGrid
 		And I click on export button
 		And I see the count of selected rows in excel sheet
 		And I see fields in spreadsheet matches on the task grid
+		
+		Scenario: Step_54_As a user i click the export with notes button on license grid page
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on tasks grid
+		And I click on export with notes button
+		And I see the count of selected rows in excel sheet
+		And I see fields in spreadsheet matches on the task grid notes
 		
 		
 

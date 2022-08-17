@@ -10,7 +10,7 @@ Feature: Dashboard
     And I see dashboard grid
     Then I click logout on menu under user menu hove
     
-    Scenario: Step_14_As a user i check the menu items after the successful login
+    Scenario: Step_15_As a user i check the menu items after the successful login
     Given Visit the app url
     When I see login page title
     And I enter username

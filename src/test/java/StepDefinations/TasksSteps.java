@@ -227,5 +227,13 @@ public class TasksSteps extends BaseClass {
 	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid() throws IOException {
 		tasksPage.verifyFieldsInSpreadsheetMatchesOnTheTaskGrid(driver);
 	}
+	@And("^I click on export with notes button$")
+	public void clickOnExportButton() {
+		tasksPage.clickOnExportWithNotesButton(driver);
+	}
+	@And("^I see fields in spreadsheet matches on the task grid notes$")
+	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGridNotes() throws IOException {
+		tasksPage.verifyFieldsInSpreadsheetMatchesOnTheTaskGridNotes(driver);
+	}
 	
 }

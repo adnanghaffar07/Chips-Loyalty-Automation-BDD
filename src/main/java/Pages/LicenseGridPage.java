@@ -1357,7 +1357,7 @@ public class LicenseGridPage extends BaseClass {
 //			 (//td[@class='display-none']/following-sibling::td[1])[2]/..
 //			//td[@class="display-none"]/following-sibling::td[1]
 			scrollToElement(expirationDate, driver);
-			getExpirationDate = getValue(expirationDate, driver).trim();
+			getExpirationDate = getValue(expirationDate, driver).trim().replace("<span class=\"red\">", "").replace("</span>", "");
 //			waitTime(6000);
 			System.err.println("Get Expiration Date"+getExpirationDate);
 			
@@ -1381,8 +1381,7 @@ public class LicenseGridPage extends BaseClass {
 			waitForElementVisibility(expirationDateOnDetials, "20", driver);
 			String getExpirationDateOnDetials = getValue(expirationDateOnDetials, driver).trim();
 
-			getExpirationDateOnDetials = reformatDate(getExpirationDateOnDetials,"MM-dd-yyyy",getExpirationDate);
-//			getExpirationDateOnDetials.replaceAll("/", "-");
+			getExpirationDateOnDetials = reformatDate(getExpirationDateOnDetials,"yyyy-MM-dd","MM-dd-yyyy");
 			Assert.assertTrue(getExpirationDateOnDetials.equals(getExpirationDate));			
 			return true;
 		} catch (Exception e) {
