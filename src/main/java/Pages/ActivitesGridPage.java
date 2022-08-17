@@ -19,8 +19,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 
 import Utils.BaseClass;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import static org.junit.Assert.*;
+import java.awt.event.KeyEvent;
 
 
 public class ActivitesGridPage extends BaseClass {
@@ -96,7 +99,8 @@ public class ActivitesGridPage extends BaseClass {
 	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
 	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
 	String exportBtn = "//span[text()='Export']";
-	String showEntries = "//select[@name='license_activity-list-main_length']";
+	String showEntries = "//select[@name='license_activity-list-main_length']  | //select[@name='tasks-list-main_length']";
+	String showRowEntriesLbl = "//div[@id='license_activity-list-main_info']";	
 	
 
 	
@@ -117,6 +121,7 @@ public class ActivitesGridPage extends BaseClass {
 	ArrayList<String> gridDataList = new ArrayList<String>();
 	ArrayList<String> gridDataPDFUploadList = new ArrayList<String>();
 	ArrayList<String> activeLicensDataList = new ArrayList<String>();
+	ArrayList<String> activeLicenseTitelList = new ArrayList<String>();
 	String filepath = filePath + "TestSample.pdf";
 	String avtivitySartDateSelect;
 	String licenseActivityValue;
@@ -329,12 +334,11 @@ public class ActivitesGridPage extends BaseClass {
 			String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
 			avtivitySartDateSelect = date; 
 			System.out.println("Active Date: " + date);
-//			date = date.replace("-", "");
 			click(ActivityStartDateTxt, driver);
-			type(ActivityStartDateTxt, date, driver);
-			
-
-
+			type(ActivityStartDateTxt, currentDate.toString().substring(0, 5), driver);
+			pressTABKey(ActivityStartDateTxt, driver);
+			type(ActivityStartDateTxt, currentDate.toString().substring(5, 8), driver);
+			type(ActivityStartDateTxt, currentDate.toString().substring(8), driver);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -461,17 +465,20 @@ public class ActivitesGridPage extends BaseClass {
 	public Boolean verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid(WebDriver driver) {
 		waitForElementVisibility(activityStartDatePicer, "30", driver);
 		String waitDateXpath;
+		String sartDateSelect;
 		String replaceVale;
 		try {
-			type(activityStartDatePicer, avtivitySartDateSelect, driver);
-//			replaceVale = avtivitySartDateSelect.replace("00", "").trim();
+			sartDateSelect = reformatDate(avtivitySartDateSelect,"MM/dd/yyyy", "yyyy-MM-dd");
+			type(activityStartDatePicer, sartDateSelect.toString().substring(0, 5), driver);
+			pressTABKey(activityStartDatePicer, driver);
+			type(activityStartDatePicer, sartDateSelect.toString().substring(5, 8), driver);
+			type(activityStartDatePicer, sartDateSelect.toString().substring(8), driver);
+			System.out.println(sartDateSelect);
 			replaceVale = reformatDate(avtivitySartDateSelect,"MM/dd/yyyy", "MM-dd-yyyy");
-			System.out.println(replaceVale);
 			waitTime(10000);
 			waitDateXpath = "(//td[text()='"+replaceVale+"'])[1]";
 			waitForElementVisibility(waitDateXpath, "300", driver);
 			String date = getValueFromAttribute(activityStartDateOnGrid, driver).trim();
-//			String activityStartDate = date.replace("-", "/");
 			System.out.println("Active Start Serach Date: " + date);
 			Assert.assertTrue(date.equals(replaceVale));
 			String activity = getValueFromAttribute(activityOnGrid, driver).trim();
@@ -737,14 +744,16 @@ public class ActivitesGridPage extends BaseClass {
 	
 	public void clickOnExportButton(WebDriver driver) {
 		waitForElementVisibility(exportBtn, "30", driver);
-		click(exportBtn, driver);
+		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
+		selectShowEntries.selectByIndex(1);
 		waitTime(6000);
+		click(exportBtn, driver);
+		
 	}
 	
 	public void verifyRowsCount(WebDriver driver) {
 		
 		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
-		selectShowEntries.selectByIndex(1);
 		WebElement option = selectShowEntries.getFirstSelectedOption();
 		int defaultItem = Integer.parseInt(option.getText().trim());
 		System.out.println("showEntries:-"+defaultItem);
@@ -758,7 +767,45 @@ public class ActivitesGridPage extends BaseClass {
 		Object[][] data = getData(fileName, "Sheet1");
 		System.out.println("DataCount:-"+data.length);
 		Assert.assertTrue(data.length==(defaultItem+1));
-
+		}
+		
+		public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid(WebDriver driver) throws IOException {
+			int countOfTite=1;
+			int countOfExelSheetTitle=0; 
+			String sheetValue ="";
+			String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+		    File dir = new File(dirPath);
+			File[] dir_contents = dir.listFiles();
+			String fileName = dir_contents[0].getName();
+			System.out.println("fileName:-"+fileName);
+			Object[][] data = getData(fileName, "Sheet1");
+			for (countOfTite = 1; countOfTite < 14; countOfTite++) {
+				if (countOfTite == 7) {
+					countOfTite += 1;
+				}
+				WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + countOfTite + "]"));
+				String getTitle = getValue(title, driver).trim();
+				System.out.println("web page data"+getTitle);
+				System.out.println("sheet data: "+data[0][countOfExelSheetTitle].toString());
+				if (countOfExelSheetTitle == 6) {
+				countOfExelSheetTitle++;
+				}
+				sheetValue = data[0][countOfExelSheetTitle].toString().trim();
+				
+				if (sheetValue.equals("License Number")) {
+					sheetValue ="License #";
+				}
+				Assert.assertTrue(sheetValue.equals(getTitle));
+				countOfExelSheetTitle++;
+			}
+			//Delete the Excel file from the directory 	
+			File path = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile");
+		    File[] files = path.listFiles();
+		    for (File file : files) {
+		        System.out.println("Deleted filename :"+ file.getName());
+		        file.delete();
+		    }
 	}
+			
 	
 }

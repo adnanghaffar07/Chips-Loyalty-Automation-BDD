@@ -216,6 +216,20 @@ Feature: ActivitesGrid
 		And I see the user is able to view the old notes icon
 		And I see the global search text box in the license activity grid
 		And I see the advance filters icon in the license activity grid
+
+		Scenario: Step_35_As a user i click the export button on license grid page
+    Given Visit the app url
+    When I see login page title
+    And I enter username
+    And I enter password
+    Then I click on login button
+    And I click on session popup cancel button
+    Then I click on activities grid
+		And I see activities page title
+		And I click on export button
+		And I see the count of selected rows in excel sheet
+		And I see fields in spreadsheet matches on the licenses grid
+	
 		
 		
 

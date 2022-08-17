@@ -223,5 +223,9 @@ public class TasksSteps extends BaseClass {
 	public void verifyTaskEditedSuccessfully() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyTaskEditedSuccessfully(driver));
 	}
+	@And("^I see fields in spreadsheet matches on the task grid$")
+	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid() throws IOException {
+		tasksPage.verifyFieldsInSpreadsheetMatchesOnTheTaskGrid(driver);
+	}
 	
 }

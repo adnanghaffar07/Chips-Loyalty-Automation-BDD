@@ -466,6 +466,23 @@ public class ExcelReader {
 		
 	}
 	
+	public int getColumnCountAtRow(String sheetName, int rowNum){
+		// check if sheet exists
+		if(!isSheetExist(sheetName))
+		 return -1;
+		
+		sheet = workbook.getSheet(sheetName);
+		row = sheet.getRow(rowNum);
+		
+		if(row==null)
+			return -1;
+		
+		return row.getLastCellNum();
+		
+		
+		
+	}
+	
 	
 	//String sheetName, String testCaseName,String keyword ,String URL,String message
 	public boolean addHyperLink(String sheetName,String screenShotColName,String testCaseName,int index,String url,String message){

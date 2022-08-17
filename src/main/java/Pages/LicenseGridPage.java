@@ -473,17 +473,13 @@ public class LicenseGridPage extends BaseClass {
 		System.out.println(currentDate.toString());
 		String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
 		System.out.println("Active Date: " + date);
-		date = date.replace("-", "");
 
 		click(activityStartDate, driver);
-		type(activityStartDate, date, driver);
+		type(activityStartDate, currentDate.toString().substring(0, 5), driver);
+		pressTABKey(activityStartDate, driver);
+		type(activityStartDate, currentDate.toString().substring(5, 8), driver);
+		type(activityStartDate, currentDate.toString().substring(8), driver);
 		
-//		LocalDate currentDate = java.time.LocalDate.now();
-//		String date = "00" + currentDate.toString().replace("-", "");
-//		System.out.println("Active Date: " + date);
-
-		type(activityStartDate, date, driver);
-
 		click(activityPopupNextBtn, driver);
 
 		Select type = new Select(driver.findElement(By.xpath(selecteType)));
@@ -545,8 +541,8 @@ public class LicenseGridPage extends BaseClass {
 			if (i == 7 || i == 10) {
 				i += 1;
 			}
-			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
-			String getTitel = getValue(titel, driver).trim();
+			WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+			String getTitel = getValue(title, driver).trim();
 			if (i == 8) {
 				getTitel = getTitel.substring(0, 6);
 				System.out.println(getTitel);

@@ -76,6 +76,12 @@ public class Utilities extends Waits {
 		}
 
 	}
+	
+	public static void pressTABKey(String xpath,WebDriver driver) {
+		WebElement element = driver.findElement(By.xpath(xpath));
+		element.sendKeys(Keys.TAB);
+
+	}
 
 	public static void clearTextField(String xpath, WebDriver driver) {
 		WebElement element = driver.findElement(By.xpath(xpath));

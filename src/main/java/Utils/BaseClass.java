@@ -149,7 +149,8 @@ public class BaseClass extends Utilities {
 				System.getProperty("user.dir") + "/src/test/resources/data/" + filename + ".xlsx");
 		}
 		int rows = excel.getRowCount(SheetName);
-		int columns = excel.getColumnCount(SheetName);
+		int columns = excel.getColumnCountAtRow(SheetName,1);
+		System.out.println("Rows: "+rows+"\nColumns:"+columns);
 		Object[][] data = new Object[rows - 1][columns];
 		for (int rowNum = 2; rowNum <= rows; rowNum++) {
 			for (int colNum = 0; colNum < columns; colNum++) {

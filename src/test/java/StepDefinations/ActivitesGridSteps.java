@@ -197,8 +197,15 @@ public class ActivitesGridSteps extends BaseClass {
 		activitesGridPage.clickOnExportButton(driver);
 	}
 
-	@And("^I see selected rows in excel sheet$")
+	@And("^I see the count of selected rows in excel sheet$")
 	public void verifyRowsCount() {
 		activitesGridPage.verifyRowsCount(driver);
 	}
+	
+	@And("^I see fields in spreadsheet matches on the licenses grid$")
+	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid() throws IOException {
+		activitesGridPage.verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid(driver);
+	}
+	
+	
 }
