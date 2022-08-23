@@ -12,7 +12,10 @@ import Constants.Constants;
 import Pages.EmailVerificationPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
+import Utils.SendEmail;
+import Utils.ZipUtils;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -22,6 +25,8 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 import io.qameta.allure.Allure;
+
+import org.apache.commons.compress.archivers.zip.ZipUtil;
 import org.apache.commons.io.FileUtils;
 
 public class LoginSteps extends BaseClass {
@@ -211,5 +216,13 @@ public class LoginSteps extends BaseClass {
 			e.printStackTrace();
 		}
 		driver.close();
+	}
+	
+	@AfterAll
+	public static void after_all() {
+		ZipUtils.generateZipFile();
+		waitTime(3000);
+		String message = "The report is attached as zip file, download ans extract the zip file. Run the command 'Allure Serve' to view report in browser.";
+		SendEmail.SendEmailNow(message);
 	}
 }

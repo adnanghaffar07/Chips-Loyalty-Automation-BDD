@@ -50,6 +50,7 @@ public class BaseClass extends Utilities {
 //			log.debug("Firefox Driver initialized");
 		} else if (browser.equals("chrome")) {
 
+
 			WebDriverManager.chromedriver().setup();
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			prefs.put("profile.default_content_setting_values.notifications", 2);
@@ -58,14 +59,21 @@ public class BaseClass extends Utilities {
 			prefs.put("profile.password_manager_enabled", false);
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("prefs", prefs);
-			String agentString = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36";
+			String agentString = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36";
 			options.addArguments("--user-agent=" + agentString);
 			options.addArguments("--disable-extensions");
-			options.addArguments("--disable-infobars");
-//			options.addArguments("window-size=1920,1080");
-//			options.addArguments("--headless");
-			options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
 			options.addArguments("--disable-gpu");
+			options.addArguments("--disable-extensions");
+			options.addArguments("--disable-infobars");
+			options.addArguments("window-size=1920,1080");
+			options.addArguments("start-maximized"); // open Browser in maximized mode
+			options.addArguments("disable-infobars"); // disabling infobars
+			options.addArguments("--disable-extensions"); // disabling extensions
+			options.addArguments("--disable-gpu"); // applicable to windows os only
+			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+			options.addArguments("--no-sandbox");
+			options.addArguments("--headless");
+
 			try {
 				localD = new ChromeDriver(options);
 			} catch (Exception e) {
