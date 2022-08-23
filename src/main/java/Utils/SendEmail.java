@@ -57,7 +57,7 @@ public class SendEmail {
 	            
 	            message.setRecipients(Message.RecipientType.TO,
 	                InternetAddress.parse(
-	                		 "mnawaz@codeautomation.ai"//"ambreen.younas@pharma.solutions"
+	                		 "ambreen.younas@pharma.solutions"
 	                		));
 	            String currentDateTime = new SimpleDateFormat("dd-MMM-yyyy_h:mm a z").format(Calendar.getInstance().getTime());
 	            message.setSubject("Web Automation Tests Run Report on "+currentDateTime);
