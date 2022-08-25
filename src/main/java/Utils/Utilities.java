@@ -55,7 +55,7 @@ public class Utilities extends Waits {
 		try {
 			element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			element.sendKeys(Keys.DELETE);
-			System.out.println("Entered :" + value);
+			
 			element.sendKeys(value);
 		} catch (Exception e) {
 			element.sendKeys(value);
@@ -69,7 +69,7 @@ public class Utilities extends Waits {
 		try {
 			element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			element.sendKeys(Keys.DELETE);
-			System.out.println("Entered :" + value);
+			
 			element.sendKeys(value);
 		} catch (Exception e) {
 			element.sendKeys(value);
@@ -99,7 +99,7 @@ public class Utilities extends Waits {
 		String getval;
 		WebElement element = driver.findElement(By.xpath(xpath));
 		getval = element.getText();
-		System.out.println("name" + getval);
+		
 		return getval;
 	}
 
@@ -107,14 +107,12 @@ public class Utilities extends Waits {
 		String getval;
 		WebElement element = driver.findElement(By.xpath(xpath));
 		getval = element.getAttribute("value");
-		System.out.println("name" + getval);
 		return getval;
 	}
 	
 	public static String getValue(WebElement element, WebDriver driver) {
 		String getval;
 		getval = element.getAttribute("innerHTML");
-		System.out.println("name" + getval);
 		return getval;
 	}
 	
@@ -122,7 +120,6 @@ public class Utilities extends Waits {
 		String getval;
 		WebElement element = driver.findElement(By.xpath(xpath));
 		getval = element.getAttribute("innerHTML");
-		System.out.println("name" + getval);
 		return getval;
 	}
 
@@ -165,9 +162,7 @@ public class Utilities extends Waits {
 		scrollIntoViewSmoothly(element, driver);
 		waitForElementVisibility(element, "30", driver);
 		waitForElementClickable(element, "20", driver);
-		System.out.println("click:  ");
 		element.click();
-		System.out.println("click:  ");
 		Waits.wait5s();
 
 	}

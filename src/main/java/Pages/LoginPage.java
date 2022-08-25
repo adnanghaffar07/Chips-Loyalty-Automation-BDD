@@ -73,7 +73,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyLoginPageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginPageTitle, "30", driver);
-			System.out.println("login Page Title : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -84,7 +83,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyUserNameTextField(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginUserNameTxt, "30", driver);
-			System.out.println("User Name Text Field: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -95,7 +93,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyPasswordTextField(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginPasswordTxt, "30", driver);
-			System.out.println("Password Text Field: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -106,7 +103,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyLoginButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginBtn, "30", driver);
-			System.out.println("Login Page Login Button: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -117,7 +113,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyCancelButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginCancelBtn, "30", driver);
-			System.out.println("Login Page Cancel Button: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -128,7 +123,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyLoginAssistanceLink(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginAssistanceLink, "30", driver);
-			System.out.println("Login Page Login Assistance Link: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -149,7 +143,6 @@ public class LoginPage extends BaseClass {
 				// TODO: handle exception
 			}
 			waitForElementVisibility(atlasMainPageLogo, "30", driver);
-			System.out.println("Atlas Main Page Logo: ");
 			isElementDisplayed(atlasMainPageLogo, driver);
 			return true;
 		} catch (Exception e) {
@@ -173,9 +166,7 @@ public class LoginPage extends BaseClass {
 		waitForElementVisibility(loginUserNameTxt, "30", driver);
 		type(loginUserNameTxt, "username", driver);
 		String userNamevalue = getValue(loginUserNameTxt, driver);
-		System.out.println(userNamevalue);
 		boolean userNameEqual = (userNamevalue.equals("username"));
-		System.out.println(userNameEqual);
 		Assert.assertTrue(userNameEqual);
 
 		type(loginPasswordTxt, "password", driver);
@@ -193,13 +184,11 @@ public class LoginPage extends BaseClass {
 
 	public void LogoAndBackgroundImageShouldBeVisibleProperly(WebDriver driver) {
 		waitForElementVisibility(logoImage, "30", driver);
-		System.out.println("Page title is : " + driver.getTitle());
-	}
+		}
 
 	public void browserTabNameShouldDisplayedWithTheTabNameLogin(WebDriver driver) {
 		waitForElementVisibility(logoImage, "30", driver);
 		String titleText = driver.getTitle();
-		System.out.println("Page title is : " + titleText);
 		boolean equal = (titleText.equals("Login"));
 		Assert.assertTrue(equal);
 	}
@@ -207,9 +196,7 @@ public class LoginPage extends BaseClass {
 	public void inputFieldsShouldHaveAProperPlaceHolderName(WebDriver driver) {
 		waitForElementVisibility(loginUserNameTxt, "30", driver);
 		String userNamevalue = getPlaceHolder(loginUserNameTxt, driver);
-		System.out.println(userNamevalue);
 		boolean userNameEqual = (userNamevalue.equals(userNamevalue));
-		System.out.println(userNameEqual);
 		Assert.assertTrue(userNameEqual);
 
 		type(loginPasswordTxt, "password", driver);
@@ -221,7 +208,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyinvalidUsernamePasswordPleaseTryAgainLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(invalidUsernamePasswordErrorMsg, "30", driver);
-			System.out.println("reset Filter : ");
 			isElementDisplayed(invalidUsernamePasswordErrorMsg, driver);
 			return true;
 		} catch (Exception e) {
@@ -245,7 +231,6 @@ public class LoginPage extends BaseClass {
 		try {
 			waitForElementVisibility(usernameValidationMsg, "30", driver);
 			clearTextField(passwordValidationMsg, driver);
-			System.out.println("Username Validation Msg : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -255,7 +240,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyPasswordValidationMsg(WebDriver driver) {
 		try {
 			waitForElementVisibility(passwordValidationMsg, "30", driver);
-			System.out.println("password Validation Msg : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -281,7 +265,6 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyProfileNameDropDown(WebDriver driver) {
 		try {
 			waitForElementVisibility(profileNameDropDown, "30", driver);
-			System.out.println("profileNameDropDown : ");
 			return true;
 		} catch (Exception e) {
 			return false;

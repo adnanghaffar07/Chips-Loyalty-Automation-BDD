@@ -179,21 +179,18 @@ public class LicenseGridPage extends BaseClass {
 		WebElement option = select.getFirstSelectedOption();
 		String defaultItem = option.getText();
 		boolean defualtValueEqual = (defaultItem.equals("All"));
-		System.out.println(defaultItem);
 		Assert.assertTrue(defualtValueEqual);
 
 		Select companySelect = new Select(driver.findElement(By.xpath(companyDropdownOnLicense)));
 		WebElement companyOption = select.getFirstSelectedOption();
 		String companyDefault = companyOption.getText();
 		boolean companyDefualtValueEqual = (companyDefault.equals("All"));
-		System.out.println(companyDefualtValueEqual);
 		Assert.assertTrue(companyDefualtValueEqual);
 
 		Select facilitySelect = new Select(driver.findElement(By.xpath(facilityDropdownOnLicense)));
 		WebElement facilityOption = select.getFirstSelectedOption();
 		String facilityDefault = facilityOption.getText();
 		boolean facilityDefualtValueEqual = (facilityDefault.equals("All"));
-		System.out.println(facilityDefualtValueEqual);
 		Assert.assertTrue(facilityDefualtValueEqual);
 
 	}
@@ -215,14 +212,12 @@ public class LicenseGridPage extends BaseClass {
 		WebElement companyOption = client.getFirstSelectedOption();
 		String companyDefault = companyOption.getText();
 		boolean companyDefualtValueEqual = (companyDefault.equals("All"));
-		System.out.println(companyDefualtValueEqual);
 		Assert.assertTrue(companyDefualtValueEqual);
 	}
 
 	public Boolean verifyExportButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(exportBtn, "30", driver);
-			System.out.println("exportBtn: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -232,7 +227,6 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyAdvancedFiltersLink(WebDriver driver) {
 		try {
 			waitForElementVisibility(advancedFilters, "30", driver);
-			System.out.println("advancedFilters: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -242,13 +236,10 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyGlobalSearch(WebDriver driver) {
 		try {
 			waitForElementVisibility(clientDropdownOnLicense, "30", driver);
-			System.out.println("clientDropdownOnLicense: ");
-
+		
 			waitForElementVisibility(companyDropdownOnLicense, "30", driver);
-			System.out.println("companyDropdownOnLicense: ");
-
+		
 			waitForElementVisibility(facilityDropdownOnLicense, "30", driver);
-			System.out.println("facilityDropdownOnLicense: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -259,29 +250,21 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyColumnSearchForEachColumnInTheGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(compMgrSearch, "30", driver);
-			System.out.println("compMgrSearch: ");
-
+			
 			waitForElementVisibility(companySearch, "30", driver);
-			System.out.println("companySearch: ");
-
+			
 			waitForElementVisibility(facilitySearch, "30", driver);
-			System.out.println("facilitySearch: ");
-
+			
 			waitForElementVisibility(stateSearch, "30", driver);
-			System.out.println("stateSearch: ");
-
+			
 			waitForElementVisibility(licenseNameSearch, "30", driver);
-			System.out.println("licenseNameSearch: ");
-
+			
 			waitForElementVisibility(licenseDetialsSearch, "30", driver);
-			System.out.println("licenseDetialsSearch: ");
-
+			
 			waitForElementVisibility(licenseSearch, "30", driver);
-			System.out.println("licenseSearch: ");
-
+			
 			waitForElementVisibility(statusSearch, "30", driver);
-			System.out.println("statusSearch: ");
-
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -306,10 +289,8 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyStatusHelpIconAndActiveHelpIcon(WebDriver driver) {
 		try {
 			waitForElementVisibility(statusHelpIcon, "30", driver);
-			System.out.println("statusHelpIcon: ");
-
+		
 			waitForElementVisibility(activeHelpIcon, "30", driver);
-			System.out.println("activeHelpIcon: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -319,7 +300,6 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyCallTheLogIcon(WebDriver driver) {
 		try {
 			waitForElementVisibility(callTheLogIcon, "30", driver);
-			System.out.println("callTheLogIcon: ");
 
 			return true;
 		} catch (Exception e) {
@@ -330,8 +310,7 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyAddActivityLink(WebDriver driver) {
 		try {
 			waitForElementVisibility(addActivityLink, "30", driver);
-			System.out.println("addActivityLink: ");
-
+		
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -342,14 +321,10 @@ public class LicenseGridPage extends BaseClass {
 		String yellowColor = "#feb62b";
 		WebElement element = driver.findElement(By.xpath(licensesGrid));
 		String colorBdr = element.getCssValue("border-bottom-color");
-		System.out.println("color Bdr: " + colorBdr);
 		String getYellowColor = Color.fromString(colorBdr).asHex().trim();
-		System.out.println("color Bdr: " + getYellowColor);
 		if (getYellowColor.equalsIgnoreCase(getYellowColor)) {
-			System.out.println("color True: " + getYellowColor);
 			return true;
 		} else {
-			System.out.println("color False: " + getYellowColor);
 			return false;
 		}
 	}
@@ -393,7 +368,6 @@ public class LicenseGridPage extends BaseClass {
 			shiftWindowHandle(1);
 
 			String titleText = driver.getTitle();
-			System.out.println("Page title is : " + titleText);
 			boolean equal = (titleText.equals(titleText));
 			Assert.assertTrue(equal);
 
@@ -407,7 +381,6 @@ public class LicenseGridPage extends BaseClass {
 		for (int i = 2; i < 8; i++) {
 			if (i == 4 || i == 6) {
 				i += 1;
-				System.out.println(i);
 			}
 			WebElement data = driver
 					.findElement(By.xpath("(//*[@title='Go To Activity']/ancestor::td/../td)[" + i + "]"));
@@ -424,8 +397,6 @@ public class LicenseGridPage extends BaseClass {
 
 				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 				String getval = getValue(element, driver);
-				System.out.println(getval);
-				System.out.println("value : " + getval);
 				Assert.assertTrue(activeLicenseList.contains(getval));
 			}
 			return true;
@@ -438,7 +409,6 @@ public class LicenseGridPage extends BaseClass {
 		for (int i = 2; i < 8; i++) {
 			if (i == 4 || i == 6) {
 				i += 1;
-				System.out.println(i);
 			}
 			WebElement data = driver
 					.findElement(By.xpath("(//*[@title='Add Activity']/ancestor::td/../td)[" + i + "]"));
@@ -470,10 +440,8 @@ public class LicenseGridPage extends BaseClass {
 		company.selectByIndex(1);
 
 		LocalDate currentDate = java.time.LocalDate.now();
-		System.out.println(currentDate.toString());
 		String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
-		System.out.println("Active Date: " + date);
-
+		
 		click(activityStartDate, driver);
 		type(activityStartDate, currentDate.toString().substring(0, 5), driver);
 		pressTABKey(activityStartDate, driver);
@@ -497,7 +465,7 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyTaskDetailsSavedSuccessfullyPopup(WebDriver driver) {
 		try {
 			waitForElementVisibility(taskDetailsSavedSuccessfullyPopup, "30", driver);
-			System.out.println("taskDetailsSavedSuccessfullyPopup: ");
+			
 			isElementDisplayed(taskDetailsSavedSuccessfullyPopup, driver);
 
 			return true;
@@ -522,11 +490,9 @@ public class LicenseGridPage extends BaseClass {
 			String getTitel = getValue(titel, driver).trim();
 			if (i == 8) {
 				getTitel = getTitel.substring(0, 6);
-				System.out.println(getTitel);
 			}
 			activeLicenseTitelList.add(getTitel);
 
-//			System.out.println(activeLicenseTitelList.get(i));
 
 		}
 
@@ -545,9 +511,9 @@ public class LicenseGridPage extends BaseClass {
 			String getTitel = getValue(title, driver).trim();
 			if (i == 8) {
 				getTitel = getTitel.substring(0, 6);
-				System.out.println(getTitel);
+				
 			}
-			System.out.println(getTitel);
+			
 			activeLicenseTitelList.add(getTitel);
 		}
 
@@ -559,8 +525,7 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyAdvanceFiltersPopup(WebDriver driver) {
 		try {
 			waitForElementVisibility(advanceFiltersSelectField, "30", driver);
-			System.out.println("advanceFiltersSelectField: ");
-
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -575,7 +540,7 @@ public class LicenseGridPage extends BaseClass {
 			int size = op.size();
 			for (int i = 1; i < size; i++) {
 				String options = op.get(i).getText().trim();
-				System.out.println(options);
+				
 				if (options.equals("Compliance Manager")) {
 					options = "Comp.Mgr";
 				} else if (options.equals("License Number")) {
@@ -618,8 +583,7 @@ public class LicenseGridPage extends BaseClass {
 			int size = op.size();
 			for (int i = 1; i < size; i++) {
 				String options = op.get(i).getText().trim();
-				System.out.println(options);
-
+				
 				Assert.assertTrue(operatorDropdownValueList.contains(options));
 			}
 
@@ -649,7 +613,6 @@ public class LicenseGridPage extends BaseClass {
 			Assert.assertTrue(orValue.equals("OR"));
 
 			waitForElementVisibility(advanceFiltersDeleteIcon, "30", driver);
-			System.out.println("advanceFiltersDeleteIcon: ");
 			isElementDisplayed(advanceFiltersDeleteIcon, driver);
 			return true;
 		} catch (Exception e) {
@@ -661,13 +624,10 @@ public class LicenseGridPage extends BaseClass {
 		try {
 
 			waitForElementVisibility(advanceFiltersSelectFieldSecond, "30", driver);
-			System.out.println("advanceFiltersSelectFieldSecond: ");
 
 			waitForElementVisibility(advanceFiltersSelectOperatorSecond, "30", driver);
-			System.out.println("advanceFiltersSelectOperatorSecond: ");
 
 			waitForElementVisibility(advanceOperatorValueSecondTxt, "30", driver);
-			System.out.println("advanceOperatorValueSecondTxt: ");
 
 			return true;
 		} catch (Exception e) {
@@ -677,21 +637,18 @@ public class LicenseGridPage extends BaseClass {
 
 	public void clickOnAddConditionLink(WebDriver driver) {
 		waitForElementVisibility(addConditionLink, "30", driver);
-		System.out.println("addConditionLink: ");
 		click(addConditionLink, driver);
 	}
 
 	public void clickOnAdvanceFiltersCloseButton(WebDriver driver) {
 		waitForElementVisibility(advanceFiltersCloseBtn, "30", driver);
-		System.out.println("advanceFiltersCloseBtn: ");
 		click(advanceFiltersCloseBtn, driver);
 	}
 
 	public Boolean verifyAdvanceFiltersIsClosed(WebDriver driver) {
 		try {
 			waitForElementVisibility(advanceFiltersSelectFieldSecond, "20", driver);
-			System.out.println("advanceFiltersSelectFieldSecond: ");
-
+		
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -718,7 +675,6 @@ public class LicenseGridPage extends BaseClass {
 
 	public void clickOnAdvanceFiltersSaveButton(WebDriver driver) {
 		waitForElementVisibility(advanceFiltersSaveBtn, "30", driver);
-		System.out.println("advanceFiltersSaveBtn: ");
 		click(advanceFiltersSaveBtn, driver);
 
 	}
@@ -726,15 +682,12 @@ public class LicenseGridPage extends BaseClass {
 	public void clickOnAddNewLicenseButton(WebDriver driver) {
 		waitTime(9000);
 		waitForElementVisibility(addNewLicenseBtn, "30", driver);
-		System.out.println("addNewLicenseBtn: ");
 		click(addNewLicenseBtn, driver);
 	}
 
 	public Boolean verifyAddLicensePageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(addLicensePageTitle, "20", driver);
-			System.out.println("addLicensePageTitle: ");
-
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -794,15 +747,13 @@ public class LicenseGridPage extends BaseClass {
 
 	public void clickOnAddLicenseSaveButton(WebDriver driver) {
 		waitForElementVisibility(addLicenseSaveBtn, "30", driver);
-		System.out.println("addLicenseSaveBtn: ");
 		click(addLicenseSaveBtn, driver);
 	}
 
 	public Boolean verifyLicenseDetailsSavedSuccessfully(WebDriver driver) {
 		try {
 			waitForElementVisibility(licenseDetailsSavedSuccessfully, "20", driver);
-			System.out.println("licenseDetailsSavedSuccessfully: ");
-
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -811,7 +762,6 @@ public class LicenseGridPage extends BaseClass {
 
 	public void clickOnSuccessPopupOkButton(WebDriver driver) {
 		waitForElementVisibility(successPopupOk, "30", driver);
-		System.out.println("successPopupOk: ");
 		click(successPopupOk, driver);
 	}
 
@@ -834,7 +784,6 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyLicenseGridIsFiltered(WebDriver driver) {
 		try {
 			waitTime(6000);
-			System.out.println(facilityFilterDataInGrid.length());
 			int size = facilityFilterDataInGrid.length();
 			size = (size - 25);
 			for (int i = 1; i < facilityFilterDataInGrid.length(); i++) {
@@ -844,7 +793,6 @@ public class LicenseGridPage extends BaseClass {
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver);
 				Assert.assertTrue(getData.equals("1718 Rockford, IL"));
-				System.out.println("inside : " + facilityFilterDataInGrid.length());
 			}
 
 			return true;
@@ -858,7 +806,6 @@ public class LicenseGridPage extends BaseClass {
 		for (int i = 2; i < 8; i++) {
 			if (i == 4 || i == 6) {
 				i += 1;
-				System.out.println(i);
 			}
 			WebElement data = driver
 					.findElement(By.xpath("(//*[@title='View License']/ancestor::td/../td)[" + i + "]"));
@@ -874,7 +821,6 @@ public class LicenseGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(editLicensePageTitel, "20", driver);
-			System.out.println("editLicensePageTitel: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -996,8 +942,7 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyEntriesIsShowingForLicensesLibel(WebDriver driver) {
 		try {
 			waitForElementVisibility(entriesIsShowingForLicensesLbl, "20", driver);
-			System.out.println("licenseDetailsSavedSuccessfully: ");
-
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -1009,13 +954,12 @@ public class LicenseGridPage extends BaseClass {
 			waitTime(9000);
 			waitForElementVisibility(firstLicenseName, "30", driver);
 			String getData = getValueFromAttribute(firstLicenseName, driver).trim();
-			System.out.println(getData);
 			waitForElementVisibility(licenseSerachTxt, "30", driver);
 			type(licenseSerachTxt, getData, driver);
 			waitTime(16000);
 			scrollToElement(entriesIsShowingForLicensesLbl, driver);
 			showingForLicensesValBefore = getText(entriesIsShowingForLicensesLbl, driver).trim();
-			System.out.println(showingForLicensesValBefore);
+			
 			wait6s();
 			return true;
 		} catch (Exception e) {
@@ -1025,7 +969,6 @@ public class LicenseGridPage extends BaseClass {
 
 	public void clickOnResetPageFiltersLink(WebDriver driver) {
 		waitForElementVisibility(resetPageFiltersLink, "30", driver);
-		System.out.println("resetPageFiltersLink: ");
 		click(resetPageFiltersLink, driver);
 		waitTime(13000);
 	}
@@ -1035,7 +978,6 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			scrollToElement(entriesIsShowingForLicensesLbl, driver);
 			showingForLicensesValAfter = getText(entriesIsShowingForLicensesLbl, driver).trim();
-			System.out.println(showingForLicensesValBefore);
 			if (showingForLicensesValAfter.equals(showingForLicensesValBefore) == false) {
 				Assert.assertFalse(showingForLicensesValAfter.equals(showingForLicensesValBefore));
 			}
@@ -1149,7 +1091,6 @@ public class LicenseGridPage extends BaseClass {
 	public boolean clickOnSaveButtonVerifyTheModifiedValuesSavedSuccessfully(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogEditClientTxt, "30", driver);
-			System.out.println("callLogEditClientTxt: ");
 			type(callLogEditClientTxt, clientActionable, driver);
 			click(callLogEditSaveBtn, driver);
 			clickOnSuccessPopupOkButton(driver);
@@ -1205,7 +1146,6 @@ public class LicenseGridPage extends BaseClass {
 	public boolean clickOnSaveButtonVerifyTheNewEntriesAreListedInTheExistingCommunicationLogsGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(callLogEditClientTxt, "30", driver);
-			System.out.println("callLogEditClientTxt: ");
 			type(callLogEditClientTxt, clientActionable, driver);
 
 			selectValueFromDropdown(callLogEditTypeDropdown, 1, driver);
@@ -1251,7 +1191,6 @@ public class LicenseGridPage extends BaseClass {
 	public Boolean verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressIncompleteOnly(WebDriver driver) {
 		try {
 			waitTime(10000);
-			System.out.println(licenseProgressList.length());
 			for (int i = 1; i < licenseProgressList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])[" + i
@@ -1260,7 +1199,6 @@ public class LicenseGridPage extends BaseClass {
 				String getData = getValue(element, driver).trim();
 
 				Assert.assertTrue(getData.equals("Incomplete"));
-				System.out.println("inside : " + licenseProgressList.length());
 			}
 
 			return true;
@@ -1273,7 +1211,6 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitTime(6000);
 			scrollToElement(advancedFiltersLink, driver);
-			System.out.println(licenseProgressList.length());
 			for (int i = 1; i < licenseProgressList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])[" + i
@@ -1281,9 +1218,7 @@ public class LicenseGridPage extends BaseClass {
 
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver).trim();
-				System.out.println("value  : " + getData);
 				Assert.assertTrue(getData.equals("Complete"));
-				System.out.println("inside : " + licenseProgressList.length());
 			}
 
 			return true;
@@ -1296,7 +1231,6 @@ public class LicenseGridPage extends BaseClass {
 		try {
 			waitTime(6000);
 			scrollToElement(advancedFiltersLink, driver);
-			System.out.println(licenseProgressList.length());
 			for (int i = 1; i < licenseProgressList.length(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Progress: activate to sort column ascending']/following::tr//td[13])[" + i
@@ -1304,8 +1238,7 @@ public class LicenseGridPage extends BaseClass {
 
 				scrollToElement(element, driver);
 				String getData = getValue(element, driver).trim();
-				System.out.println("value  : " + getData);
-
+			
 				if (getData.equals("Complete")) {
 					Assert.assertTrue(getData.equals("Complete"));
 				} else if (getData.equals("Incomplete")) {
@@ -1313,7 +1246,6 @@ public class LicenseGridPage extends BaseClass {
 				} else {
 					Assert.assertTrue(false);
 				}
-				System.out.println("inside : " + licenseProgressList.length());
 			}
 
 			return true;
@@ -1412,7 +1344,6 @@ public class LicenseGridPage extends BaseClass {
 				String getData = getValue(element, driver).toLowerCase();
 				//getData = getData.substring(0,2);
 				Assert.assertTrue(getData.contains(twoCharOfValToSearch.toLowerCase()));
-				System.out.println("inside : " + companySearchList.length());
 				waitTime(500);
 			}
 			return true;
@@ -1432,7 +1363,6 @@ public class LicenseGridPage extends BaseClass {
 				String getData = getValue(element, driver).toLowerCase();
 				//getData = getData.substring(0,2);
 				Assert.assertTrue(getData.contains(twoCharOfValToSearch.toLowerCase()));
-				System.out.println("inside : " + companySearchList.length());
 				waitTime(500);
 			}
 			return true;

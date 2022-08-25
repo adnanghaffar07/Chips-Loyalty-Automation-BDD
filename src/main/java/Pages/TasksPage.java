@@ -45,38 +45,26 @@ public class TasksPage extends BaseClass {
 	String saveBtn = "//button[@id='task-save']";
 	String assigneeValueTaskAdd = "(//p[contains(text(),'Assignee')])[1]/following-sibling::p";
 	String dateValueTaskAdd = "(//p[contains(text(),'Due')])[1]/following-sibling::p";
-
 	String clientFilter = "//select[@id='GlobalClientKey']";
 	String companyFilter = "//select[@id='GlobalCompanyKey']";
 	String facilityFilter = "//select[@id='GlobalFacilityKey']";
 	String resetGlobalFilter = "//a[text()='Reset Global Filters']";
-
 	String exportButton = "(//span[text()='Export'])";
 	String exportNotesButton = "(//span[text()='Export with Notes'])";
-
 	String incompleteSelect = "(//select[@id='incomplete'])";
 	String UserTypeSelect = "(//select[@id='UserType'])";
 	String allTaskOption = "//option[text()=' All Tasks']";
 	String myTaskOption = "//option[text()=' My Tasks ']";
 	String assignedTaskOption = "//option[text()=' Assigned Tasks']";
-
 	String advanceFilterIcon = "//a[text()=' Advanced Filters ']";
 	String globalSearch = "//input[@type='search']";
 	String showEntriesSelect = "//label//select";
 	String editTaskTitle = "//p[contains(text(),'Edit Task')]";
-
-	String assigneeValueAfter = "";
-	String taskDateSelect = "";
-	
 	String creatdBy = "//tr[@class='odd']//td[10]";
-	
 	String currentUserName = "((//li[contains(@class,'profile-name')])[2]//a)[1]";
-	
 	String noDataTxt = "//td[text()='No data available in table']";
 	String recordsCounter = "//div[contains(text(),'Showing')]";
-
-	int pageCounter = 0;
-	
+	String showEntries = "//select[@name='license_activity-list-main_length']  | //select[@name='tasks-list-main_length']";
 	String fieldOptionCompany = "//option[text()='Company']";
 	String fieldOptionCompManager = "//option[text()='Compliance Manager']";
 	String fieldOptionClientCode = "//option[text()='Client Code']";
@@ -90,51 +78,33 @@ public class TasksPage extends BaseClass {
 	String fieldOptionTaskType = "//option[text()='Task Type']";
 	String fieldOptionTaskStanding = "//option[text()='Task Standing']";
 	String fieldOptionTaskDueDate = "//option[text()='Task Due Date']";
-	String fieldOptionAssignedTo = "//option[text()='Assigned To']";
-		
-	
+	String fieldOptionAssignedTo = "//option[text()='Assigned To']";	
 	String operatorOptionEquals = "//option[text()='equals']";
 	String operatorOptionContains = "//option[text()='contains']";
 	String operatorOptionLessThan = "//option[text()='is less than']";
 	String operatorOptionGreaterThan = "//option[text()='is greater than']";
 	String operatorOptionLessThanEqual = "//option[text()='is less than or equals']";
 	String operatorOptionGreaterThanEqual = "//option[text()='is greater than or equals ']";
-	
 	String conditionOptoinAnd = "(//option[contains(text(),'AND')])[2]";
 	String conditionOptoinOR = "(//option[contains(text(),'OR')])[2]";
-
-	
-
 	String advanceFilterField = "//select[contains(@id,'field')]";
 	String advanceFilterOpterator = "//select[contains(@id,'operator0')]";
-	String advanceFilterValue = "//input[contains(@id,'search_value_one0')]";
-	
-	String conditionDropDown = "//select[@id='condition1']";
-	
+	String advanceFilterValue = "//input[contains(@id,'search_value_one0')]";	
+	String conditionDropDown = "//select[@id='condition1']";	
 	String advanceFilterField1 = "//select[contains(@id,'field1')]";
 	String advanceFilterOpterator1 = "//select[contains(@id,'operator1')]";
-	String advanceFilterValu1 = "//input[contains(@id,'search_value_one1')]";
-	
-	
-	String addConditionButton = "//a[text()='Add Condition']";
-	
-	String conditionDeleteIcon = "//img[contains(@src,'delete')]";
-	
-	
+	String advanceFilterValu1 = "//input[contains(@id,'search_value_one1')]";	
+	String addConditionButton = "//a[text()='Add Condition']";	
+	String conditionDeleteIcon = "//img[contains(@src,'delete')]";	
 	String advanceFilterCloseButton = "//button[text()='Close']";
-	String advanceFilterSaveButton = "//button[text()='Save']";
-	
-	String taskDetialsFirstRow = "(//tr[@class='odd']//td)[2]";
-
-	
+	String advanceFilterSaveButton = "//button[text()='Save']";	
+	String taskDetialsFirstRow = "(//tr[@class='odd']//td)[2]";	
 	String companyNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Company')]//following-sibling::p";
 	String facilityNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Facility')]//following-sibling::p";
 	String stateNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'State')]//following-sibling::p";
 	String LicenseNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'License Name')]//following-sibling::p";
 	String ActivityEditTask = "//div[@class='modal-content'] //p[contains(text(),'Activity')]//following-sibling::p";
 	String progressEditTask = "//div[@class='modal-content'] //p[contains(text(),'Progress')]//following-sibling::p";
-	
-	
 	String deleteTaskBtn = "//button[text()='Delete']";
 	String taskSection = "//section[@id='task']";
 	
@@ -143,10 +113,9 @@ public class TasksPage extends BaseClass {
 	String editTaskType = "";
 	String editTaskStatus = "";
 	String editTaskAssignee = "";
-
-	String showEntries = "//select[@name='license_activity-list-main_length']  | //select[@name='tasks-list-main_length']";
-
-	
+	String assigneeValueAfter = "";
+	String taskDateSelect = "";
+	int pageCounter = 0;	
 	HashMap<String, String> taskDetails = new HashMap<String, String>();
 
 
@@ -195,9 +164,7 @@ public void doubleClickOnTask(WebDriver driver) {
 		String getData = getValue(data, driver);
 		String getTitel = getValue(titel, driver);
 		taskDetails.put(getTitel.trim(), getData.trim());
-		System.out.println(taskDetails.get(getTitel));
-
-	}
+		}
 	doubleClick(taskDetialsFirstRow, driver);
 }
 
@@ -362,8 +329,7 @@ public void doubleClickOnTask(WebDriver driver) {
 			waitForElementVisibility(dueDateMandatory, "20", driver);
 
 			taskDateSelect = getValue(dueDateDropDown, driver);
-			System.out.println("taskDateSelect");
-
+	
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -374,12 +340,10 @@ public void doubleClickOnTask(WebDriver driver) {
 		try {
 			waitForElementVisibility(addTaskBtn, "20", driver);
 			String assigneeValue = getText(assigneeValueTaskAdd, driver);
-			System.out.println("Value assign" + assigneeValue);
 			Assert.assertTrue("Verify Value of assign are equal", assigneeValue.equals(assigneeValueAfter));
 
 			String dateValue = getText(dateValueTaskAdd, driver);
 			dateValue = reformatDate(dateValue, "MM-dd-yyyy", "yyyy-MM-dd");
-			System.out.println("Value date" + dateValue);
 			Assert.assertTrue("Verify Value of date are equal", dateValue.equals(taskDateSelect));
 			return true;
 		} catch (Exception e) {
@@ -709,8 +673,7 @@ public void doubleClickOnTask(WebDriver driver) {
 				String getData = getValue(data, driver);
 				String getTitel = getValue(titel, driver);
 				taskDetails.put(getTitel.trim(), getData.trim());
-				System.out.println(taskDetails.get(getTitel));
-
+		
 			}			
 			taskDetails.containsValue(editTaskType);
 			taskDetails.containsValue(editTaskStatus);
@@ -725,23 +688,15 @@ public void doubleClickOnTask(WebDriver driver) {
 		int countOfTite=1;
 		int countOfExelSheetTitle=0; 
 		String sheetValue ="";
-		String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
 	    File dir = new File(dirPath);
 		File[] dir_contents = dir.listFiles();
 		String fileName = dir_contents[0].getName();
-		System.out.println("fileName:-"+fileName);
 		Object[][] data = getData(fileName, "Sheet1");
 		for (countOfTite = 2; countOfTite < 14; countOfTite++) {
-//			if (countOfTite == 7) {
-//				countOfTite += 1;
-//			}
+
 			WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + countOfTite + "]"));
 			String getTitle = getValue(title, driver).trim();
-			System.out.println("web page data"+getTitle);
-			System.out.println("sheet data: "+data[0][countOfExelSheetTitle].toString());
-//			if (countOfExelSheetTitle == 6) {
-//			countOfExelSheetTitle++;
-//			}
 			sheetValue = data[0][countOfExelSheetTitle].toString().trim();
 			
 			if (sheetValue.equals("License Number")) {
@@ -751,10 +706,9 @@ public void doubleClickOnTask(WebDriver driver) {
 			countOfExelSheetTitle++;
 		}
 		//Delete the Excel file from the directory 	
-		File path = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile");
+		File path = new File(System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
 	    File[] files = path.listFiles();
 	    for (File file : files) {
-	        System.out.println("Deleted filename :"+ file.getName());
 	        file.delete();
 	    }
 }
@@ -763,23 +717,16 @@ public void doubleClickOnTask(WebDriver driver) {
 		int countOfTite=1;
 		int countOfExelSheetTitle=0; 
 		String sheetValue ="";
-		String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
 	    File dir = new File(dirPath);
 		File[] dir_contents = dir.listFiles();
 		String fileName = dir_contents[0].getName();
-		System.out.println("fileName:-"+fileName);
 		Object[][] data = getData(fileName, "Sheet1");
 		for (countOfTite = 2; countOfTite < 14; countOfTite++) {
-//			if (countOfTite == 7) {
-//				countOfTite += 1;
-//			}
+
 			WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + countOfTite + "]"));
 			String getTitle = getValue(title, driver).trim();
-			System.out.println("web page data"+getTitle);
-			System.out.println("sheet data: "+data[0][countOfExelSheetTitle].toString());
-//			if (countOfExelSheetTitle == 6) {
-//			countOfExelSheetTitle++;
-//			}
+
 			sheetValue = data[0][countOfExelSheetTitle].toString().trim();
 			
 			if (sheetValue.equals("License Number")) {
@@ -796,10 +743,9 @@ public void doubleClickOnTask(WebDriver driver) {
 
 		
 		//Delete the Excel file from the directory 	
-		File path = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile");
+		File path = new File(System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
 	    File[] files = path.listFiles();
 	    for (File file : files) {
-	        System.out.println("Deleted filename :"+ file.getName());
 	        file.delete();
 	    }
 }

@@ -152,32 +152,23 @@ public class ActivitesGridPage extends BaseClass {
 	public Boolean verifyColumnSearchForEachColumnInTheActivitiesGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(compMgrSearch, "30", driver);
-			System.out.println("compMgrSearch: ");
-
+			
 			waitForElementVisibility(companySearch, "30", driver);
-			System.out.println("companySearch: ");
-
+			
 			waitForElementVisibility(facilitySearch, "30", driver);
-			System.out.println("facilitySearch: ");
-
+			
 			waitForElementVisibility(stateSearch, "30", driver);
-			System.out.println("stateSearch: ");
-
+			
 			waitForElementVisibility(licenseNameSearch, "30", driver);
-			System.out.println("licenseNameSearch: ");
-
+			
 			waitForElementVisibility(licenseSearch, "30", driver);
-			System.out.println("licenseSearch: ");
-
+			
 			waitForElementVisibility(statusSearch, "30", driver);
-			System.out.println("statusSearch: ");
 			
 			waitForElementVisibility(activitySearch, "30", driver);
-			System.out.println("activitySearch: ");
-
+			
 			waitForElementVisibility(progressSearch, "30", driver);
-			System.out.println("progressSearch: ");			
-
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -189,7 +180,6 @@ public class ActivitesGridPage extends BaseClass {
 			WebElement webelement =  driver.findElement(By.xpath(goToTasksButton));
 			scrollIntoViewSmoothly(webelement, driver);
 			Assert.assertTrue(isElementDisplayed(webelement, driver));
-			System.out.println("goTo Tasks Button : ");
 			return true;
 		} catch (Exception e) {
 
@@ -200,7 +190,6 @@ public class ActivitesGridPage extends BaseClass {
 	public Boolean verifyAddActivityButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(addActivityButton, "30", driver);
-			System.out.println("Add Activity Button : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -247,7 +236,6 @@ public class ActivitesGridPage extends BaseClass {
 			shiftWindowHandle(1);
 
 			String titleText = driver.getTitle();
-			System.out.println("Page title is : " + titleText);
 			boolean equal = (titleText.equals(titleText));
 			Assert.assertTrue(equal);
 
@@ -349,7 +337,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(editLicenseActivityPageTitel, "20", driver);
-			System.out.println("editLicensePageTitel: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -360,7 +347,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(addLicenseActivityPageTitel, "20", driver);
-			System.out.println("editLicensePageTitel: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -385,7 +371,6 @@ public class ActivitesGridPage extends BaseClass {
 	public Boolean verifyAddTaskTitel(WebDriver driver) {
 		try {
 			waitForElementVisibility(addActivityAddTaskTitel, "20", driver);
-			System.out.println("addActivityAddTaskTitel: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -396,7 +381,6 @@ public class ActivitesGridPage extends BaseClass {
 		try {
 			Assert.assertTrue(isDisabeldCheckAttribute(addActivityAddTaskDateTxt, driver));
 			Assert.assertTrue(isDisabeldCheckAttribute(addActivityAddTaskCreatedByTxt, driver));
-
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -473,16 +457,13 @@ public class ActivitesGridPage extends BaseClass {
 			pressTABKey(activityStartDatePicer, driver);
 			type(activityStartDatePicer, sartDateSelect.toString().substring(5, 8), driver);
 			type(activityStartDatePicer, sartDateSelect.toString().substring(8), driver);
-			System.out.println(sartDateSelect);
 			replaceVale = reformatDate(avtivitySartDateSelect,"MM/dd/yyyy", "MM-dd-yyyy");
 			waitTime(10000);
 			waitDateXpath = "(//td[text()='"+replaceVale+"'])[1]";
 			waitForElementVisibility(waitDateXpath, "300", driver);
 			String date = getValueFromAttribute(activityStartDateOnGrid, driver).trim();
-			System.out.println("Active Start Serach Date: " + date);
 			Assert.assertTrue(date.equals(replaceVale));
 			String activity = getValueFromAttribute(activityOnGrid, driver).trim();
-			System.out.println("Active: " + activity);
 			Assert.assertTrue(activity.equals(licenseActivityValue));
 			return true;
 		} catch (Exception e) {
@@ -509,7 +490,6 @@ public class ActivitesGridPage extends BaseClass {
 				String getData = getValue(element, driver);
 				getData = getData.substring(0,2);
 				Assert.assertTrue(getData.equals(twoCharOfValToSearch));
-				System.out.println("inside : " + companySearchList.length());
 			}
 			return true;
 		} catch (Exception e) {
@@ -527,7 +507,6 @@ public class ActivitesGridPage extends BaseClass {
 				String getData = getValue(element, driver);
 				getData = getData.substring(0,2);
 				Assert.assertTrue(getData.equals(twoCharOfValToSearch));
-				System.out.println("inside : " + companySearchList.length());
 			}
 			return true;
 		} catch (Exception e) {
@@ -539,7 +518,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(globalSearchTextbox, "20", driver);
-			System.out.println("globalSearchTextbox: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -550,7 +528,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(advanceFilterIcon, "20", driver);
-			System.out.println("advanceFilterIcon: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -561,7 +538,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(addTaskButton, "20", driver);
-			System.out.println("addTaskButton: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -572,7 +548,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(taskDetail, "20", driver);
-			System.out.println("taskDetail: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -583,7 +558,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(taskNotes, "20", driver);
-			System.out.println("taskNotes: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -594,7 +568,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(oldNotesIcon, "20", driver);
-			System.out.println("oldNotesIcon: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -637,8 +610,6 @@ public class ActivitesGridPage extends BaseClass {
 			String getData = getValue(data, driver);
 			String getTitel = getValue(titel, driver);
 			licenseDetials.put(getTitel.trim(), getData.trim());
-			System.out.println(licenseDetials.get(getTitel));
-
 		}
 		doubleClick(activeLicensData, driver);
 		//doubleClick(activeLicensData, driver);
@@ -651,8 +622,6 @@ public class ActivitesGridPage extends BaseClass {
 
 				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 				String getval = getValue(element, driver);
-				System.out.println(getval);
-				System.out.println("value : " + getval);
 				Assert.assertTrue(licenseDetials.containsValue(getval.trim()));
 			}
 			return true;
@@ -668,8 +637,6 @@ public class ActivitesGridPage extends BaseClass {
 
 				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 				String getval = getValue(element, driver);
-				System.out.println(getval);
-				System.out.println("value : " + getval);
 				if(!licenseDetials.containsValue(getval.trim()))
 					return true;
 			}
@@ -711,8 +678,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskDocumentsDeletePopup, "30", driver);
-			System.out.println("taskDocumentsDeletePopup : ");
-		
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -723,8 +688,6 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskNotificationDeletePopup, "30", driver);
-			System.out.println("taskNotificationDeletePopup : ");
-		
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -734,9 +697,7 @@ public class ActivitesGridPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskDeletePopup, "30", driver);
-			System.out.println("taskDeletePopup : ");
-		
-			return true;
+				return true;
 		} catch (Exception e) {
 			return false;
 		}
@@ -756,16 +717,14 @@ public class ActivitesGridPage extends BaseClass {
 		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
 		WebElement option = selectShowEntries.getFirstSelectedOption();
 		int defaultItem = Integer.parseInt(option.getText().trim());
-		System.out.println("showEntries:-"+defaultItem);
-
-		
-		String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+				
+		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
 	    File dir = new File(dirPath);
 	    File[] dir_contents = dir.listFiles();
 	    String fileName = dir_contents[0].getName();
-		System.out.println("fileName:-"+fileName);
+		
 		Object[][] data = getData(fileName, "Sheet1");
-		System.out.println("DataCount:-"+data.length);
+		
 		Assert.assertTrue(data.length==(defaultItem+1));
 		}
 		
@@ -773,11 +732,11 @@ public class ActivitesGridPage extends BaseClass {
 			int countOfTite=1;
 			int countOfExelSheetTitle=0; 
 			String sheetValue ="";
-			String dirPath = System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile";
+			String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
 		    File dir = new File(dirPath);
 			File[] dir_contents = dir.listFiles();
 			String fileName = dir_contents[0].getName();
-			System.out.println("fileName:-"+fileName);
+			
 			Object[][] data = getData(fileName, "Sheet1");
 			for (countOfTite = 1; countOfTite < 14; countOfTite++) {
 				if (countOfTite == 7) {
@@ -785,8 +744,7 @@ public class ActivitesGridPage extends BaseClass {
 				}
 				WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + countOfTite + "]"));
 				String getTitle = getValue(title, driver).trim();
-				System.out.println("web page data"+getTitle);
-				System.out.println("sheet data: "+data[0][countOfExelSheetTitle].toString());
+				
 				if (countOfExelSheetTitle == 6) {
 				countOfExelSheetTitle++;
 				}
@@ -799,10 +757,10 @@ public class ActivitesGridPage extends BaseClass {
 				countOfExelSheetTitle++;
 			}
 			//Delete the Excel file from the directory 	
-			File path = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile");
+			File path = new File(System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
 		    File[] files = path.listFiles();
 		    for (File file : files) {
-		        System.out.println("Deleted filename :"+ file.getName());
+		        
 		        file.delete();
 		    }
 	}

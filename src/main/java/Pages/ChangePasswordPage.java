@@ -53,7 +53,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyEnterNewPasswordTextField(WebDriver driver) {
 		try {
 			waitForElementVisibility(enterNewPasswordTxt, "30", driver);
-			System.out.println("enterNewPasswordTxt : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -64,7 +63,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyEnterConfirmPasswordTextField(WebDriver driver) {
 		try {
 			waitForElementVisibility(enterConfirmPasswordTxt, "30", driver);
-			System.out.println("enterConfirmPasswordTxt : ");
 			return  true;
 		} catch (Exception e) {
 			return false;
@@ -74,7 +72,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyChangeButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(changeBtn, "30", driver);
-			System.out.println("changeBtn : ");
 			return  true;
 		} catch (Exception e) {
 			return false;
@@ -85,7 +82,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyCancelButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(cancelBtn, "30", driver);
-			System.out.println("cancelBtn : ");
 			return  true;
 		} catch (Exception e) {
 			return false;
@@ -95,7 +91,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyHelpDropdown(WebDriver driver) {
 		try {
 			waitForElementVisibility(helpDropdown, "30", driver);
-			System.out.println("helpDropdown : ");
 			return isElementDisplayed(helpDropdown, driver);
 		} catch (Exception e) {
 			return false;
@@ -105,7 +100,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyBellIcon(WebDriver driver) {
 		try {
 			waitForElementVisibility(bellIcon, "30", driver);
-			System.out.println("bellIcon : ");
 			return isElementDisplayed(bellIcon, driver);
 		} catch (Exception e) {
 			return false;
@@ -115,7 +109,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyBellIconUnreadCount(WebDriver driver) {
 		try {
 			waitForElementVisibility(bellIconUnreadCount, "30", driver);
-			System.out.println("bellIcon : ");
 			return isElementDisplayed(bellIconUnreadCount, driver);
 		} catch (Exception e) {
 			return false;
@@ -125,7 +118,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyCopyrightLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(copyrightLbl, "30", driver);
-			System.out.println("bellIcon : ");
 			return isElementDisplayed(copyrightLbl, driver);
 		} catch (Exception e) {
 			return false;
@@ -136,7 +128,6 @@ public class ChangePasswordPage extends BaseClass {
 	public Boolean verifyLogoOnChangePasswordPage(WebDriver driver) {
 		try {
 			waitForElementVisibility(logoOnChangePasswordPage, "30", driver);
-			System.out.println("logo On Change Password Page : ");
 			return isElementDisplayed(logoOnChangePasswordPage, driver);
 		} catch (Exception e) {
 			return false;
@@ -148,9 +139,7 @@ public class ChangePasswordPage extends BaseClass {
 		waitForElementVisibility(enterNewPasswordTxt, "30", driver);
 		type(enterNewPasswordTxt, "NewPassword", driver);
 		String newPassword = getValue(enterNewPasswordTxt, driver);
-		System.out.println(newPassword);
 		boolean newPasswordEqual = (newPassword.equals("NewPassword"));
-		System.out.println(newPasswordEqual);
 		Assert.assertTrue(newPasswordEqual);
 
 		type(enterConfirmPasswordTxt, "NewPassword", driver);
@@ -168,7 +157,6 @@ public class ChangePasswordPage extends BaseClass {
 	public void browserTabNameShouldDisplayedWithTheTabNamePharmaSolutionAtlas(WebDriver driver) {
 		waitForElementVisibility(logoOnChangePasswordPage, "30", driver);
 		String titleText = driver.getTitle();
-		System.out.println("Page title is : " + titleText);
 		boolean equal = (titleText.equals("Pharma Solution Atlas"));
 		Assert.assertTrue(equal);
 	}
@@ -176,13 +164,10 @@ public class ChangePasswordPage extends BaseClass {
 	public void changePasswordinputFieldsShouldHaveAProperPlaceHolderName(WebDriver driver) {
 		waitForElementVisibility(enterNewPasswordTxt, "30", driver);
 		String newPasswordValue = getPlaceHolder(enterNewPasswordTxt, driver);
-		System.out.println(newPasswordValue);
 		boolean newPasswordEqual = (newPasswordValue.equals(newPasswordValue));
-		System.out.println(newPasswordEqual);
 		Assert.assertTrue(newPasswordEqual);
 
 		String confirmPasswordValue = getPlaceHolder(enterConfirmPasswordTxt, driver);
-		System.out.println(confirmPasswordValue);
 		boolean confirmPasswordEqual = (confirmPasswordValue .equals(confirmPasswordValue));
 		Assert.assertTrue(confirmPasswordEqual);
 	}

@@ -151,7 +151,6 @@ public class DashboardPage extends BaseClass {
 			} catch (Exception e) {
 			}
 			waitForElementVisibility(dashboardGrid, "30", driver);
-			System.out.println("dashboard Grid : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -165,7 +164,6 @@ public class DashboardPage extends BaseClass {
 			click(dataViewsDropDown, driver);
 			
 			waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
-			System.out.println("licenses Grid: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -176,7 +174,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyActivitiesGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(dataViewsActivitiesGrid, "30", driver);
-			System.out.println("activities Grid: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -186,7 +183,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyTasksGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(dataViewsTasksGrid, "30", driver);
-			System.out.println("tasks Grid: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -198,7 +194,6 @@ public class DashboardPage extends BaseClass {
 
 		try {
 			waitForElementVisibility(documentsGrid, "30", driver);
-			System.out.println("documentsGrid: ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -209,14 +204,10 @@ public class DashboardPage extends BaseClass {
 		String yellowColor = "#feb62b";
 		WebElement element = driver.findElement(By.xpath(dashboardGrid));
 		String colorBdr = element.getCssValue("border-bottom-color");
-		System.out.println("color Bdr: " + colorBdr);
 		String getYellowColor = Color.fromString(colorBdr).asHex().trim();
-		System.out.println("color Bdr: " + getYellowColor);
 		if (getYellowColor.equalsIgnoreCase(getYellowColor)) {
-			System.out.println("color True: " + getYellowColor);
 			return true;
 		} else {
-			System.out.println("color False: " + getYellowColor);
 			return false;
 		}
 	}
@@ -225,7 +216,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyFilterByLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(filterByLbl, "30", driver);
-			System.out.println("filter By : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -235,7 +225,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyResetFilterLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(resetFilterLbl, "30", driver);
-			System.out.println("reset Filter : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -247,7 +236,6 @@ public class DashboardPage extends BaseClass {
 
 		try {
 			waitForElementVisibility(upcomingRenewalsLbl, "30", driver);
-			System.out.println("Upcoming Renewals : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -258,7 +246,6 @@ public class DashboardPage extends BaseClass {
 
 		try {
 			waitForElementVisibility(expiringDocumentsLbl, "30", driver);
-			System.out.println("Expiring Documents : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -269,7 +256,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyTasksLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(tasksLbl, "30", driver);
-			System.out.println("tasksLbl : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -280,7 +266,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyLicenseDetailsLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(licenseDetailsLbl, "30", driver);
-			System.out.println("licenseDetailsLbl : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -293,7 +278,6 @@ public class DashboardPage extends BaseClass {
 		client.selectByIndex(1);
 		WebElement element = driver.findElement(By.xpath(clientDropDownOption));
 		clientSelected = element.getText().trim();
-		System.out.println("seleced clint: " + clientSelected);
 	}
 
 	public void verifyClientLabelAndDefaultAll(WebDriver driver) {
@@ -304,11 +288,9 @@ public class DashboardPage extends BaseClass {
 		WebElement element = driver.findElement(By.xpath(clientDefualtOption));
 		defualt = element.getText().trim();
 		boolean defualtValueEqual = (defualt.equals("All"));
-		System.out.println(defualtValueEqual);
 
 		Assert.assertTrue(defualtValueEqual);
 
-		System.out.println("seleced clint: " + defualt);
 	}
 
 	public void verifyCompanyLabelAndDefaultAll(WebDriver driver) {
@@ -319,11 +301,8 @@ public class DashboardPage extends BaseClass {
 		WebElement element = driver.findElement(By.xpath(companyDefualtOption));
 		defualt = element.getText().trim();
 		boolean defualtValueEqual = (defualt.equals("All"));
-		System.out.println(defualtValueEqual);
 
 		Assert.assertTrue(defualtValueEqual);
-
-		System.out.println("seleced Company: " + defualt);
 	}
 
 	public void verifyFacilityLabelAndDefaultAll(WebDriver driver) {
@@ -334,19 +313,14 @@ public class DashboardPage extends BaseClass {
 		WebElement element = driver.findElement(By.xpath(facilityDefualtOption));
 		defualt = element.getText().trim();
 		boolean defualtValueEqual = (defualt.equals("All"));
-		System.out.println(defualtValueEqual);
 
 		Assert.assertTrue(defualtValueEqual);
-		
-
-		System.out.println("seleced Facility: " + defualt);
 	}
 
 	public Boolean verifyClientLicenseDetals(WebDriver driver) {
 		WebElement clientLicenseDetals = driver.findElement(By.xpath("(//td[text()='" + clientSelected + "'])[1]"));
 		try {
 			waitForElementVisibility(clientLicenseDetals, "30", driver);
-			System.out.println("client License Detals : " + clientLicenseDetals.getText());
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -359,14 +333,12 @@ public class DashboardPage extends BaseClass {
 		company.selectByIndex(1);
 		WebElement element = driver.findElement(By.xpath(companyDropDownOption));
 		companySelected = element.getText().trim();
-		System.out.println("seleced company: " + companySelected);
 	}
 
 	public Boolean verifyCompanyLicenseDetals(WebDriver driver) {
 		WebElement companyLicenseDetals = driver.findElement(By.xpath("(//td[text()='" + companySelected + "'])[1]"));
 		try {
 			waitForElementVisibility(companyLicenseDetals, "30", driver);
-			System.out.println("client License Detals : " + companyLicenseDetals.getText());
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -380,14 +352,12 @@ public class DashboardPage extends BaseClass {
 		facility.selectByIndex(1);
 		WebElement element = driver.findElement(By.xpath(facilityDropDownOption));
 		facilitySelected = element.getText().trim();
-		System.out.println("seleced facility: " + facilitySelected);
 	}
 
 	public Boolean verifyFacilityLicenseDetals(WebDriver driver) {
 		WebElement facilityLicenseDetals = driver.findElement(By.xpath("(//td[text()='" + facilitySelected + "'])[1]"));
 		try {
 			waitForElementVisibility(facilityLicenseDetals, "30", driver);
-			System.out.println("client facility Detals : " + facilityLicenseDetals.getText());
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -520,7 +490,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyLicencePageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(licencePageTitle, "30", driver);
-			System.out.println("licencePageTitle : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -534,31 +503,26 @@ public class DashboardPage extends BaseClass {
 			click(licensesGrid, driver);
 
 			waitForElementVisibility(licencePageTitle, "30", driver);
-			System.out.println("licencePageTitle : ");
 			
 			waitForElementVisibility(activitiesGrid, "30", driver);
 			click(activitiesGrid, driver);
 
 			waitForElementVisibility(activitiesPageTitle, "30", driver);
-			System.out.println("activitiesPageTitle : ");
 			
 			waitForElementVisibility(tasksGrid, "30", driver);
 			click(tasksGrid, driver);
 
 			waitForElementVisibility(tasksPageTitle, "30", driver);
-			System.out.println("tasksPageTitle : ");
 			
 			waitForElementVisibility(documentsGrid, "30", driver);
 			click(documentsGrid, driver);
 
 			waitForElementVisibility(documentsPageTitle, "30", driver);
-			System.out.println("documentsPageTitle : ");
 			
 			waitForElementVisibility(dashboardGrid, "30", driver);
 			click(dashboardGrid, driver);
 
 			waitForElementVisibility(filterByLbl, "30", driver);
-			System.out.println("filterByLbl : ");
 			
 			return true;
 		} catch (Exception e) {
@@ -570,7 +534,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyActivitiesPageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(activitiesPageTitle, "30", driver);
-			System.out.println("activitiesPageTitle : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -581,7 +544,6 @@ public class DashboardPage extends BaseClass {
 		waitTime(7000);
 		try {
 			waitForElementVisibility(tasksPageTitle, "30", driver);
-			System.out.println("tasksPageTitle : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -591,7 +553,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyDocumentsPageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(documentsPageTitle, "30", driver);
-			System.out.println("documentsPageTitle : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -601,7 +562,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyDashboardPageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(filterByLbl, "30", driver);
-			System.out.println("filterByLbl : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -611,7 +571,6 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyUSAMap(WebDriver driver) {
 		try {
 			waitForElementVisibility(mapUSA, "30", driver);
-			System.out.println("mapUSA : ");
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -619,7 +578,6 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void doubleClickLicenseDetials(WebDriver driver) {
-	
 		
 		try {
 			String str = getText(recordsCounter, driver);
@@ -628,10 +586,7 @@ public class DashboardPage extends BaseClass {
 			pageCounter = Integer.parseInt(sArr[0].replace(",",""));
 		} catch (Exception e) {
 			pageCounter  = 0;
-		}
-		
-		
-		
+		}	
 		
 		for (int i = 2; i < 10; i++) {
 			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
@@ -640,8 +595,6 @@ public class DashboardPage extends BaseClass {
 			String getData = getValue(data, driver);
 			String getTitel = getValue(titel, driver);
 			licenseDetials.put(getTitel.trim(), getData.trim());
-			System.out.println(licenseDetials.get(getTitel));
-
 		}
 		doubleClick(licenseDetialsFirstRow, driver);
 		doubleClick(licenseDetialsFirstRow, driver);
@@ -654,8 +607,6 @@ public class DashboardPage extends BaseClass {
 
 				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 				String getval = getValue(element, driver);
-				System.out.println(getval);
-				System.out.println("value : " + getval);
 				Assert.assertTrue(licenseDetials.containsValue(getval.trim()));
 			}
 			return true;
@@ -665,8 +616,6 @@ public class DashboardPage extends BaseClass {
 	}
 	
 	public Boolean verifyLicenseDetialsDataDeletedOnLicensePage(WebDriver driver) {
-		
-		
 		String str = getText(recordsCounter, driver);
 		String[] fArr = str.split("of ", 2);
 		String[] sArr = fArr[1].split(" Entries",2);
@@ -693,8 +642,6 @@ public class DashboardPage extends BaseClass {
 				WebElement element = driver.findElement(By.xpath("(//tr//td[12])[" + i + "]"));
 				String getval = getValue(element, driver);
 				getval = getval.trim();
-				System.out.println(getval);
-				System.out.println("value : " + getval);
 				Assert.assertTrue(taskStatus.contains(getval));
 				break;
 			}
@@ -740,16 +687,13 @@ public class DashboardPage extends BaseClass {
 		waitTime(7000);
 		try {
 			List<WebElement> elementSize = driver.findElements(By.xpath(expiryDocumentOnDocumentGrid));
-			System.out.println("size: " + elementSize.size());
-
+			
 			for (int i = 1; i <= elementSize.size(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Expiry Date: activate to sort column ascending']/following::tr//td[12])["
 								+ i + "]"));
 				String getval = getValue(element, driver);
 				getval = getval.trim();
-				System.out.println(getval);
-				System.out.println("value : " + getval);
 				Assert.assertTrue(getval.equals(getval));
 			}
 			return true;
@@ -760,7 +704,6 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyNoOfRowsInTheGridShouldMatchTheKPIValueInTheDashboard(WebDriver driver) {
 		waitTime(7000);
-		System.out.println(expireKpiValue);
 		try {
 			List<WebElement> noOfRow = driver.findElements(By.xpath(expiryDocumentOnDocumentGrid));
 			Assert.assertTrue(expireKpiValue == noOfRow.size());
@@ -787,7 +730,6 @@ public class DashboardPage extends BaseClass {
 		for (int i = 2; i < 8; i++) {
 			if (i == 4 || i == 6) {
 				i += 1;
-				System.out.println(i);
 			}
 			WebElement data = driver
 					.findElement(By.xpath("(//*[@title='Upload License']/ancestor::td/../td)[" + i + "]"));
@@ -801,8 +743,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(pdfFileSuccessPopup, "30", driver);
-			System.out.println("pdfFileSuccessPopup : ");
-		
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -893,8 +834,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(clientDropDownOption, "30", driver);
-			System.out.println("clientDropDownOption : ");
-		
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -905,7 +845,6 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(activitiesDeletePopup, "30", driver);
-			System.out.println("activitiesDeletePopup : ");
 		
 			return true;
 		} catch (Exception e) {
@@ -917,8 +856,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskDeletePopup, "30", driver);
-			System.out.println("taskDeletePopup : ");
-		
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -929,8 +867,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(licenseDocumentsDeletePopup, "30", driver);
-			System.out.println("licenseDocumentsDeletePopup : ");
-		
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -941,8 +878,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskDocumentsDeletePopup, "30", driver);
-			System.out.println("taskDocumentsDeletePopup : ");
-		
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -953,8 +889,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskNotificationDeletePopup, "30", driver);
-			System.out.println("taskNotificationDeletePopup : ");
-		
+			
 			return true;
 		} catch (Exception e) {
 			return false;
