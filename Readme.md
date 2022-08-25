@@ -1,7 +1,7 @@
 # Pharmaceutical Web Automation Testing
 # Prerequisite 
 
-test trigger
+
   - JDK (v1.8) or Greater version [link](https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html) 
   - Maven (v3.8.1) or Greater version [link](https://maven.apache.org/download.cgi) 
   - Allure (v2.15.0) or Greater version   [link](https://github.com/allure-framework/allure2/releases?page=2)
