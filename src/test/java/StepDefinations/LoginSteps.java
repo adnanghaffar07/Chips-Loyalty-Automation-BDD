@@ -1,13 +1,5 @@
 package StepDefinations;
 
-import java.io.ByteArrayInputStream;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
-
 import Constants.Constants;
 import Pages.EmailVerificationPage;
 import Pages.LoginPage;
@@ -22,12 +14,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
-import static org.junit.Assert.*;
 import io.qameta.allure.Allure;
-
-import org.apache.commons.compress.archivers.zip.ZipUtil;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 
 public class LoginSteps extends BaseClass {
 
@@ -224,5 +219,46 @@ public class LoginSteps extends BaseClass {
 		waitTime(3000);
 		String message = "The report is attached as zip file, download ans extract the zip file. Run the command 'Allure Serve' to view report in browser.";
 		SendEmail.SendEmailNow(message);
+	}
+
+	@And("I see temp password change message")
+	public void iSeeTempPasswordChangeMessage() {
+		Assert.assertTrue(loginPage.verifyTemporaryPasswordChangeMsg(driver));
+	}
+
+
+	@Then("I enter new password {string}")
+	public void iEnterNewPassword(String password) {
+		loginPage.enterNewPassword(driver,password);
+	}
+
+	@Then("I enter confirm password {string}")
+	public void iEnterConfirmPassword(String password) {
+		loginPage.enterConfirmPassword(driver,password);
+	}
+
+	@Then("I click on cancel change password button")
+	public void iClickOnCancelChangePasswordButton() {
+		loginPage.clickOnCancelPasswordChangeButton(driver);
+	}
+
+	@Then("I see verification code message on login page")
+	public void iSeeVerificationCodeMessageOnLoginPage() {
+		loginPage.verifyVerificationCodeMsg(driver);
+	}
+
+	@When("I enter {string} verification code")
+	public void iEnterVerificationCode(String code) {
+		loginPage.enterValidationCode(driver, code);
+	}
+
+	@And("I click on the submit verification code button")
+	public void iClickOnTheSubmitVerificationCodeButton() {
+		loginPage.clickOnSubmitVerificationCodeSubmitButton(driver);
+	}
+
+	@Then("I see invalid validation code message")
+	public void iSeeInvalidValidationCodeMessage() {
+
 	}
 }

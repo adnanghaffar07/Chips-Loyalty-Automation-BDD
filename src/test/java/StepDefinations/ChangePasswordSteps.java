@@ -1,28 +1,12 @@
 package StepDefinations;
 
-import java.io.ByteArrayInputStream;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
-
 import Constants.Constants;
 import Pages.ChangePasswordPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
-import io.cucumber.java.After;
-import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.junit.Assert;
-import static org.junit.Assert.*;
-import io.qameta.allure.Allure;
-import org.apache.commons.io.FileUtils;
 
 public class ChangePasswordSteps extends BaseClass {
 

@@ -1,32 +1,13 @@
 package StepDefinations;
 
-import java.io.ByteArrayInputStream;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
-
-import Constants.Constants;
-import Pages.ActivitesGridPage;
-import Pages.ChangePasswordPage;
-import Pages.DashboardPage;
-import Pages.LicenseGridPage;
-import Pages.LoginPage;
 import Pages.TasksPage;
 import Utils.BaseClass;
-import io.cucumber.java.After;
-import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import static org.junit.Assert.*;
-import io.qameta.allure.Allure;
-import org.apache.commons.io.FileUtils;
+
+import java.io.IOException;
 
 public class TasksSteps extends BaseClass {
 	TasksPage tasksPage = new TasksPage(driver);
@@ -235,5 +216,55 @@ public class TasksSteps extends BaseClass {
 	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGridNotes() throws IOException {
 		tasksPage.verifyFieldsInSpreadsheetMatchesOnTheTaskGridNotes(driver);
 	}
-	
+	@Then("I populate required fields on the add task section")
+	public void iPopulateRequiredFieldsOnTheAddTaskSection() {
+		tasksPage.selectTaskStatus(2,driver);
+		tasksPage.selectTaskType(2,driver);
+		tasksPage.selectAssignee(2,driver);
+		tasksPage.getOpenedTaskData(driver);
+	}
+
+	@Then("I click on the save task button")
+	public void iClickOnTheSaveTaskButton() {
+		tasksPage.clickOnSaveTasksButton(driver);
+	}
+
+	@Then("I verify that the new task is added")
+	public void iVerifyThatTheNewTaskIsAdded() {
+		Assert.assertTrue(tasksPage.verifyThatTheNewlyCreatedTaskIsAdded(driver));
+	}
+
+	@When("I double click on editable task")
+	public void iDoubleClickOnEditableTask() {
+		tasksPage.openEditableTask(driver);
+	}
+
+	@Then("I edit the task fields")
+	public void iEditTheTaskFields() {
+		tasksPage.selectTaskStatus(4,driver);
+		tasksPage.selectTaskType(4,driver);
+		tasksPage.selectAssignee(4,driver);
+		tasksPage.getOpenedTaskData(driver);
+	}
+
+	@Then("I verify that the task was edited")
+	public void iVerifyThatTheTaskWasEdited() {
+		tasksPage.verifyThatTheTaskWasEdited(driver);
+	}
+
+	@Then("I delete the task")
+	public void iDeleteTheTask() {
+		tasksPage.clickOnDeleteTasksButton(driver);
+		tasksPage.clickOnConfirmDeletionButton(driver);
+	}
+
+	@And("I see {string} message")
+	public void iSeeMessage(String message) {
+		Assert.assertTrue(tasksPage.verifyThePopUpMessage(message,driver));
+	}
+
+	@Then("I verify that the task is deleted")
+	public void iVerifyThatTheTaskIsDeleted() {
+
+	}
 }

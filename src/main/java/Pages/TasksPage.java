@@ -1,25 +1,17 @@
 package Pages;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import Utils.BaseClass;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-
-import Utils.BaseClass;
-import org.junit.Assert;
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TasksPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -107,9 +99,21 @@ public class TasksPage extends BaseClass {
 	String progressEditTask = "//div[@class='modal-content'] //p[contains(text(),'Progress')]//following-sibling::p";
 	String deleteTaskBtn = "//button[text()='Delete']";
 	String taskSection = "//section[@id='task']";
-	
-	
-	
+
+	String taskTypeSelect = "//select[@id='TaskTypeKey']";
+	String taskStatusSelect = "//select[@id='TaskStandingKey']";
+	String assigneeSelect = "//select[@id='AssignedUserKey']";
+	String creationDate = "//input[@id='CreationDate']";
+	String dueDateSelect = "//input[@id='ExpCompletionDate']";
+	String saveTaskButton = "//button[@id='task-save']";
+	String tasks = "//section[@id='task']//div[@class='scroll']/div[@class='pr-2 task pb-1 ']/div";
+	String editableTask = "//section[@id='task']//div[@class='scroll']/div[@ondblclick]";
+	String deleteTaskButton = "//button[@id='modal-delete']";
+	String confirmTaskDeletionButton = "//a[@onclick='deleteTaskData()']";
+	String popUpMessage = "//div[@id='text_success']";
+
+
+
 	String editTaskType = "";
 	String editTaskStatus = "";
 	String editTaskAssignee = "";
@@ -117,7 +121,8 @@ public class TasksPage extends BaseClass {
 	String taskDateSelect = "";
 	int pageCounter = 0;	
 	HashMap<String, String> taskDetails = new HashMap<String, String>();
-
+	ArrayList<String> openedTask = new ArrayList<>();
+	ArrayList<String> task = new ArrayList<>();
 
 	public TasksPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -759,5 +764,110 @@ public void doubleClickOnTask(WebDriver driver) {
 		click(exportNotesButton, driver);
 	}
 
+	public void selectTaskType(int index, WebDriver driver){
+		waitForElementVisibility(taskTypeSelect,"10",driver);
+		Select taskType = new Select(driver.findElement(By.xpath(taskTypeSelect)));
+		taskType.selectByIndex(index);
+	}
 
+	public void selectTaskStatus(int index, WebDriver driver){
+		waitForElementVisibility(taskStatusSelect,"10",driver);
+		Select taskStatus = new Select(driver.findElement(By.xpath(taskStatusSelect)));
+		taskStatus.selectByIndex(index);
+	}
+
+	public void selectAssignee(int index, WebDriver driver){
+		waitForElementVisibility(assigneeSelect,"10",driver);
+		Select assignee = new Select(driver.findElement(By.xpath(assigneeSelect)));
+		assignee.selectByIndex(index);
+	}
+
+	public void getOpenedTaskData(WebDriver driver){
+
+		WebElement date = driver.findElement(By.xpath(creationDate));
+		Select type = new Select(driver.findElement(By.xpath(taskTypeSelect)));
+		WebElement t = type.getFirstSelectedOption();
+		Select status = new Select(driver.findElement(By.xpath(taskStatusSelect)));
+		WebElement s = status.getFirstSelectedOption();
+		Select assignee = new Select(driver.findElement(By.xpath(assigneeSelect)));
+		WebElement o = assignee.getFirstSelectedOption();
+		WebElement dueDate = driver.findElement(By.xpath(dueDateSelect));
+		//LocalDate currentDate = java.time.LocalDate.now();
+		//String dueDate = reformatDate(currentDate.toString(), "yyyy-MM-dd", "MM-dd-yyyy");
+		openedTask.add(date.getAttribute("value"));
+		openedTask.add(t.getText());
+		openedTask.add(s.getText());
+		openedTask.add(o.getText());
+		openedTask.add(dueDate.getText().replace('/','-'));
+		for(String task : openedTask){
+			System.out.println(task);
+		}
+
+	}
+
+	public void clickOnSaveTasksButton(WebDriver driver) {
+		waitForElementVisibility(saveTaskButton,"10",driver);
+		click(saveTaskButton, driver);
+	}
+
+	public boolean verifyThatTheNewlyCreatedTaskIsAdded(WebDriver driver){
+		System.out.println("Verifying has been started");
+		waitForElementVisibility(tasks,"10",driver);
+		WebElement date = driver.findElement(By.xpath(tasks+"/div[1]/div[1]/p[2]"));
+		WebElement type = driver.findElement(By.xpath(tasks+"/div[1]/div[2]/p[2]"));
+		WebElement taskStatus = driver.findElement(By.xpath(tasks+"/div[1]/div[3]/p[2]"));
+		WebElement assignee = driver.findElement(By.xpath(tasks+"/div[1]/div[4]/p[2]"));
+		WebElement dueDate = driver.findElement(By.xpath(tasks+"/div[2]/div[1]/p[2]"));
+		task.add(date.getText());
+		task.add(type.getText());
+		task.add(taskStatus.getText());
+		task.add(assignee.getText());
+		task.add(dueDate.getText());
+		System.out.println("All elements were added");
+		for(String s : task){
+			System.out.println(s);
+		}
+		return openedTask.retainAll(task);
+	}
+
+	public void openEditableTask(WebDriver driver){
+		waitForElementVisibility(editableTask,"10",driver);
+		doubleClick(editableTask,driver);
+	}
+
+	public boolean verifyThatTheTaskWasEdited(WebDriver driver){
+		System.out.println("Verifying has been started");
+		waitForElementVisibility(tasks,"10",driver);
+		WebElement date = driver.findElement(By.xpath("("+tasks+"/div[1]/div[1]/p[2])[last()]"));
+		WebElement type = driver.findElement(By.xpath("("+tasks+"/div[1]/div[2]/p[2])[last()]"));
+		WebElement taskStatus = driver.findElement(By.xpath("("+tasks+"/div[1]/div[3]/p[2])[last()]"));
+		WebElement assignee = driver.findElement(By.xpath("("+tasks+"/div[1]/div[4]/p[2])[last()]"));
+		WebElement dueDate = driver.findElement(By.xpath("("+tasks+"/div[2]/div[1]/p[2])[last()]"));
+		task.add(date.getText());
+		task.add(type.getText());
+		task.add(taskStatus.getText());
+		task.add(assignee.getText());
+		task.add(dueDate.getText());
+		System.out.println("All elements were added");
+		for(String s : task){
+			System.out.println(s);
+		}
+		System.out.println(openedTask.retainAll(task));
+		return openedTask.retainAll(task);
+	}
+
+	public void clickOnDeleteTasksButton(WebDriver driver) {
+		waitForElementVisibility(deleteTaskButton,"10",driver);
+		click(deleteTaskButton, driver);
+	}
+
+	public void clickOnConfirmDeletionButton(WebDriver driver) {
+		waitForElementVisibility(confirmTaskDeletionButton,"10",driver);
+		click(confirmTaskDeletionButton, driver);
+	}
+
+	public boolean verifyThePopUpMessage(String message,WebDriver driver){
+		waitForElementVisibility(popUpMessage,"10",driver);
+		return getText(popUpMessage,driver).contains(message);
+	}
 }

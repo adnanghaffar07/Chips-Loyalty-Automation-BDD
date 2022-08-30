@@ -1,15 +1,11 @@
 package Pages;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import Utils.BaseClass;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
@@ -17,13 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-
-import Utils.BaseClass;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import static org.junit.Assert.*;
-import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class ActivitesGridPage extends BaseClass {
@@ -100,10 +91,17 @@ public class ActivitesGridPage extends BaseClass {
 	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
 	String exportBtn = "//span[text()='Export']";
 	String showEntries = "//select[@name='license_activity-list-main_length']  | //select[@name='tasks-list-main_length']";
-	String showRowEntriesLbl = "//div[@id='license_activity-list-main_info']";	
-	
+	String showRowEntriesLbl = "//div[@id='license_activity-list-main_info']";
+	String saveActivityButton = "//form[@id='license_form']//button[text()='Save']";
+	String successPopupOk = "//a[@id='successok']";
 
-	
+	String companyOnGrid = "(//th[text()='Company']/following::input)[2]";
+	String facilityNameOnGrid = "(//th[text()='Facility']/following::input)[3]";
+	String licenseNameOnGrid = "(//th[text()='Requirement Name']/following::input)[4]";
+	String licenseNumberOnGrid = "(//th[text()='Requirement #']/following::input)[5]";
+	String expirationOnGrid = "(//th[text()='Expiration']/following::input)[9]";
+	String noRecordsFound = "//td[@class='dataTables_empty']";
+	String tableActivities = "//table[@id='license_activity-list-main']/tbody/tr";
 	String companyNameFirstRow = "";
 	String faciltyNameFirstRow = "";
 	String expiryDateFirstRow = "";
@@ -122,6 +120,8 @@ public class ActivitesGridPage extends BaseClass {
 	ArrayList<String> gridDataPDFUploadList = new ArrayList<String>();
 	ArrayList<String> activeLicensDataList = new ArrayList<String>();
 	ArrayList<String> activeLicenseTitelList = new ArrayList<String>();
+	int activitiesCount = 0;
+	ArrayList<String> activeLicensDataToCompareList = new ArrayList<String>();
 	String filepath = filePath + "TestSample.pdf";
 	String avtivitySartDateSelect;
 	String licenseActivityValue;
@@ -317,7 +317,7 @@ public class ActivitesGridPage extends BaseClass {
 			WebElement licenseActivityOption = licenseActivityDropdown.getFirstSelectedOption();
 			licenseActivityValue = licenseActivityOption.getText();
 			
-			LocalDate currentDate = java.time.LocalDate.now();
+			LocalDate currentDate = LocalDate.now();
 			System.out.println(currentDate.toString());
 			String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
 			avtivitySartDateSelect = date; 
@@ -764,6 +764,56 @@ public class ActivitesGridPage extends BaseClass {
 		        file.delete();
 		    }
 	}
-			
-	
+
+	public void clickOnSaveActivityFormButton(WebDriver driver) {
+		waitForElementVisibility(saveActivityButton, "20", driver);
+		click(saveActivityButton, driver);
+	}
+
+
+	public void clickOnSuccessPopupOkButton(WebDriver driver) {
+		waitForElementVisibility(successPopupOk, "30", driver);
+		System.out.println("successPopupOk: ");
+		click(successPopupOk, driver);
+	}
+
+	public boolean verifyThatActivityIsDeleted(WebDriver driver) {
+		boolean comparedActivities = compareActivities(driver);
+		waitForElementVisibility(activityStartDatePicer, "30", driver);
+		type(companyOnGrid,activeLicensDataList.get(0),driver);
+		type(facilityNameOnGrid,activeLicensDataList.get(1),driver);
+		type(licenseNumberOnGrid,activeLicensDataList.get(2),driver);
+		type(activityStartDatePicer,activeLicensDataList.get(3),driver);
+		System.out.println("Point 1");
+		waitTime(12000);
+		if(isElementDisplayed(noRecordsFound,driver))
+			return true;
+		System.out.println("Active license data:");
+		for (int i = 2; i < 8; i++) {
+			if (i == 4 || i == 6) {
+				i += 1;
+				System.out.println(i);
+			}
+			WebElement data = driver
+					.findElement(By.xpath("(//*[@title='Go To Tasks']/ancestor::td/../td)[" + i + "]"));
+			//scrollIntoViewSmoothly(data, driver);
+			String getData = getValue(data, driver);
+			activeLicensDataToCompareList.add(getData);
+			System.out.println("Value "+activeLicensDataToCompareList.size()+": "+getData);
+		}
+		System.out.println("Point 2");
+
+		if(activeLicensDataList.retainAll(activeLicensDataToCompareList))
+			return comparedActivities;
+		return true;
+	}
+
+	public void getActivitiesCount(WebDriver driver){
+		activitiesCount = driver.findElements(By.xpath(tableActivities)).size();
+		System.out.println("Number of activities: "+activitiesCount);
+	}
+
+	public boolean compareActivities(WebDriver driver){
+		return activitiesCount == driver.findElements(By.xpath(tableActivities)).size();
+	}
 }

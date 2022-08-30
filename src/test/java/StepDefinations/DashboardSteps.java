@@ -1,29 +1,14 @@
 package StepDefinations;
 
-import java.io.ByteArrayInputStream;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
-
 import Constants.Constants;
-import Pages.ChangePasswordPage;
 import Pages.DashboardPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
-import io.cucumber.java.After;
-import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import static org.junit.Assert.*;
-import io.qameta.allure.Allure;
-import org.apache.commons.io.FileUtils;
 
 public class DashboardSteps extends BaseClass {
 
@@ -420,7 +405,68 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyRightMenuItemsAreEnabledDisabled(driver));
 		
 	}
-	
-	
+
+	@And("I see atlas navigator")
+	public void iSeeAtlasNavigator() {
+		Assert.assertTrue(dashboardPage.verifyAtlasNavigatorHeader(driver));
+	}
+
+	@And("I see notifications grid")
+	public void iSeeNotificationsGrid() {
+		Assert.assertTrue(dashboardPage.verifyAtlasNavigationNotifications(driver));
+	}
+
+	@And("I see KPI table")
+	public void iSeeKPITable() {
+		Assert.assertTrue(dashboardPage.verifyKpiTable(driver));
+	}
+
+	@And("I see license details table")
+	public void iSeeLicenseDetailsTable() {
+		Assert.assertTrue(dashboardPage.verifyLicenseDetailsTable(driver));
+	}
+
+	@And("I see license status")
+	public void iSeeLicenseStatus() {
+		Assert.assertTrue(dashboardPage.verifyLicenseStatusActive(driver));
+		Assert.assertTrue(dashboardPage.verifyLicenseStatusPending(driver));
+		Assert.assertTrue(dashboardPage.verifyLicenseStatusExpired(driver));
+		Assert.assertTrue(dashboardPage.verifyLicenseStatusTotal(driver));
+	}
+
+	@And("I see License Count")
+	public void iSeeLicenseCount() {
+		Assert.assertTrue(dashboardPage.verifyLicenseCount(driver));
+	}
+
+	@Then("I see only the licenses that are related to the {string} client")
+	public void iSeeOnlyTheLicensesThatAreRelatedToTheClient(String client) {
+		Assert.assertTrue(dashboardPage.verifyOnlyTheUserRelatedLicensesShouldBeShownInTheGrid(driver, client));
+	}
+
+	@When("I click on the {string} state on the map")
+	public void iClickOnTheStateOnTheMap(String state) {
+		dashboardPage.clickOnTheStateOnTheMap(driver,state);
+	}
+
+	@Then("I see only the licenses that are related to the {string} state")
+	public void iSeeOnlyTheLicensesThatAreRelatedToTheState(String state) {
+		Assert.assertTrue(dashboardPage.verifyOnlyTheStateRelatedLicensesShouldBeShownInTheGrid(driver,state));
+	}
+
+	@When("I double click on kpi expiring licenses expired option")
+	public void iDoubleClickOnKpiExpiringLicensesExpiredOption() {
+		dashboardPage.doubleClickOnKpiExpiringLicensesExpiredOption(driver);
+	}
+
+	@And("I select client in global filter")
+	public void iSelectClientInGlobalFilter() {
+		dashboardPage.selectClientGlobal(driver);
+	}
+
+	@Given("I clear the files directory")
+	public void iClearTheFilesDirectory() {
+		dashboardPage.clearTheFileDirectory(driver);
+	}
 	
 }

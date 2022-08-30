@@ -1,32 +1,17 @@
 package StepDefinations;
 
-import java.io.ByteArrayInputStream;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-
 import Constants.Constants;
 import Pages.ActivitesGridPage;
-import Pages.ChangePasswordPage;
-import Pages.DashboardPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
-import io.cucumber.java.After;
-import io.cucumber.java.BeforeAll;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.junit.Assert;
-import static org.junit.Assert.*;
-import io.qameta.allure.Allure;
+
+import java.io.IOException;
+import java.text.ParseException;
 //import junit.framework.Assert;
-import org.apache.commons.io.FileUtils;
+
 
 public class ActivitesGridSteps extends BaseClass {
 
@@ -206,6 +191,20 @@ public class ActivitesGridSteps extends BaseClass {
 	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid() throws IOException {
 		activitesGridPage.verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid(driver);
 	}
-	
-	
+
+	@Then("I click on save activity button")
+	public void iClickOnSaveActivityButton() {
+		activitesGridPage.clickOnSaveActivityFormButton(driver);
+		activitesGridPage.clickOnSuccessPopupOkButton(driver);
+	}
+
+	@And("I verify that the activity is deleted")
+	public void iVerifyThatTheActivityIsDeleted() {
+		Assert.assertTrue(activitesGridPage.verifyThatActivityIsDeleted(driver));
+	}
+
+	@And("I see activities count")
+	public void iSeeActivitiesCount() {
+		activitesGridPage.getActivitiesCount(driver);
+	}
 }

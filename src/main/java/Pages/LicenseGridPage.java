@@ -1,16 +1,17 @@
 package Pages;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import Utils.BaseClass;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
@@ -18,10 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-
-import Utils.BaseClass;
-import org.junit.Assert;
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 //import junit.framework.Assert;
 
 public class LicenseGridPage extends BaseClass {
@@ -147,8 +147,13 @@ public class LicenseGridPage extends BaseClass {
 	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[2]";
 	String companySearchValue2 = "(//th[@aria-label='Company: activate to sort column descending']/following::td)[3]";
 	String companySearchList = "//th[@aria-label='Company: activate to sort column ascending']/following::tr//td[2]";
-	
-	
+	String deleteLicenseBtn = "//button[@id='modal-delete']";
+	String deleteLicenseConfirmMessage = "//div[@id='text_success']/div/p";
+	String cancelDeletionBtn = "//a[@id='btn-confirm-cancel']";
+	String entriesAmount = "//select[@name='licenses-list-main_length']";
+	String tableLicenses = "//div[@id='licenses-list-main_wrapper']//table[@id='licenses-list-main']/tbody/tr";
+	String successMessage = "//div[@id='text_success']";
+	String confirmDeletionBtn = "//a[@id='btn-confirm-ok']";
 
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
 	ArrayList<String> addActiveLicenseList = new ArrayList<String>();
@@ -157,6 +162,9 @@ public class LicenseGridPage extends BaseClass {
 	ArrayList<String> activeLicenseTitelList = new ArrayList<String>();
 	ArrayList<String> operatorDropdownValueList = new ArrayList<String>();
 	ArrayList<String> licensDataList = new ArrayList<String>();
+
+	List<List<String>> gridLicensesData = new ArrayList<>();
+	List<List<String>> excelLicensesData = new ArrayList<>();
 	String facilityValueOfGrid;
 	String licenseNumberValue = "MT" + randomNumberString(5);
 	String licenseNumber = "9876" + randomNumberString(5);
@@ -439,7 +447,7 @@ public class LicenseGridPage extends BaseClass {
 		Select company = new Select(driver.findElement(By.xpath(selecteLicenseActivity)));
 		company.selectByIndex(1);
 
-		LocalDate currentDate = java.time.LocalDate.now();
+		LocalDate currentDate = LocalDate.now();
 		String date = reformatDate(currentDate.toString(),"yyyy-MM-dd", "MM/dd/yyyy");
 		
 		click(activityStartDate, driver);
@@ -1369,6 +1377,149 @@ public class LicenseGridPage extends BaseClass {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public void clickOnDeleteButtonLicense(WebDriver driver) {
+		waitTime(7000);
+		waitForElementVisibility(deleteLicenseBtn, "30", driver);
+		click(deleteLicenseBtn, driver);
+	}
+
+	public void clickOnCancelLicenseDeletionButton(WebDriver driver) {
+		waitTime(7000);
+		waitForElementVisibility(cancelDeletionBtn, "30", driver);
+		click(cancelDeletionBtn, driver);
+	}
+
+	public boolean verifyTheDeleteLicenseConfirmMessage(WebDriver driver) {
+
+		try {
+			waitTime(7000);
+			List<WebElement> elements = driver.findElements(By.xpath(deleteLicenseConfirmMessage));
+			for(WebElement e : elements){
+				System.out.println(e.getText());
+			}
+			Assert.assertTrue(getValue(elements.get(0),driver).equals("The following records linked to this License will also be deleted:"));
+			Assert.assertTrue(getValue(elements.get(1),driver).contains("Activities -"));
+			Assert.assertTrue(getValue(elements.get(2),driver).contains("Tasks -"));
+			Assert.assertTrue(getValue(elements.get(3),driver).contains("License Documents -"));
+			Assert.assertTrue(getValue(elements.get(4),driver).contains("Task Documents -"));
+			Assert.assertTrue(getValue(elements.get(5),driver).contains("Task Notifications -"));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void readTheExportFile(WebDriver driver){
+		try {
+			final File folder = new File("C:\\testdirectory");
+			listFilesForFolder(folder);
+		}catch(IOException e){
+			System.out.println("IOException: "+e.getMessage());
+		}
+		System.out.println(gridLicensesData.size()+" "+excelLicensesData.size());
+		for(int i = 0;i<gridLicensesData.size();i++){
+			System.out.println(i);
+			System.out.println(gridLicensesData.get(i));
+			System.out.println(excelLicensesData.get(i));
+			if(i!=2) {
+				if (!excelLicensesData.get(i).equals(gridLicensesData.get(i))) {
+					Assert.assertTrue(excelLicensesData.get(i).contains(gridLicensesData.get(i)));
+				}
+			}
+
+		}
+		//Assert.assertTrue(gridLicensesData.contains(excelLicensesData));
+	}
+
+	public void listFilesForFolder(final File folder) throws IOException{
+		String fileName = new String();
+		for (final File fileEntry : folder.listFiles()) {
+			if (fileEntry.isDirectory()) {
+				listFilesForFolder(fileEntry);
+			} else {
+				fileName = fileEntry.getName();
+				System.out.println(fileEntry.getName());
+			}
+		}
+		XSSFWorkbook wb = new XSSFWorkbook("C:\\testdirectory\\"+fileName);
+
+		XSSFSheet sheet=wb.getSheetAt(0);
+		FormulaEvaluator formulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
+		for(Row row: sheet)     //iteration over row using for each loop
+		{
+			List<String> innerList = new ArrayList<>();
+			for(Cell cell: row)    //iteration over cell using for each loop
+			{
+				DataFormatter dataFormatter = new DataFormatter();
+				String formattedCellStr = dataFormatter.formatCellValue(cell);
+				innerList.add(formattedCellStr);
+			}
+			excelLicensesData.add(innerList);
+			//System.out.println();
+		}
+		excelLicensesData.remove(0);
+		excelLicensesData.remove(0);
+		for(List<String> list: excelLicensesData){
+			for(String cell: list){
+				System.out.print("|"+cell);
+			}
+			System.out.println();
+		}
+	}
+
+	public void selectDisplayedAmountOfLicenses(WebDriver driver) {
+		waitTime(9000);
+		selectValueFromDropdownThroughText(entriesAmount, "All", driver);
+		System.out.println("Selected");
+		waitTime(20000);
+	}
+
+	public void getTheLicensesDataFromGrid(WebDriver driver){
+		//gridLicensesData.remove(0);
+		List<WebElement> licenses = driver.findElements(By.xpath(tableLicenses));
+		System.out.println("Licenses count:");
+		System.out.println(licenses.size());
+		for(WebElement license: licenses){
+			List<String> licenseDetails = new ArrayList<>();
+			licenseDetails.add(license.findElement(By.xpath("./td[1]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[2]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[3]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[4]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[5]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[6]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[7]")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[8]/span")).getText());
+			licenseDetails.add(license.findElement(By.xpath("./td[9]")).getText());
+			try {
+				licenseDetails.add(license.findElement(By.xpath("./td[10]/span")).getText());
+			}
+			catch (Exception e){}
+			licenseDetails.add(license.findElement(By.xpath("./td[11]/a")).getAttribute("href"));
+			licenseDetails.removeAll(Collections.singleton(null));
+			licenseDetails.removeAll(Collections.singleton(""));
+			for(String s: licenseDetails)
+				System.out.print("|"+s);
+			System.out.println();
+			gridLicensesData.add(licenseDetails);
+		}
+	}
+
+	public Boolean verifySuccessMessage(WebDriver driver,String message) {
+		try {
+			waitForElementVisibility(successMessage, "30", driver);
+			Assert.assertEquals(getValueFromAttribute(successMessage,driver).trim(), message);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void clickOnConfirmLicenseDeletionButton(WebDriver driver) {
+		waitTime(7000);
+		waitForElementVisibility(confirmDeletionBtn, "30", driver);
+		click(confirmDeletionBtn, driver);
 	}
 
 }
