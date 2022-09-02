@@ -58,6 +58,7 @@ public class BaseClass extends Utilities {
 			prefs.put("credentials_enable_service", false);
 			prefs.put("download.default_directory", System.getProperty("user.dir")+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
 			prefs.put("profile.password_manager_enabled", false);
+			//prefs.put("download.default_directory","C:\\testdirectory");
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("prefs", prefs);
 			String agentString = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36";
@@ -73,7 +74,10 @@ public class BaseClass extends Utilities {
 			options.addArguments("--disable-gpu"); // applicable to windows os only
 			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
 			options.addArguments("--no-sandbox");
-			options.addArguments("--headless");
+//			Configuration.proxyEnabled=true;
+//			Configuration.fileDownload= FileDownloadMode.PROXY;
+//			Configuration.downloadsFolder="C:\\testdirectory";
+			//options.addArguments("--headless");
 
 			try {
 				localD = new ChromeDriver(options);

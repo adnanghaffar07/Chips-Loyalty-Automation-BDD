@@ -5,9 +5,9 @@ Feature: Login
       Scenario: Step_8_Check for New users with Unrecognized or already recognized IP Address and with temp password
             Given Visit the app url
             When I see login page title
-            And I enter user name "fuknecoste@vusra.com"
-            And I enter password "UP*&x5q7yx"
-            Then I click on login button
+            And I enter user name "lulmineknu@vusra.com"
+            And I enter password "c7wx$KJudc"
+            Then I click on login button to test validation code
             And I see temp password change message
             Then I enter new password "NewPassword"
             Then I enter confirm password "NewPassword"
@@ -21,23 +21,24 @@ Feature: Login
             And I enter password
             Then I click on login button
             And I click on session popup cancel button
-            Then I see dashboard page title
+            Then I see USA map
 
       Scenario: Step_11_Check for existing users with unrecognized IP Address
             Given Visit the app url
             When I see login page title
-            And I enter user name "qaautomation@pharma.solutions"
-            And I enter password "WGqb6xmV#1"
-            When I click on login button
+            And I enter user name "sixiw28286@xitudy.com"
+            And I enter password "Testing2022!!"
+            When I click on login button to test validation code
             Then I see verification code message on login page
 
       Scenario: Step_12_Check for invalid Validation code
             Given Visit the app url
             When I see login page title
-            And I enter user name "qaautomation@pharma.solutions"
-            And I enter password "WGqb6xmV#1"
-            When I click on login button
+            And I enter user name "sixiw28286@xitudy.com"
+            And I enter password "Testing2022!!"
+            When I click on login button to test validation code
             Then I see verification code message on login page
+            And I click on the pop up ok button
             When I enter "fakecode" verification code
             And I click on the submit verification code button
             Then I see invalid validation code message
@@ -63,11 +64,11 @@ Feature: Login
             And I enter password
             Then I click on login button
             And I click on session popup cancel button
-            Then I see dashboard page title
+            Then I see USA map
             And I see client label and default value all
             And I see facility label and default value all
             And I see company label and default value all
-            And I see atlas navigator
+            #And I see atlas navigator
             And I see licenses grid
             And I see activities grid
             And I see tasks grid
@@ -103,8 +104,8 @@ Feature: Login
             And I click on session popup cancel button
             When I select client in filter
             Then I see only the licenses that are related to the "365 Logistics" client
-            When I click on the "CA" state on the map
-            Then I see only the licenses that are related to the "CA" state
+            When I click on the "AR" state on the map
+            Then I see only the licenses that are related to the "AR" state
             When I select the Reset Filter
             When I double click on kpi expiring licenses expired option
             Then I see only the expiring licenses on document grid
@@ -135,6 +136,6 @@ Feature: Login
             Then I click on login button
             And I click on session popup cancel button
             When I click on licenses grid
-            And I select client in global filter
+            And I select 7 client in global filter
             Then I click on export button
             And I compare the exported licenses with the licenses on the grid

@@ -1413,7 +1413,7 @@ public class LicenseGridPage extends BaseClass {
 
 	public void readTheExportFile(WebDriver driver){
 		try {
-			final File folder = new File("C:\\testdirectory");
+			final File folder = new File(System.getProperty("user.dir")+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
 			listFilesForFolder(folder);
 		}catch(IOException e){
 			System.out.println("IOException: "+e.getMessage());
@@ -1443,7 +1443,7 @@ public class LicenseGridPage extends BaseClass {
 				System.out.println(fileEntry.getName());
 			}
 		}
-		XSSFWorkbook wb = new XSSFWorkbook("C:\\testdirectory\\"+fileName);
+		XSSFWorkbook wb = new XSSFWorkbook(System.getProperty("user.dir")+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile"+File.separator+fileName);
 
 		XSSFSheet sheet=wb.getSheetAt(0);
 		FormulaEvaluator formulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();

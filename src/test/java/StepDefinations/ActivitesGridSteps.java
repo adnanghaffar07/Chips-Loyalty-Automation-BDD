@@ -207,4 +207,5 @@ public class ActivitesGridSteps extends BaseClass {
 	public void iSeeActivitiesCount() {
 		activitesGridPage.getActivitiesCount(driver);
 	}
+
 }

@@ -459,9 +459,9 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.doubleClickOnKpiExpiringLicensesExpiredOption(driver);
 	}
 
-	@And("I select client in global filter")
-	public void iSelectClientInGlobalFilter() {
-		dashboardPage.selectClientGlobal(driver);
+	@And("I select {int} client in global filter")
+	public void iSelectClientInGlobalFilter(int index) {
+		dashboardPage.selectClientGlobal(driver, index);
 	}
 
 	@Given("I clear the files directory")

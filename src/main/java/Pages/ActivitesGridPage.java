@@ -705,8 +705,8 @@ public class ActivitesGridPage extends BaseClass {
 	
 	public void clickOnExportButton(WebDriver driver) {
 		waitForElementVisibility(exportBtn, "30", driver);
-		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
-		selectShowEntries.selectByIndex(1);
+//		Select selectShowEntries = new Select(driver.findElement(By.xpath(showEntries)));
+//		selectShowEntries.selectByIndex(1);
 		waitTime(6000);
 		click(exportBtn, driver);
 		

@@ -297,11 +297,15 @@ public class LoginPage extends BaseClass {
 			waitForElementVisibility(yourDeviceOrNetworkIsNotRecognizedPopup, "30", driver);
 			System.out.println("Verification message : ");
 			Assert.assertTrue(getValue(yourDeviceOrNetworkIsNotRecognizedPopup,driver).contains("For security reasons, we have sent a Validation Code to your email id. Please enter the Validation Code to proceed"));
-			click(changePasswordOkBtn,driver);
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public void clickOnPopUpOkButton(WebDriver driver){
+		waitForElementVisibility(changePasswordOkBtn,"30",driver);
+		click(changePasswordOkBtn,driver);
 	}
 
 	public void enterValidationCode(WebDriver driver, String code) {

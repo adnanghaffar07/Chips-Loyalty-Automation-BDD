@@ -35,11 +35,12 @@ public class DashboardPage extends BaseClass {
 	String activeGrid = "//li[contains(@class,'active')]";
 	String mapUSA = "//div[@id='map']";
 	String filterByLbl = "//label[text()[contains(.,'Filter By:')]]";
+	String activeDashboard = "a[text()='Dashboard' and @class=' active-li ']";
 	String resetFilterLbl = "//a[text()[contains(.,'Reset Filter')]]";
 	String upcomingRenewalsLbl = "//div[text()[contains(.,'Upcoming Renewals')]]";
 	String expiringDocumentsLbl = "//div[text()[contains(.,'Expiring Documents')]]";
 	String tasksLbl = "//div[@class='panel panel-default']/div[text()[contains(.,'Tasks')]]";
-	String licenseDetailsLbl = "//label[text()[contains(.,'License Details:')]]";
+	String licenseDetailsLbl = "//label[text()[contains(.,'Requirements Details: ')]]";
 	String clientDropDown = "//select[@id='ClientKey']";
 	String clientDropDownOption = "(//select[@id='ClientKey']/option)[2]";
 	String clientDefualtOption = "(//select[@id='ClientKey']/option)[1]";
@@ -51,6 +52,7 @@ public class DashboardPage extends BaseClass {
 	String facilityDefualtOption = "(//select[@id='FacilityKey']/option)[1]";
 	String resetFilter = "//a[@title='Clear All Filters']";
 	String licenseDetails = "//div[@id='table-report_wrapper']//td";
+	String licenses = "//div[@id='table-report_wrapper']//tbody/tr";
 	String licencecount = "//table[@id='status-table']//tr[4]//td[2]";
 	String licencePageTitle = "//p[text()[contains(.,'Licenses')]]";
 	String activitiesPageTitle = "//p[text()[contains(.,'Activities')]]";
@@ -1079,8 +1081,9 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyOnlyTheUserRelatedLicensesShouldBeShownInTheGrid(
 			WebDriver driver,String company) {
 		waitTime(7000);
+		System.out.println(driver.findElements(By.xpath(licenses)).size());
 		try {
-			for (int i = 1; i < taskIncompleteStatusList.length(); i++) {
+			for (int i = 1; i < driver.findElements(By.xpath(licenses)).size(); i++) {
 
 				WebElement element = driver.findElement(By.xpath("("+licenseDetailsTable+ "/table/tbody/tr/td[2])[" + i + "]"));
 				String getval = getValue(element, driver);
@@ -1098,21 +1101,22 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyOnlyTheStateRelatedLicensesShouldBeShownInTheGrid(
 			WebDriver driver,String state) {
 		waitTime(7000);
-		try {
-			for (int i = 1; i < taskIncompleteStatusList.length(); i++) {
+		System.out.println(driver.findElements(By.xpath(licenses)).size());
+		//try {
+			for (int i = 1; i < driver.findElements(By.xpath(licenses)).size(); i++) {
 
 				WebElement element = driver.findElement(By.xpath("("+licenseDetailsTable+ "/table/tbody/tr/td[7])[" + i + "]"));
 				String getval = getValue(element, driver);
 				getval = getval.trim();
 				System.out.println(getval);
-				System.out.println("value : " + getval + ";");
-				System.out.println("state : " + state + ";");
-				Assert.assertTrue(getval.equals(state));
+				System.out.println("value :" + getval + ";");
+				System.out.println("state :" + state + ";");
+				Assert.assertTrue(state.contains(getval));
 			}
 			return true;
-		} catch (Exception e) {
-			return false;
-		}
+//		} catch (Exception e) {
+//			return false;
+//		}
 	}
 
 	public void clickOnTheStateOnTheMap(WebDriver driver,String state) {
@@ -1132,11 +1136,11 @@ public class DashboardPage extends BaseClass {
 		waitTime(7000);
 	}
 
-	public void selectClientGlobal(WebDriver driver) {
+	public void selectClientGlobal(WebDriver driver, int index) {
 		waitForElementVisibility(clientGlobalDropDown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientGlobalDropDown)));
 
-		client.selectByIndex(1);
+		client.selectByIndex(index);
 		WebElement element = driver.findElement(By.xpath(clientGlobalDropDownOption));
 		clientSelected = element.getText().trim();
 		System.out.println("selected client: " + clientSelected);
@@ -1145,7 +1149,7 @@ public class DashboardPage extends BaseClass {
 
 	public void clearTheFileDirectory(WebDriver driver){
 		try {
-			File folder = new File("C:\\testdirectory");
+			File folder = new File(System.getProperty("user.dir")+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
 			FileUtils.cleanDirectory(folder);
 		}
 		catch (IOException e){

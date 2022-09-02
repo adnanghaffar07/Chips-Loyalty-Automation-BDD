@@ -109,6 +109,11 @@ public class LoginSteps extends BaseClass {
 		}
 	}
 
+	@Then("^I click on login button to test validation code$")
+	public void clickOnTheLoginButton(){
+		loginPage.clickOnLoginButton(driver);
+	}
+
 	@And("^I see atlas main page$")
 	public void verifyAtlasMainPage() {
 		Assert.assertTrue(loginPage.verifyAtlasMainPage(driver));
@@ -260,5 +265,10 @@ public class LoginSteps extends BaseClass {
 	@Then("I see invalid validation code message")
 	public void iSeeInvalidValidationCodeMessage() {
 
+	}
+
+	@And("I click on the pop up ok button")
+	public void iClickOnThePopUpOkButton() {
+		loginPage.clickOnPopUpOkButton(driver);
 	}
 }
