@@ -77,7 +77,7 @@ public class BaseClass extends Utilities {
 //			Configuration.proxyEnabled=true;
 //			Configuration.fileDownload= FileDownloadMode.PROXY;
 //			Configuration.downloadsFolder="C:\\testdirectory";
-			//options.addArguments("--headless");
+			options.addArguments("--headless");
 
 			try {
 				localD = new ChromeDriver(options);
