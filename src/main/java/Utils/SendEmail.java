@@ -23,7 +23,7 @@ import javax.mail.internet.MimeMultipart;
 public class SendEmail {
 	
 	final static String username = "ambreeny4191@gmail.com";
-	final static String password = "xuqkvnxbrurzjnaq";
+	final static String password = "sioprgnmmvhkffax";
 	
 	public static void main(String[] args) {
 		
