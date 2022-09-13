@@ -40,3 +40,7 @@
 # How to generate automation test reports
   - To Generate report Run Command `allure serve` in the project main directory.
   - After completing the job the report will automatically be shown in the default browser.
+  
+# How to view report received with email
+  - Download and Extract the .zip file attacheched with the email.
+  - Run command `allure serve` at the same directory level of 'allure-results' and you will see report in the browser after successfull generation.
