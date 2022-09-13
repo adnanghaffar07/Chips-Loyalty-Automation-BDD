@@ -43,4 +43,4 @@
   
 # How to view report received with email
   - Download and Extract the .zip file attacheched with the email.
-  - Run command `allure serve` at the same directory level of 'allure-results' and you will see report in the browser after successfull generation.
+  - Run command `allure serve` in terminal/CLI at the same directory level of 'allure-results' and you will see report in the browser after successfull generation.
