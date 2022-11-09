@@ -1,29 +1,45 @@
 package StepDefinations;
 
-import Constants.Constants;
-import Pages.ActivitesGridPage;
-import Pages.LoginPage;
-import Utils.BaseClass;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
-import org.junit.Assert;
+import java.io.ByteArrayInputStream;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-//import junit.framework.Assert;
 
+import Constants.Constants;
+import Pages.ActivitesGridPage;
+import Pages.ChangePasswordPage;
+import Pages.DashboardPage;
+import Pages.LoginPage;
+import Pages.TasksPage;
+import Utils.BaseClass;
+import io.cucumber.java.After;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import static org.junit.Assert.*;
+import io.qameta.allure.Allure;
+//import junit.framework.Assert;
+import org.apache.commons.io.FileUtils;
 
 public class ActivitesGridSteps extends BaseClass {
 
 	LoginPage loginPage = new LoginPage(driver);
 	ActivitesGridPage activitesGridPage = new ActivitesGridPage(driver);
+	TasksPage taskspage = new TasksPage(driver);
 	public Constants loginconstant;
 	
 	@And("^I see activities grid underline color is yellow$")
 	public void verifyActivitiesGridUnderlineColorYellow() {
 		Assert.assertTrue(activitesGridPage.verifyActivitiesGridUnderlineColorYellow(driver));
-	}
-	
+	}	
 	
 	@And("^I see column search for each column in the activities grid$")
 	public void verifyColumnSearchForEachColumnInTheActivitiesGrid() {
@@ -40,7 +56,7 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyAddActivityButton(driver));
 	}
 	
-	@Then("^I see license progress filter default dropdown value section should be incomplete only$")
+	@Then("^I see requirement progress filter default dropdown value section should be incomplete only$")
 	public void verifyLicenseProgressFilterDefaultDropdownValueSectionShouldBeIncompleteOnly() {
 		Assert.assertTrue(activitesGridPage.verifyLicenseProgressFilterDefaultDropdownValueSectionShouldBeIncompleteOnly(driver));
 	}
@@ -68,25 +84,24 @@ public class ActivitesGridSteps extends BaseClass {
 	@Then("^I click on add activity button$")
 	public void clickOnAddActivityButton() {
 		activitesGridPage.clickOnAddActivityButton(driver);
-	}
+	}	
 	
-	
-	@And("^I see the edit license Activity page titel$")
+	@And("^I see the edit requirement Activity page titel$")
 	public void verifyEditLicensePageTitel() {
 		Assert.assertTrue(activitesGridPage.verifyEditLicenseActivityPageTitel(driver));
 	}
 	
-	@And("^I see the Add license Activity page titel$")
+	@And("^I see the Add requirement Activity page titel$")
 	public void verifyAddLicenseActivityPageTitel() {
 		Assert.assertTrue(activitesGridPage.verifyAddLicenseActivityPageTitel(driver));
 	}	
 	
-	@And("^I see In the edit activity section the following fields are mandatory and non editable company facility state license status$")
+	@And("^I see In the edit activity section the following fields are mandatory and non editable company facility state requirement status$")
 	public void verifyInTheEditActivitySectionTheFollowingFieldsAreMandatoryAndNonEditableCompanyFacilityStateLicenseStatus() {
 		Assert.assertTrue(activitesGridPage.verifyInTheEditActivitySectionTheFollowingFieldsAreMandatoryAndNonEditableCompanyFacilityStateLicenseStatus(driver));
 	}
 	
-	@And("^I see in the add activity section the following fields are mandatory and editable license activity and activity start date$")
+	@And("^I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date$")
 	public void verifyInTheAddActivitySectionTheFollowingFieldsAreMandatoryAndEditableLicenseActivityAndActivityStartDate() {
 		Assert.assertTrue(activitesGridPage.verifyInTheAddActivitySectionTheFollowingFieldsAreMandatoryAndEditableLicenseActivityAndActivityStartDate(driver));
 	}
@@ -126,7 +141,7 @@ public class ActivitesGridSteps extends BaseClass {
 		activitesGridPage.clickOnAddActivityAddTaskSaveButton(driver);
 	}
 	
-	@And("^I see the newly added license activity is listed in the license activity grid$")
+	@And("^I see the newly added requirement activity is listed in the requirement activity grid$")
 	public void verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid() {
 		Assert.assertTrue(activitesGridPage.verifyTheNewlyAddedLicenseActivityIsListedInTheLicenseActivityGrid(driver));
 	}
@@ -147,14 +162,14 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyTaskDetailInTheLicencseActivityGrid(driver));
 	}
 	
-	@And("^I see the add task button in the license activity grid$")
+	@And("^I see the add task button in the requirement activity grid$")
 	public void verifyTheAddTaskButton() {
 		Assert.assertTrue(activitesGridPage.verifyAddTaskButtonInTheLicencseActivityGrid(driver));
 	}
 	
-	@Then("^I click activity notes button$")
+	@Then("^I click add task button$")
 	public void clickActivityNotesButton() {
-		activitesGridPage.clickOnActivityNotes(driver);
+		activitesGridPage.clickOnAddTaskButton(driver);
 	}
 	
 	@And("^I see the activity notes section lists the related notes details of the chosen activities$")
@@ -167,12 +182,12 @@ public class ActivitesGridSteps extends BaseClass {
 		Assert.assertTrue(activitesGridPage.verifyOldNotesIconInTheLicencseActivityGrid(driver));
 	}
 	
-	@And("^I see the global search text box in the license activity grid$")
+	@And("^I see the global search text box in the requirement activity grid$")
 	public void verifyTheGlobalSearchTextBox() {
 		Assert.assertTrue(activitesGridPage.verifyGlobalSearchTextBoxInTheLicencseActivityGrid(driver));
 	}
 	
-	@And("^I see the advance filters icon in the license activity grid$")
+	@And("^I see the advance filters icon in the requirement activity grid$")
 	public void verifyTheAdvanceFilterIcon() {
 		Assert.assertTrue(activitesGridPage.verifyAdvanceFilterIconInTheLicencseActivityGrid(driver));
 	}
@@ -187,25 +202,42 @@ public class ActivitesGridSteps extends BaseClass {
 		activitesGridPage.verifyRowsCount(driver);
 	}
 	
-	@And("^I see fields in spreadsheet matches on the licenses grid$")
+	@And("^I see fields in spreadsheet matches on the requirements grid$")
 	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid() throws IOException {
 		activitesGridPage.verifyFieldsInSpreadsheetMatchesOnTheLicensesGrid(driver);
 	}
-
-	@Then("I click on save activity button")
-	public void iClickOnSaveActivityButton() {
-		activitesGridPage.clickOnSaveActivityFormButton(driver);
-		activitesGridPage.clickOnSuccessPopupOkButton(driver);
+	
+	@Then("^I see column names Of the grid in field dropdown and select value from it on activity page$")
+	public void verifyColumnNamesOfTheGridInFieldDropdownAndselectValueFromField() {
+		Assert.assertTrue(activitesGridPage.verifyColumnNamesOfTheGridInFieldDropdownAndselectValueFromDropdown(driver));
 	}
-
-	@And("I verify that the activity is deleted")
-	public void iVerifyThatTheActivityIsDeleted() {
-		Assert.assertTrue(activitesGridPage.verifyThatActivityIsDeleted(driver));
+	
+	@Then("^I get it activities column name and click on advanced filters on activites page$")
+	public void getActivitiesTitel() {
+		activitesGridPage.getActivitiesTitel(driver);
 	}
-
-	@And("I see activities count")
-	public void iSeeActivitiesCount() {
-		activitesGridPage.getActivitiesCount(driver);
+	
+	@Then("^I enter advance filters value in input fields on activity page$")
+	public void enterAdvanceFiltersValue() {
+		activitesGridPage.enterAdvanceFiltersValue(driver);
 	}
-
+	@And("^I see the requirement grid is filtered on activities page$")
+	public void verifyLicenseGridIsFiltered() {
+		Assert.assertTrue(activitesGridPage.verifyLicenseGridIsFiltered(driver));
+	}
+	@And("^I click on edit pop up save button$")
+	public void clickOnEditPopupCloseButton() {
+		activitesGridPage.clickOnEditPopupSaveButton(driver);
+	}
+	
+	@Then("^I get the activity start date$")
+	public void getActivityStartDate() {
+		activitesGridPage.getActivityStartDate(driver);
+	}
+	
+	@Then("^I click on activity notes$")
+	public void clickOnTaskNotes() {
+		taskspage.clickOnActivityNotes(driver);
+	}
+	
 }

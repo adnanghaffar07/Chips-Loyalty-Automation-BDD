@@ -1,9 +1,18 @@
 package Pages;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import java.io.File;
+import java.io.IOException;
 import Utils.BaseClass;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+import static org.junit.Assert.*;
 
 
 public class ChangePasswordPage extends BaseClass {
@@ -17,7 +26,7 @@ public class ChangePasswordPage extends BaseClass {
 	String helpDropdown = "//a[text()[contains(.,'Help')] and @data-toggle='dropdown']";
 	String bellIcon = "//img[@class='bell']";
 	String bellIconUnreadCount = "//span[contains(@class,'badge-pill notify-badge')]";
-	String copyrightLbl = "//p[text()[contains(.,'Copyright ï¿½')]]";
+	String copyrightLbl = "//p[text()[contains(.,'Copyright ©')]]";
 	String logoOnChangePasswordPage = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/new_atlas_psh_logo_converted.png']";
 	
 
@@ -108,8 +117,9 @@ public class ChangePasswordPage extends BaseClass {
 	
 	public Boolean verifyCopyrightLabel(WebDriver driver) {
 		try {
+			scrollIntoViewSmoothly(copyrightLbl, driver);
 			waitForElementVisibility(copyrightLbl, "30", driver);
-			return isElementDisplayed(copyrightLbl, driver);
+			return true;
 		} catch (Exception e) {
 			return false;
 		}		

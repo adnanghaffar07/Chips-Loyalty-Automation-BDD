@@ -1,11 +1,20 @@
 package Pages;
 
-import Utils.BaseClass;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.ArrayList;
+import Constants.Constants;
+import java.io.File;
+import java.io.IOException;
+import Utils.BaseClass;
+import org.junit.Assert;
+import static org.junit.Assert.*;
 
 public class EmailVerificationPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -31,7 +40,6 @@ public class EmailVerificationPage extends BaseClass {
 
 	public void navigateToUrl(WebDriver driver, String Url) throws InterruptedException {
 		driver.get(Url);
-
 	}
 
 public static void openUrlInNewTab(WebDriver driver,String url) {		

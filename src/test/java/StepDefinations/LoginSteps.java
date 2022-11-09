@@ -1,5 +1,13 @@
 package StepDefinations;
 
+import java.io.ByteArrayInputStream;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import java.io.File;
+import java.io.IOException;
+
 import Constants.Constants;
 import Pages.EmailVerificationPage;
 import Pages.LoginPage;
@@ -14,15 +22,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.qameta.allure.Allure;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import static org.junit.Assert.*;
+import io.qameta.allure.Allure;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import org.apache.commons.compress.archivers.zip.ZipUtil;
+import org.apache.commons.io.FileUtils;
 
 public class LoginSteps extends BaseClass {
 
@@ -36,6 +41,33 @@ public class LoginSteps extends BaseClass {
 		driver = initConfiguration();
 		loginPage.navigateToUrl(driver, loginconstant.url);
 		System.out.println("Welcome To Login Page");
+	}
+	
+	@Given("^Visit the app url and login$")
+	public void user_is_login_to_app() throws InterruptedException {
+		driver = initConfiguration();
+		loginPage.navigateToUrl(driver, loginconstant.url);
+		
+		waitTime(3000);		
+		
+		loginPage.enterUserName(driver);
+		loginPage.enterPassword(driver);
+		
+		loginPage.clickOnLoginButton(driver);
+		if(emailVerificationPage.verifyNotRecognizedPopOkButton(driver) == true) {
+			emailVerificationPage.clickOnNotRecognizedPopOkButton(driver);
+			emailVerificationPage.openUrlInNewTab(driver, loginconstant.outlookUrl);
+			emailVerificationPage.clickOnSigninButton(driver);
+			emailVerificationPage.enterUserNameAndPassword(driver,loginconstant.outlookUsername,loginconstant.outlookPassword);
+			emailVerificationPage.clickOnInboxFirstEmail(driver);
+			driver.close();
+			shiftWindowHandle(0);
+			emailVerificationPage.enterValidationCode(driver);
+			emailVerificationPage.clickOnValidationSubmitButton(driver);
+		}
+		
+		loginPage.clickOnSessionPopupCancelButton(driver);
+		
 	}
 
 	@Then("^Close Browser$")
@@ -107,11 +139,6 @@ public class LoginSteps extends BaseClass {
 			emailVerificationPage.enterValidationCode(driver);
 			emailVerificationPage.clickOnValidationSubmitButton(driver);
 		}
-	}
-
-	@Then("^I click on login button to test validation code$")
-	public void clickOnTheLoginButton(){
-		loginPage.clickOnLoginButton(driver);
 	}
 
 	@And("^I see atlas main page$")
@@ -215,7 +242,7 @@ public class LoginSteps extends BaseClass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		driver.close();
+//		driver.close();
 	}
 	
 	@AfterAll
@@ -224,51 +251,5 @@ public class LoginSteps extends BaseClass {
 		waitTime(3000);
 		String message = "The report is attached as zip file, download ans extract the zip file. Run the command 'Allure Serve' to view report in browser.";
 		SendEmail.SendEmailNow(message);
-	}
-
-	@And("I see temp password change message")
-	public void iSeeTempPasswordChangeMessage() {
-		Assert.assertTrue(loginPage.verifyTemporaryPasswordChangeMsg(driver));
-	}
-
-
-	@Then("I enter new password {string}")
-	public void iEnterNewPassword(String password) {
-		loginPage.enterNewPassword(driver,password);
-	}
-
-	@Then("I enter confirm password {string}")
-	public void iEnterConfirmPassword(String password) {
-		loginPage.enterConfirmPassword(driver,password);
-	}
-
-	@Then("I click on cancel change password button")
-	public void iClickOnCancelChangePasswordButton() {
-		loginPage.clickOnCancelPasswordChangeButton(driver);
-	}
-
-	@Then("I see verification code message on login page")
-	public void iSeeVerificationCodeMessageOnLoginPage() {
-		loginPage.verifyVerificationCodeMsg(driver);
-	}
-
-	@When("I enter {string} verification code")
-	public void iEnterVerificationCode(String code) {
-		loginPage.enterValidationCode(driver, code);
-	}
-
-	@And("I click on the submit verification code button")
-	public void iClickOnTheSubmitVerificationCodeButton() {
-		loginPage.clickOnSubmitVerificationCodeSubmitButton(driver);
-	}
-
-	@Then("I see invalid validation code message")
-	public void iSeeInvalidValidationCodeMessage() {
-
-	}
-
-	@And("I click on the pop up ok button")
-	public void iClickOnThePopUpOkButton() {
-		loginPage.clickOnPopUpOkButton(driver);
 	}
 }

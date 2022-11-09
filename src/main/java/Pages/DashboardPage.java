@@ -1,21 +1,24 @@
 package Pages;
 
-import Utils.BaseClass;
-import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Array;
+
+import Utils.BaseClass;
+import org.junit.Assert;
+import static org.junit.Assert.*;
 
 
 public class DashboardPage extends BaseClass {
@@ -35,12 +38,11 @@ public class DashboardPage extends BaseClass {
 	String activeGrid = "//li[contains(@class,'active')]";
 	String mapUSA = "//div[@id='map']";
 	String filterByLbl = "//label[text()[contains(.,'Filter By:')]]";
-	String activeDashboard = "a[text()='Dashboard' and @class=' active-li ']";
 	String resetFilterLbl = "//a[text()[contains(.,'Reset Filter')]]";
 	String upcomingRenewalsLbl = "//div[text()[contains(.,'Upcoming Renewals')]]";
 	String expiringDocumentsLbl = "//div[text()[contains(.,'Expiring Documents')]]";
 	String tasksLbl = "//div[@class='panel panel-default']/div[text()[contains(.,'Tasks')]]";
-	String licenseDetailsLbl = "//label[text()[contains(.,'Requirements Details: ')]]";
+	String licenseDetailsLbl = "//label[text()[contains(.,'License Details:')]] | //label[text()[contains(.,'Requirements Details:')]]";
 	String clientDropDown = "//select[@id='ClientKey']";
 	String clientDropDownOption = "(//select[@id='ClientKey']/option)[2]";
 	String clientDefualtOption = "(//select[@id='ClientKey']/option)[1]";
@@ -52,9 +54,8 @@ public class DashboardPage extends BaseClass {
 	String facilityDefualtOption = "(//select[@id='FacilityKey']/option)[1]";
 	String resetFilter = "//a[@title='Clear All Filters']";
 	String licenseDetails = "//div[@id='table-report_wrapper']//td";
-	String licenses = "//div[@id='table-report_wrapper']//tbody/tr";
 	String licencecount = "//table[@id='status-table']//tr[4]//td[2]";
-	String licencePageTitle = "//p[text()[contains(.,'Licenses')]]";
+	String licencePageTitle = "//p[text()[contains(.,'Requirements')]]";
 	String activitiesPageTitle = "//p[text()[contains(.,'Activities')]]";
 	String tasksPageTitle = "//p[text()[contains(.,'Tasks')]] | //span[text()[contains(.,'Tasks')]]";
 	String documentsPageTitle = "//p[text()[contains(.,'Documents')]]";
@@ -64,7 +65,7 @@ public class DashboardPage extends BaseClass {
 	String kpiTaskAllIncompleteOption = "//td[text()='All Incomplete']";
 	String taskIncompleteStatusList = "//tr//td[11]";
 	String taskNumberOfRowsLabelOnLicense = "//div[@id='tasks-list-main_info']";
-	String expiringDocumentsExpired = "//td[text()='Expired']/following::td[@class='right-align  red']";
+	String expiringDocumentsExpired = "//tr[@class='menu-item']//td[text()='Expired']//following-sibling::td";
 	String expiryDocumentOnDocumentGrid = "//th[@aria-label='Expiry Date: activate to sort column ascending']/following::tr//td[12]";
 	String chooseFileUpload = "//input[@id='file'] | //input[@name='LicenseFile']";
 	String saveBtn = "//button[@id='modal-save']";
@@ -75,8 +76,8 @@ public class DashboardPage extends BaseClass {
 	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
 	String kpiLicenseActive = "//table[@id='status-table']//td[text()='Active']";
 	String reportGridStatus = "//table[@id='table-report']//tr[1]//td[9]";
-	String licenseMangementNavigation = "//a[contains(text(),'License Management')]";
-	String licenseNavigation = "//ul//a[contains(text(),'Licenses')]";
+	String licenseMangementNavigation = "//a[contains(text(),'Requirements Management')]";
+	String licenseNavigation = "//ul//a[text()='Requirements']";
 	String activitiesNavigation = "//ul//a[contains(text(),'Activities')]";
 	String licenseTaskNavigation = "(//ul//a[contains(text(),'Tasks')])[1]";
 	String documentsNavigation = "(//ul//a[contains(text(),'Documents')])[1]";
@@ -103,32 +104,17 @@ public class DashboardPage extends BaseClass {
 	String adminAuditLogReportNavigation = "(//ul//a[contains(text(),'Audit Log Report')])[1]";
 	String adminPauseActivityNavigation = "(//ul//a[contains(text(),'Pause Activity')])[1]";
 	String adminPermissionChangeHistoryNavigation = "(//ul//a[contains(text(),'Permission Change History')])[1]";
-
 	String deleteLicenseBtn = "//button[text()='Delete']";
 	String confirmDeleteLicenseBtn = "//a[text()='Confirm']";
 	String CancelDeleteLicenseBtn = "//a[text()='Cancel']";
 	String deleteConfirmationButton = "//a[text()='OK']";
-
 	String activitiesDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Activities')]";
 	String taskDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Tasks')]";
-	String licenseDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'License Documents')]";
+	String licenseDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Requirement Documents')]";
 	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
-	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
-	String atlasNavigatorHeader = "//div[@id='sidebar-wrapper']/ul/li[text()[contains(.,'ATLAS Navigator')]]";
-	String navigationNotifications = "//div[@id='sidebar-wrapper']/ul/li/a[text()[contains(.,'Notifications ')]]";
-	String kpiTable = "//div[@id='kpis_div']";
-	String licenseDetailsTable = "//div[@id='table-report_wrapper']";
-	String licenseStatusActive = "//table[@id='status-table']/tbody/tr[1]/td[1]";
-	String licenseStatusPending = "//table[@id='status-table']/tbody/tr[2]/td[1]";
-	String licenseStatusExpired = "//table[@id='status-table']/tbody/tr[3]/td[1]";
-	String licenseStatusTotal = "//table[@id='status-table']/tbody/tr[4]/td[1]";
-
+	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";	
 	String recordsCounter = "//div[contains(text(),'Showing')]";
-	String expiringLicenses = "//td[text()='Expired']/following::td[@class='right-align red']";
-	String clientGlobalDropDown = "//select[@id='GlobalClientKey']";
-	String clientGlobalDropDownOption = "//select[@id='GlobalClientKey']/option[2]";
-
-
+	
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
 	String clientSelected = "";
@@ -197,11 +183,9 @@ public class DashboardPage extends BaseClass {
 		} catch (Exception e) {
 			return false;
 		}
-
 	}
 
 	public Boolean verifyDocumentsGrid(WebDriver driver) {
-
 		try {
 			waitForElementVisibility(documentsGrid, "30", driver);
 			return true;
@@ -407,7 +391,6 @@ public class DashboardPage extends BaseClass {
 	}
 	
 	public void clickOnLicensesGrid(WebDriver driver) throws InterruptedException {
-		waitTime(10000);
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
 			click(menuCollapseBtn, driver);	
@@ -432,7 +415,6 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnActivitiesGrid(WebDriver driver) throws InterruptedException {
-		waitTime(10000);
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
 			click(menuCollapseBtn, driver);	
@@ -449,7 +431,6 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnTasksGrid(WebDriver driver) throws InterruptedException {
-		waitTime(10000);
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
 			click(menuCollapseBtn, driver);	
@@ -476,15 +457,21 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnDashboardGrid(WebDriver driver) {
-		waitTime(10000);
+		
 		try {
 			waitForElementVisibility(menuCollapseBtn, "10", driver);
 			click(menuCollapseBtn, driver);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		waitForElementVisibility(dashboardGrid, "30", driver);
-		click(dashboardGrid, driver);
+		
+		try {
+			waitfor5sec();
+			waitForElementVisibility(dashboardGrid, "30", driver);
+			click(dashboardGrid, driver);
+		} catch (Exception e) {
+		clickJs(dashboardGrid, driver);
+		}
 	}
 
 	public void clickOnUserDropDown(WebDriver driver) {
@@ -613,7 +600,7 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyLicenseDetialsDataOnLicensePage(WebDriver driver) {
 		waitTime(9000);
 		try {
-			for (int i = 2; i < 8; i++) {
+			for (int i = 3; i < 6; i++) {
 
 				WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 				String getval = getValue(element, driver);
@@ -621,6 +608,7 @@ public class DashboardPage extends BaseClass {
 			}
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -682,6 +670,7 @@ public class DashboardPage extends BaseClass {
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -775,9 +764,13 @@ public class DashboardPage extends BaseClass {
 	}
 	
 	public void clickOnResetFilter(WebDriver driver) {
-		waitTime(5000);
-		waitForElementVisibility(resetFilter, "30", driver);
-		click(resetFilter, driver);
+		try {
+			waitForElementVisibility(resetFilter, "30", driver);
+			click(resetFilter, driver);
+		} catch (Exception e) {
+			clickJs(resetFilter, driver);
+		}
+		
 
 	}
 	
@@ -939,6 +932,8 @@ public class DashboardPage extends BaseClass {
 		        }
 				count++;
 			}
+			
+			shiftWindowHandle(0);
 		
 	}
 	
@@ -946,8 +941,13 @@ public class DashboardPage extends BaseClass {
 		try {
 			waitForElementVisibility(dashboardGrid, "30", driver);
 			click(licenseMangementNavigation, driver);
+
 			waitForElementVisibility(licenseTaskNavigation, "30", driver);
+			
+
 			waitForElementVisibility(licenseNavigation, "30", driver);
+			
+
 			waitForElementVisibility(activitiesNavigation, "30", driver);
 			
 			waitForElementVisibility(documentsNavigation, "30", driver);
@@ -981,179 +981,6 @@ public class DashboardPage extends BaseClass {
 			return true;
 		} catch (Exception e) {
 			return false;
-		}
-	}
-
-	public Boolean verifyAtlasNavigatorHeader(WebDriver driver) {
-		try {
-			waitForElementVisibility(atlasNavigatorHeader, "30", driver);
-			System.out.println("Atlas navigator header : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
-
-	public Boolean verifyAtlasNavigationNotifications(WebDriver driver) {
-		try {
-			waitForElementVisibility(navigationNotifications, "30", driver);
-			System.out.println("Navigation notifications : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
-	public Boolean verifyKpiTable(WebDriver driver) {
-		try {
-			waitForElementVisibility(kpiTable, "30", driver);
-			System.out.println("Atlas navigator header : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
-	public Boolean verifyLicenseDetailsTable(WebDriver driver) {
-		try {
-			waitForElementVisibility(licenseDetailsTable, "30", driver);
-			System.out.println("licenseDetailsLbl : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public Boolean verifyLicenseStatusActive(WebDriver driver) {
-		try {
-			waitForElementVisibility(licenseStatusActive, "30", driver);
-			System.out.println("License status active : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public Boolean verifyLicenseStatusPending(WebDriver driver) {
-		try {
-			waitForElementVisibility(licenseStatusPending, "30", driver);
-			System.out.println("License status pending : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public Boolean verifyLicenseStatusExpired(WebDriver driver) {
-		try {
-			waitForElementVisibility(licenseStatusExpired, "30", driver);
-			System.out.println("License status expired : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public Boolean verifyLicenseStatusTotal(WebDriver driver) {
-		try {
-			waitForElementVisibility(licenseStatusTotal, "30", driver);
-			System.out.println("License status total : ");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public Boolean verifyLicenseCount(WebDriver driver) {
-		WebElement facilityLicenseDetals = driver.findElement(By.xpath(licencecount));
-		try {
-			waitForElementVisibility(facilityLicenseDetals, "30", driver);
-			System.out.println("License count : " + facilityLicenseDetals.getText());
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	public Boolean verifyOnlyTheUserRelatedLicensesShouldBeShownInTheGrid(
-			WebDriver driver,String company) {
-		waitTime(7000);
-		System.out.println(driver.findElements(By.xpath(licenses)).size());
-		try {
-			for (int i = 1; i < driver.findElements(By.xpath(licenses)).size(); i++) {
-
-				WebElement element = driver.findElement(By.xpath("("+licenseDetailsTable+ "/table/tbody/tr/td[2])[" + i + "]"));
-				String getval = getValue(element, driver);
-				getval = getval.trim();
-				System.out.println(getval);
-				System.out.println("value : " + getval);
-				Assert.assertTrue(getval.contains(company));
-			}
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public Boolean verifyOnlyTheStateRelatedLicensesShouldBeShownInTheGrid(
-			WebDriver driver,String state) {
-		waitTime(7000);
-		System.out.println(driver.findElements(By.xpath(licenses)).size());
-		//try {
-			for (int i = 1; i < driver.findElements(By.xpath(licenses)).size(); i++) {
-
-				WebElement element = driver.findElement(By.xpath("("+licenseDetailsTable+ "/table/tbody/tr/td[7])[" + i + "]"));
-				String getval = getValue(element, driver);
-				getval = getval.trim();
-				System.out.println(getval);
-				System.out.println("value :" + getval + ";");
-				System.out.println("state :" + state + ";");
-				Assert.assertTrue(state.contains(getval));
-			}
-			return true;
-//		} catch (Exception e) {
-//			return false;
-//		}
-	}
-
-	public void clickOnTheStateOnTheMap(WebDriver driver,String state) {
-		waitTime(6000);
-		waitForElementVisibility(mapUSA, "30", driver);
-		WebElement element = driver.findElement(By.xpath(mapUSA+"/div//*[@data-code='US-"+state+"']"));
-		Actions builder = new Actions(driver);
-		builder.click(element).build().perform();
-		//click(element, driver);
-		waitTime(7000);
-	}
-
-	public void doubleClickOnKpiExpiringLicensesExpiredOption(WebDriver driver) {
-		waitTime(6000);
-		waitForElementVisibility(expiringLicenses, "30", driver);
-		doubleClick(expiringLicenses, driver);
-		waitTime(7000);
-	}
-
-	public void selectClientGlobal(WebDriver driver, int index) {
-		waitForElementVisibility(clientGlobalDropDown, "30", driver);
-		Select client = new Select(driver.findElement(By.xpath(clientGlobalDropDown)));
-
-		client.selectByIndex(index);
-		WebElement element = driver.findElement(By.xpath(clientGlobalDropDownOption));
-		clientSelected = element.getText().trim();
-		System.out.println("selected client: " + clientSelected);
-		waitTime(8000);
-	}
-
-	public void clearTheFileDirectory(WebDriver driver){
-		try {
-			File folder = new File(System.getProperty("user.dir")+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
-			FileUtils.cleanDirectory(folder);
-		}
-		catch (IOException e){
-			System.out.println("The directory is empty");
 		}
 	}
 }

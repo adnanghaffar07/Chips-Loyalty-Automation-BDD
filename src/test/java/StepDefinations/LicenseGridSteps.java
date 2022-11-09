@@ -1,19 +1,39 @@
 package StepDefinations;
 
+import java.io.ByteArrayInputStream;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+
 import Constants.Constants;
+import Pages.ChangePasswordPage;
 import Pages.LicenseGridPage;
 import Pages.LoginPage;
+import Pages.TasksPage;
 import Utils.BaseClass;
+import Utils.ExcelReader;
+import io.cucumber.java.After;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
-
-import java.text.ParseException;
+import static org.junit.Assert.*;
+import io.qameta.allure.Allure;
+import org.apache.commons.io.FileUtils;
 
 public class LicenseGridSteps extends BaseClass {
 
 	LoginPage loginPage = new LoginPage(driver);
 	LicenseGridPage licenseGridPage = new LicenseGridPage(driver);
+	TasksPage tasksPage = new TasksPage(driver);
+
 	public Constants loginconstant;
 
 	@And("^I see client dropdown company dropdown and facility dropdown are selected All by default$")
@@ -43,7 +63,7 @@ public class LicenseGridSteps extends BaseClass {
 	public void verifyGlobalSearch() {
 		Assert.assertTrue(licenseGridPage.verifyGlobalSearch(driver));
 	}
-	@And("^I see url icon for each license in the grid$")
+	@And("^I see url icon for each requirement in the grid$")
 	public void verifyUrlIconForEachLicenseInTheGrid() {
 		Assert.assertTrue(licenseGridPage.verifyUrlIconForEachLicenseInTheGrid(driver));
 	}
@@ -56,7 +76,7 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.verifyCallTheLogIcon(driver));
 	}
 	
-	@And("^I see licenses grid underline color is yellow$")
+	@And("^I see requirements grid underline color is yellow$")
 	public void verifyLicensesGridUnderlineColorYellow() {
 		Assert.assertTrue(licenseGridPage.verifyLicensesGridUnderlineColorYellow(driver));
 	}
@@ -71,7 +91,7 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.hoverMouseOnActiveIIconAndVerifyTooltip(driver));
 	}
 	
-	@Then("^I click on the url icon for the license$")
+	@Then("^I click on the url icon for the requirement$")
 	public void clickOnUrlIconLicenses() {
 		licenseGridPage.clickOnUrlIconLicenses(driver);
 	}
@@ -81,12 +101,12 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.verifyTheUrlOpensAndLoadsSuccessfullyIfTheUrlIsValid(driver));
 	}
 	
-	@Then("^I click on license go to activity icon$")
+	@Then("^I click on requirement go to activity icon$")
 	public void clickOnGoToActivityIcon() {
 		licenseGridPage.clickOnGoToActivityIcon(driver);
 	}
 	
-	@And("^I see the activity data for the chosen licenses$")
+	@And("^I see the activity data for the chosen requirements$")
 	public void verifyActivityDataForTheChosenLicenses() {
 		Assert.assertTrue(licenseGridPage.verifyActivityDataForTheChosenLicenses(driver));
 	}
@@ -96,12 +116,12 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.clickOnAddActivityIcon(driver);
 	}
 	
-	@And("^I see the activity data on license details page$")
+	@And("^I see the activity data on requirement details page$")
 	public void verifyActivityDataOnLicenseDetailsPage() {
 		licenseGridPage.verifyActivityDataOnLicenseDetailsPage(driver);
 	}
 	
-	@And("^I add activity and task entry for the chosen license$")
+	@And("^I add activity and task entry for the chosen requirement$")
 	public void addActivityAndTaskEntryForTheChosenLicense() throws ParseException {
 		licenseGridPage.addActivityAndTaskEntryForTheChosenLicense(driver);
 	}
@@ -177,12 +197,12 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.clickOnAdvanceFiltersSaveButton(driver);
 	}
 	
-	@Then("^I click on add new license button$")
+	@Then("^I click on add new requirement button$")
 	public void clickOnAddNewLicenseButton() {
 		licenseGridPage.clickOnAddNewLicenseButton(driver);
 	}
 	
-	@And("^I see add license page title$")
+	@And("^I see add requirement page title$")
 	public void verifyAddLicensePageTitle() {
 		Assert.assertFalse(licenseGridPage.verifyAddLicensePageTitle(driver));
 	}
@@ -202,27 +222,27 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.selectStatesDropdown(driver);
 	}
 	
-	@Then("^I select license status from dropdown$")
+	@Then("^I select requirement status from dropdown$")
 	public void selectLicenseStatusDropdown() {
 		licenseGridPage.selectLicenseStatusDropdown(driver);
 	}
 	
-	@Then("^I enter license name in input fields$")
+	@Then("^I enter requirement name in input fields$")
 	public void enterLicenseName() {
 		licenseGridPage.enterLicenseName(driver);
 	}
 
-	@Then("^I enter license number in input fields$")
+	@Then("^I enter requirement number in input fields$")
 	public void enterLicenseNumber() {
 		licenseGridPage.enterLicenseNumber(driver);
 	}
 	
-	@Then("^I click on add license save button$")
+	@Then("^I click on add requirement save button$")
 	public void clickOnAddLicenseSaveButton() {
 		licenseGridPage.clickOnAddLicenseSaveButton(driver);
 	}
 	
-	@And("^I see license details saved successfully$")
+	@And("^I see requirement details saved successfully$")
 	public void verifyLicenseDetailsSavedSuccessfully() {
 		Assert.assertTrue(licenseGridPage.verifyLicenseDetailsSavedSuccessfully(driver));
 	}
@@ -233,12 +253,12 @@ public class LicenseGridSteps extends BaseClass {
 	}
 	
 
-	@And("^I see the newly added license is listed in the license grid$")
+	@And("^I see the newly added requirement is listed in the requirement grid$")
 	public void verifyTheNewlyAddedLicenseIsListedInTheLicenseGrid() {
 		Assert.assertTrue(licenseGridPage.verifyTheNewlyAddedLicenseIsListedInTheLicenseGrid(driver));
 	}
 	
-	@And("^I see the license grid is filtered$")
+	@And("^I see the requirement grid is filtered$")
 	public void verifyLicenseGridIsFiltered() {
 		Assert.assertTrue(licenseGridPage.verifyLicenseGridIsFiltered(driver));
 	}
@@ -248,7 +268,7 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.doubleClickOnlicensToEdit(driver);
 	}
 	
-	@And("^I see the edit license page titel$")
+	@And("^I see the edit requirement page titel$")
 	public void verifyEditLicensePageTitel() {
 		Assert.assertTrue(licenseGridPage.verifyEditLicensePageTitel(driver));
 	}
@@ -258,22 +278,22 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.verifyTheUserIsAllowedToEditAllTheFieldsExceptTheCompanyFacilityState(driver));
 	}
 	
-	@And("^I see the user is allowed to remove the license pdf file if the file exists$")
+	@And("^I see the user is allowed to remove the requirement pdf file if the file exists$")
 	public void verifyTheUserIsAllowedToRemoveTheLicensePdfFileIfTheFileExists() {
 		Assert.assertTrue(licenseGridPage.verifyTheUserIsAllowedToRemoveTheLicensePdfFileIfTheFileExists(driver));
 	}
 	
-	@And("^I see the user is able to view the delete button if the user has a permission to delete licenses$")
+	@And("^I see the user is able to view the delete button if the user has a permission to delete requirements$")
 	public void verifyTheUserIsAbleToViewTheDeleteButtonIfTheUserHasAPermissionToDeleteLicenses() {
 		Assert.assertTrue(licenseGridPage.verifyTheUserIsAbleToViewTheDeleteButtonIfTheUserHasAPermissionToDeleteLicenses(driver));
 	}
 	
-	@And("^I see the user is redirection to the license grid and verify the newly edited license is listed in the license grid with the newly edited values$")
+	@And("^I see the user is redirection to the requirement grid and verify the newly edited requirement is listed in the requirement grid with the newly edited values$")
 	public void verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues() {
-		licenseGridPage.verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues(driver);
+		Assert.assertTrue(licenseGridPage.verifyRedirectionToTheLicenseGridAndVerifyTheNewlyEditedLicenseIsListedInTheLicenseGridWithTheNewlyEditedValues(driver));
 	}
 	
-	@And("^I see the editing a license is successful$")
+	@And("^I see the editing a requirement is successful$")
 	public void verifyEditingALicenseIsSuccessful() {
 		Assert.assertTrue(licenseGridPage.verifyEditingALicenseIsSuccessful(driver));
 	}
@@ -283,7 +303,7 @@ public class LicenseGridSteps extends BaseClass {
 		Assert.assertTrue(licenseGridPage.verifyEntriesIsShowingForLicensesLibel(driver));
 	}
 	
-	@Then("^I enter value in license name search filter$")
+	@Then("^I enter value in requirement name search filter$")
 	public void enterValueInLicenseNameSearch() {
 		licenseGridPage.enterValueInLicenseNameSearch(driver);
 	}
@@ -293,7 +313,7 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.clickOnResetPageFiltersLink(driver);
 	}
 	
-	@Then("^I see the reset filter works in the licenses grid$")
+	@Then("^I see the reset filter works in the requirements grid$")
 	public void verifyResetFilterWorksInTheLicensesGrid() {
 		Assert.assertTrue(licenseGridPage.verifyResetFilterWorksInTheLicensesGrid(driver));
 	}
@@ -364,32 +384,32 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.clickOnCallLogPopoupAddCallLogButton(driver);
 	}	
 	
-	@Then("^I select incomplete only from license progress dropdown$")
+	@Then("^I select incomplete only from requirement progress dropdown$")
 	public void selectIncompleteOnlyFromLicenseProgressDropdown() {
 		licenseGridPage.selectIncompleteOnlyFromLicenseProgressDropdown(driver);
 	}
 	
-	@Then("^I select all from license progress dropdown$")
+	@Then("^I select all from requirement progress dropdown$")
 	public void selectAllFromLicenseProgressDropdown() {
 		licenseGridPage.selectAllFromLicenseProgressDropdown(driver);
 	}
 	
-	@Then("^I select complete only from license progress dropdown$")
+	@Then("^I select complete only from requirement progress dropdown$")
 	public void selectCompleteOnlyFromLicenseProgressDropdown() {
 		licenseGridPage.selectCompleteOnlyFromLicenseProgressDropdown(driver);
 	}
 	
-	@And("^I see the licenses activities are filtered based on the chosen license progress incomplete only$")
+	@And("^I see the requirements activities are filtered based on the chosen requirement progress incomplete only$")
 	public void verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressIncompleteOnly() {
 		Assert.assertTrue(licenseGridPage.verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressIncompleteOnly(driver));
 	}
 	
-	@Then("^I see the licenses activities are filtered based on the chosen license progress complete only$")
+	@Then("^I see the requirements activities are filtered based on the chosen requirement progress complete only$")
 	public void verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressCompleteOnly() {
 		Assert.assertTrue(licenseGridPage.verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressCompleteOnly(driver));
 	}
 	
-	@Then("^I see the licenses activities are filtered based on the chosen license progress all$")
+	@Then("^I see the requirements activities are filtered based on the chosen requirement progress all$")
 	public void verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressAll() {
 		Assert.assertTrue(licenseGridPage.verifyLicensesActivitiesAreFilteredBasedOnTheChosenLicenseProgressAll(driver));
 	}
@@ -399,7 +419,7 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.getActivitiesTitel(driver);
 	}
 	
-	@Then("^I see the license with expiration field populated$")
+	@Then("^I see the requirement with expiration field populated$")
 	public void verifyLicenseWithExpirationFieldPopulated() throws InterruptedException {
 		Assert.assertTrue(licenseGridPage.verifyLicenseWithExpirationFieldPopulated(driver));
 	}
@@ -409,7 +429,7 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.doubleClickOnExpirationDate(driver);
 	}
 	
-	@Then("^I see the expiry date matches the expiration date noted in the license grid$")
+	@Then("^I see the expiry date matches the expiration date noted in the requirement grid$")
 	public void verifyTheExpiryDateMatchesTheExpirationDateNotedInTheLicenseGrid() {
 		Assert.assertTrue(licenseGridPage.verifyTheExpiryDateMatchesTheExpirationDateNotedInTheLicenseGrid(driver));
 	}
@@ -423,45 +443,99 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.enterTwoCharactersInColumnSearchFieldOnTaskGridPage(driver);
 	}
 	
-	@Then("^I see the licenses activities are filtered based on the entered column wise search keywords$")
+	@Then("^I see the requirements activities are filtered based on the entered column wise search keywords$")
 	public void verifyFilteredBasedOnEnteredColumnWiseSearchKeywords() {
 		Assert.assertTrue(licenseGridPage.verifyFilteredBasedOnEnteredColumnWiseSearchKeywords(driver));
 	}
 	
-	@Then("^I see the licenses activities are filtered based on the entered column wise search keywords on task grid page$")
+	@Then("^I see the requirements activities are filtered based on the entered column wise search keywords on task grid page$")
 	public void verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage() {
 		Assert.assertTrue(licenseGridPage.verifyFilteredBasedOnEnteredColumnWiseSearchKeywordsOnTaskGridPage(driver));
 	}
-
-	@Then("I click on delete license button")
-	public void iClickOnDeleteLicenseButton() {
-		licenseGridPage.clickOnDeleteButtonLicense(driver);
+	
+	@And("^I verify show requirement notes is active$")
+	public void verifyShowRequirementIsActive() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyShowRequirementNotesIsActive(driver));
+	}
+	@And("^I verify show task and activity notes grayed out$")
+	public void verifyShowRequirementIsGrayedOut() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyShowTaskActivityNotesIsGrayedOut(driver));
+	}
+	
+	@Then("^I click on requirement notes$")
+	public void clickOnTaskNotes() {
+		tasksPage.clickOnRequirementNotes(driver);
+	}
+	
+	@And("^I verify detail on requirement notes pop up window$")
+	public void verifyDetailOnTaskNotesPopUp() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyDetailOnRequirementNotesPopUp(driver));
+	}
+	
+	@And("^I verify latest notes displaying at top$")
+	public void verifyLatestNotesDisplayingAtTop() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyLatestNotesDisplayingAtTop(driver));
+	}
+	
+	@Then("^I click on first note$")
+	public void clickOnNote() {
+		tasksPage.clickOnNote(driver);
+	}
+	
+	@Then("^I double click on first note$")
+	public void doubleClickOnFirstNote() {
+		tasksPage.doubleClickOnFirstNote(driver);
+	}
+	
+	@Then("^I double click on second note$")
+	public void doubleClickOnSecondNote() {
+		tasksPage.doubleClickOnSecondNote(driver);
+	}
+	
+	@And("^I verify notes turn into gold$")
+	public void verifyNoteColorIntoGold() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyNoteColorIntoGold(driver));
+	}
+	
+	@And("^I verify user is not allowed to select other note$")
+	public void verifySecondNoteColorIntoGold() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifySecondNoteColorIntoGold(driver));
+	}
+	
+	@Then("^I mouse hover over first row$")
+	public void hoverMouseOverFirstRow() {
+		licenseGridPage.hoverMouseOverFirstRow(driver);
+	}
+	
+	@And("^I verify row background turn purple$")
+	public void verifyRowColorChangedTopPurple() throws InterruptedException {
+		Assert.assertTrue(licenseGridPage.verifyRowColorChangedTopPurple(driver));
+	}
+	
+	@And("^I verify notes displaying according to MM-dd-yyyy format$")
+	public void verifyLatestNotesDisplayingAccordingToFormat() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyLatestNotesDisplayingAccordingToFormat(driver));
+	}
+	
+	
+	@And("^I verify notes displaying according to the decending order$")
+	public void verifyNotesDisplayingAccordingToDecendingOrder() {
+		Assert.assertTrue(tasksPage.verifyNotesDisplayingAccordingToDecendingOrder(driver));
+	}
+	
+	@Then("^I click on close note pop up$")
+	public void clickOnNoteClose() {
+		tasksPage.clickOnNoteClose(driver);
+	}
+	
+	@And("^I verify alert message$")
+	public void verifyNotesCloseAlertMessage() throws InterruptedException {
+		Assert.assertTrue(licenseGridPage.verifyNotesCloseAlertMessage(driver));
+	}
+	
+	@Then("^I click yes alert box$")
+	public void clickOnYesAlertMessage() {
+		licenseGridPage.clickOnYesAlertMessage(driver);
 	}
 
-	@Then("I see delete license confirm message")
-	public void iSeeDeleteLicenseConfirmMessage() {
-		Assert.assertTrue(licenseGridPage.verifyTheDeleteLicenseConfirmMessage(driver));
-	}
-
-	@Then("I click on cancel license deletion button")
-	public void iClickOnCancelLicenseDeletionButton() {
-		licenseGridPage.clickOnCancelLicenseDeletionButton(driver);
-	}
-
-	@And("I compare the exported licenses with the licenses on the grid")
-	public void iCompareTheExportedLicensesWithTheLicensesOnTheGrid() {
-		licenseGridPage.selectDisplayedAmountOfLicenses(driver);
-		licenseGridPage.getTheLicensesDataFromGrid(driver);
-		licenseGridPage.readTheExportFile(driver);
-	}
-
-	@Then("I see {string} success message")
-	public void iSeeSuccessMessage(String message) {
-		Assert.assertTrue(licenseGridPage.verifySuccessMessage(driver,message));
-	}
-
-	@Then("I click on confirm license deletion button")
-	public void iClickOnConfirmLicenseDeletionButton() {
-		licenseGridPage.clickOnConfirmLicenseDeletionButton(driver);
-	}
 }

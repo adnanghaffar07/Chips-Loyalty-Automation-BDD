@@ -1,10 +1,22 @@
 package Pages;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
 import Constants.Constants;
+
+import java.io.File;
+import java.io.IOException;
+
 import Utils.BaseClass;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+import static org.junit.Assert.*;
 
 public class LoginPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -25,16 +37,8 @@ public class LoginPage extends BaseClass {
 	String yourDeviceOrNetworkIsNotRecognizedPopup = "//div[@id='text_error']";
 	String enterValidationCode = "//input[@placeholder='Enter Validation Code'] | //input[@id='verificationCode']";
 	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
-	String changePasswordOkBtn = "//a[@id='modal-danger-ok']";
-	String newPasswordTxt = "//input[@name='new_password']";
-	String confirmPasswordTxt = "//input[@name='confirm_password']";
-	String cancelChangePasswordBtn = "//button[text()='CANCEL'] | //button[text()='Cancel']";
-	String verificationCodeSubmitBtn = "//button[@id='verificationcode__submit']";
-
-
-
-
-
+	
+	
 
 	public LoginPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -267,54 +271,4 @@ public class LoginPage extends BaseClass {
 		}
 	}
 
-	public Boolean verifyTemporaryPasswordChangeMsg(WebDriver driver) {
-		try {
-			waitForElementVisibility(yourDeviceOrNetworkIsNotRecognizedPopup, "30", driver);
-			System.out.println("temporary password change Msg : ");
-			click(changePasswordOkBtn,driver);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void enterNewPassword(WebDriver driver, String password) {
-		waitForElementVisibility(newPasswordTxt, "30", driver);
-		type(newPasswordTxt, password, driver);
-	}
-
-	public void enterConfirmPassword(WebDriver driver, String password) {
-		waitForElementVisibility(confirmPasswordTxt, "30", driver);
-		type(confirmPasswordTxt, password, driver);
-	}
-
-	public void clickOnCancelPasswordChangeButton(WebDriver driver) {
-		waitForElementVisibility(cancelChangePasswordBtn, "30", driver);
-		click(cancelChangePasswordBtn, driver);
-	}
-	public Boolean verifyVerificationCodeMsg(WebDriver driver) {
-		try {
-			waitForElementVisibility(yourDeviceOrNetworkIsNotRecognizedPopup, "30", driver);
-			System.out.println("Verification message : ");
-			Assert.assertTrue(getValue(yourDeviceOrNetworkIsNotRecognizedPopup,driver).contains("For security reasons, we have sent a Validation Code to your email id. Please enter the Validation Code to proceed"));
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void clickOnPopUpOkButton(WebDriver driver){
-		waitForElementVisibility(changePasswordOkBtn,"30",driver);
-		click(changePasswordOkBtn,driver);
-	}
-
-	public void enterValidationCode(WebDriver driver, String code) {
-		waitForElementVisibility(enterValidationCode, "30", driver);
-		type(enterValidationCode, code, driver);
-	}
-
-	public void clickOnSubmitVerificationCodeSubmitButton(WebDriver driver) {
-		waitForElementVisibility(verificationCodeSubmitBtn, "30", driver);
-		click(verificationCodeSubmitBtn, driver);
-	}
 }

@@ -1,14 +1,29 @@
 package StepDefinations;
 
+import java.io.ByteArrayInputStream;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import java.io.File;
+import java.io.IOException;
+
 import Constants.Constants;
+import Pages.ChangePasswordPage;
 import Pages.DashboardPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
+import io.cucumber.java.After;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import static org.junit.Assert.*;
+import io.qameta.allure.Allure;
+import org.apache.commons.io.FileUtils;
 
 public class DashboardSteps extends BaseClass {
 
@@ -20,7 +35,7 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyDashboardGrid(driver));
 	}
 	
-	@And("^I see licenses grid$")
+	@And("^I see requirements grid$")
 	public void verifyLicensesGrid() {
 		Assert.assertTrue(dashboardPage.verifyLicensesGrid(driver));
 	}
@@ -70,7 +85,7 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyTasksLabel(driver));
 	}
 	
-	@And("^I see license details Label$")
+	@And("^I see requirement details Label$")
 	public void verifyLicenseDetailsLabel() {
 		Assert.assertTrue(dashboardPage.verifyLicenseDetailsLabel(driver));
 	}
@@ -81,7 +96,7 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.selectClient(driver);
 	}
 	
-	@Then("^I see client filter related data in license details table$")
+	@Then("^I see client filter related data in requirement details table$")
 	public void verifyClientLicenseDetals() {
 		Assert.assertTrue(dashboardPage.verifyClientLicenseDetals(driver));
 	}
@@ -91,7 +106,7 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.selectCompany(driver);
 	}
 	
-	@Then("^I see company filter related data in license details table$")
+	@Then("^I see company filter related data in requirement details table$")
 	public void verifyCompanyLicenseDetals() {
 		Assert.assertTrue(dashboardPage.verifyCompanyLicenseDetals(driver));
 	}
@@ -101,7 +116,7 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.selectFacility(driver);
 	}
 	
-	@Then("^I see facility filter related data in license details table$")
+	@Then("^I see facility filter related data in requirement details table$")
 	public void verifyFacilityLicenseDetals() {
 		Assert.assertTrue(dashboardPage.verifyFacilityLicenseDetals(driver));
 	}
@@ -110,22 +125,22 @@ public class DashboardSteps extends BaseClass {
 	public void selectResetFacility() {
 		dashboardPage.clickOnresetFilter(driver);
 	}
-	@And("^I see License Count reset$")
+	@And("^I see requirement Count reset$")
 	public void verifyLicenseCountReset() {
 		Assert.assertTrue(dashboardPage.getLicenseCountText(driver));
 	}
 	
-	@And("^I see License Details reset$")
+	@And("^I see requirement Details reset$")
 	public void verifyLicenseDetailsReset() {
 		Assert.assertTrue(dashboardPage.verifyLicenseDetailsCountChanged(driver));
 	}
 
-	@Then("^I click on licenses grid$")
+	@Then("^I click on requirements grid$")
 	public void clickOnclickOnLicensesGrid() throws InterruptedException {
 		dashboardPage.clickOnLicensesGrid(driver);
 	}
 
-	@And("^I see license Page Title$")
+	@And("^I see requirement Page Title$")
 	public void verifyLicencePageTitle() {
 		Assert.assertTrue(dashboardPage.verifyLicencePageTitle(driver));
 	}
@@ -163,6 +178,7 @@ public class DashboardSteps extends BaseClass {
 	@Then("^I click on dashboard grid$")
 	public void clickOnDashboardGrid() {
 		dashboardPage.clickOnDashboardGrid(driver);
+		dashboardPage.clickOnResetFilter(driver);
 	}
 	
 	@And("^I see dashboard page title$")
@@ -195,12 +211,12 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyUSAMap(driver));
 	}
 	
-	@Then("^I double click on license detials$")
+	@Then("^I double click on requirement detials$")
 	public void doubleClickLicenseDetials() {
 		dashboardPage.doubleClickLicenseDetials(driver);
 	}
 	
-	@Then("^I see license detials data on license page$")
+	@Then("^I see requirement detials data on requirement page$")
 	public void verifyLicenseDetialsDataOnLicensePage() {
 		dashboardPage.verifyLicenseDetialsDataOnLicensePage(driver);
 	}
@@ -211,7 +227,7 @@ public class DashboardSteps extends BaseClass {
 	}
 	
 	
-	@Then("^I see only the incomplete licenses for the selected global filter values should be shown in the grid$")
+	@Then("^I see only the incomplete requirements for the selected global filter values should be shown in the grid$")
 	public void verifyOnlyTheIncompleteLicensesForTheSelectedGlobalFilterValuesShouldBeShownInTheGrid() {
 		dashboardPage.verifyOnlyTheIncompleteLicensesForTheSelectedGlobalFilterValuesShouldBeShownInTheGrid(driver);
 	}
@@ -227,7 +243,7 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.doubleClickOnKpiExpiringDocumentsExpiredOption(driver);
 	}
 	
-	@And("^I see only the expiring licenses on document grid$")
+	@And("^I see only the expiring requirements on document grid$")
 	public void verifyOnlyExpiringLicensesOnDocumentGrid() {
 		Assert.assertTrue(dashboardPage.verifyOnlyExpiringLicensesOnDocumentGrid(driver));
 		
@@ -239,7 +255,7 @@ public class DashboardSteps extends BaseClass {
 		
 	}
 
-	@Then("^I click on upload license pdf button$")
+	@Then("^I click on upload requirement pdf button$")
 	public void clickOnUploadLicensePDFButton() {
 		dashboardPage.clickOnUploadLicensePDFButton(driver);
 	}
@@ -267,6 +283,7 @@ public class DashboardSteps extends BaseClass {
 	@And("^I click on view icon and see pdf file$")
 	public void verifyTheUserIsAbleToViewThePDF() {
 		dashboardPage.verifyTheUserIsAbleToViewThePDF(driver);
+		
 	}
 	
 	@And("^I see pdf file deleted success popup$")
@@ -289,7 +306,7 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.dataViewsDropDown(driver);
 	}
 	
-	@And("^click on licenses grid$")
+	@And("^click on requirements grid$")
 	public void clickLicensesGrid() throws InterruptedException{
 		dashboardPage.clickLicensesGrid(driver);
 	}
@@ -316,7 +333,7 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyClientCompanyFacilityDropDown(driver));
 		
 	}
-	@Then("^I click active license kpi$")
+	@Then("^I click active requirement kpi$")
 	public void clickOnActiveLicenseKPI() throws InterruptedException {
 		dashboardPage.clickOnKpiLicenseActive(driver);
 	}
@@ -327,14 +344,14 @@ public class DashboardSteps extends BaseClass {
 		
 	}
 	
-	@Then("^I click on license navigaiton$")
+	@Then("^I click on requirement navigaiton$")
 	public void clickOnLicenseNavigation() throws InterruptedException {
 		dashboardPage.clickOnLicenseManagementNavigation(driver);
 		dashboardPage.clickOnLicenseNavigation(driver);
 
 	}
 	
-	@And("^I double click on license detail$")
+	@And("^I double click on requirement detail$")
 	public void doubleClickOnLicenseDetail() {
 		dashboardPage.doubleClickLicenseDetials(driver);
 		
@@ -346,30 +363,30 @@ public class DashboardSteps extends BaseClass {
 		
 	}
 	
-	@And("^I see the activites under selected license$")
+	@And("^I see the activites under selected requirement$")
 	public void verifyActivitiesUnderThisLicense() {
 		Assert.assertTrue(dashboardPage.verifyActivitiesDeletePopUp(driver));
 		
 	}
 	
-	@And("^I see the task under selected license$")
+	@And("^I see the task under selected requirement$")
 	public void verifyTaskUnderThisLicense() {
 		Assert.assertTrue(dashboardPage.verifyTasksDeletePopUp(driver));		
 	}
 	
-	@And("^I see the license documents under selected license$")
+	@And("^I see the requirement documents under selected requirement$")
 	public void verifyLicenseDocumentsUnderThisLicense() {
 		Assert.assertTrue(dashboardPage.verifyLicenseDocumentsDeletePopUp(driver));
 		
 	}
 	
-	@And("^I see the task documents under selected license$")
+	@And("^I see the task documents under selected requirement$")
 	public void verifyTaskDocumentsUnderThisLicense() {
 		Assert.assertTrue(dashboardPage.verifyTaskDocumentsDeletePopUp(driver));
 		
 	}
 	
-	@And("^I see the task notification under selected license$")
+	@And("^I see the task notification under selected requirement$")
 	public void verifyTaskNotificationUnderThisLicense() {
 		Assert.assertTrue(dashboardPage.verifyTaskNotificationDeletePopUp(driver));
 		
@@ -388,13 +405,13 @@ public class DashboardSteps extends BaseClass {
 		
 	}
 	
-	@And("^I see the license details records deleted successfully$")
+	@And("^I see the requirement details records deleted successfully$")
 	public void verifyLicenseDetailRecordsDeletedSuccessfully() {
 		Assert.assertTrue(dashboardPage.verifyLicenseDetialsDataDeletedOnLicensePage(driver));
 		
 	}
 	
-	@And("^I see the license details records not deleted$")
+	@And("^I see the requirement details records not deleted$")
 	public void verifyLicenseDetailRecordsNotDeleted() {
 		Assert.assertTrue(dashboardPage.verifyLicenseDetialsDataOnLicensePage(driver));
 		
@@ -405,68 +422,7 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyRightMenuItemsAreEnabledDisabled(driver));
 		
 	}
-
-	@And("I see atlas navigator")
-	public void iSeeAtlasNavigator() {
-		Assert.assertTrue(dashboardPage.verifyAtlasNavigatorHeader(driver));
-	}
-
-	@And("I see notifications grid")
-	public void iSeeNotificationsGrid() {
-		Assert.assertTrue(dashboardPage.verifyAtlasNavigationNotifications(driver));
-	}
-
-	@And("I see KPI table")
-	public void iSeeKPITable() {
-		Assert.assertTrue(dashboardPage.verifyKpiTable(driver));
-	}
-
-	@And("I see license details table")
-	public void iSeeLicenseDetailsTable() {
-		Assert.assertTrue(dashboardPage.verifyLicenseDetailsTable(driver));
-	}
-
-	@And("I see license status")
-	public void iSeeLicenseStatus() {
-		Assert.assertTrue(dashboardPage.verifyLicenseStatusActive(driver));
-		Assert.assertTrue(dashboardPage.verifyLicenseStatusPending(driver));
-		Assert.assertTrue(dashboardPage.verifyLicenseStatusExpired(driver));
-		Assert.assertTrue(dashboardPage.verifyLicenseStatusTotal(driver));
-	}
-
-	@And("I see License Count")
-	public void iSeeLicenseCount() {
-		Assert.assertTrue(dashboardPage.verifyLicenseCount(driver));
-	}
-
-	@Then("I see only the licenses that are related to the {string} client")
-	public void iSeeOnlyTheLicensesThatAreRelatedToTheClient(String client) {
-		Assert.assertTrue(dashboardPage.verifyOnlyTheUserRelatedLicensesShouldBeShownInTheGrid(driver, client));
-	}
-
-	@When("I click on the {string} state on the map")
-	public void iClickOnTheStateOnTheMap(String state) {
-		dashboardPage.clickOnTheStateOnTheMap(driver,state);
-	}
-
-	@Then("I see only the licenses that are related to the {string} state")
-	public void iSeeOnlyTheLicensesThatAreRelatedToTheState(String state) {
-		Assert.assertTrue(dashboardPage.verifyOnlyTheStateRelatedLicensesShouldBeShownInTheGrid(driver,state));
-	}
-
-	@When("I double click on kpi expiring licenses expired option")
-	public void iDoubleClickOnKpiExpiringLicensesExpiredOption() {
-		dashboardPage.doubleClickOnKpiExpiringLicensesExpiredOption(driver);
-	}
-
-	@And("I select {int} client in global filter")
-	public void iSelectClientInGlobalFilter(int index) {
-		dashboardPage.selectClientGlobal(driver, index);
-	}
-
-	@Given("I clear the files directory")
-	public void iClearTheFilesDirectory() {
-		dashboardPage.clearTheFileDirectory(driver);
-	}
+	
+	
 	
 }

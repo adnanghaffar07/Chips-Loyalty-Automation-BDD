@@ -1,17 +1,28 @@
 package Pages;
 
-import Utils.BaseClass;
-import org.junit.Assert;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
+import Utils.BaseClass;
+import org.junit.Assert;
+import static org.junit.Assert.*;
 
 public class TasksPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -22,7 +33,7 @@ public class TasksPage extends BaseClass {
 	String backToTasksBtn = "//img[@data-original-title='Back to Tasks']";
 	String addTaskBtn = "(//button[@type='submit'])[last()] | //div[@class='nav-item ']/button";
 	String addTaskTitle = "//p[text()[contains(.,'Add Task')]]";
-	String dateMandatory = "//label[text()='Date ']/span[@class='red']";
+	String dateMandatory = "//input[@id='TaskAuthor']";
 	String dateTxt = "//input[@id='CreationDate']";
 	String createdByMandatory = "//label[text()='Created By ']/span[@class='red']";
 	String creatByTxt = "//input[@id='TaskAuthor']";
@@ -46,8 +57,8 @@ public class TasksPage extends BaseClass {
 	String incompleteSelect = "(//select[@id='incomplete'])";
 	String UserTypeSelect = "(//select[@id='UserType'])";
 	String allTaskOption = "//option[text()=' All Tasks']";
-	String myTaskOption = "//option[text()=' My Tasks ']";
-	String assignedTaskOption = "//option[text()=' Assigned Tasks']";
+	String myTaskOption = "//option[text()=' My Tasks '] | //option[text()=' Tasks Created by me ']";
+	String assignedTaskOption = "//option[text()=' Assigned Tasks'] | //option[text()=' Tasks Assigned to me']";
 	String advanceFilterIcon = "//a[text()=' Advanced Filters ']";
 	String globalSearch = "//input[@type='search']";
 	String showEntriesSelect = "//label//select";
@@ -57,12 +68,12 @@ public class TasksPage extends BaseClass {
 	String noDataTxt = "//td[text()='No data available in table']";
 	String recordsCounter = "//div[contains(text(),'Showing')]";
 	String showEntries = "//select[@name='license_activity-list-main_length']  | //select[@name='tasks-list-main_length']";
-	String fieldOptionCompany = "//option[text()='Company']";
-	String fieldOptionCompManager = "//option[text()='Compliance Manager']";
+	String fieldOptionCompany = "(//option[text()='Company'])[last()]";
+	String fieldOptionCompManager = "//option[text()='Compliance Manager'] | //option[text()='Manager']";
 	String fieldOptionClientCode = "//option[text()='Client Code']";
 	String fieldOptionFacility = "//option[text()='Facility']";
-	String fieldOptionLicenseName = "//option[text()='License Name']";
-	String fieldOptionLicenseNumber = "//option[text()='License Number']";
+	String fieldOptionLicenseName = "//option[text()='Requirement Name']";
+	String fieldOptionLicenseNumber = "//option[text()='Requirement Number']";
 	String fieldOptionState = "//option[text()='State']";
 	String fieldOptionActivity = "//option[text()='Activity']";
 	String fieldOptionTaskStartDate = "//option[text()='Task StartDate']";
@@ -70,7 +81,7 @@ public class TasksPage extends BaseClass {
 	String fieldOptionTaskType = "//option[text()='Task Type']";
 	String fieldOptionTaskStanding = "//option[text()='Task Standing']";
 	String fieldOptionTaskDueDate = "//option[text()='Task Due Date']";
-	String fieldOptionAssignedTo = "//option[text()='Assigned To']";	
+	String fieldOptionAssignedTo = "//option[text()='Assigned To']";
 	String operatorOptionEquals = "//option[text()='equals']";
 	String operatorOptionContains = "//option[text()='contains']";
 	String operatorOptionLessThan = "//option[text()='is less than']";
@@ -78,51 +89,72 @@ public class TasksPage extends BaseClass {
 	String operatorOptionLessThanEqual = "//option[text()='is less than or equals']";
 	String operatorOptionGreaterThanEqual = "//option[text()='is greater than or equals ']";
 	String conditionOptoinAnd = "(//option[contains(text(),'AND')])[2]";
-	String conditionOptoinOR = "(//option[contains(text(),'OR')])[2]";
+	String conditionOptoinOR = "(//option[text()='OR'])[last()]";
 	String advanceFilterField = "//select[contains(@id,'field')]";
 	String advanceFilterOpterator = "//select[contains(@id,'operator0')]";
-	String advanceFilterValue = "//input[contains(@id,'search_value_one0')]";	
-	String conditionDropDown = "//select[@id='condition1']";	
+	String advanceFilterValue = "//input[contains(@id,'search_value_one0')]";
+	String conditionDropDown = "//select[@id='condition1']";
 	String advanceFilterField1 = "//select[contains(@id,'field1')]";
 	String advanceFilterOpterator1 = "//select[contains(@id,'operator1')]";
-	String advanceFilterValu1 = "//input[contains(@id,'search_value_one1')]";	
-	String addConditionButton = "//a[text()='Add Condition']";	
-	String conditionDeleteIcon = "//img[contains(@src,'delete')]";	
+	String advanceFilterValu1 = "//input[contains(@id,'search_value_one1')]";
+	String addConditionButton = "//a[text()='Add Condition']";
+	String conditionDeleteIcon = "//img[contains(@src,'delete')]";
 	String advanceFilterCloseButton = "//button[text()='Close']";
-	String advanceFilterSaveButton = "//button[text()='Save']";	
-	String taskDetialsFirstRow = "(//tr[@class='odd']//td)[2]";	
+	String advanceFilterSaveButton = "//button[text()='Save']";
+	String taskDetialsFirstRow = "(//tr[@class='odd']//td)[2]";
 	String companyNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Company')]//following-sibling::p";
 	String facilityNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Facility')]//following-sibling::p";
 	String stateNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'State')]//following-sibling::p";
-	String LicenseNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'License Name')]//following-sibling::p";
+	String LicenseNameEditTask = "//div[@class='modal-content'] //p[contains(text(),'Requirement Name')]//following-sibling::p | //div[@class='modal-content'] //p[contains(text(),'Requirement #')]//following-sibling::p";
 	String ActivityEditTask = "//div[@class='modal-content'] //p[contains(text(),'Activity')]//following-sibling::p";
 	String progressEditTask = "//div[@class='modal-content'] //p[contains(text(),'Progress')]//following-sibling::p";
 	String deleteTaskBtn = "//button[text()='Delete']";
 	String taskSection = "//section[@id='task']";
+	String addNotesButton = "//button[text()='Add Note']";
+	String notesField = "//textarea[@id='TaskNote'] | //textarea[@id='Notes'] | //textarea[@id='ActivityNote']";
+	String saveNotesButton = "//button[@id='saveNote']";
 
-	String taskTypeSelect = "//select[@id='TaskTypeKey']";
-	String taskStatusSelect = "//select[@id='TaskStandingKey']";
-	String assigneeSelect = "//select[@id='AssignedUserKey']";
-	String creationDate = "//input[@id='CreationDate']";
-	String dueDateSelect = "//input[@id='ExpCompletionDate']";
-	String saveTaskButton = "//button[@id='task-save']";
-	String tasks = "//section[@id='task']//div[@class='scroll']/div[@class='pr-2 task pb-1 ']/div";
-	String editableTask = "//section[@id='task']//div[@class='scroll']/div[@ondblclick]";
-	String deleteTaskButton = "//button[@id='modal-delete']";
-	String confirmTaskDeletionButton = "//a[@onclick='deleteTaskData()']";
-	String popUpMessage = "//div[@id='text_success']";
+	String taskNotesSaveSuccessfully = "//div[text()='Task Note saved successfully.'] | //div[text()='Requirement Note saved Successfully.'] | //div[text()='Activity Note saved successfully.']";
+
+	String showRequirementNotes = "//div[text()='Show Requirement Notes']";
+	String showActivityNotes = "//div[text()='Show Activity Notes']";
+	String showTaskNotes = "//div[text()='Show Task Notes']";
+
+	String closePopUpIcon = "(//img[contains(@src,'close')])[2]";
+
+	String columnDate = "//th[text()='Date']";
+	String columnUserName = "//th[text()='Username']";
+	String columnNote = "//th[text()='Username']//following-sibling::th";
+
+	String latestNotes = "(//div[@class='modal-content']//tr[1]//td[3])";
+	String latestNotesDate = "//div[@class='modal-content']//tr//td[1]";
+	
 
 
+	String secondLatestNotes = "//div[@class='modal-content']//tr[2]//td[3]";
 
+
+	String processingText = "(//div[contains(text(),'Processing')])[1]";
+
+	String notesPopup = "//p[contains(text(),'Task Notes')] | //p[contains(text(),'Requirement Notes')]";
+
+	String notesPopUpCloseButton = "(//button[@id='cancelbtn'])";
+
+	String notesPopUpCloseIcon = "//button[@aria-label='Close']//img[contains(@src,'.png')]";
+	
+	String dateRows = "//div[@class='modal-content']//tr//td[1]";
+
+	
 	String editTaskType = "";
 	String editTaskStatus = "";
 	String editTaskAssignee = "";
 	String assigneeValueAfter = "";
 	String taskDateSelect = "";
-	int pageCounter = 0;	
+	int pageCounter = 0;
 	HashMap<String, String> taskDetails = new HashMap<String, String>();
-	ArrayList<String> openedTask = new ArrayList<>();
-	ArrayList<String> task = new ArrayList<>();
+
+	String notesTitle = "pharma";
+	String notesTitleLong = "wholesalepharmadistributer.wholesalepharmadistributer.wholesalepharmadistributer.wholesalepharmadistributer";
 
 	public TasksPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -143,35 +175,32 @@ public class TasksPage extends BaseClass {
 		waitForElementVisibility(backToTasksBtn, "20", driver);
 		click(backToTasksBtn, driver);
 	}
-	
+
 	public void clickOnUserSelect(WebDriver driver) {
 		click(UserTypeSelect, driver);
 	}
-	
-public void doubleClickOnTask(WebDriver driver) {
-	
-	try {
-		String str = getText(recordsCounter, driver);
-		String[] fArr = str.split("of ", 2);
-		String[] sArr = fArr[1].split(" Entries",2);
-		pageCounter = Integer.parseInt(sArr[0].replace(",",""));
-	} catch (Exception e) {
-		pageCounter  = 0;
-	}
-	
-	
-	
-	
-	for (int i = 2; i < 15; i++) {
-		WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
-		WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
 
-		String getData = getValue(data, driver);
-		String getTitel = getValue(titel, driver);
-		taskDetails.put(getTitel.trim(), getData.trim());
+	public void doubleClickOnTask(WebDriver driver) {
+
+		try {
+			String str = getText(recordsCounter, driver);
+			String[] fArr = str.split("of ", 2);
+			String[] sArr = fArr[1].split(" Entries", 2);
+			pageCounter = Integer.parseInt(sArr[0].replace(",", ""));
+		} catch (Exception e) {
+			pageCounter = 0;
 		}
-	doubleClick(taskDetialsFirstRow, driver);
-}
+
+		for (int i = 2; i < 15; i++) {
+			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+
+			String getData = getValue(data, driver);
+			String getTitel = getValue(titel, driver);
+			taskDetails.put(getTitel.trim(), getData.trim());
+		}
+		doubleClick(taskDetialsFirstRow, driver);
+	}
 
 	public Boolean verifyTaskSubpanel(WebDriver driver) {
 		try {
@@ -200,65 +229,61 @@ public void doubleClickOnTask(WebDriver driver) {
 		waitForElementVisibility(saveBtn, "20", driver);
 		click(saveBtn, driver);
 	}
-	
 
 	public void clickOnUserTypeAllTask(WebDriver driver) {
 		click(UserTypeSelect, driver);
 		click(allTaskOption, driver);
 	}
-	
+
 	public void clickOnUserTypeMyTask(WebDriver driver) {
 		click(UserTypeSelect, driver);
 		click(myTaskOption, driver);
 	}
-	
+
 	public void clickOnUserTypeAssignedTask(WebDriver driver) {
 		click(UserTypeSelect, driver);
 		click(assignedTaskOption, driver);
 	}
-	
-	
+
 	public Boolean verifyAllTaskAreShowing(WebDriver driver) {
-		
+
 		waitTime(5000);
 		WebElement item = driver.findElement(By.xpath(creatdBy));
-		
-			if(item.getText().isEmpty())
-				return false;
 
-		
+		if (item.getText().isEmpty())
+			return false;
+
 		return true;
 	}
-	
+
 	public Boolean verifyMyTaskAreShowing(WebDriver driver) {
+try {
+	String currentUserNameTxt = getText(currentUserName, driver);
+
+	Assert.assertEquals(getValue(creatByTxt, driver),currentUserNameTxt);
+
+	return true;
+} catch (Exception e) {
+	return false;
+}
 		
-		String currentUserNameTxt = getText(currentUserName, driver);
-		
-		WebElement item = driver.findElement(By.xpath(creatdBy));
-		
-			if(!item.getText().equals(currentUserNameTxt))
-				return false;
-		
-		return true;
 	}
-	
+
 	public Boolean verifyAssignedTaskAreShowing(WebDriver driver) {
 		try {
 			waitForElementVisibility(noDataTxt, "20", driver);
 
 		} catch (Exception e) {
-			
+
 		}
 		return true;
 	}
 
 	public Boolean verifyFollowingFieldsAreMandatoryAndNonEditableDateAndCreatedBy(WebDriver driver) {
 		try {
+			
 			waitForElementVisibility(dateMandatory, "20", driver);
-			Assert.assertTrue("Verify Date input is Disabeld", isDisabeldCheckAttribute(dateTxt, driver));
-
-			waitForElementVisibility(createdByMandatory, "20", driver);
-			Assert.assertTrue("Verify Facility DropDown is Disabeld", isDisabeldCheckAttribute(creatByTxt, driver));
+			Assert.assertTrue("Verify Facility DropDown is Disabeld", isDisabeldCheckAttribute(dateMandatory, driver));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -274,14 +299,14 @@ public void doubleClickOnTask(WebDriver driver) {
 			typeValDropDown.selectByIndex(1);
 			typeOption = typeValDropDown.getFirstSelectedOption();
 			String typeValueAfter = typeOption.getText();
-			if(!typeValueAfter.equals(typeValueBefore)) {
-				
+			if (!typeValueAfter.equals(typeValueBefore)) {
+
 				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
 
 			} else {
 				typeValDropDown.selectByIndex(2);
 				typeOption = typeValDropDown.getFirstSelectedOption();
-				 typeValueAfter = typeOption.getText();
+				typeValueAfter = typeOption.getText();
 				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
 
 			}
@@ -294,21 +319,20 @@ public void doubleClickOnTask(WebDriver driver) {
 			taskStatusValDropDown.selectByIndex(1);
 			taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
 			String taskStatusValueAfter = taskStatusOption.getText();
-			
-			if(!taskStatusValueAfter.equals(taskStatusValueBefore)) {
+
+			if (!taskStatusValueAfter.equals(taskStatusValueBefore)) {
 				Assert.assertFalse("Verify Task Status DropDown is Editable",
 						taskStatusValueAfter.equals(taskStatusValueBefore));
 			} else {
-				
+
 				taskStatusValDropDown.selectByIndex(2);
 				taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
 				taskStatusValueAfter = taskStatusOption.getText();
 				Assert.assertFalse("Verify Task Status DropDown is Editable",
 						taskStatusValueAfter.equals(taskStatusValueBefore));
 			}
-			
+
 			editTaskStatus = taskStatusValueAfter;
-			
 
 			waitForElementVisibility(assigneeMandatory, "20", driver);
 			Select assigneeValDropDown = new Select(driver.findElement(By.xpath(assigneeDropDown)));
@@ -317,24 +341,24 @@ public void doubleClickOnTask(WebDriver driver) {
 			assigneeValDropDown.selectByIndex(1);
 			assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 			assigneeValueAfter = assigneeOption.getText();
-			
-			if(!assigneeValueAfter.equals(assigneeValueBefore)) {
+
+			if (!assigneeValueAfter.equals(assigneeValueBefore)) {
 				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
 
-			} else{
+			} else {
 				assigneeValDropDown.selectByIndex(2);
 				assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 				assigneeValueAfter = assigneeOption.getText();
 				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
 
 			}
-			
+
 			editTaskAssignee = assigneeValueAfter;
-			
+
 			waitForElementVisibility(dueDateMandatory, "20", driver);
 
 			taskDateSelect = getValue(dueDateDropDown, driver);
-	
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -450,7 +474,7 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyEditTaskTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(editTaskTitle, "20", driver);
@@ -463,7 +487,7 @@ public void doubleClickOnTask(WebDriver driver) {
 	public Boolean verifyColumnSearch(WebDriver driver) {
 		try {
 			for (int i = 1; i <= 13; i++) {
-				WebElement element = driver.findElement(By.xpath("//input[@id='myInput"+i+"']"));
+				WebElement element = driver.findElement(By.xpath("//input[@id='myInput" + i + "']"));
 				waitForElementVisibility(element, "20", driver);
 			}
 			return true;
@@ -471,11 +495,11 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyColumnWiseSort(WebDriver driver) {
 		try {
 			for (int i = 2; i <= 13; i++) {
-				WebElement element = driver.findElement(By.xpath("//thead//tr[1]//th["+i+"]"));
+				WebElement element = driver.findElement(By.xpath("//thead//tr[1]//th[" + i + "]"));
 				waitForElementVisibility(element, "20", driver);
 			}
 			return true;
@@ -483,39 +507,37 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
-	
+
 	public void clickOnAdvanceFilterIcon(WebDriver driver) {
 		click(advanceFilterIcon, driver);
 	}
-	
+
 	public void clickOnAddConditionIcon(WebDriver driver) {
 		click(addConditionButton, driver);
 	}
-	
+
 	public Boolean verifyFieldDropDownHaveAllColumnValues(WebDriver driver) {
 		try {
 			click(advanceFilterField, driver);
 			waitForElementVisibility(fieldOptionCompManager, "20", driver);
 			waitForElementVisibility(fieldOptionCompany, "20", driver);
-			waitForElementVisibility(fieldOptionClientCode, "20", driver);
 			waitForElementVisibility(fieldOptionFacility, "20", driver);
 			waitForElementVisibility(fieldOptionLicenseName, "20", driver);
 			waitForElementVisibility(fieldOptionLicenseNumber, "20", driver);
 			waitForElementVisibility(fieldOptionState, "20", driver);
 			waitForElementVisibility(fieldOptionActivity, "20", driver);
 			waitForElementVisibility(fieldOptionTaskStartDate, "20", driver);
-			waitForElementVisibility(fieldOptionCreatedBy, "20", driver);
 			waitForElementVisibility(fieldOptionTaskType, "20", driver);
-			waitForElementVisibility(fieldOptionTaskStanding, "20", driver);
 			waitForElementVisibility(fieldOptionTaskDueDate, "20", driver);
 			waitForElementVisibility(fieldOptionAssignedTo, "20", driver);
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyOperatorDropDownHasFollowingValues(WebDriver driver) {
 		try {
 			click(advanceFilterOpterator, driver);
@@ -531,7 +553,7 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyTextBoxAllowedEnterText(WebDriver driver) {
 		try {
 			type(advanceFilterValue, "pharma", driver);
@@ -541,20 +563,21 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
+
 	public Boolean verifyUserCanSeeAndOrDropDown(WebDriver driver) {
 		try {
 			click(conditionDropDown, driver);
 			waitForElementVisibility(conditionOptoinAnd, "20", driver);
 			waitForElementVisibility(conditionOptoinOR, "20", driver);
 			waitForElementVisibility(conditionDeleteIcon, "20", driver);
-			
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyUserCanSeeOneOrMoreSetOfField(WebDriver driver) {
 		try {
 			waitForElementVisibility(advanceFilterField1, "20", driver);
@@ -563,92 +586,90 @@ public void doubleClickOnTask(WebDriver driver) {
 
 			click(conditionDeleteIcon, driver);
 
-
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyOnClickOfCloseButtonPopShouldClosed(WebDriver driver) {
 		try {
 			click(advanceFilterCloseButton, driver);
-			if(isElementDisplayed(advanceFilterField, driver))
+			if (isElementDisplayed(advanceFilterField, driver))
 				return false;
-			
-			
+
 			return true;
 
 		} catch (Exception e) {
 			return true;
 		}
 	}
-	
+
 	public Boolean verifyOnClickOfSaveButtonTaskGridIsFiltered(WebDriver driver) {
 		try {
-			
+
 			String str = getText(recordsCounter, driver);
 			String[] fArr = str.split("of ", 2);
-			String[] sArr = fArr[1].split(" Entries",2);
-			int beforeCounter = Integer.parseInt(sArr[0].replace(",",""));
-			
+			String[] sArr = fArr[1].split(" Entries", 2);
+			int beforeCounter = Integer.parseInt(sArr[0].replace(",", ""));
+
 			click(advanceFilterIcon, driver);
-			
+
 			click(advanceFilterField, driver);
 			click(fieldOptionCompany, driver);
 
-			click(advanceFilterOpterator, driver);			
+			click(advanceFilterOpterator, driver);
 			click(operatorOptionContains, driver);
 
 			type(advanceFilterValue, "pharma", driver);
 
-			click(advanceFilterSaveButton, driver);			
-			
+			click(advanceFilterSaveButton, driver);
+
+			WaitForElementDisapper(processingText, driver);
+
 			str = getText(recordsCounter, driver);
 			fArr = str.split("of ", 2);
-			sArr = fArr[1].split(" Entries",2);
-			int afterCounter = Integer.parseInt(sArr[0].replace(",",""));
+			sArr = fArr[1].split(" Entries", 2);
+			int afterCounter = Integer.parseInt(sArr[0].replace(",", ""));
 
-			return beforeCounter>afterCounter;
+			return beforeCounter > afterCounter;
 
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyTaskActivityDetailOnEditPopup(WebDriver driver) {
 		waitTime(9000);
 		try {
-			
-				String getval = getText(companyNameEditTask, driver);
-				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
-				
-				getval = getText(facilityNameEditTask, driver);
-				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
-				
-				getval = getText(stateNameEditTask, driver);
-				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
-				
-				getval = getText(LicenseNameEditTask, driver);
-				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
-				
-				getval = getText(ActivityEditTask, driver);
-				Assert.assertTrue(taskDetails.containsValue(getval.trim()));
-				
-				getval = getText(progressEditTask, driver).trim();
-				if(!taskDetails.containsValue(getval))
-					Assert.assertTrue(getval.equals("Incomplete"));
-				else
-					Assert.assertTrue(taskDetails.containsValue(getval));
-			
-			
+
+			String getval = getText(companyNameEditTask, driver);
+			Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+
+			getval = getText(facilityNameEditTask, driver);
+			Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+
+			getval = getText(stateNameEditTask, driver);
+			Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+
+			getval = getText(LicenseNameEditTask, driver);
+			Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+
+			getval = getText(ActivityEditTask, driver);
+			Assert.assertTrue(taskDetails.containsValue(getval.trim()));
+
+			getval = getText(progressEditTask, driver).trim();
+			if (!taskDetails.containsValue(getval))
+				Assert.assertTrue(getval.equals("Incomplete"));
+			else
+				Assert.assertTrue(taskDetails.containsValue(getval));
+
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
-	
+
 	public Boolean verifyDeleteTaskButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(deleteTaskBtn, "20", driver);
@@ -657,7 +678,7 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyUserRedirectToTaskSubpanel(WebDriver driver) {
 		try {
 			waitForElementVisibility(taskSection, "20", driver);
@@ -666,11 +687,11 @@ public void doubleClickOnTask(WebDriver driver) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyTaskEditedSuccessfully(WebDriver driver) {
 		waitTime(5000);
 		try {
-					
+
 			for (int i = 2; i < 15; i++) {
 				WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
 				WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
@@ -678,23 +699,24 @@ public void doubleClickOnTask(WebDriver driver) {
 				String getData = getValue(data, driver);
 				String getTitel = getValue(titel, driver);
 				taskDetails.put(getTitel.trim(), getData.trim());
-		
-			}			
+
+			}
 			taskDetails.containsValue(editTaskType);
 			taskDetails.containsValue(editTaskStatus);
-			taskDetails.containsValue(editTaskAssignee);			
+			taskDetails.containsValue(editTaskAssignee);
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public void verifyFieldsInSpreadsheetMatchesOnTheTaskGrid(WebDriver driver) throws IOException {
-		int countOfTite=1;
-		int countOfExelSheetTitle=0; 
-		String sheetValue ="";
-		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
-	    File dir = new File(dirPath);
+		int countOfTite = 1;
+		int countOfExelSheetTitle = 0;
+		String sheetValue = "";
+		String dirPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "data" + File.separator + "ExcelFile";
+		File dir = new File(dirPath);
 		File[] dir_contents = dir.listFiles();
 		String fileName = dir_contents[0].getName();
 		Object[][] data = getData(fileName, "Sheet1");
@@ -703,27 +725,29 @@ public void doubleClickOnTask(WebDriver driver) {
 			WebElement title = driver.findElement(By.xpath("//tr[@role='row']//th[" + countOfTite + "]"));
 			String getTitle = getValue(title, driver).trim();
 			sheetValue = data[0][countOfExelSheetTitle].toString().trim();
-			
+
 			if (sheetValue.equals("License Number")) {
-				sheetValue ="License #";
+				sheetValue = "License #";
 			}
 			Assert.assertTrue(sheetValue.equals(getTitle));
 			countOfExelSheetTitle++;
 		}
-		//Delete the Excel file from the directory 	
-		File path = new File(System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
-	    File[] files = path.listFiles();
-	    for (File file : files) {
-	        file.delete();
-	    }
-}
-	
+		// Delete the Excel file from the directory
+		File path = new File(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "data" + File.separator + "ExcelFile");
+		File[] files = path.listFiles();
+		for (File file : files) {
+			file.delete();
+		}
+	}
+
 	public void verifyFieldsInSpreadsheetMatchesOnTheTaskGridNotes(WebDriver driver) throws IOException {
-		int countOfTite=1;
-		int countOfExelSheetTitle=0; 
-		String sheetValue ="";
-		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
-	    File dir = new File(dirPath);
+		int countOfTite = 1;
+		int countOfExelSheetTitle = 0;
+		String sheetValue = "";
+		String dirPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "data" + File.separator + "ExcelFile";
+		File dir = new File(dirPath);
 		File[] dir_contents = dir.listFiles();
 		String fileName = dir_contents[0].getName();
 		Object[][] data = getData(fileName, "Sheet1");
@@ -733,28 +757,27 @@ public void doubleClickOnTask(WebDriver driver) {
 			String getTitle = getValue(title, driver).trim();
 
 			sheetValue = data[0][countOfExelSheetTitle].toString().trim();
-			
+
 			if (sheetValue.equals("License Number")) {
-				sheetValue ="License #";
+				sheetValue = "License #";
 			}
 			Assert.assertTrue(sheetValue.equals(getTitle));
 			countOfExelSheetTitle++;
 		}
-		
-		countOfExelSheetTitle+=2;
+
+		countOfExelSheetTitle += 2;
 		sheetValue = data[0][countOfExelSheetTitle].toString().trim();
 
 		Assert.assertTrue(sheetValue.equals("Task Notes"));
 
-		
-		//Delete the Excel file from the directory 	
-		File path = new File(System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile");
-	    File[] files = path.listFiles();
-	    for (File file : files) {
-	        file.delete();
-	    }
-}
-
+		// Delete the Excel file from the directory
+		File path = new File(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "data" + File.separator + "ExcelFile");
+		File[] files = path.listFiles();
+		for (File file : files) {
+			file.delete();
+		}
+	}
 
 	public void clickOnExportWithNotesButton(WebDriver driver) {
 		waitForElementVisibility(exportNotesButton, "30", driver);
@@ -764,110 +787,307 @@ public void doubleClickOnTask(WebDriver driver) {
 		click(exportNotesButton, driver);
 	}
 
-	public void selectTaskType(int index, WebDriver driver){
-		waitForElementVisibility(taskTypeSelect,"10",driver);
-		Select taskType = new Select(driver.findElement(By.xpath(taskTypeSelect)));
-		taskType.selectByIndex(index);
+	public void rightClickOnTask(WebDriver driver) {
+		Actions actions = new Actions(driver);
+		WebElement elementLocator = driver.findElement(By.xpath(taskDetialsFirstRow));
+		actions.contextClick(elementLocator).perform();
+
 	}
 
-	public void selectTaskStatus(int index, WebDriver driver){
-		waitForElementVisibility(taskStatusSelect,"10",driver);
-		Select taskStatus = new Select(driver.findElement(By.xpath(taskStatusSelect)));
-		taskStatus.selectByIndex(index);
+	public Boolean verifyCustomeMenuOption(WebDriver driver) {
+		try {
+			waitForElementVisibility(showActivityNotes, "20", driver);
+			waitForElementVisibility(showRequirementNotes, "20", driver);
+			waitForElementVisibility(showTaskNotes, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
-	public void selectAssignee(int index, WebDriver driver){
-		waitForElementVisibility(assigneeSelect,"10",driver);
-		Select assignee = new Select(driver.findElement(By.xpath(assigneeSelect)));
-		assignee.selectByIndex(index);
+	public Boolean verifyShowTaskNotesIsActive(WebDriver driver) {
+		try {
+			waitForElementClickable(showTaskNotes, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
-	public void getOpenedTaskData(WebDriver driver){
+	public Boolean verifyShowRequirementNotesIsActive(WebDriver driver) {
+		try {
+			waitForElementClickable(showRequirementNotes, "20", driver);
 
-		WebElement date = driver.findElement(By.xpath(creationDate));
-		Select type = new Select(driver.findElement(By.xpath(taskTypeSelect)));
-		WebElement t = type.getFirstSelectedOption();
-		Select status = new Select(driver.findElement(By.xpath(taskStatusSelect)));
-		WebElement s = status.getFirstSelectedOption();
-		Select assignee = new Select(driver.findElement(By.xpath(assigneeSelect)));
-		WebElement o = assignee.getFirstSelectedOption();
-		WebElement dueDate = driver.findElement(By.xpath(dueDateSelect));
-		//LocalDate currentDate = java.time.LocalDate.now();
-		//String dueDate = reformatDate(currentDate.toString(), "yyyy-MM-dd", "MM-dd-yyyy");
-		openedTask.add(date.getAttribute("value"));
-		openedTask.add(t.getText());
-		openedTask.add(s.getText());
-		openedTask.add(o.getText());
-		openedTask.add(dueDate.getText().replace('/','-'));
-		for(String task : openedTask){
-			System.out.println(task);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyShowRequirementIsGrayedOut(WebDriver driver) {
+		try {
+			WebElement t = driver.findElement(By.xpath(showRequirementNotes));
+
+			String s = t.getCssValue("color");
+			// convert rgba to hex
+			String c = Color.fromString(s).asHex();
+			System.out.println("colorValue:- " + c);
+			Assert.assertTrue(c.equals("#a6a4a4"));
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyShowTaskActivityNotesIsGrayedOut(WebDriver driver) {
+		try {
+			WebElement t = driver.findElement(By.xpath(showTaskNotes));
+
+			String s = t.getCssValue("color");
+			// convert rgba to hex
+			String c = Color.fromString(s).asHex();
+			System.out.println("colorValue:- " + c);
+			Assert.assertTrue(c.equals("#a6a4a4"));
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyTaskNotesPopUp(WebDriver driver) {
+		try {
+			waitForElementVisibility(notesPopup, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Boolean verifyTaskNotesPopUpClose(WebDriver driver) {
+		try {
+			waitForElementVisibility(notesPopup, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyDetailOnTaskNotesPopUp(WebDriver driver) {
+		try {
+			waitForElementVisibility(companyNameEditTask, "20", driver);
+			waitForElementVisibility(facilityNameEditTask, "20", driver);
+			waitForElementVisibility(LicenseNameEditTask, "20", driver);
+			waitForElementVisibility(progressEditTask, "20", driver);
+			waitForElementVisibility(ActivityEditTask, "20", driver);
+			waitForElementVisibility(stateNameEditTask, "20", driver);
+
+			waitForElementVisibility(columnDate, "20", driver);
+			waitForElementVisibility(columnUserName, "20", driver);
+			waitForElementVisibility(columnNote, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyDetailOnRequirementNotesPopUp(WebDriver driver) {
+		try {
+			waitForElementVisibility(companyNameEditTask, "20", driver);
+			waitForElementVisibility(facilityNameEditTask, "20", driver);
+			waitForElementVisibility(LicenseNameEditTask, "20", driver);
+			waitForElementVisibility(stateNameEditTask, "20", driver);
+
+			waitForElementVisibility(columnDate, "20", driver);
+			waitForElementVisibility(columnUserName, "20", driver);
+			waitForElementVisibility(columnNote, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public void clickOnTaskNotes(WebDriver driver) {
+		click(showTaskNotes, driver);
+
+	}
+
+	public void clickOnRequirementNotes(WebDriver driver) {
+		click(showRequirementNotes, driver);
+
+	}
+	
+	public void clickOnActivityNotes(WebDriver driver) {
+		click(showActivityNotes, driver);
+
+	}
+
+	public void clickOnCloseButton(WebDriver driver) {
+		click(closePopUpIcon, driver);
+
+	}
+
+	public void clickOnAddNotesButton(WebDriver driver) {
+		click(addNotesButton, driver);
+
+	}
+
+	public void clickOnSaveNotes(WebDriver driver) {
+		click(saveNotesButton, driver);
+
+	}
+
+	public void typeNotes() {
+
+		type(notesField, notesTitle, driver);
+
+	}
+
+	public void typeNotesLong() {
+
+		type(notesField, notesTitleLong, driver);
+
+	}
+
+	public Boolean verifyTaskNotesSaveSuccessfully(WebDriver driver) {
+		waitTime(3000);
+		try {
+			waitForElementVisibility(taskNotesSaveSuccessfully, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyAddNotesTextField(WebDriver driver) {
+		waitTime(3000);
+		try {
+			waitForElementVisibility(notesField, "20", driver);
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Boolean verifyLatestNotesDisplayingAtTop(WebDriver driver) {
+		waitTime(3000);
+		WebElement p = driver.findElement(By.xpath("(//div[@class='modal-content']//tr[1]//td[3])//p"));//.findElement(By.xpath("//p"));
+
+		try {
+			System.out.println("--"+p.getText());
+			if(notesTitleLong.equals(p.getText()))
+				return true;
+			
+			assertTrue(notesTitle.equals(p.getText()));
+			
+			return true;
+		} catch (Exception e) {
+		
+			return false;
+		}
+	}
+
+	public void clickOnNote(WebDriver driver) {
+		click(latestNotes, driver);
+
+	}
+	public void doubleClickOnFirstNote(WebDriver driver) {
+		doubleClick(latestNotes, driver);
+
+	}
+	public void doubleClickOnSecondNote(WebDriver driver) {
+		doubleClick(secondLatestNotes, driver);
+
+	}
+	public void clickOnNoteClose(WebDriver driver) {
+		try {
+			click(notesPopUpCloseButton, driver);
+
+		} catch (Exception e) {
+			clickJs(notesPopUpCloseButton, driver);
 		}
 
 	}
+	public void clickOnNoteCloseIcon(WebDriver driver) {
+		try {
+			click(notesPopUpCloseIcon, driver);
 
-	public void clickOnSaveTasksButton(WebDriver driver) {
-		waitForElementVisibility(saveTaskButton,"10",driver);
-		click(saveTaskButton, driver);
-	}
-
-	public boolean verifyThatTheNewlyCreatedTaskIsAdded(WebDriver driver){
-		System.out.println("Verifying has been started");
-		waitForElementVisibility(tasks,"10",driver);
-		WebElement date = driver.findElement(By.xpath(tasks+"/div[1]/div[1]/p[2]"));
-		WebElement type = driver.findElement(By.xpath(tasks+"/div[1]/div[2]/p[2]"));
-		WebElement taskStatus = driver.findElement(By.xpath(tasks+"/div[1]/div[3]/p[2]"));
-		WebElement assignee = driver.findElement(By.xpath(tasks+"/div[1]/div[4]/p[2]"));
-		WebElement dueDate = driver.findElement(By.xpath(tasks+"/div[2]/div[1]/p[2]"));
-		task.add(date.getText());
-		task.add(type.getText());
-		task.add(taskStatus.getText());
-		task.add(assignee.getText());
-		task.add(dueDate.getText());
-		System.out.println("All elements were added");
-		for(String s : task){
-			System.out.println(s);
+		} catch (Exception e) {
+			clickJs(notesPopUpCloseIcon, driver);
 		}
-		return openedTask.retainAll(task);
-	}
 
-	public void openEditableTask(WebDriver driver){
-		waitForElementVisibility(editableTask,"10",driver);
-		doubleClick(editableTask,driver);
 	}
+	public Boolean verifyNoteColorIntoGold(WebDriver driver) {
+		try {
+			WebElement t = driver.findElement(By.xpath(latestNotes));
 
-	public boolean verifyThatTheTaskWasEdited(WebDriver driver){
-		System.out.println("Verifying has been started");
-		waitForElementVisibility(tasks,"10",driver);
-		WebElement date = driver.findElement(By.xpath("("+tasks+"/div[1]/div[1]/p[2])[last()]"));
-		WebElement type = driver.findElement(By.xpath("("+tasks+"/div[1]/div[2]/p[2])[last()]"));
-		WebElement taskStatus = driver.findElement(By.xpath("("+tasks+"/div[1]/div[3]/p[2])[last()]"));
-		WebElement assignee = driver.findElement(By.xpath("("+tasks+"/div[1]/div[4]/p[2])[last()]"));
-		WebElement dueDate = driver.findElement(By.xpath("("+tasks+"/div[2]/div[1]/p[2])[last()]"));
-		task.add(date.getText());
-		task.add(type.getText());
-		task.add(taskStatus.getText());
-		task.add(assignee.getText());
-		task.add(dueDate.getText());
-		System.out.println("All elements were added");
-		for(String s : task){
-			System.out.println(s);
+			String s = t.getCssValue("background-color");
+			// convert rgba to hex
+			String c = Color.fromString(s).asHex();
+			System.out.println("colorValue:- " + c);
+			Assert.assertTrue(c.equals("#eddca9"));
+
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		System.out.println(openedTask.retainAll(task));
-		return openedTask.retainAll(task);
+	}
+	public Boolean verifySecondNoteColorIntoGold(WebDriver driver) {
+		try {
+			WebElement t = driver.findElement(By.xpath(secondLatestNotes));
+
+			String s = t.getCssValue("background-color");
+			// convert rgba to hex
+			String c = Color.fromString(s).asHex();
+			System.out.println("colorValue:- " + c);
+			Assert.assertFalse(c.equals("#eddca9"));
+
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	public Boolean verifyLatestNotesDisplayingAccordingToFormat(WebDriver driver) {
+		waitTime(3000);
+		try {
+			
+		    new SimpleDateFormat("MM-dd-yyyy").parse(getText(latestNotesDate, driver));  
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Boolean verifyNotesDisplayingAccordingToDecendingOrder(WebDriver driver) {
+		waitTime(3000);
+		List<WebElement> rows  = driver.findElements(By.xpath(dateRows));
+		if(rows.size()==0)
+			return true;
+		try {
+			Date latestDate = new SimpleDateFormat("MM-dd-yyyy").parse(rows.get(0).getText());
+			for(WebElement item : rows) {
+				Date  date = new SimpleDateFormat("MM-dd-yyyy").parse(item.getText());
+				assertTrue(date.compareTo(latestDate)<=0);
+			}
+		      
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public void clickOnDeleteTasksButton(WebDriver driver) {
-		waitForElementVisibility(deleteTaskButton,"10",driver);
-		click(deleteTaskButton, driver);
-	}
-
-	public void clickOnConfirmDeletionButton(WebDriver driver) {
-		waitForElementVisibility(confirmTaskDeletionButton,"10",driver);
-		click(confirmTaskDeletionButton, driver);
-	}
-
-	public boolean verifyThePopUpMessage(String message,WebDriver driver){
-		waitForElementVisibility(popUpMessage,"10",driver);
-		return getText(popUpMessage,driver).contains(message);
-	}
 }

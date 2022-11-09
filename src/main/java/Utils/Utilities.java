@@ -49,6 +49,13 @@ public class Utilities extends Waits {
 
 	}
 
+	public static void waitForElementClickable(String xpath, String timeoutInSeconds, WebDriver driver) {
+		WebElement element = driver.findElement(By.xpath(xpath));
+		WebDriverWait waitClickable = new WebDriverWait(driver, Long.parseLong(timeoutInSeconds));
+		waitClickable.until(ExpectedConditions.elementToBeClickable(element));
+
+	}
+	
 	public static void type(WebElement element, String value, WebDriver driver) {
 		waitUntilElementDisplayed(element, driver);
 		element.clear();
@@ -211,6 +218,19 @@ public class Utilities extends Waits {
 		Waits.wait5s();
 
 	}
+	
+	public static void type(String xpath, WebDriver driver, String val,String attributeName) {
+		Waits.wait5s();
+		WebElement element = driver.findElement(By.xpath(xpath));
+		System.out.println("click: Js ");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		System.out.println("click: js ");
+		js.executeScript("arguments[0].setAttribute('"+attributeName+"', '"+val+"');", element);
+		Waits.wait5s();
+
+	}
+	
+	
 
 	public static void scrollIntoViewSmoothly(WebElement Element, WebDriver driver) {
 		JavascriptExecutor je = (JavascriptExecutor) driver;

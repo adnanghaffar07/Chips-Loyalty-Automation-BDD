@@ -1,13 +1,32 @@
 package StepDefinations;
 
+import java.io.ByteArrayInputStream;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import java.io.File;
+import java.io.IOException;
+
+import Constants.Constants;
+import Pages.ActivitesGridPage;
+import Pages.ChangePasswordPage;
+import Pages.DashboardPage;
+import Pages.LicenseGridPage;
+import Pages.LoginPage;
 import Pages.TasksPage;
 import Utils.BaseClass;
+import io.cucumber.java.After;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-
-import java.io.IOException;
+import static org.junit.Assert.*;
+import io.qameta.allure.Allure;
+import org.apache.commons.io.FileUtils;
 
 public class TasksSteps extends BaseClass {
 	TasksPage tasksPage = new TasksPage(driver);
@@ -23,7 +42,7 @@ public class TasksSteps extends BaseClass {
 		Assert.assertTrue(tasksPage.verifyTaskSubpanel(driver));
 	}
 	
-	@And("^I click on go to tasks license activities button$")
+	@And("^I click on go to tasks requirement activities button$")
 	public void clickOngoToTaskLicenseActivitiesButton() {
 		tasksPage.clickOnGoToTaskLicenseActivitiesButton(driver);
 	}
@@ -58,7 +77,7 @@ public class TasksSteps extends BaseClass {
 		tasksPage.clickOnSaveButton(driver);
 	}
 	
-	@Then("^I see the modified license activity is listed in the license activity grid$")
+	@Then("^I see the modified requirement activity is listed in the requirement activity grid$")
 	public void verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid(driver));
 	}
@@ -188,6 +207,7 @@ public class TasksSteps extends BaseClass {
 	public void doubleClickOnTask() {
 		tasksPage.doubleClickOnTask(driver);
 	}
+	
 	@Then("^I see header section display chosen activity details$")
 	public void verifyTaskActivityDetailOnEditPopup() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyTaskActivityDetailOnEditPopup(driver));
@@ -216,55 +236,81 @@ public class TasksSteps extends BaseClass {
 	public void verifyFieldsInSpreadsheetMatchesOnTheLicensesGridNotes() throws IOException {
 		tasksPage.verifyFieldsInSpreadsheetMatchesOnTheTaskGridNotes(driver);
 	}
-	@Then("I populate required fields on the add task section")
-	public void iPopulateRequiredFieldsOnTheAddTaskSection() {
-		tasksPage.selectTaskStatus(2,driver);
-		tasksPage.selectTaskType(2,driver);
-		tasksPage.selectAssignee(2,driver);
-		tasksPage.getOpenedTaskData(driver);
+	@Then("^I right click on line item$")
+	public void rightClickOnLineItem() {
+		tasksPage.rightClickOnTask(driver);
 	}
-
-	@Then("I click on the save task button")
-	public void iClickOnTheSaveTaskButton() {
-		tasksPage.clickOnSaveTasksButton(driver);
+	@And("^I verify custome menu options$")
+	public void verifyCustomeMenuOptions() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyCustomeMenuOption(driver));
 	}
-
-	@Then("I verify that the new task is added")
-	public void iVerifyThatTheNewTaskIsAdded() {
-		Assert.assertTrue(tasksPage.verifyThatTheNewlyCreatedTaskIsAdded(driver));
+	@And("^I verify show task notes is active$")
+	public void verifyShowRequirementIsActive() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyShowTaskNotesIsActive(driver));
 	}
-
-	@When("I double click on editable task")
-	public void iDoubleClickOnEditableTask() {
-		tasksPage.openEditableTask(driver);
+	
+	@And("^I verify show requriement and activity notes grayed out$")
+	public void verifyShowRequirementIsGrayedOut() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyShowRequirementIsGrayedOut(driver));
 	}
-
-	@Then("I edit the task fields")
-	public void iEditTheTaskFields() {
-		tasksPage.selectTaskStatus(4,driver);
-		tasksPage.selectTaskType(4,driver);
-		tasksPage.selectAssignee(4,driver);
-		tasksPage.getOpenedTaskData(driver);
+	
+	@And("^I verify Task notes pop up is displaying$")
+	public void verifyTaskNotesPopUp() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTaskNotesPopUp(driver));
 	}
-
-	@Then("I verify that the task was edited")
-	public void iVerifyThatTheTaskWasEdited() {
-		tasksPage.verifyThatTheTaskWasEdited(driver);
+	
+	
+	@And("^I verify detail on task notes pop up window$")
+	public void verifyDetailOnTaskNotesPopUp() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyDetailOnTaskNotesPopUp(driver));
 	}
-
-	@Then("I delete the task")
-	public void iDeleteTheTask() {
-		tasksPage.clickOnDeleteTasksButton(driver);
-		tasksPage.clickOnConfirmDeletionButton(driver);
+	
+	@Then("^I click on task notes$")
+	public void clickOnTaskNotes() {
+		tasksPage.clickOnTaskNotes(driver);
 	}
-
-	@And("I see {string} message")
-	public void iSeeMessage(String message) {
-		Assert.assertTrue(tasksPage.verifyThePopUpMessage(message,driver));
+	
+	@Then("^I click on task notes close$")
+	public void clickOnCloseButton() {
+		tasksPage.clickOnCloseButton(driver);
 	}
-
-	@Then("I verify that the task is deleted")
-	public void iVerifyThatTheTaskIsDeleted() {
-
+	
+	@Then("^I click on task notes close icon$")
+	public void clickOnNoteCloseIcon() {
+		tasksPage.clickOnNoteCloseIcon(driver);
 	}
+	
+	@And("^I verify Task notes pop up is close$")
+	public void verifyTaskNotesPopUpIsClose() throws InterruptedException {
+		Assert.assertFalse(tasksPage.verifyTaskNotesPopUp(driver));
+	}
+	
+	@Then("^I click on add notes$")
+	public void clickOnAddNotesButton() {
+		tasksPage.clickOnAddNotesButton(driver);
+	}
+	@Then("^I add notes$")
+	public void typeNotes() {
+		tasksPage.typeNotes();
+	}
+	@Then("^I add four lines$")
+	public void typeNotesLong() {
+		tasksPage.typeNotesLong();
+	}
+	
+	@Then("^I click on save notes$")
+	public void clickOnSaveNotes() {
+		tasksPage.clickOnSaveNotes(driver);
+	}
+	
+	@And("^I verify task notes save successfully$")
+	public void verifyTaskNotesSaveSuccessfully() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyTaskNotesSaveSuccessfully(driver));
+	}
+	
+	@And("^I verify text area with add notes label$")
+	public void verifyAddNotesTextField() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyAddNotesTextField(driver));
+	}
+	
 }
