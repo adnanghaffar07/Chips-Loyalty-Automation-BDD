@@ -632,7 +632,7 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyOnlyTheIncompleteLicensesForTheSelectedGlobalFilterValuesShouldBeShownInTheGrid(
 			WebDriver driver) {
 		ArrayList<String> taskStatus = new ArrayList<String>();
-		taskStatus.add("Incomplete");taskStatus.add("Pending Funds");taskStatus.add("Internal Pending");taskStatus.add("External Pending");taskStatus.add("Board Pending");taskStatus.add("On Hold");
+		taskStatus.add("Incomplete");taskStatus.add("Mailroom");taskStatus.add("Pending Funds");taskStatus.add("Internal Pending");taskStatus.add("External Pending");taskStatus.add("Board Pending");taskStatus.add("On Hold");
 		waitTime(7000);
 		try {
 			for (int i = 1; i < taskIncompleteStatusList.length(); i++) {

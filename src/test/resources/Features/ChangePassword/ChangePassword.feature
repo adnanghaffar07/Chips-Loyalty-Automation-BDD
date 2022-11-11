@@ -1,7 +1,6 @@
 Feature: ChangePassword
 
   Scenario: Step_9_As a user i check for change password screen loading for new users
-  Given Visit the app url and login
     Then I click on dashboard grid
     And I see atlas main page
     Then I click on profile name drop down

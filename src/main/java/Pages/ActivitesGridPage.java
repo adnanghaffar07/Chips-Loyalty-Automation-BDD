@@ -764,7 +764,11 @@ public class ActivitesGridPage extends BaseClass {
 	    File dir = new File(dirPath);
 	    File[] dir_contents = dir.listFiles();
 	    String fileName = dir_contents[0].getName();
-		
+	    
+	    if(dir_contents[0]!=null)
+	    	System.out.println("File Name: "+fileName);
+	    else
+	    	System.out.println("Message: Directory is null");
 		Object[][] data = getData(fileName, "Sheet1");
 		
 		if(data.length==(defaultItem+1))
