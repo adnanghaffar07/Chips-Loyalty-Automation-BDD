@@ -149,14 +149,8 @@ public class BaseClass extends Utilities {
 	}
 	
 	public Object[][] getData(String filename, String SheetName) {
-		ExcelReader excel;
-		if (System.getProperty("os.name").contains("Windows")) {
-			 excel = new ExcelReader(
-						System.getProperty("user.dir") + "\\src\\test\\resources\\data\\ExcelFile\\" + filename);
-		}else {
-			excel = new ExcelReader(
-				System.getProperty("user.dir") + "/src/test/resources/data/" + filename + ".xlsx");
-		}
+		ExcelReader excel = new ExcelReader(
+						System.getProperty("user.dir") +File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile"+File.separator+ filename);
 		int rows = excel.getRowCount(SheetName);
 		int columns = excel.getColumnCountAtRow(SheetName,1);
 		System.out.println("Rows: "+rows+"\nColumns:"+columns);
