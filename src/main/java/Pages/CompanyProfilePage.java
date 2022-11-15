@@ -553,6 +553,11 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void selectDisciplineIssuedToDropDown(WebDriver driver) {
+		try {
+			waitfor3sec();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		waitForElementVisibility(disciplineIssuedToDropDown, "30", driver);
 		Select selectDisciplineIssuedTo = new Select(driver.findElement(By.xpath(disciplineIssuedToDropDown)));
 		wait6s();
