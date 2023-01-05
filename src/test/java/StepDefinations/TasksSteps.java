@@ -311,6 +311,5 @@ public class TasksSteps extends BaseClass {
 	@And("^I verify text area with add notes label$")
 	public void verifyAddNotesTextField() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyAddNotesTextField(driver));
-	}
-	
+	}	
 }

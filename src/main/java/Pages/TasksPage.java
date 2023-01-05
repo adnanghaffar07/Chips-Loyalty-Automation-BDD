@@ -296,7 +296,8 @@ try {
 			Select typeValDropDown = new Select(driver.findElement(By.xpath(typeDropDown)));
 			WebElement typeOption = typeValDropDown.getFirstSelectedOption();
 			String typeValueBefore = typeOption.getText();
-			typeValDropDown.selectByIndex(1);
+			typeValDropDown.selectByIndex(2);
+			waitTime(3000);
 			typeOption = typeValDropDown.getFirstSelectedOption();
 			String typeValueAfter = typeOption.getText();
 			if (!typeValueAfter.equals(typeValueBefore)) {
@@ -304,7 +305,7 @@ try {
 				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
 
 			} else {
-				typeValDropDown.selectByIndex(2);
+				typeValDropDown.selectByIndex(4);
 				typeOption = typeValDropDown.getFirstSelectedOption();
 				typeValueAfter = typeOption.getText();
 				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
@@ -316,7 +317,8 @@ try {
 			Select taskStatusValDropDown = new Select(driver.findElement(By.xpath(taskStatusDropDown)));
 			WebElement taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
 			String taskStatusValueBefore = taskStatusOption.getText();
-			taskStatusValDropDown.selectByIndex(1);
+			taskStatusValDropDown.selectByIndex(2);
+			waitTime(3000);
 			taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
 			String taskStatusValueAfter = taskStatusOption.getText();
 
@@ -325,7 +327,7 @@ try {
 						taskStatusValueAfter.equals(taskStatusValueBefore));
 			} else {
 
-				taskStatusValDropDown.selectByIndex(2);
+				taskStatusValDropDown.selectByIndex(4);
 				taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
 				taskStatusValueAfter = taskStatusOption.getText();
 				Assert.assertFalse("Verify Task Status DropDown is Editable",
@@ -338,7 +340,8 @@ try {
 			Select assigneeValDropDown = new Select(driver.findElement(By.xpath(assigneeDropDown)));
 			WebElement assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 			String assigneeValueBefore = assigneeOption.getText();
-			assigneeValDropDown.selectByIndex(1);
+			assigneeValDropDown.selectByIndex(2);
+			waitTime(3000);
 			assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 			assigneeValueAfter = assigneeOption.getText();
 
@@ -346,7 +349,7 @@ try {
 				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
 
 			} else {
-				assigneeValDropDown.selectByIndex(2);
+				assigneeValDropDown.selectByIndex(4);
 				assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 				assigneeValueAfter = assigneeOption.getText();
 				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));

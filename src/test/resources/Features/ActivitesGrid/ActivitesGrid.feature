@@ -14,8 +14,7 @@ Feature: ActivitesGrid
 		Then I select complete only from requirement progress dropdown
 		And I see the requirements activities are filtered based on the chosen requirement progress complete only
 		Then I select all from requirement progress dropdown
-		And I see the requirements activities are filtered based on the chosen requirement progress all
-    
+		And I see the requirements activities are filtered based on the chosen requirement progress all    
     
     Scenario: Step_36_As a user i click on the advanced filters on activities grid search icon and users can view the pop up which should have the following
     Then I click on dashboard grid
@@ -34,8 +33,7 @@ Feature: ActivitesGrid
 		And I see dropdown have AND OR value and with the delete button
 		And I see field dropdown operator dropdown and value text filed
 		And I click on advance filters close button
-		And I see advance filters is closed
-		
+		And I see advance filters is closed		
 		
 		Scenario: Step_33_As a user i validate the following sections and tabs and grid records are visible on the Activities Grid
     Then I click on dashboard grid
@@ -51,8 +49,7 @@ Feature: ActivitesGrid
 		And I see url icon for each requirement in the grid
 		And I see call the log icon
 		Then I see add activity button
-		Then I see requirement progress filter default dropdown value section should be incomplete only
-				
+		Then I see requirement progress filter default dropdown value section should be incomplete only				
 		
 		Scenario: Step_38_As a user i click the url icon for the requirements
     Then I click on dashboard grid
@@ -91,9 +88,7 @@ Feature: ActivitesGrid
 		Then I click on communication log button
 		Then I double click on existing call log entries and user is allowed to view call log entries
 		And I see the type and date fields are mandatory
-		Then I click on save button and verify the modified values saved successfully
-
-		
+		Then I click on save button and verify the modified values saved successfully		
 		
 		Scenario: Step_42_As a user i validate Edit requirement Activity popup
     Then I click on dashboard grid
@@ -171,8 +166,7 @@ Feature: ActivitesGrid
 		And I see activities page title
 		And I click on export button
 		And I see the count of selected rows in excel sheet
-		And I see fields in spreadsheet matches on the requirements grid
-	
+		And I see fields in spreadsheet matches on the requirements grid	
 	
 	  Scenario: Step_55_As a user i validate click the advanced filters icon
     Then I click on dashboard grid
@@ -186,7 +180,6 @@ Feature: ActivitesGrid
 		Then I see user can see one or more field
 		Then I see on click of close button pop up closed
 		Then I see on click of save button grid is filtered
-
 		
 		Scenario: Step_23_As a user i mouse over on the i icon for the status and activity column header
     Then I click on dashboard grid
@@ -194,8 +187,6 @@ Feature: ActivitesGrid
 		And I see requirement Page Title
 		And I hover mouse on status i icon and i see tool tip
 		And I hover mouse on active i icon and i see tool tip
-
-
 
 		Scenario: Step_48_As a user i validate add tasks popup
 		Then I click on dashboard grid
@@ -212,7 +203,7 @@ Feature: ActivitesGrid
 		Then I see the modified requirement activity is listed in the requirement activity grid
 
     Scenario: Step_115_As a user i verify selected notes color turned into gold on activity grid
-     		Then I click on dashboard grid
+     Then I click on dashboard grid
     Then I click on activities grid
     Then I right click on line item
     Then I verify custome menu options
@@ -300,7 +291,7 @@ Feature: ActivitesGrid
    	Then I click on task notes close icon
    	And I verify Task notes pop up is close
    
-       Scenario: Step_123_As a user is not able to select nay other activities notes line item if License Notes expanded
+    Scenario: Step_123_As a user is not able to select nay other activities notes line item if License Notes expanded
  		Then I click on dashboard grid
     Then I click on activities grid
     Then I right click on line item

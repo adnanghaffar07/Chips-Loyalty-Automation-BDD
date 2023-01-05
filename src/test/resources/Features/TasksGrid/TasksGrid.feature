@@ -22,14 +22,12 @@ Feature: TasksGrid
 		And I see the call log popoup close X icon button
 		And I see the call log popoup entries
 		And I see the call log popoup global search
-			And I click on Add call Log button
+		And I click on Add call Log button
 		Then I click on save button and verify the new entries are listed in the existing communication logs grid
-				Then I click on communication log button
+		Then I click on communication log button
 		Then I double click on existing call log entries and user is allowed to view call log entries
 		And I see the type and date fields are mandatory
-		Then I click on save button and verify the modified values saved successfully
-	
-		
+		Then I click on save button and verify the modified values saved successfully		
 		
 		Scenario: Step_59_As a user i verify reset filter works in the requirements tasks grid
     Then I click on dashboard grid
@@ -83,8 +81,7 @@ Feature: TasksGrid
     Then I see show all links on task grid
     Then I see column wise sort for each column in the grid
     And I double click on requirement detail
-    Then I see edit tasks on double click of each task in the grid
-    
+    Then I see edit tasks on double click of each task in the grid    
     
     Scenario: Step_50_As a user i validate delete tasks feature
     Then I click on dashboard grid
@@ -98,8 +95,7 @@ Feature: TasksGrid
     And I double click on requirement detail
     And I click on delete button
     Then I click on cancel button on delete popup
-    And I see the requirement details records not deleted
-    
+    And I see the requirement details records not deleted    
 
     Scenario: Step_54_As a user i validate select the below values in the all tasks my tasks
     Then I click on dashboard grid
@@ -119,9 +115,8 @@ Feature: TasksGrid
 		Then I enter two characters in column search filter on task grid page
 		Then I see the requirements activities are filtered based on the entered column wise search keywords on task grid page
 		
-		
-		Scenario:49 a user i Validate edit tasks popup
-    Then I click on dashboard grid
+		Scenario: Step_49_A User i Validate edit tasks popup
+		Then I click on dashboard grid
     Then I click on tasks grid
     And I double click on task detail
     Then I see header section display chosen activity details
@@ -144,8 +139,7 @@ Feature: TasksGrid
     Then I click on tasks grid
 		And I click on export with notes button
 		And I see the count of selected rows in excel sheet
-		And I see fields in spreadsheet matches on the task grid notes
-		
+		And I see fields in spreadsheet matches on the task grid notes		
 		
 		Scenario: Step_90_As a user i verify custom menu options for the task grid
 		Then I click on dashboard grid

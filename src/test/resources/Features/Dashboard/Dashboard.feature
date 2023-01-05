@@ -15,16 +15,13 @@ Feature: Dashboard
     And I see dashboard grid
     And I see the right menu items are enabled
     
-
-    
     Scenario: Step_17_As a user i select client, company facility value in a drop-down
     Then I click on dashboard grid
     And I see dashboard grid
     Then I Select Client, Company Facility value in a dropdown
     And I see filter to revert client, company, facility to all
     Then I click active requirement kpi
-    And I see kpi reflects in grid
-    
+    And I see kpi reflects in grid    
 
   Scenario: Step_16_As a user i check for dashboard load conditions after the successful login
     Then I click on dashboard grid

@@ -421,8 +421,5 @@ public class DashboardSteps extends BaseClass {
 	public void verifyRightMenuItemsAreEnabledDisabled() {
 		Assert.assertTrue(dashboardPage.verifyRightMenuItemsAreEnabledDisabled(driver));
 		
-	}
-	
-	
-	
+	}	
 }

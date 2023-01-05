@@ -10,8 +10,7 @@ Feature: CompanyProfile
 		Then I see search text field
 		And I see plus icon on right side
 		And I see each column wise sort
-		Then I see view details button
-		
+		Then I see view details button		
 		
 		Scenario: Step_66_As a user i verify that user is able to add client profile
 		Then I click on dashboard grid
@@ -36,8 +35,7 @@ Feature: CompanyProfile
 		And I see the company profile page title
 		Then I click on view details button
 		Then I see sub tabs with the title client projects contacts and disciplines
-		Then I see client tab should be opened by default
-		
+		Then I see client tab should be opened by default		
 		
 		Scenario: Step_72_As a user i verify that user is able to edit data in client form
 		Then I click on dashboard grid
@@ -57,9 +55,7 @@ Feature: CompanyProfile
 		Then I click on view details button
 		Then I click on edit button
 		Then I click on projects tab
-		Then I see user is not able to switch to any other tab
-		
-		
+		Then I see user is not able to switch to any other tab		
 		
 		Scenario: Step_74_As a user i verify that user is able to see company dropdown section
 		Then I click on dashboard grid
@@ -133,7 +129,6 @@ Feature: CompanyProfile
 		Then I click on discipline save button
 		And I see discipline save success popup and click on ok button
 		And I see newly added discipline saved successfully
-
 
 		Scenario: Step_71_As a user i verify that user is able to click on the client projects contacts and disciplines tabs
 		Then I click on dashboard grid
@@ -264,7 +259,6 @@ Feature: CompanyProfile
 		Then I click on company save button
 		And I see company save success popup and click on ok button
 		And I see the newly added company is reflected under the company dropdown section
-
     
     Scenario: Step_86_As a user i verify that user is able to add project in the company
 		Then I click on dashboard grid
@@ -284,8 +278,7 @@ Feature: CompanyProfile
 		And I enter project description
 		Then I click on project save button
 		And I see project save success popup and click on ok button
-		And I see newly added project saved successfully
-		
+		And I see newly added project saved successfully		
 		
 		Scenario: Step_87_As a user i verify that user is able to add contact in the company
     Then I click on dashboard grid
@@ -305,9 +298,7 @@ Feature: CompanyProfile
 		Then I select contact status
 		Then I click on contacts save button
 		And I see contact save success popup and click on ok button
-		And I see newly added contact saved successfully
-
-		
+		And I see newly added contact saved successfully		
 		
 		Scenario: Step_89_As a user i verify that user is able to add vendors in the company		
     Then I click on dashboard grid

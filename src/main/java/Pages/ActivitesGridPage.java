@@ -473,11 +473,17 @@ public class ActivitesGridPage extends BaseClass {
 		WebElement element = driver.findElement(By.xpath(activityStartDatePicer));
 		try {
 
-			
 			LocalDate currentDate = java.time.LocalDate.now();
-			element.sendKeys(Integer.toString(currentDate.getMonthValue()));
-			element.sendKeys(Integer.toString(currentDate.getDayOfMonth()));
-			element.sendKeys(Integer.toString(currentDate.getYear()));
+//			element.sendKeys(Integer.toString(currentDate.getYear()));
+//			pressTABKey(activityStartDatePicer, driver);
+//			element.sendKeys(Integer.toString(currentDate.getMonthValue()));
+//			pressTABKey(activityStartDatePicer, driver);
+//			element.sendKeys(Integer.toString(currentDate.getDayOfMonth()));
+			
+			type(activityStartDatePicer,"00"+currentDate.toString(), driver);
+//			type(activityStartDatePicer,Integer.toString(currentDate.getMonthValue()), driver);
+//			type(activityStartDatePicer,Integer.toString(currentDate.getMonthValue()), driver);
+			
 
 //			type(activityStartDatePicer,Integer.toString(currentDate.getMonthValue()), driver);
 //			type(activityStartDatePicer,Integer.toString(currentDate.getDayOfMonth()), driver);
@@ -486,14 +492,13 @@ public class ActivitesGridPage extends BaseClass {
 //			type(activityStartDatePicer,Integer.toString(currentDate.getYear()), driver);
 ////			
 
-
-			
 			String dayOfMonth = currentDate.getDayOfMonth() < 10 ? "0"+currentDate.getDayOfMonth() : currentDate.getDayOfMonth()+"";
 			replaceVale = currentDate.getMonthValue()+"-"+dayOfMonth+"-"+currentDate.getYear();
 			
 			waitTime(10000);
-			waitDateXpath = "(//td[text()='"+replaceVale+"'])[1]";
-			waitForElementVisibility(waitDateXpath, "300", driver);
+				waitDateXpath = "(//td[text()[contains(.,'"+replaceVale+"')]])[1]";
+				waitForElementVisibility(waitDateXpath, "300", driver);				
+			
 			String activity = getValueFromAttribute(activityOnGrid, driver).trim();
 			System.out.println(activity+"---"+licenseActivityValue);
 

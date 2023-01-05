@@ -7,8 +7,7 @@ Feature: Login
     And I see login page title 
 
  	  Scenario: Step_1_As a user i enter valid Atlas URL
-    When I see login page title
-    
+    When I see login page title    
     
     Scenario: Step_2_As a user i validate the following items Logo Input fields buttons and Link
     When I see login page title
@@ -34,8 +33,7 @@ Feature: Login
     Scenario: Step_4_As a user i Enter value in the Password field and password value dots or asterisks
     When I see login page title
     And I enter password "TestQa@#1234"
-    And I see password value displayed dots Or asterisks characters
-    
+    And I see password value displayed dots Or asterisks characters    
     
     Scenario: Step_3_As a user i verify validation message should be shown in the respective fields
     When I see login page title

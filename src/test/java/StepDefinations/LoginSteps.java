@@ -66,8 +66,7 @@ public class LoginSteps extends BaseClass {
 			emailVerificationPage.clickOnValidationSubmitButton(driver);
 		}
 		
-		loginPage.clickOnSessionPopupCancelButton(driver);
-		
+		loginPage.clickOnSessionPopupCancelButton(driver);		
 	}
 
 	@Then("^Close Browser$")

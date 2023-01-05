@@ -145,8 +145,7 @@ public class CompanyProfileSteps extends BaseClass {
 	@Then("^I click on plus icon on right side$")
 	public void clickOnPlusIconOnRightSide() {
 		companyProfilePage.clickOnPlusIconOnRightSide(driver);
-	}
-	
+	}	
 	
 	@Then("^I click on view details button$")
 	public void clickOnViewDetailsButton() {
@@ -241,8 +240,7 @@ public class CompanyProfileSteps extends BaseClass {
 	
 	@And("^I enter client name in column search$")
 	public void enterClientNameInColumnSearch() {
-		companyProfilePage.enterClientNameInColumnSearch(driver);
-	
+		companyProfilePage.enterClientNameInColumnSearch(driver);	
 	}
 	
 	@Then("^I click on projects tab$")

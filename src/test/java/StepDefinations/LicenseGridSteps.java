@@ -250,8 +250,7 @@ public class LicenseGridSteps extends BaseClass {
 	@Then("^I click on success popup ok button$")
 	public void clickOnSuccessPopupOkButton() {
 		licenseGridPage.clickOnSuccessPopupOkButton(driver);
-	}
-	
+	}	
 
 	@And("^I see the newly added requirement is listed in the requirement grid$")
 	public void verifyTheNewlyAddedLicenseIsListedInTheLicenseGrid() {
@@ -515,8 +514,7 @@ public class LicenseGridSteps extends BaseClass {
 	@And("^I verify notes displaying according to MM-dd-yyyy format$")
 	public void verifyLatestNotesDisplayingAccordingToFormat() throws InterruptedException {
 		Assert.assertTrue(tasksPage.verifyLatestNotesDisplayingAccordingToFormat(driver));
-	}
-	
+	}	
 	
 	@And("^I verify notes displaying according to the decending order$")
 	public void verifyNotesDisplayingAccordingToDecendingOrder() {
@@ -537,5 +535,4 @@ public class LicenseGridSteps extends BaseClass {
 	public void clickOnYesAlertMessage() {
 		licenseGridPage.clickOnYesAlertMessage(driver);
 	}
-
 }

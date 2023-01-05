@@ -1,7 +1,7 @@
 Feature: LicenseGrid
 		
 		Scenario: Step_25_As a user i verify Add and view pdf icon
-    Then I click on dashboard grid
+		Then I click on dashboard grid
     Then I click on requirements grid
 		And I see requirement Page Title
 		Then I click on upload requirement pdf button
@@ -52,8 +52,8 @@ Feature: LicenseGrid
 		And I see advance filters is closed
 
 		Scenario: Step_27_As a user i validate add requirement popup
-    Then I click on dashboard grid
-    Then I click on requirements grid
+		Then I click on dashboard grid
+		Then I click on requirements grid
 		And I see requirement Page Title
 		Then I click on add new requirement button
 		Then I select company from dropdown
@@ -65,12 +65,11 @@ Feature: LicenseGrid
 		And I click on add requirement save button
 		And I see requirement details saved successfully
 		Then I click on success popup ok button
-		And I see the newly added requirement is listed in the requirement grid
-		
+		And I see the newly added requirement is listed in the requirement grid		
 		
 		Scenario: Step_28_As a user i validate Edit requirement popup
-    Then I click on dashboard grid
-    Then I click on requirements grid
+		Then I click on dashboard grid
+		Then I click on requirements grid
 		And I see requirement Page Title
 		Then I double click on licens to edit
 		And I see the edit requirement page titel
@@ -113,8 +112,7 @@ Feature: LicenseGrid
 		Then I click on communication log button
 		Then I double click on existing call log entries and user is allowed to view call log entries
 		And I see the type and date fields are mandatory
-		Then I click on save button and verify the modified values saved successfully
-		
+		Then I click on save button and verify the modified values saved successfully		
 		
 		Scenario: Step_39_As a user i verify requirement expiration
     Then I click on dashboard grid
@@ -145,8 +143,6 @@ Feature: LicenseGrid
 		And I add activity and task entry for the chosen requirement
 		And I see the task details saved successfully popup
 		And I click on task details saved successfully popup ok button
-
-
 
 		Scenario: Step_97_As a user i verify custom menu options for the requirement grid 
 		Then I click on dashboard grid
@@ -247,15 +243,13 @@ Feature: LicenseGrid
    	Then I click on save notes
    	And I verify task notes save successfully
    	Then I click on task details saved successfully popup ok button
-   	And I verify latest notes displaying at top
-   
+   	And I verify latest notes displaying at top   
    
     Scenario: Step_107_As a user is able to see highlights purple when placing cursor over mouse line items
  		Then I click on dashboard grid
     Then I click on requirements grid
     Then I mouse hover over first row
-    And I verify row background turn purple
-   
+    And I verify row background turn purple   
    
     Scenario: Step_108_As a user i verify that user is able to see added note in Date (MM/DD/YYYY) Username Note format
  		Then I click on dashboard grid
@@ -268,9 +262,7 @@ Feature: LicenseGrid
    	Then I click on save notes
    	And I verify task notes save successfully
    	Then I click on task details saved successfully popup ok button
-   	And I verify notes displaying according to MM-dd-yyyy format
-   
-      
+   	And I verify notes displaying according to MM-dd-yyyy format      
    
     Scenario: Step_109_As a user i verify that user is able to see a warning message
  		Then I click on dashboard grid
@@ -291,8 +283,7 @@ Feature: LicenseGrid
    	Then I click on requirement notes
    	Then I click on add notes
    	Then I click on close note pop up
-   	And I verify Task notes pop up is close
-   
+   	And I verify Task notes pop up is close   
    
     Scenario: Step_111_As a user i verify that user is able to see a warning message click on X
  		Then I click on dashboard grid

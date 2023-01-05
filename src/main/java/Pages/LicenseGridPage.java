@@ -79,6 +79,7 @@ public class LicenseGridPage extends BaseClass {
 	String advanceFiltersAndOrDropdown = "(//select[contains(@id,'condition')])[last()]";
 	String advanceFiltersDeleteIcon = "//img[contains(@onclick,'removeDiv')]";
 	String addNewLicenseBtn = "//button[@title='Add New License']";
+	String addNewRequirementBtn = "//button[@title='Add New Requirement']";	
 	String addLicensePageTitle = "//p[contains(text(),'License Det')]";
 	String addLicenseCompanyDropdown = "//select[@id='CompanyKey']";
 	String addLicenseFacilityDropdown = "//select[@id='FacilityKeyPair']";
@@ -99,7 +100,7 @@ public class LicenseGridPage extends BaseClass {
 	String editLicenseCompanyDropDown = "//select[@id='CompanyKey']";
 	String editLicenseFacilityDropDown = "//select[@id='FacilityKeyPair']";
 	String editLicenseStatesDropDown = "//select[@id='StatesKey']";
-	String licensData = "(//*[@title='View License']/ancestor::td/../td)[3]/..";
+	String licensData = "(//*[@title='Upload Requirement']/ancestor::td/../td)[3]/..";
 	String editLicensePageTitel = "//div[@class='modal-header head-back'] | //p[contains(text(),'License Details - Edit License')]";
 	String pdfFileSuccessPopup = "//div[@id='text_success']";
 	String pdfFileSuccessPopupOkBtn = "//a[@id='successok']";
@@ -148,9 +149,7 @@ public class LicenseGridPage extends BaseClass {
 	String companySearchValue = "(//th[@aria-label='Company: activate to sort column ascending']/following::td)[3]";
 	String companySearchValue2 = "(//th[@aria-label='Company: activate to sort column descending']/following::td)[3]";
 	String companySearchList = "//th[@aria-label='Company: activate to sort column descending']/following::tr//td[3]";
-
-	String processingText = "(//div[contains(text(),'Processing')])[1]";
-	
+	String processingText = "(//div[contains(text(),'Processing')])[1]";	
 	String firstCell = "//tr[@class='even'][1]";
 
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
@@ -460,15 +459,17 @@ public class LicenseGridPage extends BaseClass {
 		String date2;
 		
 		
-		date2 = Integer.toString(currentDate.getMonthValue());
-		type(activityStartDate, date2, driver);
-		
-		date2 = Integer.toString(currentDate.getDayOfMonth());
-		type(activityStartDate, date2, driver);
-		
-		date2 = Integer.toString(currentDate.getYear());
-		type(activityStartDate, date2, driver);
-		
+//		date2 = Integer.toString(currentDate.getMonthValue());
+//		type(activityStartDate, date2, driver);
+//		
+//		date2 = Integer.toString(currentDate.getDayOfMonth());
+//		type(activityStartDate, date2, driver);
+//		
+//		date2 = Integer.toString(currentDate.getYear());
+//		type(activityStartDate, date2, driver);
+
+		date2 = currentDate.toString();
+		type(activityStartDate, "00"+date2, driver);		
 		
 		click(activityPopupNextBtn, driver);
 		
@@ -735,8 +736,8 @@ System.out.println(options);
 
 	public void clickOnAddNewLicenseButton(WebDriver driver) {
 		waitTime(9000);
-		waitForElementVisibility(addNewLicenseBtn, "30", driver);
-		click(addNewLicenseBtn, driver);
+		waitForElementVisibility(addNewRequirementBtn, "30", driver);
+		click(addNewRequirementBtn, driver);
 	}
 
 	public Boolean verifyAddLicensePageTitle(WebDriver driver) {
@@ -866,7 +867,7 @@ System.out.println(options);
 				i += 1;
 			}
 			WebElement data = driver
-					.findElement(By.xpath("(//*[@title='View License']/ancestor::td/../td)[" + i + "]"));
+					.findElement(By.xpath("(//*[@title='Upload Requirement']/ancestor::td/../td)[" + i + "]"));
 			scrollIntoViewSmoothly(data, driver);
 			String getData = getValue(data, driver);
 			licensDataList.add(getData);
@@ -896,7 +897,7 @@ System.out.println(options);
 			Select complianceDropdown = new Select(driver.findElement(By.xpath(editLicenseComplianceDropDown)));
 			WebElement complianceOption = complianceDropdown.getFirstSelectedOption();
 			String complianceValueBefore = complianceOption.getText();
-			complianceDropdown.selectByIndex(1);
+			complianceDropdown.selectByIndex(2);
 			complianceOption = complianceDropdown.getFirstSelectedOption();
 			String complianceValueAfter = complianceOption.getText();
 			Assert.assertFalse("Verify Compliance DropDown is Editable",

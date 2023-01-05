@@ -27,6 +27,7 @@ public class DashboardPage extends BaseClass {
 	String dashboardGrid = "//a[text()[contains(.,'Dashboard')]] | //a[@href='https://stagingatlas.pharma.solutions/Dashboard'] | //img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 907_p.svg']";
 	String licensesGrid = "(//div[@class='mbp'])[2]";
 	String menuCollapseBtn = "//div[@id='menu-toggle-right'] | //div[@class='menuNavRight']";
+	String managementDashboardSideMenuBtn = "//a[text()='Management Dashboard']";
 	String dataViewsDropDown = "//a[text()[contains(.,'Data Views ')]] | (//a[@href='#'])[4]";
 	String dataViewsLicensesGrid = "//a[@href='https://stagingatlas.pharma.solutions/license'] | //a[text()[contains(.,'Licenses')]]";
 	String dataViewsActivitiesGrid = "//a[@href='https://stagingatlas.pharma.solutions/licenseActivity'] | //a[text()[contains(.,'Activities')]]";
@@ -69,10 +70,10 @@ public class DashboardPage extends BaseClass {
 	String expiryDocumentOnDocumentGrid = "//th[@aria-label='Expiry Date: activate to sort column ascending']/following::tr//td[12]";
 	String chooseFileUpload = "//input[@id='file'] | //input[@name='LicenseFile']";
 	String saveBtn = "//button[@id='modal-save']";
-	String uploadLicenseBtn = "(//a[@title='Upload License'])[1]";
+	String uploadLicenseBtn = "(//a[@title='Upload Requirement'])[1]";
 	String pdfFileSuccessPopup = "//div[@id='text_success']";
 	String pdfFileSuccessPopupOkBtn = "//a[@id='successok']";
-	String licenseNumberCoun = "(//*[@title='View License']/ancestor::td/../td[7])";
+	String licenseNumberCoun = "(//*[@title='View Requirement']/ancestor::td/../td[7])";
 	String waitLoadingPagePopup = "//div[@class='col text-center company'] | //div[contains(text(),'Loading Please Wait..')]";
 	String kpiLicenseActive = "//table[@id='status-table']//td[text()='Active']";
 	String reportGridStatus = "//table[@id='table-report']//tr[1]//td[9]";
@@ -458,19 +459,19 @@ public class DashboardPage extends BaseClass {
 
 	public void clickOnDashboardGrid(WebDriver driver) {
 		
-		try {
-			waitForElementVisibility(menuCollapseBtn, "10", driver);
-			click(menuCollapseBtn, driver);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+//		try {
+//			waitForElementVisibility(managementDashboardSideMenuBtn, "10", driver);
+//			click(managementDashboardSideMenuBtn, driver);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		
 		try {
 			waitfor5sec();
-			waitForElementVisibility(dashboardGrid, "30", driver);
-			click(dashboardGrid, driver);
+			waitForElementVisibility(managementDashboardSideMenuBtn, "30", driver);
+			click(managementDashboardSideMenuBtn, driver);
 		} catch (Exception e) {
-		clickJs(dashboardGrid, driver);
+		clickJs(managementDashboardSideMenuBtn, driver);
 		}
 	}
 
@@ -731,7 +732,7 @@ public class DashboardPage extends BaseClass {
 				i += 1;
 			}
 			WebElement data = driver
-					.findElement(By.xpath("(//*[@title='Upload License']/ancestor::td/../td)[" + i + "]"));
+					.findElement(By.xpath("(//*[@title='Upload Requirement']/ancestor::td/../td)[" + i + "]"));
 			String getData = getValue(data, driver);
 			gridDataList.add(getData);
 		}
@@ -921,12 +922,12 @@ public class DashboardPage extends BaseClass {
 			for (int i = 1; i < licenseNumberCoun.length(); i++) {
 
 				WebElement data = driver
-						.findElement(By.xpath("(//*[@title='View License']/ancestor::td/../td[7])[" + i + "]"));
+						.findElement(By.xpath("(//*[@title='View Requirement']/ancestor::td/../td[3])[" + i + "]"));
 				String getData = getValue(data, driver).trim();
 
 				if (gridDataList.contains(getData) == true) {
 					WebElement data2 = driver
-							.findElement(By.xpath("(//*[@title='View License']/ancestor::td/../td[13])[" + count + "]"));
+							.findElement(By.xpath("(//*[@title='View Requirement']/ancestor::td/../td[14])[" + count + "]"));
 					click(data2, driver);
 					break;
 		        }
