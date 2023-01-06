@@ -468,8 +468,9 @@ public class LicenseGridPage extends BaseClass {
 //		date2 = Integer.toString(currentDate.getYear());
 //		type(activityStartDate, date2, driver);
 
-		date2 = currentDate.toString();
-		type(activityStartDate, "00"+date2, driver);		
+//		date2 = currentDate.toString();
+		date2 = "0"+Integer.toString(currentDate.getMonthValue())+"-"+Integer.toString(currentDate.getDayOfMonth())+"-00"+Integer.toString(currentDate.getYear());
+		type(activityStartDate, date2, driver);		
 		
 		click(activityPopupNextBtn, driver);
 		

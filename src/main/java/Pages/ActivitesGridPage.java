@@ -479,8 +479,9 @@ public class ActivitesGridPage extends BaseClass {
 //			element.sendKeys(Integer.toString(currentDate.getMonthValue()));
 //			pressTABKey(activityStartDatePicer, driver);
 //			element.sendKeys(Integer.toString(currentDate.getDayOfMonth()));
+			String date = "0"+Integer.toString(currentDate.getMonthValue())+"-"+Integer.toString(currentDate.getDayOfMonth())+"-00"+Integer.toString(currentDate.getYear());
 			
-			type(activityStartDatePicer,"00"+currentDate.toString(), driver);
+			type(activityStartDatePicer,date, driver);
 //			type(activityStartDatePicer,Integer.toString(currentDate.getMonthValue()), driver);
 //			type(activityStartDatePicer,Integer.toString(currentDate.getMonthValue()), driver);
 			
