@@ -78,6 +78,7 @@ public class CompanyProfilePage extends BaseClass {
 	String vendorNameTxt = "//input[@id='VendorName']";
 	String facilityNameTxt = "//input[@id='FacilityName']";
 	String facilityStatusDropDown = "//select[@id='FacilityStatus']";
+	String atlasManagementCheckbox = "//label[@for='AtlasManagement']";
 	
 	
 	String facilityViewDetailBtn = "//*[contains(@title,'View Facility Details')]";
@@ -254,6 +255,11 @@ public class CompanyProfilePage extends BaseClass {
 		Select selectClientStatus = new Select(driver.findElement(By.xpath(clientStatusDropDown)));
 		WebElement option = selectClientStatus.getFirstSelectedOption();
 	}
+	
+	public void CheckAtlasManagementCheckbox(WebDriver driver) {
+		click(atlasManagementCheckbox, driver);
+	}
+	
 	
 	public void clickOnSaveEntityButton(WebDriver driver) {
 		waitForElementVisibility(saveEntityBtn, "20", driver);

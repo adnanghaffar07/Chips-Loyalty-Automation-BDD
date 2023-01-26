@@ -766,7 +766,7 @@ public class ActivitesGridPage extends BaseClass {
 		WebElement option = selectShowEntries.getFirstSelectedOption();
 		int defaultItem = Integer.parseInt(option.getText().trim());
 				
-		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
+		String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile"+File.separator;
 	    File dir = new File(dirPath);
 	    File[] dir_contents = dir.listFiles();
 	    String fileName = dir_contents[0].getName();
@@ -789,7 +789,7 @@ public class ActivitesGridPage extends BaseClass {
 			int countOfTite=1;
 			int countOfExelSheetTitle=0; 
 			String sheetValue ="";
-			String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile";
+			String dirPath = System.getProperty("user.dir") + File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"data"+File.separator+"ExcelFile"+File.separator;
 		    File dir = new File(dirPath);
 			File[] dir_contents = dir.listFiles();
 			String fileName = dir_contents[0].getName();

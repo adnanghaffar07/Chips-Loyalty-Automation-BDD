@@ -132,6 +132,12 @@ public class CompanyProfileSteps extends BaseClass {
 		companyProfilePage.clickOnSaveEntityButton(driver);
 	}	
 	
+	@And("^I check atlas management checkbox$")
+	public void checkAtlasManagementCheckbox() {
+		companyProfilePage.CheckAtlasManagementCheckbox(driver);
+	}	
+	
+	
 	@And("^I see client save success popup and click on ok button$")
 	public void verifyClientSaveSuccessPopupAndClickOnOkButton() throws InterruptedException {
 		Assert.assertTrue(companyProfilePage.verifyClientSaveSuccessPopupAndClickOnOkButton(driver));

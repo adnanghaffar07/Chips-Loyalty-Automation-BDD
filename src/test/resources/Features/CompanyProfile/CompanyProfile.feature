@@ -12,7 +12,7 @@ Feature: CompanyProfile
 		And I see each column wise sort
 		Then I see view details button		
 		
-		Scenario: Step_66_As a user i verify that user is able to add client profile
+		Scenario: Step_66_As a user i verify that user is able to add client profile		
 		Then I click on dashboard grid
     Then I click on company profile menu
 		And I see the company profile page title
@@ -25,6 +25,7 @@ Feature: CompanyProfile
 		And I enter client code
 		Then I select client category
 		Then I select client status
+		And I check atlas management checkbox
 		And I click on save entity button
 		And I see client save success popup and click on ok button
 		Then I see the newly added client is listed in the grid
