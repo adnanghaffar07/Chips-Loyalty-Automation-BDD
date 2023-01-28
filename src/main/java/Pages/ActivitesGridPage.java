@@ -756,7 +756,7 @@ public class ActivitesGridPage extends BaseClass {
 		selectShowEntries.selectByIndex(1);
 		waitTime(6000);
 		click(exportBtn, driver);
-		
+		waitTime(6000);
 	}
 	
 	public void verifyRowsCount(WebDriver driver) {
