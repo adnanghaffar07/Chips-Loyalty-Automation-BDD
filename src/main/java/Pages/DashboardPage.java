@@ -115,6 +115,26 @@ public class DashboardPage extends BaseClass {
 	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
 	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";	
 	String recordsCounter = "//div[contains(text(),'Showing')]";
+	String documentsMenuBtn = "//a[text()='Documents']";
+	String documentsPage = "//p[contains(text(),'Documents')]";
+	String clientDropdown = "//select[@id='DocClientKey']";	
+	String uploadDocumentBtn = "//button[contains(text(),'Upload Document(s) ')]";	
+	String addFile = "//input[@id='import_files']";		
+	String addFileBtn = "//button[text()='Add File']";		
+	String uploadBtn = "//button[@id='upload_btntopreview']";
+	String documentDetailsSavedSuccessfullyPopup = "//div[text()='Document Details Saved Successfully']";
+	String okBtn = "//a[text()='OK'] | //a[contains(text(),'Ok')]";
+	String resetPageFiltersBtn = "//a[contains(text(),'Reset Page Filters')]";
+	String uploadedFile = "(//td[contains(text(),'TestSample.pdf')])[1]";
+	String uploadedFileDeleteBtn = "//button[@id='modal-delete']";
+	String statusDateLbl = "//label[text()='Status Date']";	
+	String confirmBtn = "//a[contains(text(),'Confirm')]";
+	String notificationsMenuBtn = "//a[text()='Notifications ']";
+	String notificationsDocumentsBtn = "//a[@id='notify-header-doc']";
+	String DocumentNotificationPage = "//p[contains(text(),'Document Notification')]";	
+	
+	
+	
 	
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
@@ -984,4 +1004,114 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
+	
+	public void clickOnDocumentsMenuButton(WebDriver driver) {
+		waitForElementVisibility(documentsMenuBtn, "30", driver);
+		click(documentsMenuBtn, driver);
+	}
+	
+	public void selectDocumentsClient(WebDriver driver) {
+		waitForElementVisibility(clientDropdown, "30", driver);
+		Select client = new Select(driver.findElement(By.xpath(clientDropdown)));
+		client.selectByVisibleText("Abhay Raj");
+	}
+	
+	public Boolean verifyDocumentsPage(WebDriver driver) {
+		try {
+			waitForElementVisibility(documentsPage, "70", driver);			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void uploadDocument(WebDriver driver) throws InterruptedException {
+		
+		
+		waitForElementVisibility(addFileBtn, "30", driver);
+		WebElement elementName = driver.findElement(By.xpath("//input[@id='import_files']"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('hidden','hidden')", elementName);
+		
+		type(addFile, filepath, driver);
+		
+		waitForElementVisibility(uploadBtn, "90", driver);
+		click(uploadBtn, driver);
+		
+	}
+	
+	public void clickOnUploadDocumentButton(WebDriver driver) {
+		waitTime(4000);
+		waitForElementVisibility(uploadDocumentBtn, "30", driver);
+		click(uploadDocumentBtn, driver);
+	}
+
+	public void clickOnUploadButton(WebDriver driver) {
+		waitForElementVisibility(uploadBtn, "30", driver);
+		click(uploadBtn, driver);
+	}
+	
+	public Boolean verifyDocumentDetailsSavedSuccessfullyPopup(WebDriver driver) {
+		try {
+			waitForElementVisibility(documentDetailsSavedSuccessfullyPopup, "70", driver);			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void clickOnOkButton(WebDriver driver) {
+		waitForElementVisibility(okBtn, "30", driver);
+		click(okBtn, driver);
+	}
+	
+	public Boolean verifyDocumentUploaded(WebDriver driver) {
+		waitForElementVisibility(resetPageFiltersBtn, "30", driver);
+		click(resetPageFiltersBtn, driver);		
+		try {
+			waitForElementVisibility(uploadedFile, "70", driver);			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public void DeleteUploadedFile(WebDriver driver) {
+		
+		doubleClick(uploadedFile, driver);
+		
+		waitForElementVisibility(statusDateLbl, "60", driver);
+		click(uploadedFileDeleteBtn, driver);
+		
+		waitForElementVisibility(confirmBtn, "30", driver);
+		click(confirmBtn, driver);
+		
+		clickOnOkButton(driver);
+	}
+	
+	public void clickOnNotificationsMenuButton(WebDriver driver) {
+		waitForElementVisibility(notificationsMenuBtn, "30", driver);
+		click(notificationsMenuBtn, driver);
+	}
+	
+	public void clickOnNotificationsDropdownDocumentsButton(WebDriver driver) {
+		waitForElementVisibility(notificationsDocumentsBtn, "30", driver);
+		click(notificationsDocumentsBtn, driver);
+	}
+	
+	
+	public Boolean verifyDocumentNotificationPage(WebDriver driver) {
+		try {
+			waitForElementVisibility(DocumentNotificationPage, "70", driver);			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
 }

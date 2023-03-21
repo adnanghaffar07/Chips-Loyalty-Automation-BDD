@@ -7,6 +7,6 @@ public class Constants {
 	
 	public static String outlookUrl = "https://outlook.live.com/owa/";
 	public static String outlookUsername = "qaautomation@pharma.solutions";
-	public static String outlookPassword = "Trendforgive@06";
+	public static String outlookPassword = "WGqb6xmV#2";
 	
 }

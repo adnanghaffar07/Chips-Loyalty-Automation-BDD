@@ -419,7 +419,78 @@ public class DashboardSteps extends BaseClass {
 	
 	@And("^I see the right menu items are enabled$")
 	public void verifyRightMenuItemsAreEnabledDisabled() {
-		Assert.assertTrue(dashboardPage.verifyRightMenuItemsAreEnabledDisabled(driver));
-		
+		Assert.assertTrue(dashboardPage.verifyRightMenuItemsAreEnabledDisabled(driver));		
 	}	
+	
+	@Then("^I click on documents menu button$")
+	public void clickOnDocumentsMenuButton() {
+		dashboardPage.clickOnDocumentsMenuButton(driver);		
+	}
+	
+	@And("^I see the document page$")
+	public void verifyDocumentsPage() {
+		Assert.assertTrue(dashboardPage.verifyDocumentsPage(driver));		
+	}
+	
+	
+	@And("^I select client on document page$")
+	public void selectDocumentsClient() {
+		dashboardPage.selectDocumentsClient(driver);	
+	}	
+	
+	
+	@Then("^I click on upload document button$")
+	public void clickOnUploadDocumentButton() {
+		dashboardPage.clickOnUploadDocumentButton(driver);		
+	}
+	
+	@And("^I upload document$")
+	public void uploadDocument() throws InterruptedException {
+		dashboardPage.uploadDocument(driver);	
+	}
+	
+	@And("^I see the document details saved successfully popup$")
+	public void verifyDocumentDetailsSavedSuccessfullyPopup() {
+		Assert.assertTrue(dashboardPage.verifyDocumentDetailsSavedSuccessfullyPopup(driver));		
+	}
+	
+	@Then("^I click on document details saved successfully popup ok button$")
+	public void clickOnOkButton() {
+		dashboardPage.clickOnOkButton(driver);		
+	}
+	
+	@And("^I see the document uploaded$")
+	public void verifyDocumentUploaded() {
+		Assert.assertTrue(dashboardPage.verifyDocumentUploaded(driver));		
+	}
+	
+	@Then("^I delete uploaded file$")
+	public void deleteUploadedFile() {
+		dashboardPage.DeleteUploadedFile(driver);		
+	}
+	
+	@Then("^I click on notifications menu button$")
+	public void clickOnNotificationsMenuButton() {
+		dashboardPage.clickOnNotificationsMenuButton(driver);		
+	}
+	
+	@And("^I click on notifications dropdown documents button$")
+	public void clickOnNotificationsDropdownDocumentsButton() {
+		dashboardPage.clickOnNotificationsDropdownDocumentsButton(driver);		
+	}
+	
+	@And("^I see the document notification page$")
+	public void verifyDocumentNotificationPage() {
+		Assert.assertTrue(dashboardPage.verifyDocumentNotificationPage(driver));		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
