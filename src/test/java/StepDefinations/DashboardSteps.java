@@ -396,7 +396,7 @@ public class DashboardSteps extends BaseClass {
 	public void clickOnConfirmButtonInDeletePopUp() {
 		dashboardPage.clickOnConfirmDeleteLicenseBtn(driver);
 		dashboardPage.clickOnDeleteConfirmationBtn(driver);
-		
+		screenshot(driver);
 	}
 	
 	@Then("^I click on cancel button on delete popup$")

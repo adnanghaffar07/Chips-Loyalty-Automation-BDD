@@ -739,6 +739,7 @@ System.out.println(options);
 		waitTime(9000);
 		waitForElementVisibility(addNewRequirementBtn, "30", driver);
 		click(addNewRequirementBtn, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyAddLicensePageTitle(WebDriver driver) {
@@ -756,6 +757,7 @@ System.out.println(options);
 		WebElement option = select.getFirstSelectedOption();
 		String value = option.getText();
 		addLicenseList.add(value);
+		screenshot(driver);
 
 	}
 
@@ -766,6 +768,7 @@ System.out.println(options);
 		WebElement option = select.getFirstSelectedOption();
 		String value = option.getText();
 		addLicenseList.add(value);
+		screenshot(driver);
 
 	}
 
@@ -776,6 +779,7 @@ System.out.println(options);
 		WebElement option = select.getFirstSelectedOption();
 		String value = option.getText();
 		addLicenseList.add(value);
+		screenshot(driver);
 
 	}
 
@@ -786,32 +790,36 @@ System.out.println(options);
 		WebElement option = select.getFirstSelectedOption();
 		String value = option.getText();
 		addLicenseList.add(value);
-
+		screenshot(driver);
 	}
 
 	public void enterLicenseName(WebDriver driver) {
 		waitForElementVisibility(addLicenseLicenseNameTxt, "30", driver);
 		type(addLicenseLicenseNameTxt, licenseName, driver);
 		addLicenseList.add(licenseName);
+		screenshot(driver);
 	}
 
 	public void enterLicenseNumber(WebDriver driver) {
 		waitForElementVisibility(addLicenseLicenseNumberTxt, "30", driver);
 		type(addLicenseLicenseNumberTxt, licenseNumber, driver);
 		addLicenseList.add(licenseNumber);
+		screenshot(driver);
 	}
 
 	public void clickOnAddLicenseSaveButton(WebDriver driver) {
 		waitForElementVisibility(addLicenseSaveBtn, "30", driver);
 		click(addLicenseSaveBtn, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyLicenseDetailsSavedSuccessfully(WebDriver driver) {
 		try {
 			waitForElementVisibility(licenseDetailsSavedSuccessfully, "20", driver);
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -819,6 +827,7 @@ System.out.println(options);
 	public void clickOnSuccessPopupOkButton(WebDriver driver) {
 		waitForElementVisibility(successPopupOk, "30", driver);
 		click(successPopupOk, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyTheNewlyAddedLicenseIsListedInTheLicenseGrid(WebDriver driver) {
@@ -832,9 +841,10 @@ System.out.println(options);
 			WebElement element = driver.findElement(By.xpath("(//tr[@class='odd']//td)[6]"));
 			String getData = getValue(element, driver);
 			Assert.assertTrue(licenseName.contains(getData));
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -875,14 +885,17 @@ System.out.println(options);
 		}
 		scrollToElement(licensData, driver);
 		doubleClick(licensData, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyEditLicensePageTitel(WebDriver driver) {
 		waitTime(8000);
 		try {
 			waitForElementVisibility(editLicensePageTitel, "20", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -924,10 +937,11 @@ System.out.println(options);
 			String licenseDetailsValueAfter = getValue(editLicenseLicenseDetailsTxt, driver);
 			Assert.assertFalse("Verify License Number Input Field is Editable",
 					licenseDetailsValueAfter.equals(licenseDetailsValueBefore));
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -945,9 +959,10 @@ System.out.println(options);
 
 				click(pdfFileSuccessPopupOkBtn, driver);
 			}
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return true;
 		}
 	}
@@ -965,8 +980,10 @@ System.out.println(options);
 
 				click(pdfFileSuccessPopupOkBtn, driver);
 			}
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -977,10 +994,12 @@ System.out.println(options);
 			type(editLicenseLicenseNumberTxt, licenseNumberValue, driver);
 			click(saveBtn, driver);
 			waitForElementVisibility(successPopup, "30", driver);
-
+			screenshot(driver);
 			click(successPopupOkBtn, driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -1002,9 +1021,10 @@ System.out.println(options);
 		String licenseXpath = "//*[contains(text(),'"+licenseNumberValue+"')]";
 		try {
 			waitForElementVisibility(licenseXpath, "20", driver);
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}

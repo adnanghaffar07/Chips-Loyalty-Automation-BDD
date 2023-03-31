@@ -16,7 +16,9 @@ import Utils.SendEmail;
 import Utils.ZipUtils;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.BeforeAll;
+import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -33,7 +35,7 @@ public class LoginSteps extends BaseClass {
 
 	LoginPage loginPage = new LoginPage(driver);
 	EmailVerificationPage emailVerificationPage = new EmailVerificationPage(driver);
-	
+
 	public Constants loginconstant;
 
 	@Given("^Visit the app url$")
@@ -42,31 +44,32 @@ public class LoginSteps extends BaseClass {
 		loginPage.navigateToUrl(driver, loginconstant.url);
 		System.out.println("Welcome To Login Page");
 	}
-	
+
 	@Given("^Visit the app url and login$")
 	public void user_is_login_to_app() throws InterruptedException {
 		driver = initConfiguration();
 		loginPage.navigateToUrl(driver, loginconstant.url);
-		
-		waitTime(3000);		
-		
+
+		waitTime(3000);
+
 		loginPage.enterUserName(driver);
 		loginPage.enterPassword(driver);
-		
+
 		loginPage.clickOnLoginButton(driver);
-		if(emailVerificationPage.verifyNotRecognizedPopOkButton(driver) == true) {
+		if (emailVerificationPage.verifyNotRecognizedPopOkButton(driver) == true) {
 			emailVerificationPage.clickOnNotRecognizedPopOkButton(driver);
 			emailVerificationPage.openUrlInNewTab(driver, loginconstant.outlookUrl);
 			emailVerificationPage.clickOnSigninButton(driver);
-			emailVerificationPage.enterUserNameAndPassword(driver,loginconstant.outlookUsername,loginconstant.outlookPassword);
+			emailVerificationPage.enterUserNameAndPassword(driver, loginconstant.outlookUsername,
+					loginconstant.outlookPassword);
 			emailVerificationPage.clickOnInboxFirstEmail(driver);
 			driver.close();
 			shiftWindowHandle(0);
 			emailVerificationPage.enterValidationCode(driver);
 			emailVerificationPage.clickOnValidationSubmitButton(driver);
 		}
-		
-		loginPage.clickOnSessionPopupCancelButton(driver);		
+
+		loginPage.clickOnSessionPopupCancelButton(driver);
 	}
 
 	@Then("^Close Browser$")
@@ -113,7 +116,7 @@ public class LoginSteps extends BaseClass {
 	public void enterPassword(String pass) {
 		loginPage.enterPassword(driver, pass);
 	}
-	
+
 	@And("^I enter username$")
 	public void enterUserName() {
 		loginPage.enterUserName(driver);
@@ -127,24 +130,26 @@ public class LoginSteps extends BaseClass {
 	@Then("^I click on login button$")
 	public void clickOnLoginButton() {
 		loginPage.clickOnLoginButton(driver);
-		if(emailVerificationPage.verifyNotRecognizedPopOkButton(driver) == true) {
+		if (emailVerificationPage.verifyNotRecognizedPopOkButton(driver) == true) {
 			emailVerificationPage.clickOnNotRecognizedPopOkButton(driver);
 			emailVerificationPage.openUrlInNewTab(driver, loginconstant.outlookUrl);
 			emailVerificationPage.clickOnSigninButton(driver);
-			emailVerificationPage.enterUserNameAndPassword(driver,loginconstant.outlookUsername,loginconstant.outlookPassword);
+			emailVerificationPage.enterUserNameAndPassword(driver, loginconstant.outlookUsername,
+					loginconstant.outlookPassword);
 			emailVerificationPage.clickOnInboxFirstEmail(driver);
 			driver.close();
 			shiftWindowHandle(0);
 			emailVerificationPage.enterValidationCode(driver);
 			emailVerificationPage.clickOnValidationSubmitButton(driver);
 		}
+		screenshot(driver);
 	}
 
 	@And("^I see atlas main page$")
 	public void verifyAtlasMainPage() {
 		Assert.assertTrue(loginPage.verifyAtlasMainPage(driver));
 	}
-	
+
 	@And("^I see atlas logo$")
 	public void verifyAtlasLogo() {
 		Assert.assertTrue(loginPage.verifyAtlasMainPage(driver));
@@ -159,75 +164,73 @@ public class LoginSteps extends BaseClass {
 	public void clickOnLogoutOption() {
 		loginPage.clickOnLogoutOption(driver);
 	}
-	
+
 	@Then("^I click on session popup cancel button$")
 	public void clickOnSessionPopupCancelButton() throws InterruptedException {
 		loginPage.clickOnSessionPopupCancelButton(driver);
 	}
-	
-	
+
 	@Then("^I enter values in input fields and buttons and Link should be clickable$")
 	public void enterValuesInInputFieldsbuttonsLinkAreClickable() {
 		loginPage.enterValuesInInputFieldsbuttonsLinkAreClickable(driver);
 	}
-	
+
 	@Then("^I see logo and background image$")
 	public void logoAndBackgroundImageShouldBeVisibleProperly() {
 		loginPage.LogoAndBackgroundImageShouldBeVisibleProperly(driver);
 	}
-	
-	
+
 	@And("^I see browser tab name should be login$")
 	public void browserTabNameShouldDisplayedWithTheTabNameLogin() {
 		loginPage.browserTabNameShouldDisplayedWithTheTabNameLogin(driver);
 	}
-	
+
 	@And("^I see input fields should have a proper placeholder name$")
 	public void inputFieldsShouldHaveAProperPlaceHolderName() {
 		loginPage.inputFieldsShouldHaveAProperPlaceHolderName(driver);
 	}
-	
+
 	@And("^I see invalid username and password please try again Label$")
 	public void verifyinvalidUsernamePasswordPleaseTryAgainLabel() {
 		Assert.assertTrue(loginPage.verifyinvalidUsernamePasswordPleaseTryAgainLabel(driver));
 	}
-	
+
 	@And("^I see password value displayed dots Or asterisks characters$")
 	public void verifyPasswordValuedisplayedDotsOrAsterisksCharacters() {
 		Assert.assertTrue(loginPage.verifyPasswordValuedisplayedDotsOrAsterisksCharacters(driver));
 	}
-	
+
 	@And("^I see username validation message$")
 	public void verifyUsernameValidationMsg() {
 		Assert.assertTrue(loginPage.verifyUsernameValidationMsg(driver));
 	}
-	
+
 	@And("^I see password validation message$")
 	public void verifyPasswordValidationMsg() {
 		Assert.assertTrue(loginPage.verifyPasswordValidationMsg(driver));
 	}
-	
+
 	@And("^I click on login button without values In both username and password fields$")
 	public void clickOnLoginButtonWithoutValuesInUsernameAndPasswordFields() {
 		loginPage.clickOnLoginButtonWithoutValuesInUsernameAndPasswordFields(driver);
 	}
-	
+
 	@And("^I see profile name dropdown$")
 	public void verifyProfileNameDropDown() {
 		Assert.assertTrue(loginPage.verifyProfileNameDropDown(driver));
 	}
-	
-	
-	//hook	
-		@BeforeAll
-		public static void before_all() {
-			try {
-				FileUtils.deleteDirectory(new File("allure-results"));
-				FileUtils.deleteDirectory(new File("allure-report"));
-			} catch (IOException e) {
 
-			}
+	// hook
+	@BeforeAll
+	public static void before_all() {
+		try {
+			FileUtils.deleteDirectory(new File("allure-results"));
+			FileUtils.deleteDirectory(new File("allure-report"));
+		} catch (IOException e) {
+
 		}
+	}
+
 	@After
 	public void tearDown(Scenario scenario) {
 		try {
@@ -243,12 +246,18 @@ public class LoginSteps extends BaseClass {
 		}
 //		driver.close();
 	}
-	
-	@AfterAll
-	public static void after_all() {
-		ZipUtils.generateZipFile();
-		waitTime(3000);
-		String message = "The report is attached as zip file, download ans extract the zip file. Run the command 'Allure Serve' to view report in browser.";
-		SendEmail.SendEmailNow(message);
-	}
+
+//	@AfterAll
+//	public static void after_all() {
+//		ZipUtils.generateZipFile();
+//		waitTime(3000);
+//		String message = "The report is attached as zip file, download ans extract the zip file. Run the command 'Allure Serve' to view report in browser.";
+//		SendEmail.SendEmailNow(message);
+//	}
+
+//	@AfterStep
+//	public void screenshotAfterStep(){
+//		Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+//		System.out.println("added screenshot after each step");
+//	}
 }

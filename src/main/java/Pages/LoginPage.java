@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,10 +13,13 @@ import org.openqa.selenium.support.PageFactory;
 
 import Constants.Constants;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
 import Utils.BaseClass;
+import io.qameta.allure.Allure;
+
 import org.junit.Assert;
 import static org.junit.Assert.*;
 
@@ -63,26 +68,35 @@ public class LoginPage extends BaseClass {
 	public void enterUserName(WebDriver driver) {
 		waitForElementVisibility(loginUserNameTxt, "30", driver);
 		type(loginUserNameTxt, Constants.Username, driver);
+		screenshot(driver);
+//		Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 	}
 
 	public void enterPassword(WebDriver driver) {
 		waitForElementVisibility(loginPasswordTxt, "30", driver);
 		type(loginPasswordTxt, Constants.Password, driver);
+		screenshot(driver);
+//		Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 	}
 
 	public Boolean verifyLoginPageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginPageTitle, "30", driver);
+			screenshot(driver);
+//			Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
+		
 		
 	}
 
 	public Boolean verifyUserNameTextField(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginUserNameTxt, "30", driver);
+//			screenshot(driver);
+//			Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -93,6 +107,8 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyPasswordTextField(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginPasswordTxt, "30", driver);
+//			screenshot(driver);
+//			Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -103,6 +119,8 @@ public class LoginPage extends BaseClass {
 	public Boolean verifyLoginButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(loginBtn, "30", driver);
+//			screenshot(driver);
+//			Allure.addAttachment("Any text", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -260,6 +278,7 @@ public class LoginPage extends BaseClass {
 		}
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyProfileNameDropDown(WebDriver driver) {

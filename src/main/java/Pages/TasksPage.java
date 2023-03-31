@@ -164,6 +164,7 @@ public class TasksPage extends BaseClass {
 	public void clickOnGoToTasksButton(WebDriver driver) {
 		waitForElementVisibility(goToTasks, "20", driver);
 		click(goToTasks, driver);
+		screenshot(driver);
 	}
 
 	public void clickOnGoToTaskLicenseActivitiesButton(WebDriver driver) {
@@ -200,13 +201,16 @@ public class TasksPage extends BaseClass {
 			taskDetails.put(getTitel.trim(), getData.trim());
 		}
 		doubleClick(taskDetialsFirstRow, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyTaskSubpanel(WebDriver driver) {
 		try {
 			waitForElementVisibility(taskSubpanel, "20", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -214,8 +218,10 @@ public class TasksPage extends BaseClass {
 	public Boolean verifyAddTaskTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(addTaskTitle, "20", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -223,11 +229,13 @@ public class TasksPage extends BaseClass {
 	public void clickOnAddTaskButton(WebDriver driver) {
 		waitForElementVisibility(addTaskBtn, "20", driver);
 		click(addTaskBtn, driver);
+		screenshot(driver);
 	}
 
 	public void clickOnSaveButton(WebDriver driver) {
 		waitForElementVisibility(saveBtn, "20", driver);
 		click(saveBtn, driver);
+		screenshot(driver);
 	}
 
 	public void clickOnUserTypeAllTask(WebDriver driver) {
@@ -284,8 +292,10 @@ try {
 			
 			waitForElementVisibility(dateMandatory, "20", driver);
 			Assert.assertTrue("Verify Facility DropDown is Disabeld", isDisabeldCheckAttribute(dateMandatory, driver));
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -361,9 +371,10 @@ try {
 			waitForElementVisibility(dueDateMandatory, "20", driver);
 
 			taskDateSelect = getValue(dueDateDropDown, driver);
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -377,8 +388,10 @@ try {
 			String dateValue = getText(dateValueTaskAdd, driver);
 			dateValue = reformatDate(dateValue, "MM-dd-yyyy", "yyyy-MM-dd");
 			Assert.assertTrue("Verify Value of date are equal", dateValue.equals(taskDateSelect));
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -666,9 +679,10 @@ try {
 				Assert.assertTrue(getval.equals("Incomplete"));
 			else
 				Assert.assertTrue(taskDetails.containsValue(getval));
-
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -676,8 +690,10 @@ try {
 	public Boolean verifyDeleteTaskButton(WebDriver driver) {
 		try {
 			waitForElementVisibility(deleteTaskBtn, "20", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -707,8 +723,10 @@ try {
 			taskDetails.containsValue(editTaskType);
 			taskDetails.containsValue(editTaskStatus);
 			taskDetails.containsValue(editTaskAssignee);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}

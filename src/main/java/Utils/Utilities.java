@@ -1,5 +1,6 @@
 package Utils;
 
+import java.io.ByteArrayInputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -19,6 +22,9 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 
 public class Utilities extends Waits {
 
@@ -385,5 +391,17 @@ public class Utilities extends Waits {
 
 		return DateToFormat;
 	}
+	
+//	@Attachment(value = "Screenshot", type = "image/png")
+//	public byte[] screenshot(WebDriver driver) {
+//	    return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//	}
+	
+	public static void screenshot(WebDriver driver) {
+		waitTime(3000);
+		Allure.addAttachment("screenshot", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+		System.out.println("added screenshot after each step");
+	}
+	
 	
 }

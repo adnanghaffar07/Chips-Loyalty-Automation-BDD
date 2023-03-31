@@ -415,7 +415,9 @@ public class DashboardPage extends BaseClass {
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
 			click(menuCollapseBtn, driver);	
+			screenshot(driver);
 		} catch (Exception e) {
+			screenshot(driver);
 		}
 		
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
@@ -425,6 +427,7 @@ public class DashboardPage extends BaseClass {
 		click(dataViewsLicensesGrid, driver);
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
+		screenshot(driver);
 	}
 	
 	public void clickLicensesGrid(WebDriver driver) throws InterruptedException {
@@ -439,7 +442,9 @@ public class DashboardPage extends BaseClass {
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
 			click(menuCollapseBtn, driver);	
+			screenshot(driver);
 		} catch (Exception e) {
+			screenshot(driver);
 		}
 		
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
@@ -449,12 +454,14 @@ public class DashboardPage extends BaseClass {
 		click(dataViewsActivitiesGrid, driver);
 		
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
+		screenshot(driver);
 	}
 
 	public void clickOnTasksGrid(WebDriver driver) throws InterruptedException {
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
 			click(menuCollapseBtn, driver);	
+			screenshot(driver);
 		} catch (Exception e) {
 		}
 		
@@ -493,6 +500,7 @@ public class DashboardPage extends BaseClass {
 		} catch (Exception e) {
 		clickJs(managementDashboardSideMenuBtn, driver);
 		}
+		screenshot(driver);
 	}
 
 	public void clickOnUserDropDown(WebDriver driver) {
@@ -508,8 +516,10 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyLicencePageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(licencePageTitle, "30", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 
@@ -552,8 +562,10 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyActivitiesPageTitle(WebDriver driver) {
 		try {
 			waitForElementVisibility(activitiesPageTitle, "30", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -562,8 +574,10 @@ public class DashboardPage extends BaseClass {
 		waitTime(7000);
 		try {
 			waitForElementVisibility(tasksPageTitle, "30", driver);
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -616,6 +630,7 @@ public class DashboardPage extends BaseClass {
 		}
 		doubleClick(licenseDetialsFirstRow, driver);
 		doubleClick(licenseDetialsFirstRow, driver);
+		screenshot(driver);
 	}
 
 	public Boolean verifyLicenseDetialsDataOnLicensePage(WebDriver driver) {
@@ -627,9 +642,11 @@ public class DashboardPage extends BaseClass {
 				String getval = getValue(element, driver);
 				Assert.assertTrue(licenseDetials.containsValue(getval.trim()));
 			}
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -639,7 +656,7 @@ public class DashboardPage extends BaseClass {
 		String[] fArr = str.split("of ", 2);
 		String[] sArr = fArr[1].split(" Entries",2);
 		int currentCounter = Integer.parseInt(sArr[0].replace(",",""));
-		
+		screenshot(driver);
 		return pageCounter>currentCounter;
 	}
 
@@ -788,8 +805,10 @@ public class DashboardPage extends BaseClass {
 		try {
 			waitForElementVisibility(resetFilter, "30", driver);
 			click(resetFilter, driver);
+			screenshot(driver);
 		} catch (Exception e) {
 			clickJs(resetFilter, driver);
+			screenshot(driver);
 		}
 		
 
@@ -819,6 +838,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(5000);
 		waitForElementVisibility(deleteLicenseBtn, "30", driver);
 		click(deleteLicenseBtn, driver);
+		screenshot(driver);
 
 	}
 	
@@ -826,21 +846,21 @@ public class DashboardPage extends BaseClass {
 		waitTime(5000);
 		waitForElementVisibility(confirmDeleteLicenseBtn, "30", driver);
 		click(confirmDeleteLicenseBtn, driver);
-
+		screenshot(driver);
 	}
 	
 	public void clickOnCancelDeleteLicenseBtn(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(CancelDeleteLicenseBtn, "30", driver);
 		click(CancelDeleteLicenseBtn, driver);
-
+		screenshot(driver);
 	}
 	
 	public void clickOnDeleteConfirmationBtn(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(deleteConfirmationButton, "30", driver);
 		click(deleteConfirmationButton, driver);
-
+		screenshot(driver);
 	}
 	
 	public Boolean verifyKpiActiveLicense(WebDriver driver) {
@@ -880,9 +900,10 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskDeletePopup, "30", driver);
-			
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -902,9 +923,10 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskDocumentsDeletePopup, "30", driver);
-			
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -913,9 +935,10 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(taskNotificationDeletePopup, "30", driver);
-			
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -1008,19 +1031,23 @@ public class DashboardPage extends BaseClass {
 	public void clickOnDocumentsMenuButton(WebDriver driver) {
 		waitForElementVisibility(documentsMenuBtn, "30", driver);
 		click(documentsMenuBtn, driver);
+		screenshot(driver);
 	}
 	
 	public void selectDocumentsClient(WebDriver driver) {
 		waitForElementVisibility(clientDropdown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientDropdown)));
 		client.selectByVisibleText("Abhay Raj");
+		screenshot(driver);
 	}
 	
 	public Boolean verifyDocumentsPage(WebDriver driver) {
 		try {
-			waitForElementVisibility(documentsPage, "70", driver);			
+			waitForElementVisibility(documentsPage, "70", driver);		
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -1036,6 +1063,7 @@ public class DashboardPage extends BaseClass {
 		
 		waitForElementVisibility(uploadBtn, "90", driver);
 		click(uploadBtn, driver);
+		screenshot(driver);
 		
 	}
 	
@@ -1043,6 +1071,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(4000);
 		waitForElementVisibility(uploadDocumentBtn, "30", driver);
 		click(uploadDocumentBtn, driver);
+		screenshot(driver);
 	}
 
 	public void clickOnUploadButton(WebDriver driver) {
@@ -1052,9 +1081,11 @@ public class DashboardPage extends BaseClass {
 	
 	public Boolean verifyDocumentDetailsSavedSuccessfullyPopup(WebDriver driver) {
 		try {
-			waitForElementVisibility(documentDetailsSavedSuccessfullyPopup, "70", driver);			
+			waitForElementVisibility(documentDetailsSavedSuccessfullyPopup, "70", driver);		
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -1062,15 +1093,18 @@ public class DashboardPage extends BaseClass {
 	public void clickOnOkButton(WebDriver driver) {
 		waitForElementVisibility(okBtn, "30", driver);
 		click(okBtn, driver);
+		screenshot(driver);
 	}
 	
 	public Boolean verifyDocumentUploaded(WebDriver driver) {
 		waitForElementVisibility(resetPageFiltersBtn, "30", driver);
 		click(resetPageFiltersBtn, driver);		
 		try {
-			waitForElementVisibility(uploadedFile, "70", driver);			
+			waitForElementVisibility(uploadedFile, "70", driver);	
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
@@ -1087,24 +1121,29 @@ public class DashboardPage extends BaseClass {
 		click(confirmBtn, driver);
 		
 		clickOnOkButton(driver);
+		screenshot(driver);
 	}
 	
 	public void clickOnNotificationsMenuButton(WebDriver driver) {
 		waitForElementVisibility(notificationsMenuBtn, "30", driver);
 		click(notificationsMenuBtn, driver);
+		screenshot(driver);
 	}
 	
 	public void clickOnNotificationsDropdownDocumentsButton(WebDriver driver) {
 		waitForElementVisibility(notificationsDocumentsBtn, "30", driver);
 		click(notificationsDocumentsBtn, driver);
+		screenshot(driver);
 	}
 	
 	
 	public Boolean verifyDocumentNotificationPage(WebDriver driver) {
 		try {
-			waitForElementVisibility(DocumentNotificationPage, "70", driver);			
+			waitForElementVisibility(DocumentNotificationPage, "70", driver);	
+			screenshot(driver);
 			return true;
 		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}
