@@ -151,6 +151,10 @@ public class LicenseGridPage extends BaseClass {
 	String companySearchList = "//th[@aria-label='Company: activate to sort column descending']/following::tr//td[3]";
 	String processingText = "(//div[contains(text(),'Processing')])[1]";	
 	String firstCell = "//tr[@class='even'][1]";
+	String requirementCategory = "//select[@id='RequirementTypeKey']";
+	String requirementType = "//select[@id='RequirementTypeNewKey']";
+	
+	
 
 	ArrayList<String> activeLicenseList = new ArrayList<String>();
 	ArrayList<String> addActiveLicenseList = new ArrayList<String>();
@@ -792,6 +796,29 @@ System.out.println(options);
 		addLicenseList.add(value);
 		screenshot(driver);
 	}
+	
+	public void selectRequirementCategoryDropdown(WebDriver driver) {
+		Select select = new Select(driver.findElement(By.xpath(requirementCategory)));
+		select.selectByIndex(1);
+//
+//		WebElement option = select.getFirstSelectedOption();
+//		String value = option.getText();
+//		addLicenseList.add(value);
+		screenshot(driver);
+	}
+	
+	public void selectRequirementTypeDropdown(WebDriver driver) {
+		Select select = new Select(driver.findElement(By.xpath(requirementType)));
+		select.selectByIndex(1);
+//
+//		WebElement option = select.getFirstSelectedOption();
+//		String value = option.getText();
+//		addLicenseList.add(value);
+		screenshot(driver);
+	}
+	
+	
+	
 
 	public void enterLicenseName(WebDriver driver) {
 		waitForElementVisibility(addLicenseLicenseNameTxt, "30", driver);

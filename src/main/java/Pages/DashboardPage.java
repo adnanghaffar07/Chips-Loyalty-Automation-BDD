@@ -26,12 +26,12 @@ public class DashboardPage extends BaseClass {
 
 	String dashboardGrid = "//a[text()[contains(.,'Dashboard')]] | //a[@href='https://stagingatlas.pharma.solutions/Dashboard'] | //img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 907_p.svg']";
 	String licensesGrid = "(//div[@class='mbp'])[2]";
-	String menuCollapseBtn = "//div[@id='menu-toggle-right'] | //div[@class='menuNavRight']";
+	String menuCollapseBtn = "//div[@id='menu-toggle-right'] | //div[@class='menuNavRight'] | //i[@class='right fas pull-right fa-angle-right']";
 	String managementDashboardSideMenuBtn = "//a[text()='Management Dashboard']";
 	String dataViewsDropDown = "//a[text()[contains(.,'Data Views ')]] | (//a[@href='#'])[4]";
-	String dataViewsLicensesGrid = "//a[@href='https://stagingatlas.pharma.solutions/license'] | //a[text()[contains(.,'Licenses')]]";
-	String dataViewsActivitiesGrid = "//a[@href='https://stagingatlas.pharma.solutions/licenseActivity'] | //a[text()[contains(.,'Activities')]]";
-	String dataViewsTasksGrid = "//a[@href='https://stagingatlas.pharma.solutions/Tasks'] | (//a[text()[contains(.,'Tasks')]])[1]";
+	String dataViewsLicensesGrid = "//a[@href='https://stagingatlas.pharma.solutions/license'] | //a[text()='Requirements']";
+	String dataViewsActivitiesGrid = "//a[@href='https://stagingatlas.pharma.solutions/licenseActivity'] | //a[text()[contains(.,'Activities')]] | //a[text()[contains(.,'Activity Tracking')]]";
+	String dataViewsTasksGrid = "//a[@href='https://stagingatlas.pharma.solutions/Tasks'] | (//a[text()[contains(.,'Task Management')]])[1]";
 	String activitiesGrid = "(//div[@class='mbp'])[3]";
 	String dataViews = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 920_p.svg']";	
 	String tasksGrid = "(//div[@class='mbp'])[4]";
@@ -80,10 +80,10 @@ public class DashboardPage extends BaseClass {
 	String licenseMangementNavigation = "//a[contains(text(),'Requirements Management')]";
 	String licenseNavigation = "//ul//a[text()='Requirements']";
 	String activitiesNavigation = "//ul//a[contains(text(),'Activities')]";
-	String licenseTaskNavigation = "(//ul//a[contains(text(),'Tasks')])[1]";
+	String licenseTaskNavigation = "(//ul//a[contains(text(),'Task Management')])";
 	String documentsNavigation = "(//ul//a[contains(text(),'Documents')])[1]";
 	String notificationNavigation = "(//ul//a[contains(text(),'Notifications')])[1]";
-	String notificationTaskNavigation = "(//ul//a[contains(text(),'Tasks')])[2]";
+	String notificationTaskNavigation = "(//ul//a[contains(text(),'Task Management')])";
 	String notificationDocumentsNavigation = "(//ul//a[contains(text(),'Documents')])[2]";
 	String notificationExpirationNavigation = "(//ul//a[contains(text(),'Expiration')])[1]";
 	String adminNavigation = "(//ul//a[contains(text(),'Admin')])[1]";
@@ -115,7 +115,7 @@ public class DashboardPage extends BaseClass {
 	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
 	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";	
 	String recordsCounter = "//div[contains(text(),'Showing')]";
-	String documentsMenuBtn = "//a[text()='Documents']";
+	String documentsMenuBtn = "//a[text()='Document Repository']";
 	String documentsPage = "//p[contains(text(),'Documents')]";
 	String clientDropdown = "//select[@id='DocClientKey']";	
 	String uploadDocumentBtn = "//button[contains(text(),'Upload Document(s) ')]";	
@@ -125,7 +125,7 @@ public class DashboardPage extends BaseClass {
 	String documentDetailsSavedSuccessfullyPopup = "//div[text()='Document Details Saved Successfully']";
 	String okBtn = "//a[text()='OK'] | //a[contains(text(),'Ok')]";
 	String resetPageFiltersBtn = "//a[contains(text(),'Reset Page Filters')]";
-	String uploadedFile = "(//td[contains(text(),'TestSample.pdf')])[1]";
+	String uploadedFile = "(//td[contains(text(),'TestSampl')])[1]";
 	String uploadedFileDeleteBtn = "//button[@id='modal-delete']";
 	String statusDateLbl = "//label[text()='Status Date']";	
 	String confirmBtn = "//a[contains(text(),'Confirm')]";
@@ -412,13 +412,13 @@ public class DashboardPage extends BaseClass {
 	}
 	
 	public void clickOnLicensesGrid(WebDriver driver) throws InterruptedException {
-		try {
-			waitForElementVisibility(menuCollapseBtn, "30", driver);
-			click(menuCollapseBtn, driver);	
-			screenshot(driver);
-		} catch (Exception e) {
-			screenshot(driver);
-		}
+//		try {
+//			waitForElementVisibility(menuCollapseBtn, "30", driver);
+//			click(menuCollapseBtn, driver);	
+//			screenshot(driver);
+//		} catch (Exception e) {
+//			screenshot(driver);
+//		}
 		
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
 		click(dataViewsDropDown, driver);
@@ -439,13 +439,13 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnActivitiesGrid(WebDriver driver) throws InterruptedException {
-		try {
-			waitForElementVisibility(menuCollapseBtn, "30", driver);
-			click(menuCollapseBtn, driver);	
-			screenshot(driver);
-		} catch (Exception e) {
-			screenshot(driver);
-		}
+//		try {
+//			waitForElementVisibility(menuCollapseBtn, "30", driver);
+//			click(menuCollapseBtn, driver);	
+//			screenshot(driver);
+//		} catch (Exception e) {
+//			screenshot(driver);
+//		}
 		
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
 		click(dataViewsDropDown, driver);
@@ -986,11 +986,9 @@ public class DashboardPage extends BaseClass {
 			waitForElementVisibility(dashboardGrid, "30", driver);
 			click(licenseMangementNavigation, driver);
 
-			waitForElementVisibility(licenseTaskNavigation, "30", driver);
-			
+			waitForElementVisibility(licenseTaskNavigation, "30", driver);			
 
-			waitForElementVisibility(licenseNavigation, "30", driver);
-			
+			waitForElementVisibility(licenseNavigation, "30", driver);			
 
 			waitForElementVisibility(activitiesNavigation, "30", driver);
 			

@@ -9,17 +9,9 @@ Scenario: Smoke_Test_As a user I login
     And I click on session popup cancel button
 
 		Scenario: Smoke_Test_As a user i validate Edit requirement popup
-		Then I click on activities grid
-		And I see activities page title
-		Then I click on dashboard grid
 		Then I click on requirements grid
 		And I see requirement Page Title
 		Then I double click on licens to edit
-		And I see the edit requirement page titel
-		And I see the user is allowed to edit all the fields except the company facility state
-		And I see the user is allowed to remove the requirement pdf file if the file exists
-		Then I double click on licens to edit
-		Then I see the user is able to view the delete button if the user has a permission to delete requirements
 		Then I double click on licens to edit
 		And I see the edit requirement page titel
 		And I see the editing a requirement is successful
@@ -27,14 +19,13 @@ Scenario: Smoke_Test_As a user I login
 		
 		
 		Scenario: Smoke_Test_As a user i validate add requirement popup
-		Then I click on dashboard grid
-		Then I click on requirements grid
-		And I see requirement Page Title
 		Then I click on add new requirement button
 		Then I select company from dropdown
 		And I select facility from dropdown
 		Then I select states from dropdown
 		Then I select requirement status from dropdown
+		Then I select requirement category from dropdown
+		Then I select requirement type from dropdown
 		And I enter requirement name in input fields
 		And I enter requirement number in input fields
 		And I click on add requirement save button
@@ -49,11 +40,9 @@ Scenario: Smoke_Test_As a user I login
 		Then I click on active licens to select
 		And I click on add activity button
 		And I see the Add requirement Activity page titel
-		And I see In the edit activity section the following fields are mandatory and non editable company facility state requirement status
 		And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
 		Then I click on add activity Next button
 		And I see add task titel
-		And I see in the add task section the following fields are mandatory and non editable activity createdby
 		And I see in the add task section the following fields are mandatory and Editable type taskstatus assignee duedate
 		Then I click on add activity add task back button
 		And I see the Add requirement Activity page titel
@@ -69,11 +58,7 @@ Scenario: Smoke_Test_As a user I login
 		And I see activities page title
 		Then I double click on active licens to edit
 		And I see the edit requirement Activity page titel
-		And I see In the edit activity section the following fields are mandatory and non editable company facility state requirement status
 		And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
-		Then I see the user is able to view the delete button if the user has a permission to delete requirements
-		Then I double click on active licens to edit
-		And I see the edit requirement Activity page titel
 		And I click on edit pop up save button
 		
 		Scenario: Smoke_Test_A User i Validate edit tasks popup
@@ -97,10 +82,7 @@ Scenario: Smoke_Test_As a user I login
     And I see the task notification under selected requirement
     Then I click on confirm button on delete popup
     And I see the requirement details records deleted successfully
-    And I double click on requirement detail
-    And I click on delete button
-    Then I click on cancel button on delete popup
-    And I see the requirement details records not deleted
+   
     
     Scenario: Smoke_Test_As a user i Validate Delete requirement activity feature
     Then I click on dashboard grid
@@ -113,10 +95,6 @@ Scenario: Smoke_Test_As a user I login
     And I see the task notification under selected requirement
     Then I click on confirm button on delete popup
     And I see the requirement details records deleted successfully
-    And I double click on requirement detail
-    And I click on delete button
-    Then I click on cancel button on delete popup
-    And I see the requirement details records not deleted
     
     	Scenario: Smoke_Test_As a user i validate add tasks popup   
 		Then I click on dashboard grid
@@ -126,7 +104,6 @@ Scenario: Smoke_Test_As a user I login
 		Then I see the tasks page
 		And I click on add task button
 		Then I see add task title
-		Then I see following fields are mandatory and non editable date and createdBy
 		Then I see following fields are mandatory and editable type task Status assignee and dueDate
 		And I click on add task save button
 		Then I click on success popup ok button

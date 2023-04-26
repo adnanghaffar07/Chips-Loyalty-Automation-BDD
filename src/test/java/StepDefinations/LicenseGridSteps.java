@@ -227,6 +227,17 @@ public class LicenseGridSteps extends BaseClass {
 		licenseGridPage.selectLicenseStatusDropdown(driver);
 	}
 	
+	@Then("^I select requirement category from dropdown$")
+	public void selectRequirementCategoryDropdown() {
+		licenseGridPage.selectRequirementCategoryDropdown(driver);
+	}
+	
+	@Then("^I select requirement type from dropdown$")
+	public void selectRequirementTypeDropdown() {
+		licenseGridPage.selectRequirementTypeDropdown(driver);
+	}
+	
+	
 	@Then("^I enter requirement name in input fields$")
 	public void enterLicenseName() {
 		licenseGridPage.enterLicenseName(driver);

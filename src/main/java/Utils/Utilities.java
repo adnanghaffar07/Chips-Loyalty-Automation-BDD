@@ -176,7 +176,7 @@ public class Utilities extends Waits {
 		waitForElementVisibility(element, "30", driver);
 		waitForElementClickable(element, "20", driver);
 		element.click();
-		Waits.wait5s();
+		Waits.wait3s();
 
 	}
 
@@ -398,7 +398,7 @@ public class Utilities extends Waits {
 //	}
 	
 	public static void screenshot(WebDriver driver) {
-		waitTime(3000);
+		waitTime(1000);
 		Allure.addAttachment("screenshot", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 		System.out.println("added screenshot after each step");
 	}
