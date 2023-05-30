@@ -45,13 +45,13 @@ public class SendEmail {
     // The port you will connect to on the Amazon SES SMTP endpoint. 
     static final int PORT = 587;
 
-    public static void main(String[] args) {
-		
-		SendEmailNow("Test Report");
-		
-	}
+//    public static void main(String[] args) {
+//		
+//		SendEmailNow("Test Report");
+//		
+//	}
 
-    public static void SendEmailNow(String body) {    	
+    public static void SendEmailNow(String body, String link) {    	
     	try {
 		
     		 // Create a Properties object to contain connection configuration information.
@@ -78,27 +78,19 @@ public class SendEmail {
             
             // Add a configuration set header. Comment or delete the 
             // next line if you are not using a configuration set
-            msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);
-                
+            msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);                
             
             String currentDateTime = new SimpleDateFormat("dd-MMM-yyyy_h:mm a z").format(Calendar.getInstance().getTime());
-            msg.setSubject("Lighthouse Management Smoke Tests Run Report on "+currentDateTime);
+            msg.setSubject("Lighthouse Management Smoke Tests Run Report on  "+currentDateTime);
             msg.setText("Report is attached as a zip file, download, extract in a folder and you can see report files there.");
             Multipart multipart = new MimeMultipart();
             BodyPart textPart = new MimeBodyPart(); 
+            body += link;
             textPart.setText(body);
-            
-            BodyPart filePart = new MimeBodyPart();
-         // Part two is attachment
-            filePart = new MimeBodyPart();
-            String filename = ZipUtils.OUTPUT_ZIP_FILE;
-            DataSource source = new FileDataSource(filename);
-            filePart.setDataHandler(new DataHandler(source));
-            filePart.setFileName(source.getName());
-            multipart.addBodyPart(textPart);
-            multipart.addBodyPart(filePart);
 
-            // Send the complete message parts
+			multipart.addBodyPart(textPart);
+
+			// Send the complete message parts
             msg.setContent(multipart );
 
             // Create a transport.

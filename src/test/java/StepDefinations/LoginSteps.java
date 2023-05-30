@@ -12,6 +12,7 @@ import Constants.Constants;
 import Pages.EmailVerificationPage;
 import Pages.LoginPage;
 import Utils.BaseClass;
+import Utils.ReportUtils;
 import Utils.SendEmail;
 import Utils.ZipUtils;
 import io.cucumber.java.After;
@@ -251,8 +252,9 @@ public class LoginSteps extends BaseClass {
 	public static void after_all() {
 		ZipUtils.generateZipFile();
 		waitTime(3000);
-		String message = "The report is attached as zip file, download ans extract the zip file. Run the command 'Allure Serve' to view report in browser.";
-		SendEmail.SendEmailNow(message);
+		String Link = ReportUtils.uploadReportToServer();
+		String message = "Report Link : ";
+		SendEmail.SendEmailNow(message,Link);
 	}
 
 }
