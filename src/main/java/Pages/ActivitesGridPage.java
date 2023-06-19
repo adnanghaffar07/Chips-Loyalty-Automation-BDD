@@ -138,6 +138,7 @@ public class ActivitesGridPage extends BaseClass {
 	String twoCharOfValToSearch="";
 	
 	String dateArray[] = {"0","0","0"};
+	int pageCounter = 0;
 
 
 	public ActivitesGridPage(WebDriver driverParam) {
@@ -264,6 +265,15 @@ public class ActivitesGridPage extends BaseClass {
 	
 	public void doubleClickOnActivelicensToEdit(WebDriver driver) {
 		waitTime(6000);
+		try {
+			String str = getText(recordsCounter, driver);
+			String[] fArr = str.split("of ", 2);
+			String[] sArr = fArr[1].split(" Entries",2);
+			pageCounter = Integer.parseInt(sArr[0].replace(",",""));
+		} catch (Exception e) {
+			pageCounter  = 0;
+		}
+		
 		activeLicensDataList.clear();
 		for (int i = 2; i < 8; i++) {
 			if (i == 4 || i == 6) {
@@ -987,6 +997,15 @@ public class ActivitesGridPage extends BaseClass {
 			click(closeXIconBtn, driver);
 			
 			
+		}
+		
+		public Boolean ValidateThatTheDeletedActivityIsNotDisplayedAsALineItemOnTheActivitiesGrid(WebDriver driver) {
+			String str = getText(recordsCounter, driver);
+			String[] fArr = str.split("of ", 2);
+			String[] sArr = fArr[1].split(" Entries",2);
+			int currentCounter = Integer.parseInt(sArr[0].replace(",",""));
+			screenshot(driver);
+			return pageCounter>currentCounter;
 		}
 	
 }

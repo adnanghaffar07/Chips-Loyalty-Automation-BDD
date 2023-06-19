@@ -76,6 +76,12 @@ public class ActivitesGridSteps extends BaseClass {
 		activitesGridPage.doubleClickOnActivelicensToEdit(driver);
 	}
 	
+	@Then("^Validate That The Deleted Activity Is Not Displayed As A Line Item On The Activities Grid$")
+	public void ValidateThatTheDeletedActivityIsNotDisplayedAsALineItemOnTheActivitiesGrid() {
+		activitesGridPage.ValidateThatTheDeletedActivityIsNotDisplayedAsALineItemOnTheActivitiesGrid(driver);
+	}
+	
+	
 	@Then("^I click on active licens to select$")
 	public void clickOnActivelicensToSelect() {
 		activitesGridPage.clickOnActivelicensToSelect(driver);

@@ -72,6 +72,18 @@ public class TasksSteps extends BaseClass {
 		Assert.assertTrue(tasksPage.verifyFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeAndDueDate(driver));
 	}
 	
+	@Then("^I fill all the required fields and assig task to the same user$")
+	public void fillAllTheRequiredFieldsAndAssigTaskToTheSameUser() throws InterruptedException {
+		Assert.assertTrue(tasksPage.fillAllTheRequiredFieldsAndAssigTaskToTheSameUser(driver));
+	}
+	
+	@Then("^I see that the edit made to the task is displayed in the right sidebar in the Tasks section$")
+	public void verifyThatTheEditTaskIsDisplayedInTheRightSidebarInTheTasksSection() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyThatTheEditTaskIsDisplayedInTheRightSidebarInTheTasksSection(driver));
+	}
+	
+	
+	
 	@And("^I click on add task save button$")
 	public void clickOnSaveButton() {
 		tasksPage.clickOnSaveButton(driver);
@@ -82,6 +94,15 @@ public class TasksSteps extends BaseClass {
 		Assert.assertTrue(tasksPage.verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid(driver));
 	}
 	
+	@Then("^I see that the newly created task is displayed in the right sidebar in the Tasks section$")
+	public void verifyThatTheNewlyCreatedTaskIsDisplayedInTheRightSidebarInTheTasksSection() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyThatTheNewlyCreatedTaskIsDisplayedInTheRightSidebarInTheTasksSection(driver));
+	}
+	
+	@Then("^I see that the assigned task is displayed under the task section for the same user$")
+	public void verifyThatTheassignedTaskIsDisplayedUnderTheTaskSectionForTheSameUser() throws InterruptedException {
+		Assert.assertTrue(tasksPage.verifyThatTheNewlyCreatedTaskIsDisplayedInTheRightSidebarInTheTasksSection(driver));
+	}
 	
 	@Then("^I see client company facility global filters and reset filter$")
 	public void verifyClientCompanyFacilityGlobalAndResetFilter() throws InterruptedException {

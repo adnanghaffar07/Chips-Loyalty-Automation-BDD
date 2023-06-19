@@ -153,6 +153,7 @@ public class LicenseGridPage extends BaseClass {
 	String firstCell = "//tr[@class='even'][1]";
 	String requirementCategory = "//select[@id='RequirementTypeKey']";
 	String requirementType = "//select[@id='RequirementTypeNewKey']";
+	String sideNavClose = "//div[@class='sideNav']";
 	
 	
 
@@ -1542,4 +1543,10 @@ System.out.println(options);
 		}
 
 	}
+	
+	public void clickOnSideNavCloseButton(WebDriver driver) {
+		waitForElementVisibility(sideNavClose, "20", driver);
+		click(sideNavClose, driver);
+	}
+	
 }

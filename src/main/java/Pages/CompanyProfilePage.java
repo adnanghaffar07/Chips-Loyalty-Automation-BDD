@@ -29,7 +29,7 @@ public class CompanyProfilePage extends BaseClass {
 	String resetPageFiltersBtn = "//a[contains(text(),' Reset Page Filters')]";
 	String clientTitle = "//div[contains(text(),'Client')]";
 	String searchTxt = "//input[@type='search']";
-	String searchLbl = "//label[contains(text(),'Search  ')]";
+	String searchLbl = "//label[contains(text(),'Search')]";
 	String plusIconOnRightSide = "(//i[@class='fa-solid fa-plus'])[1]";
 	String columnSearch = "(//input[@type='text'])[1]";
 	String columnWiseSort = "(//th[@class='header-text sorting'])[1]";
@@ -86,14 +86,14 @@ public class CompanyProfilePage extends BaseClass {
 	
 
 	String taskDateSelect = "";
-	String clientName = "Test"+randomNumberString(3);
-	String clientCode = randomNumberString(4);
-	String companyName = "company test"+randomNumberString(5);
+	String clientName = "";
+	String clientCode = "";
+	String companyName = "";
 	String projectNumber = randomNumberString(4);
 	String projectDescription = "Demo"+randomNumberString(3);
 	String contactLastName = "User"+randomNumberString(3);
 	String ownerName = "User"+randomNumberString(3);
-	String facilityName = "User"+randomNumberString(3);
+	String facilityName = "";
 	String vendorName = "User"+randomNumberString(3);
 	
 	
@@ -232,12 +232,14 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterClientName(WebDriver driver) {
+		clientName = "Test"+randomNumberString(4);
 		waitForElementVisibility(clientNameTxt, "30", driver);
 		scrollToElement(clientNameTxt, driver);
 		type(clientNameTxt, clientName, driver);
 	}
 	
 	public void enterClientCode(WebDriver driver) {
+		clientCode = randomNumberString(4);
 		waitForElementVisibility(clientCodeTxt, "30", driver);
 		scrollToElement(clientCodeTxt, driver);
 		type(clientCodeTxt, clientCode, driver);
@@ -380,6 +382,7 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterCompanyName(WebDriver driver) {
+		companyName = "company test"+randomNumberString(5);
 		waitForElementVisibility(companyNameTxt, "30", driver);
 		scrollToElement(companyNameTxt, driver);
 		type(companyNameTxt, companyName, driver);
@@ -724,6 +727,7 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterFacilityName(WebDriver driver) {
+		facilityName = "User"+randomNumberString(3);
 		waitForElementVisibility(facilityNameTxt, "30", driver);
 		scrollToElement(facilityNameTxt, driver);
 		type(facilityNameTxt,facilityName, driver);

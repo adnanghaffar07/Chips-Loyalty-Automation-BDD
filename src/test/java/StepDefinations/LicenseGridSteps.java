@@ -546,4 +546,10 @@ public class LicenseGridSteps extends BaseClass {
 	public void clickOnYesAlertMessage() {
 		licenseGridPage.clickOnYesAlertMessage(driver);
 	}
+	
+	@Then("^I click On side nav close button$")
+	public void clickOnSideNavCloseButton() {
+		licenseGridPage.clickOnSideNavCloseButton(driver);
+	}
+	
 }

@@ -12,6 +12,9 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import Constants.Constants;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -19,7 +22,6 @@ import java.lang.reflect.Array;
 import Utils.BaseClass;
 import org.junit.Assert;
 import static org.junit.Assert.*;
-
 
 public class DashboardPage extends BaseClass {
 	private WebDriver podriver = null;
@@ -33,7 +35,7 @@ public class DashboardPage extends BaseClass {
 	String dataViewsActivitiesGrid = "//a[@href='https://stagingatlas.pharma.solutions/licenseActivity'] | //a[text()[contains(.,'Activities')]] | //a[text()[contains(.,'Activity Tracking')]]";
 	String dataViewsTasksGrid = "//a[@href='https://stagingatlas.pharma.solutions/Tasks'] | (//a[text()[contains(.,'Task Management')]])[1]";
 	String activitiesGrid = "(//div[@class='mbp'])[3]";
-	String dataViews = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 920_p.svg']";	
+	String dataViews = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/Group 920_p.svg']";
 	String tasksGrid = "(//div[@class='mbp'])[4]";
 	String documentsGrid = "//a[text()[contains(.,'Documents')]] | //a[@href='https://stagingatlas.pharma.solutions/Document']";
 	String activeGrid = "//li[contains(@class,'active')]";
@@ -113,29 +115,41 @@ public class DashboardPage extends BaseClass {
 	String taskDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Tasks')]";
 	String licenseDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Requirement Documents')]";
 	String taskDocumentsDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Documents')]";
-	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";	
+	String taskNotificationDeletePopup = "//p[contains(text(),'The following')]//following-sibling::p[contains(text(),'Task Notifications')]";
 	String recordsCounter = "//div[contains(text(),'Showing')]";
 	String documentsMenuBtn = "//a[text()='Document Repository']";
 	String documentsPage = "//p[contains(text(),'Documents')]";
-	String clientDropdown = "//select[@id='DocClientKey']";	
-	String uploadDocumentBtn = "//button[contains(text(),'Upload Document(s) ')]";	
-	String addFile = "//input[@id='import_files']";		
-	String addFileBtn = "//button[text()='Add File']";		
+	String clientDropdown = "//select[@id='DocClientKey']";
+	String uploadDocumentBtn = "//button[contains(text(),'Upload Document(s) ')]";
+	String addFile = "//input[@id='import_files']";
+	String addFileBtn = "//button[text()='Add File']";
 	String uploadBtn = "//button[@id='upload_btntopreview']";
 	String documentDetailsSavedSuccessfullyPopup = "//div[text()='Document Details Saved Successfully']";
 	String okBtn = "//a[text()='OK'] | //a[contains(text(),'Ok')]";
 	String resetPageFiltersBtn = "//a[contains(text(),'Reset Page Filters')]";
 	String uploadedFile = "(//td[contains(text(),'TestSampl')])[1]";
 	String uploadedFileDeleteBtn = "//button[@id='modal-delete']";
-	String statusDateLbl = "//label[text()='Status Date']";	
+	String statusDateLbl = "//label[text()='Status Date']";
 	String confirmBtn = "//a[contains(text(),'Confirm')]";
 	String notificationsMenuBtn = "//a[text()='Notifications ']";
 	String notificationsDocumentsBtn = "//a[@id='notify-header-doc']";
-	String DocumentNotificationPage = "//p[contains(text(),'Document Notification')]";	
+	String DocumentNotificationPage = "//p[contains(text(),'Document Notification')]";
+	String requestDocumentBtn = "//button[text()='Request Document ']";
+	String documentCategoryDropdown = "//select[@id='DocCategoryId']";
+	String ownerNameTxt = "//input[@id='OwnerName']";
+	String assigneeDropdown = "//select[@id='Assignee']";
+	String documentTypeDropdown = "//select[@id='DocNameId']";
+	String documentDetailsSavedSuccessfullyMsg = "//div[text()='Document Details Saved Successfully']";
+	String documentSuccessfullyPopOkBtn = "//a[@id='successok']";
+	String documentUploadTxt = "//input[@name='LicenseFile']";
+	String addEditDocumentSaveBtn = "//button[@id='add_edit_document_save_btn']";
+	String viewDocumentIconUnderPdf = "(//span[@title='View Document']/a)[last()]";
+	String firstViewDocumentIconUnderPdf = "(//span[@title='View Document']/a)[1]";
+	String isThisDocumentConfidentialNo = "//label[text()='No']";
+	String isThisDocumentConfidentialYes = "//label[text()='Yes']/../input";
 	
 	
-	
-	
+
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
 	String clientSelected = "";
@@ -147,8 +161,11 @@ public class DashboardPage extends BaseClass {
 	ArrayList<String> gridDataList = new ArrayList<String>();
 	ArrayList<String> gridDataPDFUploadList = new ArrayList<String>();
 	String filepath = filePath + "TestSample.pdf";
-	
+	String filepathSecond = filePath + "TestSample_2.pdf";
+	String ownerName;
+
 	int pageCounter = 0;
+	int showingEntriesBefore = 0;
 
 	public DashboardPage(WebDriver driverParam) {
 		this.podriver = driverParam;
@@ -179,7 +196,7 @@ public class DashboardPage extends BaseClass {
 		try {
 			waitForElementVisibility(dataViewsDropDown, "30", driver);
 			click(dataViewsDropDown, driver);
-			
+
 			waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
 			return true;
 		} catch (Exception e) {
@@ -226,8 +243,7 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
-	
+
 	public Boolean verifyFilterByLabel(WebDriver driver) {
 		try {
 			waitForElementVisibility(filterByLbl, "30", driver);
@@ -400,17 +416,17 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnMenuCollapseButton(WebDriver driver) throws InterruptedException {
-		waitTime(10000);		
+		waitTime(10000);
 		waitForElementVisibility(menuCollapseBtn, "30", driver);
 		click(menuCollapseBtn, driver);
 	}
-	
-	public void dataViewsDropDown(WebDriver driver){
-		
+
+	public void dataViewsDropDown(WebDriver driver) {
+
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
 		click(dataViewsDropDown, driver);
 	}
-	
+
 	public void clickOnLicensesGrid(WebDriver driver) throws InterruptedException {
 //		try {
 //			waitForElementVisibility(menuCollapseBtn, "30", driver);
@@ -419,22 +435,22 @@ public class DashboardPage extends BaseClass {
 //		} catch (Exception e) {
 //			screenshot(driver);
 //		}
-		
+
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
 		click(dataViewsDropDown, driver);
-		
+
 		waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
 		click(dataViewsLicensesGrid, driver);
-		
+
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 		screenshot(driver);
 	}
-	
+
 	public void clickLicensesGrid(WebDriver driver) throws InterruptedException {
-		
+
 		waitForElementVisibility(dataViewsLicensesGrid, "30", driver);
 		click(dataViewsLicensesGrid, driver);
-		
+
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
@@ -446,13 +462,13 @@ public class DashboardPage extends BaseClass {
 //		} catch (Exception e) {
 //			screenshot(driver);
 //		}
-		
+
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
 		click(dataViewsDropDown, driver);
-		
+
 		waitForElementVisibility(dataViewsActivitiesGrid, "30", driver);
 		click(dataViewsActivitiesGrid, driver);
-		
+
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 		screenshot(driver);
 	}
@@ -460,24 +476,24 @@ public class DashboardPage extends BaseClass {
 	public void clickOnTasksGrid(WebDriver driver) throws InterruptedException {
 		try {
 			waitForElementVisibility(menuCollapseBtn, "30", driver);
-			click(menuCollapseBtn, driver);	
+			click(menuCollapseBtn, driver);
 			screenshot(driver);
 		} catch (Exception e) {
 		}
-		
+
 		waitForElementVisibility(dataViewsDropDown, "30", driver);
 		click(dataViewsDropDown, driver);
-		
+
 		waitForElementVisibility(dataViewsTasksGrid, "30", driver);
 		click(dataViewsTasksGrid, driver);
-		
+
 		WaitForElementDisapper(waitLoadingPagePopup, driver);
 	}
 
 	public void clickOnDocumentsGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(menuCollapseBtn, "10", driver);
-			click(menuCollapseBtn, driver);	
+			click(menuCollapseBtn, driver);
 		} catch (Exception e) {
 		}
 		waitForElementVisibility(documentsGrid, "30", driver);
@@ -485,20 +501,20 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void clickOnDashboardGrid(WebDriver driver) {
-		
+
 //		try {
 //			waitForElementVisibility(managementDashboardSideMenuBtn, "10", driver);
 //			click(managementDashboardSideMenuBtn, driver);
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //		}
-		
+
 		try {
 			waitfor5sec();
 			waitForElementVisibility(managementDashboardSideMenuBtn, "30", driver);
 			click(managementDashboardSideMenuBtn, driver);
 		} catch (Exception e) {
-		clickJs(managementDashboardSideMenuBtn, driver);
+			clickJs(managementDashboardSideMenuBtn, driver);
 		}
 		screenshot(driver);
 	}
@@ -531,27 +547,27 @@ public class DashboardPage extends BaseClass {
 			click(licensesGrid, driver);
 
 			waitForElementVisibility(licencePageTitle, "30", driver);
-			
+
 			waitForElementVisibility(activitiesGrid, "30", driver);
 			click(activitiesGrid, driver);
 
 			waitForElementVisibility(activitiesPageTitle, "30", driver);
-			
+
 			waitForElementVisibility(tasksGrid, "30", driver);
 			click(tasksGrid, driver);
 
 			waitForElementVisibility(tasksPageTitle, "30", driver);
-			
+
 			waitForElementVisibility(documentsGrid, "30", driver);
 			click(documentsGrid, driver);
 
 			waitForElementVisibility(documentsPageTitle, "30", driver);
-			
+
 			waitForElementVisibility(dashboardGrid, "30", driver);
 			click(dashboardGrid, driver);
 
 			waitForElementVisibility(filterByLbl, "30", driver);
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -610,24 +626,24 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void doubleClickLicenseDetials(WebDriver driver) {
-		
+
 		try {
 			String str = getText(recordsCounter, driver);
 			String[] fArr = str.split("of ", 2);
-			String[] sArr = fArr[1].split(" Entries",2);
-			pageCounter = Integer.parseInt(sArr[0].replace(",",""));
+			String[] sArr = fArr[1].split(" Entries", 2);
+			pageCounter = Integer.parseInt(sArr[0].replace(",", ""));
 		} catch (Exception e) {
-			pageCounter  = 0;
-		}	
-		
-		for (int i = 2; i < 10; i++) {
-			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
-			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
-
-			String getData = getValue(data, driver);
-			String getTitel = getValue(titel, driver);
-			licenseDetials.put(getTitel.trim(), getData.trim());
+			pageCounter = 0;
 		}
+
+//		for (int i = 2; i < 10; i++) {
+//			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+//			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+//
+//			String getData = getValue(data, driver);
+//			String getTitel = getValue(titel, driver);
+//			licenseDetials.put(getTitel.trim(), getData.trim());
+//		}
 		doubleClick(licenseDetialsFirstRow, driver);
 		doubleClick(licenseDetialsFirstRow, driver);
 		screenshot(driver);
@@ -650,14 +666,14 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyLicenseDetialsDataDeletedOnLicensePage(WebDriver driver) {
 		String str = getText(recordsCounter, driver);
 		String[] fArr = str.split("of ", 2);
-		String[] sArr = fArr[1].split(" Entries",2);
-		int currentCounter = Integer.parseInt(sArr[0].replace(",",""));
+		String[] sArr = fArr[1].split(" Entries", 2);
+		int currentCounter = Integer.parseInt(sArr[0].replace(",", ""));
 		screenshot(driver);
-		return pageCounter>currentCounter;
+		return pageCounter > currentCounter;
 	}
 
 	public void doubleClickOnKpiTaskAllIncompleteOption(WebDriver driver) {
@@ -670,7 +686,13 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyOnlyTheIncompleteLicensesForTheSelectedGlobalFilterValuesShouldBeShownInTheGrid(
 			WebDriver driver) {
 		ArrayList<String> taskStatus = new ArrayList<String>();
-		taskStatus.add("Incomplete");taskStatus.add("Mailroom");taskStatus.add("Pending Funds");taskStatus.add("Internal Pending");taskStatus.add("External Pending");taskStatus.add("Board Pending");taskStatus.add("On Hold");
+		taskStatus.add("Incomplete");
+		taskStatus.add("Mailroom");
+		taskStatus.add("Pending Funds");
+		taskStatus.add("Internal Pending");
+		taskStatus.add("External Pending");
+		taskStatus.add("Board Pending");
+		taskStatus.add("On Hold");
 		waitTime(7000);
 		try {
 			for (int i = 1; i < taskIncompleteStatusList.length(); i++) {
@@ -724,7 +746,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(7000);
 		try {
 			List<WebElement> elementSize = driver.findElements(By.xpath(expiryDocumentOnDocumentGrid));
-			
+
 			for (int i = 1; i <= elementSize.size(); i++) {
 				WebElement element = driver.findElement(By.xpath(
 						"(//th[@aria-label='Expiry Date: activate to sort column ascending']/following::tr//td[12])["
@@ -753,7 +775,7 @@ public class DashboardPage extends BaseClass {
 	public void uploadfile(WebDriver driver) throws InterruptedException {
 		waitForElementVisibility(chooseFileUpload, "30", driver);
 		type(chooseFileUpload, filepath, driver);
-		
+
 	}
 
 	public void clickOnSaveButton(WebDriver driver) {
@@ -780,7 +802,7 @@ public class DashboardPage extends BaseClass {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(pdfFileSuccessPopup, "30", driver);
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -793,14 +815,14 @@ public class DashboardPage extends BaseClass {
 		click(pdfFileSuccessPopupOkBtn, driver);
 
 	}
-	
+
 	public void clickOnClientDropdown(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(clientDropDown, "30", driver);
 		click(clientDropDown, driver);
 
 	}
-	
+
 	public void clickOnResetFilter(WebDriver driver) {
 		try {
 			waitForElementVisibility(resetFilter, "30", driver);
@@ -810,30 +832,30 @@ public class DashboardPage extends BaseClass {
 			clickJs(resetFilter, driver);
 			screenshot(driver);
 		}
-		
 
 	}
-	
+
 	public void clickOnKpiLicenseActive(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(kpiLicenseActive, "30", driver);
 		click(kpiLicenseActive, driver);
 
 	}
-	
+
 	public void clickOnLicenseManagementNavigation(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(licenseMangementNavigation, "30", driver);
 		click(licenseMangementNavigation, driver);
 
 	}
+
 	public void clickOnLicenseNavigation(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(licenseNavigation, "30", driver);
 		click(licenseNavigation, driver);
 
 	}
-	
+
 	public void clickOnDeleteLicenseBtn(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(deleteLicenseBtn, "30", driver);
@@ -841,61 +863,61 @@ public class DashboardPage extends BaseClass {
 		screenshot(driver);
 
 	}
-	
+
 	public void clickOnConfirmDeleteLicenseBtn(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(confirmDeleteLicenseBtn, "30", driver);
 		click(confirmDeleteLicenseBtn, driver);
 		screenshot(driver);
 	}
-	
+
 	public void clickOnCancelDeleteLicenseBtn(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(CancelDeleteLicenseBtn, "30", driver);
 		click(CancelDeleteLicenseBtn, driver);
 		screenshot(driver);
 	}
-	
+
 	public void clickOnDeleteConfirmationBtn(WebDriver driver) {
 		waitTime(5000);
 		waitForElementVisibility(deleteConfirmationButton, "30", driver);
 		click(deleteConfirmationButton, driver);
 		screenshot(driver);
 	}
-	
+
 	public Boolean verifyKpiActiveLicense(WebDriver driver) {
 		waitTime(9000);
 		try {
-			
+
 			return getText(reportGridStatus, driver).equals("Active");
-		
+
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyClientDropdownOption(WebDriver driver) {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(clientDropDownOption, "30", driver);
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyActivitiesDeletePopUp(WebDriver driver) {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(activitiesDeletePopup, "30", driver);
-		
+
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyTasksDeletePopUp(WebDriver driver) {
 		waitTime(9000);
 		try {
@@ -907,18 +929,18 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyLicenseDocumentsDeletePopUp(WebDriver driver) {
 		waitTime(9000);
 		try {
 			waitForElementVisibility(licenseDocumentsDeletePopup, "30", driver);
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyTaskDocumentsDeletePopUp(WebDriver driver) {
 		waitTime(9000);
 		try {
@@ -930,7 +952,7 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyTaskNotificationDeletePopUp(WebDriver driver) {
 		waitTime(9000);
 		try {
@@ -942,18 +964,20 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyClientCompanyFacilityDropDown(WebDriver driver) {
 		waitTime(9000);
 		try {
-			String client = (new Select(driver.findElement(By.xpath(clientDropDown)))).getFirstSelectedOption().getText();
-			String company = (new Select(driver.findElement(By.xpath(companyDropDown)))).getFirstSelectedOption().getText();
-			String facility = (new Select(driver.findElement(By.xpath(facilityDropDown)))).getFirstSelectedOption().getText();
-			
-			if(client.equals("All") && company.equals("All") && facility.equals("All"))
+			String client = (new Select(driver.findElement(By.xpath(clientDropDown)))).getFirstSelectedOption()
+					.getText();
+			String company = (new Select(driver.findElement(By.xpath(companyDropDown)))).getFirstSelectedOption()
+					.getText();
+			String facility = (new Select(driver.findElement(By.xpath(facilityDropDown)))).getFirstSelectedOption()
+					.getText();
+
+			if (client.equals("All") && company.equals("All") && facility.equals("All"))
 				return true;
 
-		
 			return false;
 		} catch (Exception e) {
 			return false;
@@ -961,44 +985,44 @@ public class DashboardPage extends BaseClass {
 	}
 
 	public void verifyTheUserIsAbleToViewThePDF(WebDriver driver) {
-		int count=1;
-			for (int i = 1; i < licenseNumberCoun.length(); i++) {
+		int count = 1;
+		for (int i = 1; i < licenseNumberCoun.length(); i++) {
 
-				WebElement data = driver
-						.findElement(By.xpath("(//*[@title='View Requirement']/ancestor::td/../td[3])[" + i + "]"));
-				String getData = getValue(data, driver).trim();
+			WebElement data = driver
+					.findElement(By.xpath("(//*[@title='View Requirement']/ancestor::td/../td[3])[" + i + "]"));
+			String getData = getValue(data, driver).trim();
 
-				if (gridDataList.contains(getData) == true) {
-					WebElement data2 = driver
-							.findElement(By.xpath("(//*[@title='View Requirement']/ancestor::td/../td[14])[" + count + "]"));
-					click(data2, driver);
-					break;
-		        }
-				count++;
+			if (gridDataList.contains(getData) == true) {
+				WebElement data2 = driver.findElement(
+						By.xpath("(//*[@title='View Requirement']/ancestor::td/../td[14])[" + count + "]"));
+				click(data2, driver);
+				break;
 			}
-			
-			shiftWindowHandle(0);
-		
+			count++;
+		}
+
+		shiftWindowHandle(0);
+
 	}
-	
+
 	public Boolean verifyRightMenuItemsAreEnabledDisabled(WebDriver driver) {
 		try {
 			waitForElementVisibility(dashboardGrid, "30", driver);
 			click(licenseMangementNavigation, driver);
 
-			waitForElementVisibility(licenseTaskNavigation, "30", driver);			
+			waitForElementVisibility(licenseTaskNavigation, "30", driver);
 
-			waitForElementVisibility(licenseNavigation, "30", driver);			
+			waitForElementVisibility(licenseNavigation, "30", driver);
 
 			waitForElementVisibility(activitiesNavigation, "30", driver);
-			
+
 			waitForElementVisibility(documentsNavigation, "30", driver);
-			
+
 			click(notificationNavigation, driver);
 			waitForElementVisibility(notificationDocumentsNavigation, "30", driver);
 			waitForElementVisibility(notificationTaskNavigation, "30", driver);
 			waitForElementVisibility(notificationExpirationNavigation, "30", driver);
-			
+
 			click(adminNavigation, driver);
 			waitForElementVisibility(adminClientMasterNavigation, "30", driver);
 			waitForElementVisibility(adminCompanyMasterNavigation, "30", driver);
@@ -1019,29 +1043,28 @@ public class DashboardPage extends BaseClass {
 			waitForElementVisibility(adminPauseActivityNavigation, "30", driver);
 			waitForElementVisibility(adminPermissionChangeHistoryNavigation, "30", driver);
 
-			
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	public void clickOnDocumentsMenuButton(WebDriver driver) {
 		waitForElementVisibility(documentsMenuBtn, "30", driver);
 		click(documentsMenuBtn, driver);
 		screenshot(driver);
 	}
-	
+
 	public void selectDocumentsClient(WebDriver driver) {
 		waitForElementVisibility(clientDropdown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientDropdown)));
 		client.selectByVisibleText("Abhay Raj");
 		screenshot(driver);
 	}
-	
+
 	public Boolean verifyDocumentsPage(WebDriver driver) {
 		try {
-			waitForElementVisibility(documentsPage, "70", driver);		
+			waitForElementVisibility(documentsPage, "70", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
@@ -1049,22 +1072,21 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public void uploadDocument(WebDriver driver) throws InterruptedException {
-		
-		
+
 		waitForElementVisibility(addFileBtn, "30", driver);
 		WebElement elementName = driver.findElement(By.xpath("//input[@id='import_files']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('hidden','hidden')", elementName);
-		
+
 		type(addFile, filepath, driver);
-		
+
 		waitForElementVisibility(uploadBtn, "90", driver);
 		click(uploadBtn, driver);
 		screenshot(driver);
-		
+
 	}
-	
+
 	public void clickOnUploadDocumentButton(WebDriver driver) {
 		waitTime(4000);
 		waitForElementVisibility(uploadDocumentBtn, "30", driver);
@@ -1076,10 +1098,10 @@ public class DashboardPage extends BaseClass {
 		waitForElementVisibility(uploadBtn, "30", driver);
 		click(uploadBtn, driver);
 	}
-	
+
 	public Boolean verifyDocumentDetailsSavedSuccessfullyPopup(WebDriver driver) {
 		try {
-			waitForElementVisibility(documentDetailsSavedSuccessfullyPopup, "70", driver);		
+			waitForElementVisibility(documentDetailsSavedSuccessfullyPopup, "70", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
@@ -1087,18 +1109,18 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public void clickOnOkButton(WebDriver driver) {
 		waitForElementVisibility(okBtn, "30", driver);
 		click(okBtn, driver);
 		screenshot(driver);
 	}
-	
+
 	public Boolean verifyDocumentUploaded(WebDriver driver) {
 		waitForElementVisibility(resetPageFiltersBtn, "30", driver);
-		click(resetPageFiltersBtn, driver);		
+		click(resetPageFiltersBtn, driver);
 		try {
-			waitForElementVisibility(uploadedFile, "70", driver);	
+			waitForElementVisibility(uploadedFile, "70", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
@@ -1106,38 +1128,159 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
-	
+
 	public void DeleteUploadedFile(WebDriver driver) {
-		
+
 		doubleClick(uploadedFile, driver);
-		
+
 		waitForElementVisibility(statusDateLbl, "60", driver);
 		click(uploadedFileDeleteBtn, driver);
-		
+
 		waitForElementVisibility(confirmBtn, "30", driver);
 		click(confirmBtn, driver);
-		
+
 		clickOnOkButton(driver);
 		screenshot(driver);
 	}
-	
+
 	public void clickOnNotificationsMenuButton(WebDriver driver) {
 		waitForElementVisibility(notificationsMenuBtn, "30", driver);
 		click(notificationsMenuBtn, driver);
 		screenshot(driver);
 	}
-	
+
 	public void clickOnNotificationsDropdownDocumentsButton(WebDriver driver) {
 		waitForElementVisibility(notificationsDocumentsBtn, "30", driver);
 		click(notificationsDocumentsBtn, driver);
 		screenshot(driver);
 	}
-	
-	
+
 	public Boolean verifyDocumentNotificationPage(WebDriver driver) {
 		try {
-			waitForElementVisibility(DocumentNotificationPage, "70", driver);	
+			waitForElementVisibility(DocumentNotificationPage, "70", driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+
+	public void clickOnRequestDocumentButton(WebDriver driver) {
+		waitForElementVisibility(requestDocumentBtn, "30", driver);
+		click(requestDocumentBtn, driver);
+		screenshot(driver);
+	}
+
+	public Boolean verifyDocumentDetailsSavedSuccessfullyMsg(WebDriver driver) {
+		try {
+			waitForElementVisibility(documentDetailsSavedSuccessfullyMsg, "70", driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+
+	public void clickOnAddEditDocumentSaveButton(WebDriver driver) {
+		waitForElementVisibility(documentCategoryDropdown, "30", driver);
+		scrollIntoViewSmoothly(addEditDocumentSaveBtn, driver);
+		clickJs(addEditDocumentSaveBtn, driver);
+		screenshot(driver);
+	}
+
+	public void populateAllRequiredFields(WebDriver driver) {
+		ownerName = "Test User " + randomNumberString(5);
+		waitForElementVisibility(documentCategoryDropdown, "30", driver);
+		Select documentCategory = new Select(driver.findElement(By.xpath(documentCategoryDropdown)));
+		documentCategory.selectByVisibleText("Owner");
+
+		waitForElementVisibility(ownerNameTxt, "30", driver);
+		type(ownerNameTxt, ownerName, driver);
+
+		waitForElementVisibility(assigneeDropdown, "30", driver);
+		Select assignee = new Select(driver.findElement(By.xpath(assigneeDropdown)));
+		assignee.selectByVisibleText("Abhay Raj"); 
+
+		waitTime(1000);
+		Select select = new Select(driver.findElement(By.xpath(documentTypeDropdown)));
+		select.selectByIndex(2);
+		screenshot(driver);
+	}
+
+	public void clickOnDocumentSuccessfullyPopOkButton(WebDriver driver) {
+		waitForElementVisibility(documentSuccessfullyPopOkBtn, "30", driver);
+		click(documentSuccessfullyPopOkBtn, driver);
+		screenshot(driver);
+	}
+
+	public Boolean verifyNewLineItemIsAddedToTheDocumentsGrid(WebDriver driver) {
+		try {
+			waitForElementVisibility(requestDocumentBtn, "70", driver);
+			WebElement elementName = driver.findElement(By.xpath("//td[text()='" + ownerName + "']"));
+			scrollIntoViewSmoothly(elementName, driver);
+			waitForElementVisibility(elementName, "30", driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+
+	public void clickOnLineItemThatWasAddedAndClickOnThePlusIiconUnderPDFSection(WebDriver driver) {
+		WebElement elementName = driver.findElement(By.xpath("//td[text()='" + ownerName + "']/../td/a"));
+		scrollIntoViewSmoothly(elementName, driver);
+		click(elementName, driver);
+		screenshot(driver);
+	}
+
+	public void ClickOnSelectFileButtonAndUploadAFile(WebDriver driver){
+		waitForElementVisibility(documentCategoryDropdown, "30", driver);
+		scrollIntoViewSmoothly(documentUploadTxt, driver);
+		type(documentUploadTxt, filepath, driver);
+		screenshot(driver);
+
+	}
+	
+	public void ClickOnReplacetFileButtonAndUploadAFile(WebDriver driver){
+		waitForElementVisibility(documentCategoryDropdown, "30", driver);
+		scrollIntoViewSmoothly(documentUploadTxt, driver);
+		type(documentUploadTxt, filepathSecond, driver);
+		screenshot(driver);
+
+	}
+
+	public Boolean verifyDocumentUploadedSuccessfully(WebDriver driver) {
+		try {
+			waitForElementVisibility(requestDocumentBtn, "70", driver);
+			WebElement elementName = driver
+					.findElement(By.xpath("//td[text()='" + ownerName + "']/../td/span[@title='View Document']/a"));
+			scrollIntoViewSmoothly(elementName, driver);
+			waitForElementVisibility(elementName, "30", driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+
+	public void doubleClickOnLineItemOnDocumentGrid(WebDriver driver) {
+		WebElement elementName = driver.findElement(By.xpath("//td[text()='" + ownerName + "']"));
+		scrollIntoViewSmoothly(elementName, driver);
+		doubleClick(elementName, driver);
+		screenshot(driver);
+	}
+	
+	public Boolean verifyPDFUploadedSuccessfully(WebDriver driver) {
+		try {
+			waitForElementVisibility(requestDocumentBtn, "70", driver);
+			WebElement elementName = driver
+					.findElement(By.xpath("//td[text()='" + ownerName + "']/../td[text()='TestSample_2.pdf']"));
+			scrollIntoViewSmoothly(elementName, driver);
+			waitForElementVisibility(elementName, "30", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
@@ -1146,9 +1289,63 @@ public class DashboardPage extends BaseClass {
 		}
 	}
 	
+	public boolean verifyDocumentOpenInNewWindowTab(WebDriver driver) {		
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		if (tabs.size() == 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
+	public void ClickOnViewDocumentIconUnderPDF(WebDriver driver){
+		waitForElementVisibility(firstViewDocumentIconUnderPdf, "30", driver);
+		scrollIntoViewSmoothly(viewDocumentIconUnderPdf, driver);
+		click(viewDocumentIconUnderPdf, driver);
+		screenshot(driver);
+	}
 	
+	public void ClickOnIsThisDocumentConfidentialNo(WebDriver driver){
+		waitForElementVisibility(isThisDocumentConfidentialNo, "30", driver);
+		click(isThisDocumentConfidentialNo, driver);
+		screenshot(driver);
+	}
 	
+	public void ClickOnIsThisDocumentConfidentialYes(WebDriver driver){
+		waitForElementVisibility(isThisDocumentConfidentialYes, "30", driver);
+		click(isThisDocumentConfidentialYes, driver);
+		screenshot(driver);
+	}
 	
+	public Boolean verifyDocumentShouldVisibleOnDocumentGridUnderPDFColumn(WebDriver driver) {
+		try {
+			waitForElementVisibility(requestDocumentBtn, "70", driver);
+			WebElement elementName = driver
+					.findElement(By.xpath("//td[text()='" + ownerName + "']/../td/span[@title='View Document']/a/img[@src='./theme/build/images/Group1235.svg']"));
+			scrollIntoViewSmoothly(elementName, driver);
+			waitForElementVisibility(elementName, "30", driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
 	
+	public Boolean verifyDocumentShouldNotVisibleOnDocumentGridUnderPDFColumn(WebDriver driver) {
+		try {
+			waitForElementVisibility(requestDocumentBtn, "70", driver);
+			WebElement elementName = driver
+					.findElement(By.xpath("//td[text()='" + ownerName + "']/../td/span[@title='View Document']/a/img[@src='./theme/build/images/Group 1239 (1).svg']"));
+			scrollIntoViewSmoothly(elementName, driver);
+			waitForElementVisibility(elementName, "30", driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+
 }

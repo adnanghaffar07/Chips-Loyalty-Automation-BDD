@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 public class TasksPage extends BaseClass {
 	private WebDriver podriver = null;
 
-	String goToTasks = "(//span[@title='Go To Tasks'])[2]";
+	String goToTasks = "(//span[@title='Go To Tasks'])[1]";
 	String goToTaskLicenseActivitiesBtn = "//img[@id='activity-view-btn']";
 	String taskSubpanel = "(//button[@type='submit'])[2] | //button[contains(@class,'editcenter')]";
 	String backToTasksBtn = "//img[@data-original-title='Back to Tasks']";
@@ -46,8 +46,10 @@ public class TasksPage extends BaseClass {
 	String dueDateMandatory = "//label[text()='Due Date ']/span[@class='red']";
 	String dueDateDropDown = "//input[@id='ExpCompletionDate']";
 	String saveBtn = "//button[@id='task-save']";
-	String assigneeValueTaskAdd = "(//p[contains(text(),'Assignee')])[1]/following-sibling::p";
-	String dateValueTaskAdd = "(//p[contains(text(),'Due')])[1]/following-sibling::p";
+	String assigneeValueTaskAdd = "//div[contains(@class,'task-active')]//p[contains(text(),'Assignee')]/following-sibling::p";
+	String assigneeValueTaskAdd_2 = "(//p[contains(text(),'Assignee')])[1]/following-sibling::p";
+	String dateValueTaskAdd = "//div[contains(@class,'task-active')]//p[contains(text(),'Due')]/following-sibling::p";
+	String dateValueTaskAdd_2 = "(//p[contains(text(),'Due')])[1]/following-sibling::p";
 	String clientFilter = "//select[@id='GlobalClientKey']";
 	String companyFilter = "//select[@id='GlobalCompanyKey']";
 	String facilityFilter = "//select[@id='GlobalFacilityKey']";
@@ -182,24 +184,24 @@ public class TasksPage extends BaseClass {
 	}
 
 	public void doubleClickOnTask(WebDriver driver) {
-
-		try {
-			String str = getText(recordsCounter, driver);
-			String[] fArr = str.split("of ", 2);
-			String[] sArr = fArr[1].split(" Entries", 2);
-			pageCounter = Integer.parseInt(sArr[0].replace(",", ""));
-		} catch (Exception e) {
-			pageCounter = 0;
-		}
-
-		for (int i = 2; i < 15; i++) {
-			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
-			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
-
-			String getData = getValue(data, driver);
-			String getTitel = getValue(titel, driver);
-			taskDetails.put(getTitel.trim(), getData.trim());
-		}
+//
+//		try {
+//			String str = getText(recordsCounter, driver);
+//			String[] fArr = str.split("of ", 2);
+//			String[] sArr = fArr[1].split(" Entries", 2);
+//			pageCounter = Integer.parseInt(sArr[0].replace(",", ""));
+//		} catch (Exception e) {
+//			pageCounter = 0;
+//		}
+//
+//		for (int i = 2; i < 15; i++) {
+//			WebElement data = driver.findElement(By.xpath("(//tr[@class='odd']//td)[" + i + "]"));
+//			WebElement titel = driver.findElement(By.xpath("//tr[@role='row']//th[" + i + "]"));
+//
+//			String getData = getValue(data, driver);
+//			String getTitel = getValue(titel, driver);
+//			taskDetails.put(getTitel.trim(), getData.trim());
+//		}
 		doubleClick(taskDetialsFirstRow, driver);
 		screenshot(driver);
 	}
@@ -382,6 +384,7 @@ try {
 	public Boolean verifyTheModifiedLicenseActivityIsListedInTheLicenseActivityGrid(WebDriver driver) {
 		try {
 			waitForElementVisibility(addTaskBtn, "20", driver);
+			scrollIntoViewSmoothly(assigneeValueTaskAdd, driver);
 			String assigneeValue = getText(assigneeValueTaskAdd, driver);
 			Assert.assertTrue("Verify Value of assign are equal", assigneeValue.equals(assigneeValueAfter));
 
@@ -396,6 +399,24 @@ try {
 		}
 	}
 
+	public Boolean verifyThatTheNewlyCreatedTaskIsDisplayedInTheRightSidebarInTheTasksSection(WebDriver driver) {
+		try {
+			waitForElementVisibility(addTaskBtn, "20", driver);
+			scrollIntoViewSmoothly(assigneeValueTaskAdd_2, driver);
+			String assigneeValue = getText(assigneeValueTaskAdd_2, driver);
+			Assert.assertTrue("Verify Value of assign are equal", assigneeValue.equals(assigneeValueAfter));
+
+			String dateValue = getText(dateValueTaskAdd_2, driver);
+			dateValue = reformatDate(dateValue, "MM-dd-yyyy", "yyyy-MM-dd");
+			Assert.assertTrue("Verify Value of date are equal", dateValue.equals(taskDateSelect));
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+	
 	public Boolean verifyGlobalClientCompanyFacilityAndResetFilters(WebDriver driver) {
 		try {
 			waitForElementVisibility(clientFilter, "20", driver);
@@ -1107,6 +1128,102 @@ try {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Boolean verifyThatTheEditTaskIsDisplayedInTheRightSidebarInTheTasksSection(WebDriver driver) {
+		try {
+			waitForElementVisibility(addTaskBtn, "20", driver);
+			String assigneeValue = getText(assigneeValueTaskAdd, driver);
+			Assert.assertTrue("Verify Value of assign are equal", assigneeValue.equals(editTaskAssignee));
+
+			String dateValue = getText(dateValueTaskAdd, driver);
+			dateValue = reformatDate(dateValue, "MM-dd-yyyy", "yyyy-MM-dd");
+			Assert.assertTrue("Verify Value of date are equal", dateValue.equals(taskDateSelect));
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
+			return false;
+		}
+	}
+	
+	public Boolean fillAllTheRequiredFieldsAndAssigTaskToTheSameUser(WebDriver driver) {
+		try {
+			waitForElementVisibility(typeMandatory, "20", driver);
+			Select typeValDropDown = new Select(driver.findElement(By.xpath(typeDropDown)));
+			WebElement typeOption = typeValDropDown.getFirstSelectedOption();
+			String typeValueBefore = typeOption.getText();
+			typeValDropDown.selectByIndex(2);
+			waitTime(3000);
+			typeOption = typeValDropDown.getFirstSelectedOption();
+			String typeValueAfter = typeOption.getText();
+			if (!typeValueAfter.equals(typeValueBefore)) {
+
+				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
+
+			} else {
+				typeValDropDown.selectByIndex(4);
+				typeOption = typeValDropDown.getFirstSelectedOption();
+				typeValueAfter = typeOption.getText();
+				Assert.assertFalse("Verify type DropDown is Editable", typeValueAfter.equals(typeValueBefore));
+
+			}
+			editTaskType = typeValueAfter;
+
+			waitForElementVisibility(taskStatusMandatory, "20", driver);
+			Select taskStatusValDropDown = new Select(driver.findElement(By.xpath(taskStatusDropDown)));
+			WebElement taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
+			String taskStatusValueBefore = taskStatusOption.getText();
+			taskStatusValDropDown.selectByIndex(2);
+			waitTime(3000);
+			taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
+			String taskStatusValueAfter = taskStatusOption.getText();
+
+			if (!taskStatusValueAfter.equals(taskStatusValueBefore)) {
+				Assert.assertFalse("Verify Task Status DropDown is Editable",
+						taskStatusValueAfter.equals(taskStatusValueBefore));
+			} else {
+
+				taskStatusValDropDown.selectByIndex(4);
+				taskStatusOption = taskStatusValDropDown.getFirstSelectedOption();
+				taskStatusValueAfter = taskStatusOption.getText();
+				Assert.assertFalse("Verify Task Status DropDown is Editable",
+						taskStatusValueAfter.equals(taskStatusValueBefore));
+			}
+
+			editTaskStatus = taskStatusValueAfter;
+
+			waitForElementVisibility(assigneeMandatory, "20", driver);
+			Select assigneeValDropDown = new Select(driver.findElement(By.xpath(assigneeDropDown)));
+			WebElement assigneeOption = assigneeValDropDown.getFirstSelectedOption();
+			String assigneeValueBefore = assigneeOption.getText();
+			assigneeValDropDown.selectByVisibleText("QA Automation");
+			waitTime(3000);
+			assigneeOption = assigneeValDropDown.getFirstSelectedOption();
+			assigneeValueAfter = assigneeOption.getText();
+
+			if (!assigneeValueAfter.equals(assigneeValueBefore)) {
+				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
+
+			} else {
+				assigneeValDropDown.selectByIndex(4);
+				assigneeOption = assigneeValDropDown.getFirstSelectedOption();
+				assigneeValueAfter = assigneeOption.getText();
+				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
+
+			}
+
+			editTaskAssignee = assigneeValueAfter;
+
+			waitForElementVisibility(dueDateMandatory, "20", driver);
+
+			taskDateSelect = getValue(dueDateDropDown, driver);
+			screenshot(driver);
+			return true;
+		} catch (Exception e) {
+			screenshot(driver);
 			return false;
 		}
 	}

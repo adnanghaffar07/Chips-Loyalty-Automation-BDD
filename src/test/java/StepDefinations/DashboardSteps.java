@@ -484,13 +484,94 @@ public class DashboardSteps extends BaseClass {
 		Assert.assertTrue(dashboardPage.verifyDocumentNotificationPage(driver));		
 	}
 	
+	@Then("^I click on request document button$")
+	public void clickOnRequestDocumentButton() {
+		dashboardPage.clickOnRequestDocumentButton(driver);		
+	}
 	
+	@Then("^I populate all required fields$")
+	public void populateAllRequiredFields() {
+		dashboardPage.populateAllRequiredFields(driver);		
+	}
 	
+	@Then("^I click on add edit document save button$")
+	public void clickOnAddEditDocumentSaveButton() {
+		dashboardPage.clickOnAddEditDocumentSaveButton(driver);		
+	}
 	
+	@And("^I see the document details saved successfully Message$")
+	public void verifyDocumentDetailsSavedSuccessfullyMsg() {
+		Assert.assertTrue(dashboardPage.verifyDocumentDetailsSavedSuccessfullyMsg(driver));		
+	}
 	
+	@Then("^I click on document successfully pop ok button$")
+	public void clickOnDocumentSuccessfullyPopOkButton() {
+		dashboardPage.clickOnDocumentSuccessfullyPopOkButton(driver);		
+	}
 	
+	@And("^I see the new line item is added to the documents grid$")
+	public void verifyNewLineItemIsAddedToTheDocumentsGrid() {
+		Assert.assertTrue(dashboardPage.verifyNewLineItemIsAddedToTheDocumentsGrid(driver));		
+	}
 	
+	@Then("^I click on line item that was added and click on the plus icon under PDF section$")
+	public void clickOnLineItemThatWasAddedAndClickOnThePlusIiconUnderPDFSection() {
+		dashboardPage.clickOnLineItemThatWasAddedAndClickOnThePlusIiconUnderPDFSection(driver);		
+	}
 	
+	@Then("^I click on select file button and upload a file$")
+	public void ClickOnSelectFileButtonAndUploadAFile() {
+		dashboardPage.ClickOnSelectFileButtonAndUploadAFile(driver);		
+	}
 	
+	@Then("^I click on replace file button and upload a file$")
+	public void ClickOnReplacetFileButtonAndUploadAFile() {
+		dashboardPage.ClickOnReplacetFileButtonAndUploadAFile(driver);
+	}
+	
+	@Then("^I see the document uploaded successfully$")
+	public void verifyDocumentUploadedSuccessfully() {
+		Assert.assertTrue(dashboardPage.verifyDocumentUploadedSuccessfully(driver));				
+	}
+	
+	@Then("^I double click on line item on document grid$")
+	public void doubleClickOnLineItemOnDocumentGrid() {
+		dashboardPage.doubleClickOnLineItemOnDocumentGrid(driver);		
+	}
+	
+	@Then("^I see the PDF uploaded successfully")
+	public void verifyPDFUploadedSuccessfully() {
+		Assert.assertTrue(dashboardPage.verifyPDFUploadedSuccessfully(driver));				
+	}
+	
+	@Then("^I click on view document icon under PDF$")
+	public void ClickOnViewDocumentIconUnderPDF() {
+		dashboardPage.ClickOnViewDocumentIconUnderPDF(driver);
+	}
+	
+	@Then("^I see the document open in new window tab")
+	public void verifyDocumentOpenInNewWindowTab() {
+		Assert.assertTrue(dashboardPage.verifyDocumentOpenInNewWindowTab(driver));				
+	}
+	
+	@Then("^I see the document should visible on document grid under pdf column")
+	public void verifyDocumentShouldVisibleOnDocumentGridUnderPDFColumn() {
+		Assert.assertTrue(dashboardPage.verifyDocumentShouldVisibleOnDocumentGridUnderPDFColumn(driver));				
+	}
+	
+	@Then("^I see the document should visible not on document grid under pdf column")
+	public void verifyDocumentShouldNotVisibleOnDocumentGridUnderPDFColumn() {
+		Assert.assertTrue(dashboardPage.verifyDocumentShouldNotVisibleOnDocumentGridUnderPDFColumn(driver));				
+	}
+	
+	@Then("^I click on is this document confidential no checkbox$")
+	public void ClickOnIsThisDocumentConfidentialNo() {
+		dashboardPage.ClickOnIsThisDocumentConfidentialNo(driver);
+	}
+	
+	@Then("^I click on is this document confidential yes checkbox$")
+	public void ClickOnIsThisDocumentConfidentialYes() {
+		dashboardPage.ClickOnIsThisDocumentConfidentialYes(driver);
+	}
 	
 }

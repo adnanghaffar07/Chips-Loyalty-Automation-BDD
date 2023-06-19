@@ -2,6 +2,8 @@ package Utils;
 
 import java.io.File;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -123,6 +125,26 @@ public class BaseClass extends Utilities {
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs.get(val));
 	}
+	
+//	public String randomNumberString(int length) {
+//		if (length <= 0) {
+//            throw new IllegalArgumentException("Length must be greater than zero.");
+//        }
+//        
+//        LocalDateTime now = LocalDateTime.now();
+//        int randomValue = (int) now.until(now.plusMinutes(1), ChronoUnit.SECONDS);
+//        
+//        int minValue = (int) Math.pow(10, length - 1);
+//        int maxValue = (int) Math.pow(10, length) - 1;
+//        
+//        // Use only the last 'length' digits of the random value
+//        randomValue = randomValue % ((int) Math.pow(10, length));
+//        
+//        if (randomValue < minValue) {
+//            randomValue += minValue;
+//        }        
+//        return Integer.toString(randomValue);
+//    }
 	
 	public String randomNumberString(int len) {
 		String AB = "123456789";
