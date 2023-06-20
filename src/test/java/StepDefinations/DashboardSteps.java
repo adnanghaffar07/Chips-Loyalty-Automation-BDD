@@ -494,6 +494,21 @@ public class DashboardSteps extends BaseClass {
 		dashboardPage.populateAllRequiredFields(driver);		
 	}
 	
+	@Then("^I populate all required fields assignee to whom you are logged in with$")
+	public void populateAllRequiredFieldsAssigneeToWhomYouAreLoggedInWith() {
+		dashboardPage.populateAllRequiredFieldsAssigneeToWhomYouAreLoggedInWith(driver);		
+	}
+	
+	@Then("^I see the notification icon count increase$")
+	public void verifyNotificationCountIncreasesFromLeftPanel() {
+		dashboardPage.verifyNotificationCountIncreasesFromLeftPanel(driver);		
+	}	
+	
+	@Then("^I see the document notification icon count increase$")
+	public void verifyDocumentNotificationCountIncreasesFromLeftPanel() {
+		dashboardPage.verifyDocumentNotificationCountIncreasesFromLeftPanel(driver);		
+	}
+	
 	@Then("^I click on add edit document save button$")
 	public void clickOnAddEditDocumentSaveButton() {
 		dashboardPage.clickOnAddEditDocumentSaveButton(driver);		

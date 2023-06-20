@@ -232,7 +232,7 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterClientName(WebDriver driver) {
-		clientName = "Test"+randomNumberString(4);
+		clientName = "Test"+randomNumberString(4)+randomNumberString(3);
 		waitForElementVisibility(clientNameTxt, "30", driver);
 		scrollToElement(clientNameTxt, driver);
 		type(clientNameTxt, clientName, driver);
@@ -382,7 +382,7 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterCompanyName(WebDriver driver) {
-		companyName = "company test"+randomNumberString(5);
+		companyName = "company test"+randomNumberString(5)+randomNumberString(3);
 		waitForElementVisibility(companyNameTxt, "30", driver);
 		scrollToElement(companyNameTxt, driver);
 		type(companyNameTxt, companyName, driver);
@@ -727,7 +727,7 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterFacilityName(WebDriver driver) {
-		facilityName = "User"+randomNumberString(3);
+		facilityName = "User"+randomNumberString(3)+randomNumberString(4);
 		waitForElementVisibility(facilityNameTxt, "30", driver);
 		scrollToElement(facilityNameTxt, driver);
 		type(facilityNameTxt,facilityName, driver);

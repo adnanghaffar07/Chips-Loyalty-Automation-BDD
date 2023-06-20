@@ -195,18 +195,6 @@ Scenario: Test_Case_349_Verify that user is able to login successfully.
     And I see requirements grid
     Then I see activities grid
     And I see tasks grid
-    #Then I see documents grid
-    #Then I click on dashboard grid
-    #And I see upcoming renewals Label
-    #And I see expiring documents Label
-    #And I see tasks Label
-  #	 And I see USA map
-    #And I see client label and default value all
-    #And I see company label and default value all
-    #And I see facility label and default value all
-    #Then I see grid available on toolbar and showing correct data in each visual
-    #Then I Select Client, Company Facility value in a dropdown
-    #And I see filter to revert client, company, facility to all
     
 		Scenario: Test_Case_377_Verify that user is able to view uploaded document
 		Then I click on dashboard grid
@@ -256,4 +244,25 @@ Scenario: Test_Case_349_Verify that user is able to login successfully.
 		Then I click on add edit document save button
 		Then I click on document successfully pop ok button
 		Then I see the document should visible not on document grid under pdf column
+		
+		Scenario: Test_Case_354_Verify that user is able to see document notification count on uploading a new document
+		Then I click on dashboard grid
+    Then I click on documents menu button
+		And I see the document page
+		And I select client on document page
+		And I click on request document button
+		Then I populate all required fields assignee to whom you are logged in with
+		Then I click on add edit document save button
+		And I see the document details saved successfully Message
+		Then I click on document successfully pop ok button
+		And I see the new line item is added to the documents grid
+		Then I see the notification icon count increase
+		Then I click on notifications menu button
+		Then I click on line item that was added and click on the plus icon under PDF section	
+		Then I click on select file button and upload a file
+		Then I click on add edit document save button
+		And I see the document details saved successfully Message
+		Then I click on document successfully pop ok button
+		Then I see the document uploaded successfully
+		Then I see the document notification icon count increase
 		

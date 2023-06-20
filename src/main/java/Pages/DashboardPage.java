@@ -147,6 +147,9 @@ public class DashboardPage extends BaseClass {
 	String firstViewDocumentIconUnderPdf = "(//span[@title='View Document']/a)[1]";
 	String isThisDocumentConfidentialNo = "//label[text()='No']";
 	String isThisDocumentConfidentialYes = "//label[text()='Yes']/../input";
+	String notificationIconCount = "//span[@id='notify-total']";	
+	String documentsnotificationIconCount = "//a[text()[contains(.,'Documents')]]";
+	
 	
 	
 
@@ -163,6 +166,11 @@ public class DashboardPage extends BaseClass {
 	String filepath = filePath + "TestSample.pdf";
 	String filepathSecond = filePath + "TestSample_2.pdf";
 	String ownerName;
+	String notificationIconCountBefore;
+	String notificationIconCountAfter;
+	String documentNotificationIconCountBefore;
+	String documentNotificationIconCountAfter;
+	
 
 	int pageCounter = 0;
 	int showingEntriesBefore = 0;
@@ -1116,10 +1124,11 @@ public class DashboardPage extends BaseClass {
 		screenshot(driver);
 	}
 
-	public Boolean verifyDocumentUploaded(WebDriver driver) {
-		waitForElementVisibility(resetPageFiltersBtn, "30", driver);
-		click(resetPageFiltersBtn, driver);
+	public Boolean verifyDocumentUploaded(WebDriver driver) {		
 		try {
+			WaitForElementDisapper(waitLoadingPagePopup, driver);
+			waitForElementVisibility(resetPageFiltersBtn, "30", driver);
+			click(resetPageFiltersBtn, driver);
 			waitForElementVisibility(uploadedFile, "70", driver);
 			screenshot(driver);
 			return true;
@@ -1145,6 +1154,8 @@ public class DashboardPage extends BaseClass {
 
 	public void clickOnNotificationsMenuButton(WebDriver driver) {
 		waitForElementVisibility(notificationsMenuBtn, "30", driver);
+		WebElement element = driver.findElement(By.xpath(documentsnotificationIconCount));
+		documentNotificationIconCountBefore = element.getText().replace("Documents - ", " ").trim();
 		click(notificationsMenuBtn, driver);
 		screenshot(driver);
 	}
@@ -1168,9 +1179,43 @@ public class DashboardPage extends BaseClass {
 
 	public void clickOnRequestDocumentButton(WebDriver driver) {
 		waitForElementVisibility(requestDocumentBtn, "30", driver);
+		WebElement element = driver.findElement(By.xpath(notificationIconCount));
+		notificationIconCountBefore = element.getText().trim();
+		
 		click(requestDocumentBtn, driver);
 		screenshot(driver);
 	}
+	
+	public Boolean verifyNotificationCountIncreasesFromLeftPanel(WebDriver driver) {
+		boolean status = false; 
+		try {
+			waitForElementVisibility(notificationIconCount, "70", driver);
+			WebElement element = driver.findElement(By.xpath(notificationIconCount));
+			notificationIconCountAfter = element.getText().trim();
+			status = (notificationIconCountAfter != notificationIconCountBefore);
+			screenshot(driver);
+			return status;
+		} catch (Exception e) {
+			screenshot(driver);
+			return status;
+		}
+	}
+	
+	public Boolean verifyDocumentNotificationCountIncreasesFromLeftPanel(WebDriver driver) {
+		boolean status = false; 
+		try {
+			waitForElementVisibility(documentsnotificationIconCount, "70", driver);
+			WebElement element = driver.findElement(By.xpath(documentsnotificationIconCount));
+			documentNotificationIconCountAfter = element.getText().replace("Documents - ", " ").trim();
+			status = (documentNotificationIconCountAfter != documentNotificationIconCountBefore);
+			screenshot(driver);
+			return status;
+		} catch (Exception e) {
+			screenshot(driver);
+			return status;
+		}
+	}
+	
 
 	public Boolean verifyDocumentDetailsSavedSuccessfullyMsg(WebDriver driver) {
 		try {
@@ -1202,6 +1247,25 @@ public class DashboardPage extends BaseClass {
 		waitForElementVisibility(assigneeDropdown, "30", driver);
 		Select assignee = new Select(driver.findElement(By.xpath(assigneeDropdown)));
 		assignee.selectByVisibleText("Abhay Raj"); 
+
+		waitTime(1000);
+		Select select = new Select(driver.findElement(By.xpath(documentTypeDropdown)));
+		select.selectByIndex(2);
+		screenshot(driver);
+	}
+	
+	public void populateAllRequiredFieldsAssigneeToWhomYouAreLoggedInWith(WebDriver driver) {
+		ownerName = "Test User " + randomNumberString(5);
+		waitForElementVisibility(documentCategoryDropdown, "30", driver);
+		Select documentCategory = new Select(driver.findElement(By.xpath(documentCategoryDropdown)));
+		documentCategory.selectByVisibleText("Owner");
+
+		waitForElementVisibility(ownerNameTxt, "30", driver);
+		type(ownerNameTxt, ownerName, driver);
+
+		waitForElementVisibility(assigneeDropdown, "30", driver);
+		Select assignee = new Select(driver.findElement(By.xpath(assigneeDropdown)));
+		assignee.selectByVisibleText("QA Automation"); 
 
 		waitTime(1000);
 		Select select = new Select(driver.findElement(By.xpath(documentTypeDropdown)));
