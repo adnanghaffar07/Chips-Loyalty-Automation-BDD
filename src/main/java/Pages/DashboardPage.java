@@ -1127,7 +1127,7 @@ public class DashboardPage extends BaseClass {
 	public Boolean verifyDocumentUploaded(WebDriver driver) {		
 		try {
 			WaitForElementDisapper(waitLoadingPagePopup, driver);
-			waitForElementVisibility(resetPageFiltersBtn, "30", driver);
+			waitForElementVisibility(resetPageFiltersBtn, "120", driver);
 			click(resetPageFiltersBtn, driver);
 			waitForElementVisibility(uploadedFile, "70", driver);
 			screenshot(driver);
