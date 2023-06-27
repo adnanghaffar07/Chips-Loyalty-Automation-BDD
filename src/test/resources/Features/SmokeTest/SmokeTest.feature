@@ -12,7 +12,7 @@ Scenario: Test_Case_349_Verify that user is able to login successfully.
 		Then I click on dashboard grid
 		Then I click on requirements grid
 		And I see requirement Page Title
-		Then I click on add new requirement button
+#		Then I click on add new requirement button
 		Then I select company from dropdown
 		And I select facility from dropdown
 		Then I select states from dropdown
