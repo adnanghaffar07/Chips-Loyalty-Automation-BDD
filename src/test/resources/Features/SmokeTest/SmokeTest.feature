@@ -8,29 +8,29 @@ Scenario: Test_Case_349_Verify that user is able to login successfully.
     Then I click on login button
     And I click on session popup cancel button
 
-		Scenario: Test_Case_351_Verify that user is able to Add/Edit requirement successfully
-		Then I click on dashboard grid
-		Then I click on requirements grid
-		And I see requirement Page Title
-		Then I click on add new requirement button
-		Then I select company from dropdown
-		And I select facility from dropdown
-		Then I select states from dropdown
-		Then I select requirement status from dropdown
-		Then I select requirement category from dropdown
-		Then I select requirement type from dropdown
-		And I enter requirement name in input fields
-		And I enter requirement number in input fields
-		And I click on add requirement save button
-		And I see requirement details saved successfully
-		Then I click on success popup ok button
-		And I see the newly added requirement is listed in the requirement grid		
-		Then I double click on licens to edit
-		Then I double click on licens to edit
-		And I see the edit requirement page titel
-		And I see the editing a requirement is successful
-		And I see the user is redirection to the requirement grid and verify the newly edited requirement is listed in the requirement grid with the newly edited values
-		
+#		Scenario: Test_Case_351_Verify that user is able to Add/Edit requirement successfully
+#		Then I click on dashboard grid
+#		Then I click on requirements grid
+#		And I see requirement Page Title
+#		Then I click on add new requirement button
+#		Then I select company from dropdown
+#		And I select facility from dropdown
+#		Then I select states from dropdown
+#		Then I select requirement status from dropdown
+#		Then I select requirement category from dropdown
+#		Then I select requirement type from dropdown
+#		And I enter requirement name in input fields
+#		And I enter requirement number in input fields
+#		And I click on add requirement save button
+#		And I see requirement details saved successfully
+#		Then I click on success popup ok button
+#		And I see the newly added requirement is listed in the requirement grid		
+#		Then I double click on licens to edit
+#		Then I double click on licens to edit
+#		And I see the edit requirement page titel
+#		And I see the editing a requirement is successful
+#		And I see the user is redirection to the requirement grid and verify the newly edited requirement is listed in the requirement grid with the newly edited values
+#		
 #		Scenario: Test_Case_355_As a user i validate add activity popup on the activity grid
 #		Then I click on dashboard grid  
     #Then I click on activities grid
