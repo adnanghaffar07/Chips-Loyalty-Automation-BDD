@@ -250,11 +250,11 @@ public class LoginSteps extends BaseClass {
 
 	@AfterAll
 	public static void after_all() {
-//		ZipUtils.generateZipFile();
-//		waitTime(3000);
-//		String Link = ReportUtils.uploadReportToServer();
-//		String message = "Report Link : ";
-//		SendEmail.SendEmailNow(message,Link);
+		ZipUtils.generateZipFile();
+		waitTime(3000);
+		String Link = ReportUtils.uploadReportToServer();
+		String message = "Report Link : ";
+		SendEmail.SendEmailNow(message,Link);
 	}
 
 }
