@@ -147,11 +147,8 @@ public class DashboardPage extends BaseClass {
 	String firstViewDocumentIconUnderPdf = "(//span[@title='View Document']/a)[1]";
 	String isThisDocumentConfidentialNo = "//label[text()='No']";
 	String isThisDocumentConfidentialYes = "//label[text()='Yes']/../input";
-	String notificationIconCount = "//span[@id='notify-total']";	
+	String notificationIconCount = "//span[@id='notify-total']";
 	String documentsnotificationIconCount = "//a[text()[contains(.,'Documents')]]";
-	
-	
-	
 
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
@@ -170,7 +167,6 @@ public class DashboardPage extends BaseClass {
 	String notificationIconCountAfter;
 	String documentNotificationIconCountBefore;
 	String documentNotificationIconCountAfter;
-	
 
 	int pageCounter = 0;
 	int showingEntriesBefore = 0;
@@ -1124,13 +1120,13 @@ public class DashboardPage extends BaseClass {
 		screenshot(driver);
 	}
 
-	public Boolean verifyDocumentUploaded(WebDriver driver) {		
+	public Boolean verifyDocumentUploaded(WebDriver driver) {
 		try {
-			waitTime(3000);
 			WaitForElementDisapper(waitLoadingPagePopup, driver);
 			waitForElementVisibility(resetPageFiltersBtn, "120", driver);
 			click(resetPageFiltersBtn, driver);
-			waitForElementVisibility(uploadedFile, "70", driver);
+			scrollIntoViewSmoothly(uploadedFile, driver);
+			waitForElementVisibility(uploadedFile, "80", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
@@ -1182,13 +1178,13 @@ public class DashboardPage extends BaseClass {
 		waitForElementVisibility(requestDocumentBtn, "30", driver);
 		WebElement element = driver.findElement(By.xpath(notificationIconCount));
 		notificationIconCountBefore = element.getText().trim();
-		
+
 		click(requestDocumentBtn, driver);
 		screenshot(driver);
 	}
-	
+
 	public Boolean verifyNotificationCountIncreasesFromLeftPanel(WebDriver driver) {
-		boolean status = false; 
+		boolean status = false;
 		try {
 			waitForElementVisibility(notificationIconCount, "70", driver);
 			WebElement element = driver.findElement(By.xpath(notificationIconCount));
@@ -1201,9 +1197,9 @@ public class DashboardPage extends BaseClass {
 			return status;
 		}
 	}
-	
+
 	public Boolean verifyDocumentNotificationCountIncreasesFromLeftPanel(WebDriver driver) {
-		boolean status = false; 
+		boolean status = false;
 		try {
 			waitForElementVisibility(documentsnotificationIconCount, "70", driver);
 			WebElement element = driver.findElement(By.xpath(documentsnotificationIconCount));
@@ -1216,7 +1212,6 @@ public class DashboardPage extends BaseClass {
 			return status;
 		}
 	}
-	
 
 	public Boolean verifyDocumentDetailsSavedSuccessfullyMsg(WebDriver driver) {
 		try {
@@ -1247,14 +1242,14 @@ public class DashboardPage extends BaseClass {
 
 		waitForElementVisibility(assigneeDropdown, "30", driver);
 		Select assignee = new Select(driver.findElement(By.xpath(assigneeDropdown)));
-		assignee.selectByVisibleText("Abhay Raj"); 
+		assignee.selectByVisibleText("Abhay Raj");
 
 		waitTime(1000);
 		Select select = new Select(driver.findElement(By.xpath(documentTypeDropdown)));
 		select.selectByIndex(2);
 		screenshot(driver);
 	}
-	
+
 	public void populateAllRequiredFieldsAssigneeToWhomYouAreLoggedInWith(WebDriver driver) {
 		ownerName = "Test User " + randomNumberString(5);
 		waitForElementVisibility(documentCategoryDropdown, "30", driver);
@@ -1266,7 +1261,7 @@ public class DashboardPage extends BaseClass {
 
 		waitForElementVisibility(assigneeDropdown, "30", driver);
 		Select assignee = new Select(driver.findElement(By.xpath(assigneeDropdown)));
-		assignee.selectByVisibleText("QA Automation"); 
+		assignee.selectByVisibleText("QA Automation");
 
 		waitTime(1000);
 		Select select = new Select(driver.findElement(By.xpath(documentTypeDropdown)));
@@ -1301,15 +1296,15 @@ public class DashboardPage extends BaseClass {
 		screenshot(driver);
 	}
 
-	public void ClickOnSelectFileButtonAndUploadAFile(WebDriver driver){
+	public void ClickOnSelectFileButtonAndUploadAFile(WebDriver driver) {
 		waitForElementVisibility(documentCategoryDropdown, "30", driver);
 		scrollIntoViewSmoothly(documentUploadTxt, driver);
 		type(documentUploadTxt, filepath, driver);
 		screenshot(driver);
 
 	}
-	
-	public void ClickOnReplacetFileButtonAndUploadAFile(WebDriver driver){
+
+	public void ClickOnReplacetFileButtonAndUploadAFile(WebDriver driver) {
 		waitForElementVisibility(documentCategoryDropdown, "30", driver);
 		scrollIntoViewSmoothly(documentUploadTxt, driver);
 		type(documentUploadTxt, filepathSecond, driver);
@@ -1338,7 +1333,7 @@ public class DashboardPage extends BaseClass {
 		doubleClick(elementName, driver);
 		screenshot(driver);
 	}
-	
+
 	public Boolean verifyPDFUploadedSuccessfully(WebDriver driver) {
 		try {
 			waitForElementVisibility(requestDocumentBtn, "70", driver);
@@ -1353,41 +1348,40 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
-	public boolean verifyDocumentOpenInNewWindowTab(WebDriver driver) {		
+
+	public boolean verifyDocumentOpenInNewWindowTab(WebDriver driver) {
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 		if (tabs.size() == 2) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	
-	public void ClickOnViewDocumentIconUnderPDF(WebDriver driver){
+
+	public void ClickOnViewDocumentIconUnderPDF(WebDriver driver) {
 		waitForElementVisibility(firstViewDocumentIconUnderPdf, "30", driver);
 		scrollIntoViewSmoothly(viewDocumentIconUnderPdf, driver);
 		click(viewDocumentIconUnderPdf, driver);
 		screenshot(driver);
 	}
-	
-	public void ClickOnIsThisDocumentConfidentialNo(WebDriver driver){
+
+	public void ClickOnIsThisDocumentConfidentialNo(WebDriver driver) {
 		waitForElementVisibility(isThisDocumentConfidentialNo, "30", driver);
 		click(isThisDocumentConfidentialNo, driver);
 		screenshot(driver);
 	}
-	
-	public void ClickOnIsThisDocumentConfidentialYes(WebDriver driver){
+
+	public void ClickOnIsThisDocumentConfidentialYes(WebDriver driver) {
 		waitForElementVisibility(isThisDocumentConfidentialYes, "30", driver);
 		click(isThisDocumentConfidentialYes, driver);
 		screenshot(driver);
 	}
-	
+
 	public Boolean verifyDocumentShouldVisibleOnDocumentGridUnderPDFColumn(WebDriver driver) {
 		try {
 			waitForElementVisibility(requestDocumentBtn, "70", driver);
-			WebElement elementName = driver
-					.findElement(By.xpath("//td[text()='" + ownerName + "']/../td/span[@title='View Document']/a/img[@src='./theme/build/images/Group1235.svg']"));
+			WebElement elementName = driver.findElement(By.xpath("//td[text()='" + ownerName
+					+ "']/../td/span[@title='View Document']/a/img[@src='./theme/build/images/Group1235.svg']"));
 			scrollIntoViewSmoothly(elementName, driver);
 			waitForElementVisibility(elementName, "30", driver);
 			screenshot(driver);
@@ -1397,12 +1391,12 @@ public class DashboardPage extends BaseClass {
 			return false;
 		}
 	}
-	
+
 	public Boolean verifyDocumentShouldNotVisibleOnDocumentGridUnderPDFColumn(WebDriver driver) {
 		try {
 			waitForElementVisibility(requestDocumentBtn, "70", driver);
-			WebElement elementName = driver
-					.findElement(By.xpath("//td[text()='" + ownerName + "']/../td/span[@title='View Document']/a/img[@src='./theme/build/images/Group 1239 (1).svg']"));
+			WebElement elementName = driver.findElement(By.xpath("//td[text()='" + ownerName
+					+ "']/../td/span[@title='View Document']/a/img[@src='./theme/build/images/Group 1239 (1).svg']"));
 			scrollIntoViewSmoothly(elementName, driver);
 			waitForElementVisibility(elementName, "30", driver);
 			screenshot(driver);
