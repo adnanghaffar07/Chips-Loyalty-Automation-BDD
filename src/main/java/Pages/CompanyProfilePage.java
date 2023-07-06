@@ -232,7 +232,7 @@ public class CompanyProfilePage extends BaseClass {
 	}
 	
 	public void enterClientName(WebDriver driver) {
-		clientName = "Test"+randomNumberString(4)+randomNumberString(3);
+		clientName = "Test"+randomNumberString(5)+randomNumberString(3);
 		waitForElementVisibility(clientNameTxt, "30", driver);
 		scrollToElement(clientNameTxt, driver);
 		type(clientNameTxt, clientName, driver);
