@@ -32,6 +32,7 @@ public class TasksPage extends BaseClass {
 	String taskSubpanel = "(//button[@type='submit'])[2] | //button[contains(@class,'editcenter')]";
 	String backToTasksBtn = "//img[@data-original-title='Back to Tasks']";
 	String addTaskBtn = "(//button[@type='submit'])[last()] | //div[@class='nav-item ']/button";
+	String addTaskButton = "(//button[@type=\"submit\"])[2]";
 	String addTaskTitle = "//p[text()[contains(.,'Add Task')]]";
 	String dateMandatory = "//input[@id='TaskAuthor']";
 	String dateTxt = "//input[@id='CreationDate']";
@@ -146,6 +147,8 @@ public class TasksPage extends BaseClass {
 	
 	String dateRows = "//div[@class='modal-content']//tr//td[1]";
 
+	String taskDueDate = "//*[@id='tasks-list-main']/thead/tr[1]/th[13]";
+	String mandatoryfield = "(//span[@class=\"red\"])[1]";
 	
 	String editTaskType = "";
 	String editTaskStatus = "";
@@ -304,7 +307,7 @@ try {
 
 	public Boolean verifyFollowingFieldsAreMandatoryAndEditableTypeTaskStatusAssigneeAndDueDate(WebDriver driver) {
 		try {
-			waitForElementVisibility(typeMandatory, "20", driver);
+			//waitForElementVisibility(typeMandatory, "20", driver);
 			Select typeValDropDown = new Select(driver.findElement(By.xpath(typeDropDown)));
 			WebElement typeOption = typeValDropDown.getFirstSelectedOption();
 			String typeValueBefore = typeOption.getText();
@@ -1134,8 +1137,10 @@ try {
 	
 	public Boolean verifyThatTheEditTaskIsDisplayedInTheRightSidebarInTheTasksSection(WebDriver driver) {
 		try {
-			waitForElementVisibility(addTaskBtn, "20", driver);
+			waitForElementVisibility(addTaskButton, "20", driver);
 			String assigneeValue = getText(assigneeValueTaskAdd, driver);
+			System.out.println(assigneeValue);
+			System.out.println(editTaskAssignee);
 			Assert.assertTrue("Verify Value of assign are equal", assigneeValue.equals(editTaskAssignee));
 
 			String dateValue = getText(dateValueTaskAdd, driver);
@@ -1151,7 +1156,7 @@ try {
 	
 	public Boolean fillAllTheRequiredFieldsAndAssigTaskToTheSameUser(WebDriver driver) {
 		try {
-			waitForElementVisibility(typeMandatory, "20", driver);
+			//waitForElementVisibility(mandatoryfield, "20", driver);
 			Select typeValDropDown = new Select(driver.findElement(By.xpath(typeDropDown)));
 			WebElement typeOption = typeValDropDown.getFirstSelectedOption();
 			String typeValueBefore = typeOption.getText();
