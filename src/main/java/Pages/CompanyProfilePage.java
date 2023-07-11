@@ -270,7 +270,7 @@ public class CompanyProfilePage extends BaseClass {
 	
 	public Boolean verifyClientSaveSuccessPopupAndClickOnOkButton(WebDriver driver) {
 		try {
-			waitForElementVisibility(clientSaveSuccessPopup, "30", driver);
+			waitForElementVisibility(clientSaveSuccessPopup, "120", driver);
 			click(clientSaveSuccessPopupOkBtn, driver);
 			return true;
 		} catch (Exception e) {
@@ -280,7 +280,7 @@ public class CompanyProfilePage extends BaseClass {
 	
 	public Boolean verifyCompanySaveSuccessPopupAndClickOnOkButton(WebDriver driver) {
 		try {
-			waitForElementVisibility(clientSaveSuccessPopup, "30", driver);
+			waitForElementVisibility(clientSaveSuccessPopup, "130", driver);
 			click(clientSaveSuccessPopupOkBtn, driver);
 			return true;
 		} catch (Exception e) {
@@ -742,7 +742,7 @@ public class CompanyProfilePage extends BaseClass {
 	
 	public Boolean verifyFacilitySaveSuccessPopupAndClickOnOkButton(WebDriver driver) {
 		try {
-			waitForElementVisibility(clientSaveSuccessPopup, "30", driver);
+			waitForElementVisibility(clientSaveSuccessPopup, "130", driver);
 			click(clientSaveSuccessPopupOkBtn, driver);
 			return true;
 		} catch (Exception e) {

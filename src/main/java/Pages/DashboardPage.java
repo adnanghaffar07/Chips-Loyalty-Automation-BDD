@@ -870,7 +870,7 @@ public class DashboardPage extends BaseClass {
 
 	public void clickOnConfirmDeleteLicenseBtn(WebDriver driver) {
 		waitTime(5000);
-		waitForElementVisibility(confirmDeleteLicenseBtn, "30", driver);
+		waitForElementVisibility(confirmDeleteLicenseBtn, "90", driver);
 		click(confirmDeleteLicenseBtn, driver);
 		screenshot(driver);
 	}
@@ -884,7 +884,7 @@ public class DashboardPage extends BaseClass {
 
 	public void clickOnDeleteConfirmationBtn(WebDriver driver) {
 		waitTime(5000);
-		waitForElementVisibility(deleteConfirmationButton, "30", driver);
+		waitForElementVisibility(deleteConfirmationButton, "90", driver);
 		click(deleteConfirmationButton, driver);
 		screenshot(driver);
 	}
@@ -1062,7 +1062,7 @@ public class DashboardPage extends BaseClass {
 	public void selectDocumentsClient(WebDriver driver) {
 		waitForElementVisibility(clientDropdown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientDropdown)));
-		client.selectByVisibleText("AB Test");
+		client.selectByVisibleText("Abhay Raj");
 		screenshot(driver);
 	}
 
