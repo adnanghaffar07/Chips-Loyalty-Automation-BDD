@@ -70,11 +70,11 @@ public class SendEmail {
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(FROM,FROMNAME));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(
-            		"ambreen.younas@pharma.solutions,"+
-            		"ambreeny4191@gmail.com,"+
+//            		"ambreen.younas@pharma.solutions,"+
+            		"ambreeny4191@gmail.com,"
 //            		"sachin.arora@pharma.solutions"
-            		"madhavi.cirasanambati@pharma.solutions,"+
-            		"uchenna.ofoma@pharma.solutions"
+//            		"madhavi.cirasanambati@pharma.solutions,"+
+//            		"uchenna.ofoma@pharma.solutions"
             		));
             
             // Add a configuration set header. Comment or delete the 
