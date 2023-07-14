@@ -149,6 +149,7 @@ public class DashboardPage extends BaseClass {
 	String isThisDocumentConfidentialYes = "//label[text()='Yes']/../input";
 	String notificationIconCount = "//span[@id='notify-total']";
 	String documentsnotificationIconCount = "//a[text()[contains(.,'Documents')]]";
+	String allDocLoad = "(//tr[@class='odd'])[2]";
 
 	int licenseDetailsCount = 0;
 	String fileNameOnQueue = "";
@@ -1122,11 +1123,13 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyDocumentUploaded(WebDriver driver) {
 		try {
+			waitTime(3000);
 			WaitForElementDisapper(waitLoadingPagePopup, driver);
 			waitForElementVisibility(resetPageFiltersBtn, "120", driver);
 			click(resetPageFiltersBtn, driver);
+			waitForElementVisibility(allDocLoad, "150", driver);
 			scrollIntoViewSmoothly(uploadedFile, driver);
-			waitForElementVisibility(uploadedFile, "80", driver);
+			waitForElementVisibility(uploadedFile, "70", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
