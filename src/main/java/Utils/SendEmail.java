@@ -70,11 +70,11 @@ public class SendEmail {
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(FROM,FROMNAME));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(
-//            		"ambreen.younas@pharma.solutions,"+
-            		"ambreeny4191@gmail.com,"
-//            		"sachin.arora@pharma.solutions"
-//            		"madhavi.cirasanambati@pharma.solutions,"+
-//            		"uchenna.ofoma@pharma.solutions"
+            		"ambreen.younas@pharma.solutions,"+
+            		"ambreeny4191@gmail.com,"+
+            		"madhavi.cirasanambati@pharma.solutions,"+
+            		"uchenna.ofoma@pharma.solutions,"+
+            		"sachin.arora@pharma.solutions"
             		));
             
             // Add a configuration set header. Comment or delete the 
@@ -120,7 +120,10 @@ public class SendEmail {
             }
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	catch (Error e) {
+			e.printStackTrace();
 		}
            }
 }
