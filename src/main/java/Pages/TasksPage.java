@@ -205,6 +205,8 @@ public class TasksPage extends BaseClass {
 //			String getTitel = getValue(titel, driver);
 //			taskDetails.put(getTitel.trim(), getData.trim());
 //		}
+		waitTime(8000);;
+		waitForElementVisibility(taskDetialsFirstRow, "20", driver);
 		doubleClick(taskDetialsFirstRow, driver);
 		screenshot(driver);
 	}

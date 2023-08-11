@@ -149,8 +149,6 @@ Feature: SmokeTest
     Then I see following fields are mandatory and editable type task Status assignee and dueDate
     And I click on add task save button
     Then I click on success popup ok button
-    Then I click On side nav close button
-    Then I click on go to tasks button
     Then I see that the edit made to the task is displayed in the right sidebar in the Tasks section
 
   Scenario: Test_Case_353_Verify that user is able to Delete Requirement successfully
