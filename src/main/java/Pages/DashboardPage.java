@@ -1063,7 +1063,7 @@ public class DashboardPage extends BaseClass {
 	public void selectDocumentsClient(WebDriver driver) {
 		waitForElementVisibility(clientDropdown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientDropdown)));
-		client.selectByVisibleText("AB Test");
+		client.selectByVisibleText("Abhay Raj");
 		screenshot(driver);
 	}
 

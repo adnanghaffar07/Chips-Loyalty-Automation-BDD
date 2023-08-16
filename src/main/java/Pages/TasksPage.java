@@ -357,7 +357,7 @@ try {
 			Select assigneeValDropDown = new Select(driver.findElement(By.xpath(assigneeDropDown)));
 			WebElement assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 			String assigneeValueBefore = assigneeOption.getText();
-			assigneeValDropDown.selectByIndex(2);
+			assigneeValDropDown.selectByIndex(4);
 			waitTime(3000);
 			assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 			assigneeValueAfter = assigneeOption.getText();
@@ -366,7 +366,7 @@ try {
 				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
 
 			} else {
-				assigneeValDropDown.selectByIndex(4);
+				assigneeValDropDown.selectByIndex(10);
 				assigneeOption = assigneeValDropDown.getFirstSelectedOption();
 				assigneeValueAfter = assigneeOption.getText();
 				Assert.assertFalse("Verify type DropDown is Editable", assigneeValueAfter.equals(assigneeValueBefore));
