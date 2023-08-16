@@ -54,7 +54,7 @@ public class BaseClass extends Utilities {
 		} else if (browser.equals("chrome")) {
 
 
-			WebDriverManager.chromedriver().browserVersion("114.0.5735.90").setup();
+			WebDriverManager.chromedriver().setup();
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			prefs.put("profile.default_content_setting_values.notifications", 2);
 			prefs.put("credentials_enable_service", false);
