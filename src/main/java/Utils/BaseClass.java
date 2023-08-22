@@ -52,7 +52,7 @@ public class BaseClass extends Utilities {
 			localD = new FirefoxDriver();
 //			log.debug("Firefox Driver initialized");
 		} else if (browser.equals("chrome")) {
-//			WebDriverManager.chromedriver().driverVersion("114.0.5735.9000").setup();
+			WebDriverManager.chromedriver().driverVersion("114.0.5735.9000").setup();
 //			WebDriverManager.chromedriver().browserVersion("114.0.5735.9000").setup();
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			prefs.put("profile.default_content_setting_values.notifications", 2);
