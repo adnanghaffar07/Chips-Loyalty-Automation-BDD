@@ -36,8 +36,9 @@ public class LoginSteps extends BaseClass {
 
 	LoginPage loginPage = new LoginPage(driver);
 	EmailVerificationPage emailVerificationPage = new EmailVerificationPage(driver);
+	Constants loginconstant = new Constants();
 
-	public Constants loginconstant;
+//	public Constants loginconstant;
 
 	@Given("^Visit the app url$")
 	public void user_is_on_login_page() throws InterruptedException {
