@@ -20,6 +20,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+
+import Constants.Constants;
 public class SendEmail {
 	// Replace sender@example.com with your "From" address.
     // This address must be verified.
@@ -75,7 +77,13 @@ public class SendEmail {
             // next line if you are not using a configuration set
             msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);
             String currentDateTime = new SimpleDateFormat("dd-MMM-yyyy_h:mm a z").format(Calendar.getInstance().getTime());
-            msg.setSubject("Lighthouse Management Smoke Tests Run Report on  "+currentDateTime);
+            if(System.getProperty("MY_ENV") != null && System.getProperty("MY_ENV").equals("dev")){            	
+            	msg.setSubject("Lighthouse (DEV_ENV) Management Smoke Tests Run Report on  "+currentDateTime);
+            }else if(System.getProperty("MY_ENV") != null && System.getProperty("MY_ENV").equals("qa")){
+            	msg.setSubject("Lighthouse (QA_ENV) Management Smoke Tests Run Report on  "+currentDateTime);
+            }else {
+            	msg.setSubject("Lighthouse (STAG_ENV) Management Smoke Tests Run Report on  "+currentDateTime);
+            }
             msg.setText("Report is attached as a zip file, download, extract in a folder and you can see report files there.");
             Multipart multipart = new MimeMultipart();
             BodyPart textPart = new MimeBodyPart();

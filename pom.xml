@@ -45,9 +45,8 @@
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
-			<version>5.4.1</version>
+			<version>5.5.0</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -98,6 +97,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<myProperty>${env.MY_ENV_VARIABLE}</myProperty>
 	</properties>
 
 	<build>
