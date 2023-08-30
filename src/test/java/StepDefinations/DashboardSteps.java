@@ -176,7 +176,7 @@ public class DashboardSteps extends BaseClass {
 	}
 	
 	@Then("^I click on dashboard grid$")
-	public void clickOnDashboardGrid() {
+	public void clickOnDashboardGrid() throws InterruptedException {
 		dashboardPage.clickOnDashboardGrid(driver);
 		dashboardPage.clickOnResetFilter(driver);
 	}

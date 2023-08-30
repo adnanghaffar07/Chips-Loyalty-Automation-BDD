@@ -582,7 +582,7 @@ public class DashboardPage extends BaseClass {
 
 	public Boolean verifyActivitiesPageTitle(WebDriver driver) {
 		try {
-			waitForElementVisibility(activitiesPageTitle, "30", driver);
+			waitForElementVisibility(activitiesPageTitle, "100", driver);
 			screenshot(driver);
 			return true;
 		} catch (Exception e) {
@@ -828,15 +828,20 @@ public class DashboardPage extends BaseClass {
 
 	}
 
-	public void clickOnResetFilter(WebDriver driver) {
+	public void clickOnResetFilter(WebDriver driver) throws InterruptedException {
 		try {
 			waitForElementVisibility(resetFilter, "30", driver);
 			click(resetFilter, driver);
+			
+			
 			screenshot(driver);
 		} catch (Exception e) {
 			clickJs(resetFilter, driver);
 			screenshot(driver);
 		}
+		
+		WaitForElementDisapper(waitLoadingPagePopup, driver);
+		screenshot(driver);
 
 	}
 
@@ -1063,7 +1068,11 @@ public class DashboardPage extends BaseClass {
 	public void selectDocumentsClient(WebDriver driver) {
 		waitForElementVisibility(clientDropdown, "30", driver);
 		Select client = new Select(driver.findElement(By.xpath(clientDropdown)));
-		client.selectByVisibleText("Abhay Raj");
+		if(System.getProperty("MY_ENV") != null && System.getProperty("MY_ENV").equals("dev")) {
+			client.selectByVisibleText("AB Test");
+		}else {			
+			client.selectByVisibleText("Abhay Raj");
+		}		
 		screenshot(driver);
 	}
 
@@ -1245,8 +1254,7 @@ public class DashboardPage extends BaseClass {
 
 		waitForElementVisibility(assigneeDropdown, "30", driver);
 		Select assignee = new Select(driver.findElement(By.xpath(assigneeDropdown)));
-		assignee.selectByVisibleText("Abhay Raj"
-				+ "");
+		assignee.selectByVisibleText("Abhay Raj");
 
 		waitTime(1000);
 		Select select = new Select(driver.findElement(By.xpath(documentTypeDropdown)));
