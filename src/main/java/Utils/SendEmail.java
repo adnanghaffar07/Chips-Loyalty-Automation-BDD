@@ -71,7 +71,8 @@ public class SendEmail {
             		"ambreen.younas@pharma.solutions,"+
                     "ambreeny4191@gmail.com,"+
                     "madhavi.cirasanambati@pharma.solutions,"+
-                    "uchenna.ofoma@pharma.solutions"
+                    "uchenna.ofoma@pharma.solutions,"+
+                    "shashikanth.muninarayana@lighthouseai.com"
             		));
             // Add a configuration set header. Comment or delete the
             // next line if you are not using a configuration set
