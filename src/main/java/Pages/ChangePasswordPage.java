@@ -26,7 +26,7 @@ public class ChangePasswordPage extends BaseClass {
 	String helpDropdown = "//a[text()[contains(.,'Help')] and @data-toggle='dropdown']";
 	String bellIcon = "//img[@class='bell']";
 	String bellIconUnreadCount = "//span[contains(@class,'badge-pill notify-badge')]";
-	String copyrightLbl = "//p[contains(text(),'Copyright')] | //p[text()[contains(.,'Copyright ©')]]";
+	String copyrightLbl = "//p[contains(text(),'Copyright')] | //p[text()[contains(.,'Copyright')]]";
 	String logoOnChangePasswordPage = "//img[@src='https://stagingatlas.pharma.solutions/theme/build/images/new_atlas_psh_logo_converted.png']";
 	
 
