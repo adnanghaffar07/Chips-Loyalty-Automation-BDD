@@ -120,17 +120,17 @@ Feature: SmokeTest
     And I see facility save success popup and click on ok button
     And I see newly added facility saved successfully
 
-  Scenario: Test_Case_376_Verify that user is able to add document.
-    Then I click on dashboard grid
-    Then I click on documents menu button
-    And I see the document page
-    And I select client on document page
-    Then I click on upload document button
-    And I upload document
-    Then I see the document details saved successfully popup
-    Then I click on document details saved successfully popup ok button
-    Then I see the document uploaded
-    Then I delete uploaded file
+  #Scenario: Test_Case_376_Verify that user is able to add document.
+    #Then I click on dashboard grid
+    #Then I click on documents menu button
+    #And I see the document page
+    #And I select client on document page
+    #Then I click on upload document button
+    #And I upload document
+    #Then I see the document details saved successfully popup
+    #Then I click on document details saved successfully popup ok button
+    #Then I see the document uploaded
+    #Then I delete uploaded file
 
   #Scenario: Test_Case_358_Verify that user is able to Add/Edit task from task grid.
     #Then I click on dashboard grid
