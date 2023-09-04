@@ -107,6 +107,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<build>
@@ -127,8 +128,11 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.1</version> <!-- Use a newer version here -->
+				<artifactId>maven-jar-plugin</artifactId> <!-- Use a newer version here -->
+				<version>3.2.0</version>
+				<configuration>
+					<propertiesEncoding>ISO-8859-1</propertiesEncoding>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
