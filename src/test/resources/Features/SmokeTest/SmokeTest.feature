@@ -96,17 +96,17 @@ Feature: SmokeTest
     And I see client save success popup and click on ok button
     Then I see the newly added client is listed in the grid
 
-  #Scenario: Test_Case_373_As a user i verify that verify that user is able to add Company
-    #Then I click on dashboard grid
-    #Then I click on company profile menu
-    #Then I double click on added client
-    #Then I click on add company button
-    #And I enter company name
-    #Then I select company status
-    #Then I click on company save button
-    #And I see company save success popup and click on ok button
-    #And I see the newly added company is reflected under the company dropdown section
-#
+  Scenario: Test_Case_373_As a user i verify that verify that user is able to add Company
+    Then I click on dashboard grid
+    Then I click on company profile menu
+    Then I double click on added client
+    Then I click on add company button
+    And I enter company name
+    Then I select company status
+    Then I click on company save button
+    And I see company save success popup and click on ok button
+    And I see the newly added company is reflected under the company dropdown section
+
   #Scenario: Test_Case_374_As a user i Verify that user is able to add Facility
     #Then I click on dashboard grid
     #Then I click on company profile menu
