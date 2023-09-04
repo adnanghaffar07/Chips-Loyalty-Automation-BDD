@@ -201,65 +201,65 @@ Feature: SmokeTest
     And I select client on document page
     Then I click on view document icon under PDF
     Then I see the document open in new window tab
-#
-  #Scenario: Test_Case_375_Verify that user is able to assign task to the same user
-    #Then I click on dashboard grid
-    #Then I click on tasks grid
-    #And I see tasks page title
-    #Then I click on go to tasks button
-    #Then I see the tasks page
-    #And I click on add task button
-    #Then I see add task title
-    #Then I fill all the required fields and assig task to the same user
-    #And I click on add task save button
-    #Then I click on success popup ok button
-    #Then I see that the assigned task is displayed under the task section for the same user
-#
-  #Scenario: Test_Case_379_Verify that confidential document radio options are working as expected
-    #Then I click on dashboard grid
-    #Then I click on documents menu button
-    #And I see the document page
-    #And I select client on document page
-    #And I click on request document button
-    #Then I populate all required fields
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #And I see the new line item is added to the documents grid
-    #Then I click on line item that was added and click on the plus icon under PDF section
-    #Then I click on select file button and upload a file
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #Then I see the document uploaded successfully
-    #And I double click on line item on document grid
-    #Then I click on is this document confidential no checkbox
-    #Then I click on add edit document save button
-    #Then I click on document successfully pop ok button
-    #Then I see the document should visible on document grid under pdf column
-    #And I double click on line item on document grid
-    #Then I click on is this document confidential yes checkbox
-    #Then I click on add edit document save button
-    #Then I click on document successfully pop ok button
-    #Then I see the document should visible not on document grid under pdf column
-#
-  #Scenario: Test_Case_354_Verify that user is able to see document notification count on uploading a new document
-    #Then I click on dashboard grid
-    #Then I click on documents menu button
-    #And I see the document page
-    #And I select client on document page
-    #And I click on request document button
-    #Then I populate all required fields assignee to whom you are logged in with
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #And I see the new line item is added to the documents grid
-    #Then I see the notification icon count increase
-    #Then I click on notifications menu button
-    #Then I click on line item that was added and click on the plus icon under PDF section
-    #Then I click on select file button and upload a file
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #Then I see the document uploaded successfully
-    #Then I see the document notification icon count increase
+
+  Scenario: Test_Case_375_Verify that user is able to assign task to the same user
+    Then I click on dashboard grid
+    Then I click on tasks grid
+    And I see tasks page title
+    Then I click on go to tasks button
+    Then I see the tasks page
+    And I click on add task button
+    Then I see add task title
+    Then I fill all the required fields and assig task to the same user
+    And I click on add task save button
+    Then I click on success popup ok button
+    Then I see that the assigned task is displayed under the task section for the same user
+
+  Scenario: Test_Case_379_Verify that confidential document radio options are working as expected
+    Then I click on dashboard grid
+    Then I click on documents menu button
+    And I see the document page
+    And I select client on document page
+    And I click on request document button
+    Then I populate all required fields
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    And I see the new line item is added to the documents grid
+    Then I click on line item that was added and click on the plus icon under PDF section
+    Then I click on select file button and upload a file
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    Then I see the document uploaded successfully
+    And I double click on line item on document grid
+    Then I click on is this document confidential no checkbox
+    Then I click on add edit document save button
+    Then I click on document successfully pop ok button
+    Then I see the document should visible on document grid under pdf column
+    And I double click on line item on document grid
+    Then I click on is this document confidential yes checkbox
+    Then I click on add edit document save button
+    Then I click on document successfully pop ok button
+    Then I see the document should visible not on document grid under pdf column
+
+  Scenario: Test_Case_354_Verify that user is able to see document notification count on uploading a new document
+    Then I click on dashboard grid
+    Then I click on documents menu button
+    And I see the document page
+    And I select client on document page
+    And I click on request document button
+    Then I populate all required fields assignee to whom you are logged in with
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    And I see the new line item is added to the documents grid
+    Then I see the notification icon count increase
+    Then I click on notifications menu button
+    Then I click on line item that was added and click on the plus icon under PDF section
+    Then I click on select file button and upload a file
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    Then I see the document uploaded successfully
+    Then I see the document notification icon count increase
