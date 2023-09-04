@@ -107,30 +107,30 @@ Feature: SmokeTest
     And I see company save success popup and click on ok button
     And I see the newly added company is reflected under the company dropdown section
 
-  #Scenario: Test_Case_374_As a user i Verify that user is able to add Facility
-    #Then I click on dashboard grid
-    #Then I click on company profile menu
-    #And I see the company profile page title
-    #Then I double click on added client
-    #And I double click on added company
-    #And I click on facility add plus button
-    #And I enter facility name
-    #Then I select facility status
-    #Then I click on facility save button
-    #And I see facility save success popup and click on ok button
-    #And I see newly added facility saved successfully
+  Scenario: Test_Case_374_As a user i Verify that user is able to add Facility
+    Then I click on dashboard grid
+    Then I click on company profile menu
+    And I see the company profile page title
+    Then I double click on added client
+    And I double click on added company
+    And I click on facility add plus button
+    And I enter facility name
+    Then I select facility status
+    Then I click on facility save button
+    And I see facility save success popup and click on ok button
+    And I see newly added facility saved successfully
 
-  #Scenario: Test_Case_376_Verify that user is able to add document.
-    #Then I click on dashboard grid
-    #Then I click on documents menu button
-    #And I see the document page
-    #And I select client on document page
-    #Then I click on upload document button
-    #And I upload document
-    #Then I see the document details saved successfully popup
-    #Then I click on document details saved successfully popup ok button
-    #Then I see the document uploaded
-    #Then I delete uploaded file
+  Scenario: Test_Case_376_Verify that user is able to add document.
+    Then I click on dashboard grid
+    Then I click on documents menu button
+    And I see the document page
+    And I select client on document page
+    Then I click on upload document button
+    And I upload document
+    Then I see the document details saved successfully popup
+    Then I click on document details saved successfully popup ok button
+    Then I see the document uploaded
+    Then I delete uploaded file
 
   #Scenario: Test_Case_358_Verify that user is able to Add/Edit task from task grid.
     #Then I click on dashboard grid
