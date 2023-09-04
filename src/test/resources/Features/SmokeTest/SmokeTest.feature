@@ -8,63 +8,40 @@ Feature: SmokeTest
     Then I click on login button
     And I click on session popup cancel button
 
-  #Scenario: Test_Case_351_Verify that user is able to Add/Edit requirement successfully
-    #Then I click on dashboard grid
-    #Then I click on requirements grid
-    #And I see requirement Page Title
-    #Then I click on add new requirement button
-    #Then I select company from dropdown
-    #And I select facility from dropdown
-    #Then I select states from dropdown
-    #Then I select requirement status from dropdown
-    #Then I select requirement category from dropdown
-    #Then I select requirement type from dropdown
-    #And I enter requirement name in input fields
-    #And I enter requirement number in input fields
-    #And I click on add requirement save button
-    #And I see requirement details saved successfully
-    #Then I click on success popup ok button
-    #And I see the newly added requirement is listed in the requirement grid
-    #Then I double click on licens to edit
-    #Then I double click on licens to edit
-    #And I see the edit requirement page titel
-    #And I see the editing a requirement is successful
-    #And I see the user is redirection to the requirement grid and verify the newly edited requirement is listed in the requirement grid with the newly edited values
-
-  #Scenario: Test_Case_355_As a user i validate add activity popup on the activity grid
-    #Then I click on dashboard grid
-    #Then I click on activities grid
-    #And I see activities page title
-    #Then I click on active licens to select
-    #And I click on add activity button
-    #And I see the Add requirement Activity page titel
-    #And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
-    #Then I click on add activity Next button
-    #And I see add task titel
-    #And I see in the add task section the following fields are mandatory and Editable type taskstatus assignee duedate
-    #Then I click on add activity add task back button
-    #And I see the Add requirement Activity page titel
-    #Then I click on next button
-    #And I see in the add task section the following fields are mandatory and Editable type taskstatus assignee duedate
-    #Then I click on add activity add task save button
-    #Then I click on success popup ok button
-    #And I see the newly added requirement activity is listed in the requirement activity grid
-    #Then I double click on active licens to edit
-    #And I see the edit requirement Activity page titel
-    #And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
-    #And I click on edit pop up save button
-
-  Scenario: Test_Case_356_Verify that user is able to delete activity from activity grid
+  Scenario: Test_Case_355_As a user i validate add activity popup on the activity grid
     Then I click on dashboard grid
     Then I click on activities grid
     And I see activities page title
+    Then I click on active licens to select
+    And I click on add activity button
+    And I see the Add requirement Activity page titel
+    And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
+    Then I click on add activity Next button
+    And I see add task titel
+    And I see in the add task section the following fields are mandatory and Editable type taskstatus assignee duedate
+    Then I click on add activity add task back button
+    And I see the Add requirement Activity page titel
+    Then I click on next button
+    And I see in the add task section the following fields are mandatory and Editable type taskstatus assignee duedate
+    Then I click on add activity add task save button
+    Then I click on success popup ok button
+    And I see the newly added requirement activity is listed in the requirement activity grid
     Then I double click on active licens to edit
-    And I click on delete button
-    And I see the task under selected requirement
-    And I see the task documents under selected requirement
-    And I see the task notification under selected requirement
-    Then I click on confirm button on delete popup
-    And Validate That The Deleted Activity Is Not Displayed As A Line Item On The Activities Grid
+    And I see the edit requirement Activity page titel
+    And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
+    And I click on edit pop up save button
+
+  #Scenario: Test_Case_356_Verify that user is able to delete activity from activity grid
+    #Then I click on dashboard grid
+    #Then I click on activities grid
+    #And I see activities page title
+    #Then I double click on active licens to edit
+    #And I click on delete button
+    #And I see the task under selected requirement
+    #And I see the task documents under selected requirement
+    #And I see the task notification under selected requirement
+    #Then I click on confirm button on delete popup
+    #And Validate That The Deleted Activity Is Not Displayed As A Line Item On The Activities Grid
 
   Scenario: Test_Case_371_Verify that user is able to navigate to Company Profile grid
     Then I click on dashboard grid
@@ -262,4 +239,28 @@ Feature: SmokeTest
     And I see the document details saved successfully Message
     Then I click on document successfully pop ok button
     Then I see the document uploaded successfully
-    Then I see the document notification icon count increase
+    Then I see the document notification icon count increase    
+    
+  Scenario: Test_Case_351_Verify that user is able to Add/Edit requirement successfully
+    Then I click on dashboard grid
+    Then I click on requirements grid
+    And I see requirement Page Title
+    Then I click on add new requirement button
+    Then I select company from dropdown
+    And I select facility from dropdown
+    Then I select states from dropdown
+    Then I select requirement status from dropdown
+    Then I select requirement category from dropdown
+    Then I select requirement type from dropdown
+    And I enter requirement name in input fields
+    And I enter requirement number in input fields
+    And I click on add requirement save button
+    And I see requirement details saved successfully
+    Then I click on success popup ok button
+    And I see the newly added requirement is listed in the requirement grid
+    Then I double click on licens to edit
+    Then I double click on licens to edit
+    And I see the edit requirement page titel
+    And I see the editing a requirement is successful
+    And I see the user is redirection to the requirement grid and verify the newly edited requirement is listed in the requirement grid with the newly edited values
+    
