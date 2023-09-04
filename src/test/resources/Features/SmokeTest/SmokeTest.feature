@@ -132,75 +132,75 @@ Feature: SmokeTest
     Then I see the document uploaded
     Then I delete uploaded file
 
-  #Scenario: Test_Case_358_Verify that user is able to Add/Edit task from task grid.
-    #Then I click on dashboard grid
-    #Then I click on tasks grid
-    #And I see tasks page title
-    #Then I click on go to tasks button
-    #Then I see the tasks page
-    #And I click on add task button
-    #Then I see add task title
-    #Then I see following fields are mandatory and editable type task Status assignee and dueDate
-    #And I click on add task save button
-    #Then I click on success popup ok button
-    #Then I see that the newly created task is displayed in the right sidebar in the Tasks section
-    #Then I click On side nav close button
-    #And I double click on task detail
-    #Then I see following fields are mandatory and editable type task Status assignee and dueDate
-    #And I click on add task save button
-    #Then I click on success popup ok button
-    #Then I see that the edit made to the task is displayed in the right sidebar in the Tasks section
+  Scenario: Test_Case_358_Verify that user is able to Add/Edit task from task grid.
+    Then I click on dashboard grid
+    Then I click on tasks grid
+    And I see tasks page title
+    Then I click on go to tasks button
+    Then I see the tasks page
+    And I click on add task button
+    Then I see add task title
+    Then I see following fields are mandatory and editable type task Status assignee and dueDate
+    And I click on add task save button
+    Then I click on success popup ok button
+    Then I see that the newly created task is displayed in the right sidebar in the Tasks section
+    Then I click On side nav close button
+    And I double click on task detail
+    Then I see following fields are mandatory and editable type task Status assignee and dueDate
+    And I click on add task save button
+    Then I click on success popup ok button
+    Then I see that the edit made to the task is displayed in the right sidebar in the Tasks section
 
-  #Scenario: Test_Case_353_Verify that user is able to Delete Requirement successfully
-    #Then I click on dashboard grid
-    #Then I click on requirements grid
-    #And I see requirement Page Title
-    #Then I double click on requirement detials
-    #And I click on delete button
-    #And I see the task under selected requirement
-    #And I see the task documents under selected requirement
-    #And I see the task notification under selected requirement
-    #Then I click on confirm button on delete popup
-    #And I see the requirement details records deleted successfully
+  Scenario: Test_Case_353_Verify that user is able to Delete Requirement successfully
+    Then I click on dashboard grid
+    Then I click on requirements grid
+    And I see requirement Page Title
+    Then I double click on requirement detials
+    And I click on delete button
+    And I see the task under selected requirement
+    And I see the task documents under selected requirement
+    And I see the task notification under selected requirement
+    Then I click on confirm button on delete popup
+    And I see the requirement details records deleted successfully
 
-  #Scenario: Test_Case_352_Verify that user is able to Add/Edit document successfully
-    #Then I click on dashboard grid
-    #Then I click on documents menu button
-    #And I see the document page
-    #And I select client on document page
-    #And I click on request document button
-    #Then I populate all required fields
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #And I see the new line item is added to the documents grid
-    #Then I click on line item that was added and click on the plus icon under PDF section
-    #Then I click on select file button and upload a file
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #Then I see the document uploaded successfully
-    #And I double click on line item on document grid
-    #Then I click on replace file button and upload a file
-    #Then I click on add edit document save button
-    #And I see the document details saved successfully Message
-    #Then I click on document successfully pop ok button
-    #Then I see the PDF uploaded successfully
-#
-  #Scenario: Test_Case_350_Verify that user is able to navigate to all grids
-    #Then I click on dashboard grid
-    #And I see dashboard grid
-    #And I see requirements grid
-    #Then I see activities grid
-    #And I see tasks grid
-#
-  #Scenario: Test_Case_377_Verify that user is able to view uploaded document
-    #Then I click on dashboard grid
-    #Then I click on documents menu button
-    #And I see the document page
-    #And I select client on document page
-    #Then I click on view document icon under PDF
-    #Then I see the document open in new window tab
+  Scenario: Test_Case_352_Verify that user is able to Add/Edit document successfully
+    Then I click on dashboard grid
+    Then I click on documents menu button
+    And I see the document page
+    And I select client on document page
+    And I click on request document button
+    Then I populate all required fields
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    And I see the new line item is added to the documents grid
+    Then I click on line item that was added and click on the plus icon under PDF section
+    Then I click on select file button and upload a file
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    Then I see the document uploaded successfully
+    And I double click on line item on document grid
+    Then I click on replace file button and upload a file
+    Then I click on add edit document save button
+    And I see the document details saved successfully Message
+    Then I click on document successfully pop ok button
+    Then I see the PDF uploaded successfully
+
+  Scenario: Test_Case_350_Verify that user is able to navigate to all grids
+    Then I click on dashboard grid
+    And I see dashboard grid
+    And I see requirements grid
+    Then I see activities grid
+    And I see tasks grid
+
+  Scenario: Test_Case_377_Verify that user is able to view uploaded document
+    Then I click on dashboard grid
+    Then I click on documents menu button
+    And I see the document page
+    And I select client on document page
+    Then I click on view document icon under PDF
+    Then I see the document open in new window tab
 #
   #Scenario: Test_Case_375_Verify that user is able to assign task to the same user
     #Then I click on dashboard grid
