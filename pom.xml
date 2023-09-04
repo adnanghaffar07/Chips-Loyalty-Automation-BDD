@@ -3,6 +3,8 @@
 	<groupId>PharmaCeuticalSmoke</groupId>
 	<artifactId>PharmaCeuticalSmoke</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
+	
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
 		<dependency>
@@ -104,4 +106,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<packaging>jar</packaging>
 </project>
