@@ -26,7 +26,7 @@
 			<version>7.3.4</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -53,7 +53,7 @@
 			<artifactId>allure-cucumber7-jvm</artifactId>
 			<version>2.18.1</version>
 		</dependency>
-		
+
 		<!-- Dependency for POI API -->
 		<!-- http://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
@@ -72,6 +72,12 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.32</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.shared</groupId>
+			<artifactId>file-management</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 
 	</dependencies>

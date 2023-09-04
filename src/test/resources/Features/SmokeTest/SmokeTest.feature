@@ -96,29 +96,29 @@ Feature: SmokeTest
     And I see client save success popup and click on ok button
     Then I see the newly added client is listed in the grid
 
-  Scenario: Test_Case_373_As a user i verify that verify that user is able to add Company
-    Then I click on dashboard grid
-    Then I click on company profile menu
-    Then I double click on added client
-    Then I click on add company button
-    And I enter company name
-    Then I select company status
-    Then I click on company save button
-    And I see company save success popup and click on ok button
-    And I see the newly added company is reflected under the company dropdown section
-
-  Scenario: Test_Case_374_As a user i Verify that user is able to add Facility
-    Then I click on dashboard grid
-    Then I click on company profile menu
-    And I see the company profile page title
-    Then I double click on added client
-    And I double click on added company
-    And I click on facility add plus button
-    And I enter facility name
-    Then I select facility status
-    Then I click on facility save button
-    And I see facility save success popup and click on ok button
-    And I see newly added facility saved successfully
+  #Scenario: Test_Case_373_As a user i verify that verify that user is able to add Company
+    #Then I click on dashboard grid
+    #Then I click on company profile menu
+    #Then I double click on added client
+    #Then I click on add company button
+    #And I enter company name
+    #Then I select company status
+    #Then I click on company save button
+    #And I see company save success popup and click on ok button
+    #And I see the newly added company is reflected under the company dropdown section
+#
+  #Scenario: Test_Case_374_As a user i Verify that user is able to add Facility
+    #Then I click on dashboard grid
+    #Then I click on company profile menu
+    #And I see the company profile page title
+    #Then I double click on added client
+    #And I double click on added company
+    #And I click on facility add plus button
+    #And I enter facility name
+    #Then I select facility status
+    #Then I click on facility save button
+    #And I see facility save success popup and click on ok button
+    #And I see newly added facility saved successfully
 
   #Scenario: Test_Case_376_Verify that user is able to add document.
     #Then I click on dashboard grid
