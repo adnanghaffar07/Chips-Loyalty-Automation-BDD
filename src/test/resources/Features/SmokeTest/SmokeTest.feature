@@ -31,17 +31,17 @@ Feature: SmokeTest
     And I see in the add activity section the following fields are mandatory and editable requirement activity and activity start date
     And I click on edit pop up save button
 
-  #Scenario: Test_Case_356_Verify that user is able to delete activity from activity grid
-    #Then I click on dashboard grid
-    #Then I click on activities grid
-    #And I see activities page title
-    #Then I double click on active licens to edit
-    #And I click on delete button
-    #And I see the task under selected requirement
-    #And I see the task documents under selected requirement
-    #And I see the task notification under selected requirement
-    #Then I click on confirm button on delete popup
-    #And Validate That The Deleted Activity Is Not Displayed As A Line Item On The Activities Grid
+  Scenario: Test_Case_356_Verify that user is able to delete activity from activity grid
+    Then I click on dashboard grid
+    Then I click on activities grid
+    And I see activities page title
+    Then I double click on active licens to edit
+    And I click on delete button
+    And I see the task under selected requirement
+    And I see the task documents under selected requirement
+    And I see the task notification under selected requirement
+    Then I click on confirm button on delete popup
+    And Validate That The Deleted Activity Is Not Displayed As A Line Item On The Activities Grid
 
   Scenario: Test_Case_371_Verify that user is able to navigate to Company Profile grid
     Then I click on dashboard grid
