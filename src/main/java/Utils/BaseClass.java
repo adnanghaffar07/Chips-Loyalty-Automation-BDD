@@ -52,8 +52,9 @@ public class BaseClass extends Utilities {
 			localD = new FirefoxDriver();
 //			log.debug("Firefox Driver initialized");
 		} else if (browser.equals("chrome")) {
-			WebDriverManager.chromedriver().driverVersion("114.0.5735.9000").setup();
+		//	WebDriverManager.chromedriver().browserVersion("120.0.6099.225").setup();
 //			WebDriverManager.chromedriver().browserVersion("114.0.5735.9000").setup();
+			WebDriverManager.chromedriver().setup();
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			prefs.put("profile.default_content_setting_values.notifications", 2);
 			prefs.put("credentials_enable_service", false);
@@ -74,7 +75,7 @@ public class BaseClass extends Utilities {
 			options.addArguments("--disable-gpu"); // applicable to windows os only
 			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
 			options.addArguments("--no-sandbox");
-			options.addArguments("--headless");
+//			options.addArguments("--headless");
 
 			try {
 				localD = new ChromeDriver(options);
